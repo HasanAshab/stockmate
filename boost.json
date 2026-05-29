@@ -1,6 +1,6 @@
 {
     "agents": [
-        "kiro"
+        "gemini"
     ],
     "cloud": false,
     "guidelines": true,
