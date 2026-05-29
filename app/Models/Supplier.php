@@ -10,16 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[WithoutTimestamps]
-#[Fillable('name', 'slug', 'contact_name', 'email', 'phone', 'description')]
+#[Fillable('name', 'phone', 'email', 'address')]
 class Supplier extends Model
 {
     /** @use HasFactory<SupplierFactory> */
     use HasFactory, SoftDeletes;
 
     protected $attributes = [
-        'contact_name' => '',
-        'email' => '',
-        'phone' => '',
-        'description' => '',
+        'phone' => null,
+        'email' => null,
+        'address' => null,
     ];
 }

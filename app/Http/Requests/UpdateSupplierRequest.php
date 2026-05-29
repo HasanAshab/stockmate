@@ -9,12 +9,10 @@ class UpdateSupplierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:70'],
-            'slug' => ['string', 'max:70', 'unique:suppliers'],
-            'contact_name' => ['string', 'max:70'],
-            'email' => ['email', 'max:100'],
-            'phone' => ['string', 'max:30'],
-            'description' => ['max:255'],
+            'name' => ['string', 'max:70', 'unique:suppliers'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'email' => ['nullable', 'email', 'max:100'],
+            'address' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

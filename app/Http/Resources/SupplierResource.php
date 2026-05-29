@@ -11,13 +11,11 @@ class SupplierResource extends JsonApiResource
     {
         return [
             'name' => $this->name,
-            'slug' => $this->slug,
-            'contact_name' => $this->contact_name,
-            'email' => $this->email,
             'phone' => $this->phone,
-            'description' => $this->when(
+            'email' => $this->email,
+            'address' => $this->when(
                 $request->routeIs('suppliers.show'),
-                $this->description
+                $this->address
             ),
         ];
     }

@@ -37,11 +37,9 @@ test('staff and admin can view suppliers', function () {
 test('staff and admin can create supplier', function () {
     $data = [
         'name' => 'Acme Corp',
-        'slug' => 'acme-corp',
-        'contact_name' => 'John Doe',
         'email' => 'john@acme.com',
         'phone' => '1234567890',
-        'description' => 'Reliable supplier',
+        'address' => '123 Acme Road',
     ];
 
     // Staff can
@@ -52,14 +50,13 @@ test('staff and admin can create supplier', function () {
 
     $this->assertDatabaseHas('suppliers', [
         'name' => 'Acme Corp',
-        'slug' => 'acme-corp',
+        'email' => 'john@acme.com',
     ]);
 });
 
 test('staff and admin can update supplier', function () {
     $supplier = Supplier::factory()->create([
         'name' => 'Old Name',
-        'slug' => 'old-name',
     ]);
 
     $data = ['name' => 'New Name'];
