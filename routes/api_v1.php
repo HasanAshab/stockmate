@@ -17,3 +17,9 @@ Route::post(
     'suppliers/{supplier}/restore',
     [SupplierController::class, 'restore']
 )->withTrashed();
+
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockLogController;
+
+Route::apiResource('products', ProductController::class);
+Route::apiResource('stock-logs', StockLogController::class)->only(['index', 'store']);
