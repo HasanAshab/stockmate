@@ -11,14 +11,20 @@ use App\Enums\Role;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('categories', CategoryController::class);
-
+    Route::get(
+        'categories/trashed',
+        [CategoryController::class, 'trashed']
+    );
     Route::post(
         'categories/{category}/restore',
         [CategoryController::class, 'restore']
     )->withTrashed();
 
     Route::apiResource('suppliers', SupplierController::class);
-
+    Route::get(
+        'suppliers/trashed',
+        [SupplierController::class, 'trashed']
+    );
     Route::post(
         'suppliers/{supplier}/restore',
         [SupplierController::class, 'restore']

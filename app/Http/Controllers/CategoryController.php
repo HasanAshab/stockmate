@@ -44,6 +44,12 @@ class CategoryController extends Controller
         return response()->noContent();
     }
 
+    public function trashed()
+    {
+        Gate::authorize('viewAny', Category::class);
+        return Category::onlyTrashed()->get()->toResourceCollection();
+    }
+
     public function restore(Category $category)
     {
         Gate::authorize('restore', $category);

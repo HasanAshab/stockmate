@@ -49,6 +49,12 @@ class SupplierController extends Controller
         return response()->noContent();
     }
 
+    public function trashed()
+    {
+        Gate::authorize('viewAny', Supplier::class);
+        return Supplier::onlyTrashed()->get()->toResourceCollection();
+    }
+
     public function restore(Supplier $supplier)
     {
         Gate::authorize('restore', $supplier);
