@@ -7,6 +7,7 @@ use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Enums\Role;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('categories', CategoryController::class);
@@ -26,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('products', ProductController::class);
     Route::apiResource('stock-logs', StockLogController::class)->only(['index', 'store']);
 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:' . Role::Admin->value)->group(function () {
         Route::apiResource('users', UserController::class)->except(['destroy']);
         Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus']);
     });
