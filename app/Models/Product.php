@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-#[Fillable('category_id', 'supplier_id', 'name', 'sku', 'price', 'reorder_threshold', 'image')]
+#[Fillable('name', 'sku', 'price', 'reorder_threshold')]
 class Product extends Model
 {
-    /** @use HasFactory<ProductFactory> */
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $casts = [
         'price' => 'decimal:2',
@@ -32,5 +32,17 @@ class Product extends Model
     public function stockLogs(): HasMany
     {
         return $this->hasMany(StockLog::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('product_images')->singleFile();
+    }
+
+    public function registerMediaConversions(): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(200)
+            ->height(200);
     }
 }

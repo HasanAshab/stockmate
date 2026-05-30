@@ -13,15 +13,23 @@ class ProductController extends Controller
     {
         Gate::authorize('viewAny', Product::class);
 
-        return Product::with(['category', 'supplier'])->paginate(10)->toResourceCollection();
+        return Product::with(['category', 'supplier', 'media'])
+                    ->paginate(10)
+                    ->toResourceCollection();
     }
 
     public function store(StoreProductRequest $request)
     {
         Gate::authorize('create', Product::class);
 
-        return Product::create($request->validated())
-            ->toResource()
+        $product = Product::create($request->validated());
+        
+        if ($request->hasFile('image')) {
+            $product->addMediaFromRequest('image')
+                    ->toMediaCollection('product_images');
+        }
+
+        return $product->toResource()
             ->response()
             ->setStatusCode(201);
     }
@@ -30,12 +38,19 @@ class ProductController extends Controller
     {
         Gate::authorize('view', $product);
 
-        return $product->load(['category', 'supplier'])->toResource();
+        return $product->load(['category', 'supplier', 'media'])->toResource();
     }
 
     public function update(UpdateProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
+
+        if ($request->hasFile('image')) {
+            $product->clearMediaCollection('product_images');
+            $product->addMediaFromRequest('image')
+                    ->toMediaCollection('product_images');
+        }
+
         $product->update($request->validated());
 
         return $product->toResource();

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->unsignedMediumInteger('quantity')->default(0);
             $table->unsignedSmallInteger('reorder_threshold')->default(10);
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

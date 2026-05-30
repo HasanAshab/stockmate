@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable('product_id', 'user_id', 'type', 'quantity', 'unit_cost', 'note')]
+#[Fillable('type', 'quantity', 'unit_cost', 'note')]
 class StockLog extends Model
 {
     /** @use HasFactory<StockLogFactory> */
