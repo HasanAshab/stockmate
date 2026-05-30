@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Product;
 
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;

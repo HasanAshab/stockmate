@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateStockLog;
-use App\Http\Requests\StoreStockLogRequest;
+use App\Actions\Product\CreateStockLog;
+use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Models\StockLog;
 use Illuminate\Support\Facades\Gate;
 
