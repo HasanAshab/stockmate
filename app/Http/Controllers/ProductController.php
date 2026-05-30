@@ -6,6 +6,8 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class ProductController extends Controller
 {
@@ -13,9 +15,27 @@ class ProductController extends Controller
     {
         Gate::authorize('viewAny', Product::class);
 
-        return Product::with(['category', 'supplier', 'media'])
-                    ->paginate(10)
-                    ->toResourceCollection();
+        return QueryBuilder::for(Product::class)
+            ->allowedFilters(
+                AllowedFilter::trashed(),
+                AllowedFilter::belongsTo('category'),
+                AllowedFilter::belongsTo('supplier'),
+                AllowedFilter::scope('low_stock'),
+                AllowedFilter::callback('search', function ($query, $value) {
+                    $query->where('name', 'ilike', "%{$value}%")
+                        ->orWhere('sku', 'ilike', "%{$value}%");
+                }),
+            )
+            ->allowedSorts(
+                'price',
+                'quantity',
+                'created_at',
+            )
+            ->allowedIncludes('category', 'supplier', 'media')
+            ->defaultSort('-created_at')
+            ->paginate(10)
+            ->appends(request()->query())
+            ->toResourceCollection();
     }
 
     public function store(StoreProductRequest $request)
@@ -23,7 +43,7 @@ class ProductController extends Controller
         Gate::authorize('create', Product::class);
 
         $product = Product::create($request->validated());
-        
+
         if ($request->hasFile('image')) {
             $product->addMediaFromRequest('image')
                     ->toMediaCollection('product_images');
