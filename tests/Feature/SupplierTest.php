@@ -15,7 +15,7 @@ beforeEach(function () {
 
 test('guest cannot view suppliers', function () {
     $response = $this->getJson('/api/v1/suppliers');
-    $response->assertStatus(403);
+    $response->assertStatus(401);
 });
 
 test('staff and admin can view suppliers', function () {
