@@ -13,7 +13,7 @@ class StockLogController extends Controller
     {
         Gate::authorize('viewAny', StockLog::class);
 
-        return StockLog::with(['user', 'product'])->get()->toResourceCollection();
+        return StockLog::with(['user', 'product'])->paginate(10)->toResourceCollection();
     }
 
     public function store(StoreStockLogRequest $request, CreateStockLog $createStockLog)
