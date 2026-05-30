@@ -29,9 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:' . Role::Admin->value)->group(function () {
         Route::apiResource('users', UserController::class)->except(['destroy']);
-        Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus']);
+        Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus']);
     });
 
-    Route::get('profile', [ProfileController::class, 'show']);
-    Route::put('profile', [ProfileController::class, 'update']);
+    Route::apiSingleton('profile', ProfileController::class);
 });
