@@ -13,8 +13,8 @@ class UpdateProductRequest extends FormRequest
             'supplier_id' => ['exists:suppliers,id'],
             'name' => ['string', 'max:255'],
             'sku' => ['string', 'max:255', 'unique:products'],
-            'price' => ['numeric', 'min:0'],
-            'reorder_threshold' => ['integer', 'min:0'],
+            'price' => ['numeric:strict', 'min:0'],
+            'reorder_threshold' => ['integer:strict', 'min:0'],
             'image' => ['nullable', 'string', 'max:255'],
         ];
     }
