@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         Gate::authorize('viewAny', Product::class);
 
-        return Product::all()->toResourceCollection();
+        return Product::with(['category', 'supplier'])->paginate(10)->toResourceCollection();
     }
 
     public function store(StoreProductRequest $request)

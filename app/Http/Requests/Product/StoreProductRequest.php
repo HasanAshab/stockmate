@@ -15,7 +15,7 @@ class StoreProductRequest extends FormRequest
             'sku' => ['required', 'string', 'max:255', 'unique:products'],
             'price' => ['required', 'numeric', 'min:0'],
             'reorder_threshold' => ['integer', 'min:0'],
-            'image' => ['nullable', 'string', 'max:255'],
+            'image' => ['image', 'max:2048', 'mimes:jpeg,png,jpg,webp'],
         ];
     }
 }
