@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
         Gate::authorize('view', $product);
 
-        return $product->toResource();
+        return $product->load(['category', 'supplier'])->toResource();
     }
 
     public function update(UpdateProductRequest $request, Product $product)

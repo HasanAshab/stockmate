@@ -12,7 +12,7 @@ class CategoryResource extends JsonApiResource
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->when(
-                $request->routeIs('categories.show'),
+                ! $request->routeIs('categories.index'),
                 $this->description
             ),
         ];

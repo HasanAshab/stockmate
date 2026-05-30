@@ -19,35 +19,62 @@ class StockLogController extends Controller
     {
         Gate::authorize('viewAny', StockLog::class);
 
-        return StockLog::all()->toResourceCollection();
+        return StockLog::with(['user', 'product'])->get()->toResourceCollection();
     }
 
     public function store(StoreStockLogRequest $request)
     {
         Gate::authorize('create', StockLog::class);
 
-        $validated = $request->validated();
-        $validated['user_id'] = $request->user()->id;
+        $data = $request->validated();
+        $userId = $request->user()->id;
 
-        $stockLog = DB::transaction(function () use ($validated) {
-            $log = StockLog::create($validated);
+        $stockLog = DB::transaction(function () use ($data, $userId) {
+            $product = Product::query()
+                ->lockForUpdate()
+                ->findOrFail($data['product_id']);
 
-            $product = Product::findOrFail($log->product_id);
+            $type = StockLogType::from($data['type']);
+            $quantity = $data['quantity'];
 
-            if ($log->type === StockLogType::In) {
-                $product->increment('quantity', $log->quantity);
+            $beforeQuantity = $product->quantity;
+
+            if ($type === StockLogType::Out && $beforeQuantity < $quantity) {
+                throw ValidationException::withMessages([
+                    'quantity' => 'Not enough stock available.',
+                ]);
+            }
+
+            $log = StockLog::create([
+                ...$data,
+                'user_id' => $userId,
+            ]);
+
+            if ($type === StockLogType::In) {
+                $product->increment('quantity', $quantity);
             } else {
-                $product->decrement('quantity', $log->quantity);
+                $product->decrement('quantity', $quantity);
             }
 
             $product->refresh();
 
-            if ($product->quantity < $product->reorder_threshold) {
-                $admins = User::where('role', Role::Admin)->get();
-                Notification::send($admins, new LowStockAlert($product));
-            }
+            $shouldNotifyLowStock =
+                $beforeQuantity >= $product->reorder_threshold &&
+                $product->quantity < $product->reorder_threshold;
 
-            return $log;
+            DB::afterCommit(function () use ($shouldNotifyLowStock, $product) {
+                if (! $shouldNotifyLowStock) {
+                    return;
+                }
+
+                $admins = User::query()
+                    ->where('role', Role::Admin)
+                    ->get();
+
+                Notification::send($admins, new LowStockAlert($product));
+            });
+
+            return $log->load(['user', 'product']);
         });
 
         return $stockLog->toResource()

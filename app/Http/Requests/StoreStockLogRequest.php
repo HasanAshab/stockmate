@@ -14,8 +14,39 @@ class StoreStockLogRequest extends FormRequest
             'product_id' => ['required', 'exists:products,id'],
             'type' => ['required', Rule::enum(StockLogType::class)],
             'quantity' => ['required', 'integer', 'min:1'],
-            'unit_cost' => ['nullable', 'numeric', 'min:0'],
+            'unit_cost' => ['nullable', 'numeric', 'min:1'],
             'note' => ['nullable', 'string'],
+        ];
+    }
+
+    public function after(): array
+    {
+        return [
+            function ($validator) {
+                $productId = $this->input('product_id');
+                $type = $this->input('type');
+                $quantity = (int) $this->input('quantity');
+
+                if (! $productId || ! $type || ! $quantity) {
+                    return;
+                }
+
+                $product = Product::find($productId);
+
+                if (! $product) {
+                    return;
+                }
+
+                if (
+                    $type === StockLogType::Out->value &&
+                    $product->quantity < $quantity
+                ) {
+                    $validator->errors()->add(
+                        'quantity',
+                        'Not enough stock available.'
+                    );
+                }
+            },
         ];
     }
 }

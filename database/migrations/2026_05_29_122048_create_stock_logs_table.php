@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('stock_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->nullOnDelete();
             $table->unsignedTinyInteger('type');
             $table->integer('quantity');
             $table->decimal('unit_cost', 10, 2)->nullable();
-            $table->text('note')->nullable();
+            $table->text('note')->default('');
             $table->timestamp('created_at')->useCurrent();
         });
     }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('categories', CategoryController::class);
@@ -18,8 +20,6 @@ Route::post(
     [SupplierController::class, 'restore']
 )->withTrashed();
 
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\StockLogController;
 
 Route::apiResource('products', ProductController::class);
 Route::apiResource('stock-logs', StockLogController::class)->only(['index', 'store']);

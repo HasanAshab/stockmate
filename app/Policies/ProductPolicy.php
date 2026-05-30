@@ -32,14 +32,4 @@ class ProductPolicy
     {
         return $user->roleIs(Role::Admin);
     }
-
-    public function restore(User $user, Product $product): bool
-    {
-        return $user->roleIs(Role::Admin);
-    }
-
-    public function forceDelete(User $user, Product $product): bool
-    {
-        return $user->roleIs(Role::Admin);
-    }
 }

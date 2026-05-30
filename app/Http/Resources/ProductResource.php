@@ -10,8 +10,6 @@ class ProductResource extends JsonApiResource
     public function toAttributes(Request $request): array
     {
         return [
-            'category_id' => $this->category_id,
-            'supplier_id' => $this->supplier_id,
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price,
@@ -20,6 +18,13 @@ class ProductResource extends JsonApiResource
             'image' => $this->image,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+        ];
+    }
+
+    public function toRelationships(Request $request) {
+        return [
+            'category' => $this->whenLoaded('category'),
+            'supplier' => $this->whenLoaded('supplier'),
         ];
     }
 }
