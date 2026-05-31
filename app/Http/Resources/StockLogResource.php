@@ -23,6 +23,7 @@ class StockLogResource extends JsonApiResource
         return [
             'user' => $this->whenLoaded('user'),
             'product' => $this->whenLoaded('product'),
+            'warehouse' => $this->whenLoaded('warehouse'),
         ];
     }
 }

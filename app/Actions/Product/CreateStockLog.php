@@ -3,9 +3,9 @@
 namespace App\Actions\Product;
 
 use App\Enums\StockLogType;
-use App\Models\Product;
 use App\Models\StockLog;
 use App\Models\User;
+use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -14,26 +14,39 @@ class CreateStockLog
     public function execute(User $user, array $data): StockLog
     {
         return DB::transaction(function () use ($user, $data) {
-            $product = Product::query()
+            $warehouseStock = WarehouseStock::query()
+                ->where('warehouse_id', $data['warehouse_id'])
+                ->where('product_id', $data['product_id'])
                 ->lockForUpdate()
-                ->findOrFail($data['product_id']);
+                ->first();
 
             $type = StockLogType::from($data['type']);
             $quantity = $data['quantity'];
 
-            $newQuantity = $type === StockLogType::In
-                ? $product->quantity + $quantity
-                : $product->quantity - $quantity;
+            if ($type === StockLogType::In) {
+                if (! $warehouseStock) {
+                    $warehouseStock = WarehouseStock::create([
+                        'warehouse_id' => $data['warehouse_id'],
+                        'product_id' => $data['product_id'],
+                        'quantity' => 0,
+                        'reorder_threshold' => 10,
+                    ]);
+                }
 
-            if ($newQuantity < 0) {
-                throw ValidationException::withMessages([
-                    'quantity' => 'Not enough stock available.',
-                ]);
+                $newQuantity = $warehouseStock->quantity + $quantity;
+            } else {
+                if (! $warehouseStock || $warehouseStock->quantity < $quantity) {
+                    throw ValidationException::withMessages([
+                        'quantity' => 'Not enough stock available in this warehouse.',
+                    ]);
+                }
+
+                $newQuantity = $warehouseStock->quantity - $quantity;
             }
 
             $log = $user->stockLogs()->create($data);
 
-            $product->update([
+            $warehouseStock->update([
                 'quantity' => $newQuantity,
             ]);
 

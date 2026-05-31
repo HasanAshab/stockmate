@@ -36,10 +36,17 @@ class Product extends Model
         return $this->hasMany(StockLog::class);
     }
 
+    public function warehouseStocks(): HasMany
+    {
+        return $this->hasMany(WarehouseStock::class);
+    }
+
     #[Scope]
     protected function lowStock($query): void
     {
-        $query->whereColumn('stock_quantity', '<=', 'reorder_threshold');
+        $query->whereHas('warehouseStocks', function ($q) {
+            $q->whereColumn('quantity', '<=', 'reorder_threshold');
+        });
     }
 
     public function registerMediaCollections(): void
@@ -57,7 +64,7 @@ class Product extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'sku', 'price', 'quantity', 'reorder_threshold', 'category_id', 'supplier_id'])
+            ->logOnly(['name', 'sku', 'price', 'category_id', 'supplier_id'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn (string $eventName) => "Product was {$eventName}");

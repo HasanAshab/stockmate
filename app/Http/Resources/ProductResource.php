@@ -13,8 +13,6 @@ class ProductResource extends JsonApiResource
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price,
-            'quantity' => $this->quantity,
-            'reorder_threshold' => $this->reorder_threshold,
             'image_url' => $this->getFirstMediaUrl('product_images') ?: null,
             'image_thumb_url' => $this->getFirstMediaUrl('product_images', 'thumb') ?: null,
             'created_at' => $this->created_at,

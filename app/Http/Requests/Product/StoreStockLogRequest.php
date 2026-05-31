@@ -12,6 +12,7 @@ class StoreStockLogRequest extends FormRequest
     {
         return [
             'product_id' => ['required', 'exists:products,id'],
+            'warehouse_id' => ['required', 'exists:warehouses,id'],
             'type' => ['required', Rule::enum(StockLogType::class)],
             'quantity' => ['required', 'integer:strict', 'min:1'],
             'unit_cost' => ['nullable', 'numeric:strict', 'min:1'],

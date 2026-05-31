@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-#[Fillable('type', 'quantity', 'unit_cost', 'note')]
+#[Fillable('type', 'quantity', 'unit_cost', 'note', 'warehouse_id')]
 class StockLog extends Model
 {
     /** @use HasFactory<StockLogFactory> */
@@ -35,6 +35,11 @@ class StockLog extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function warehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 
     public function getActivitylogOptions(): LogOptions

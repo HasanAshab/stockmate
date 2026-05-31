@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -43,6 +44,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('stock-logs/export/{format}', [StockLogController::class, 'export'])
         ->name('stock-logs.export');
+
+    Route::post('stock-logs/transfer', [StockLogController::class, 'transfer'])
+        ->name('stock-logs.transfer');
+
+    // Warehouses
+    Route::apiResource('warehouses', WarehouseController::class);
+    Route::get('warehouses/{warehouse}/stock', [WarehouseController::class, 'stock'])
+        ->name('warehouses.stock');
 
     Route::middleware('role:'.Role::Admin->value)->group(function () {
         // Users
