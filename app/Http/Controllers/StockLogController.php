@@ -83,7 +83,7 @@ class StockLogController extends Controller
 
     public function transfer(TransferStockRequest $request)
     {
-        Gate::authorize('create', StockLog::class);
+        Gate::authorize('create', Warehouse::class);
 
         $validated = $request->validated();
 
@@ -102,9 +102,10 @@ class StockLogController extends Controller
 
             $sourceStock->decrement('quantity', $validated['quantity']);
 
-            $request->user()->stockLogs()->create([
+            StockLog::create([
                 'product_id' => $validated['product_id'],
                 'warehouse_id' => $validated['from_warehouse_id'],
+                'user_id' => $request->user()->id,
                 'type' => StockLogType::Out,
                 'quantity' => $validated['quantity'],
                 'unit_cost' => null,
@@ -124,9 +125,10 @@ class StockLogController extends Controller
 
             $destinationStock->increment('quantity', $validated['quantity']);
 
-            $request->user()->stockLogs()->create([
+            StockLog::create([
                 'product_id' => $validated['product_id'],
                 'warehouse_id' => $validated['to_warehouse_id'],
+                'user_id' => $request->user()->id,
                 'type' => StockLogType::In,
                 'quantity' => $validated['quantity'],
                 'unit_cost' => null,

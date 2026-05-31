@@ -25,6 +25,7 @@ class WarehouseController extends Controller
         Gate::authorize('create', Warehouse::class);
 
         $warehouse = Warehouse::create($request->validated());
+        $warehouse->refresh();
 
         return (new WarehouseResource($warehouse))
             ->response()

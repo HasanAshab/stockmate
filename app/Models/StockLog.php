@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-#[Fillable('type', 'quantity', 'unit_cost', 'note', 'warehouse_id')]
+#[Fillable('product_id', 'warehouse_id', 'user_id', 'type', 'quantity', 'unit_cost', 'note')]
 class StockLog extends Model
 {
     /** @use HasFactory<StockLogFactory> */
