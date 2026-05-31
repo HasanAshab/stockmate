@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -43,10 +44,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('stock-logs/export/{format}', [StockLogController::class, 'export'])
         ->name('stock-logs.export');
 
-    // Users
     Route::middleware('role:'.Role::Admin->value)->group(function () {
+        // Users
         Route::apiResource('users', UserController::class)->except(['destroy']);
         Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+
+        // Activity Logs
+        Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
     });
+
+    // Profile
     Route::apiSingleton('profile', ProfileController::class);
 });

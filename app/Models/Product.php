@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable('name', 'sku', 'price', 'reorder_threshold')]
 class Product extends Model
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, LogsActivity;
 
     protected $casts = [
         'price' => 'decimal:2',
@@ -34,6 +36,12 @@ class Product extends Model
         return $this->hasMany(StockLog::class);
     }
 
+    #[Scope]
+    protected function lowStock($query): void
+    {
+        $query->whereColumn('stock_quantity', '<=', 'reorder_threshold');
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('product_images')->singleFile();
@@ -46,9 +54,12 @@ class Product extends Model
             ->height(200);
     }
 
-    #[Scope]
-    protected function lowStock($query): void
+    public function getActivitylogOptions(): LogOptions
     {
-        $query->whereColumn('stock_quantity', '<=', 'reorder_threshold');
+        return LogOptions::defaults()
+            ->logOnly(['name', 'sku', 'price', 'quantity', 'reorder_threshold', 'category_id', 'supplier_id'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn (string $eventName) => "Product was {$eventName}");
     }
 }

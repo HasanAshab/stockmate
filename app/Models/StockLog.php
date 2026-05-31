@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 #[Fillable('type', 'quantity', 'unit_cost', 'note')]
 class StockLog extends Model
 {
     /** @use HasFactory<StockLogFactory> */
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     public const UPDATED_AT = null;
 
@@ -33,5 +35,12 @@ class StockLog extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['product_id', 'type', 'quantity', 'note'])
+            ->setDescriptionForEvent(fn (string $eventName) => "Stock was {$eventName}");
     }
 }
