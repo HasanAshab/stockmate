@@ -36,6 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('products', ProductController::class);
     Route::apiResource('stock-logs', StockLogController::class)->only(['index', 'store']);
 
+    Route::get('stock-logs/export/{format}', [StockLogController::class, 'export'])
+        ->name('stock-logs.export');
+
     Route::middleware('role:' . Role::Admin->value)->group(function () {
         Route::apiResource('users', UserController::class)->except(['destroy']);
         Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');

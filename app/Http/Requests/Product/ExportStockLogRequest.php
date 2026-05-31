@@ -11,8 +11,8 @@ class ExportStockLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from' => ['date', 'before_or_equal:to'],
-            'to' => ['date', 'after_or_equal:from'],
+            'from' => ['date_format:Y-m-d'],
+            'to' => ['date_format:Y-m-d', 'after_or_equal:from'],
         ];
     }
 }

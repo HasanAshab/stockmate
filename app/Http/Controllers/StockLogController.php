@@ -63,10 +63,14 @@ class StockLogController extends Controller
 
         $from = $request->validated('from');
         $to = $request->validated('to');
-        $dateSlug  = ($from && $to) ? "-{$from}_to_{$to}" : '';
-        $fileName = "stock-logs{$dateSlug}.{$format->extension()}";
+        $dateSlug  =  match (true) {
+            $from && $to => "from_{$from}_to_{$to}",
+            $from => "from_{$from}",
+            $to => "until_{$to}",
+            default => 'all',
+        };
 
+        $fileName = "stock-logs-{$dateSlug}.{$format->extension()}";
         return Excel::download(new StockLogExport($from, $to), $fileName, $format->contentType());
-
     }
 }
