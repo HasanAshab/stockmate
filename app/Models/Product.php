@@ -12,7 +12,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-#[Fillable('name', 'sku', 'price', 'reorder_threshold')]
+#[Fillable('name', 'sku', 'price')]
 class Product extends Model
 {
     use HasFactory, InteractsWithMedia, LogsActivity;
