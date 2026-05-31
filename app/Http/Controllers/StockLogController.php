@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Product\CreateStockLog;
-use App\Http\Requests\Product\StoreStockLogRequest;
-use App\Models\StockLog;
+use App\Exports\StockLogExport;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Actions\Product\CreateStockLog;
+use App\Enums\StockLogExportFormat;
+use App\Http\Requests\Product\ExportStockLogRequest;
+use App\Http\Requests\Product\StoreStockLogRequest;
+use App\Models\StockLog;
 
 class StockLogController extends Controller
 {
@@ -51,5 +55,18 @@ class StockLogController extends Controller
         return $stockLog->toResource()
             ->response()
             ->setStatusCode(201);
+    }
+
+    public function export(ExportStockLogRequest $request, StockLogExportFormat $format)
+    {
+        Gate::authorize('viewAny', StockLog::class);
+
+        $from = $request->validated('from');
+        $to = $request->validated('to');
+        $dateSlug  = ($from && $to) ? "-{$from}_to_{$to}" : '';
+        $fileName = "stock-logs{$dateSlug}.{$format->extension()}";
+
+        return Excel::download(new StockLogExport($from, $to), $fileName, $format->contentType());
+
     }
 }
