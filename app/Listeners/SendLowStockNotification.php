@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use Illuminate\Support\Facades\Notification;
 use App\Enums\Role;
 use App\Events\ProductStockLow;
 use App\Models\User;
 use App\Notifications\LowStockAlert;
+use Illuminate\Support\Facades\Notification;
 
 class SendLowStockNotification
 {

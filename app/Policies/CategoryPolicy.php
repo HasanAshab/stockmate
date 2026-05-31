@@ -5,16 +5,15 @@ namespace App\Policies;
 use App\Enums\Role;
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
 {
-    public function before(User $user): bool|null
+    public function before(User $user): ?bool
     {
         if ($user->roleIs(Role::Admin, Role::Staff)) {
             return true;
         }
-    
+
         return null;
     }
 

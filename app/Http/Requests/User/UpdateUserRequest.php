@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\User;
 
+use App\Enums\Role;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use App\Enums\Role;
 
 class UpdateUserRequest extends FormRequest
 {

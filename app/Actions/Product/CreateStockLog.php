@@ -2,12 +2,12 @@
 
 namespace App\Actions\Product;
 
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\DB;
+use App\Enums\StockLogType;
+use App\Models\Product;
 use App\Models\StockLog;
 use App\Models\User;
-use App\Models\Product;
-use App\Enums\StockLogType;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class CreateStockLog
 {

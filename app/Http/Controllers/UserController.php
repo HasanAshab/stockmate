@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -31,11 +31,12 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        if (isset($validated["role"])) {
+        if (isset($validated['role'])) {
             Gate::authorize('updateRole', $user);
         }
 
         $user->update($validated);
+
         return $user->toResource();
     }
 
@@ -44,7 +45,7 @@ class UserController extends Controller
         Gate::authorize('deactivate', $user);
 
         $user->update([
-            'is_active' => !$user->is_active,
+            'is_active' => ! $user->is_active,
         ]);
 
         return $user->toResource();

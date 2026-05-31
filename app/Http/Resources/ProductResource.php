@@ -22,7 +22,8 @@ class ProductResource extends JsonApiResource
         ];
     }
 
-    public function toRelationships(Request $request) {
+    public function toRelationships(Request $request)
+    {
         return [
             'category' => $this->whenLoaded('category'),
             'supplier' => $this->whenLoaded('supplier'),

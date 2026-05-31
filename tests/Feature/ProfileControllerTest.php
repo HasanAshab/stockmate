@@ -9,7 +9,7 @@ it('can show own profile', function () {
     $response = $this->actingAs($user)->getJson('/api/v1/profile');
 
     $response->assertStatus(200)
-             ->assertJsonFragment(['email' => $user->email]);
+        ->assertJsonFragment(['email' => $user->email]);
 });
 
 it('can update own profile', function () {
@@ -21,7 +21,7 @@ it('can update own profile', function () {
     ]);
 
     $response->assertStatus(200)
-             ->assertJsonFragment(['name' => 'My New Name']);
+        ->assertJsonFragment(['name' => 'My New Name']);
 
     expect(Hash::check('newpassword123', $user->fresh()->password))->toBeTrue();
 });

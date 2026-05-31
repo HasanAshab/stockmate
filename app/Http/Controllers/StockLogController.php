@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\StockLogExport;
-use Illuminate\Support\Facades\Gate;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Actions\Product\CreateStockLog;
 use App\Enums\StockLogExportFormat;
+use App\Exports\StockLogExport;
 use App\Http\Requests\Product\ExportStockLogRequest;
 use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Models\StockLog;
+use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class StockLogController extends Controller
 {
@@ -63,7 +63,7 @@ class StockLogController extends Controller
 
         $from = $request->validated('from');
         $to = $request->validated('to');
-        $dateSlug  =  match (true) {
+        $dateSlug = match (true) {
             $from && $to => "from_{$from}_to_{$to}",
             $from => "from_{$from}",
             $to => "until_{$to}",
@@ -71,6 +71,7 @@ class StockLogController extends Controller
         };
 
         $fileName = "stock-logs-{$dateSlug}.{$format->extension()}";
+
         return Excel::download(new StockLogExport($from, $to), $fileName, $format->contentType());
     }
 }

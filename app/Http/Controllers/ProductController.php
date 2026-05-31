@@ -6,8 +6,8 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
-use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductController extends Controller
 {
@@ -46,7 +46,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $product->addMediaFromRequest('image')
-                    ->toMediaCollection('product_images');
+                ->toMediaCollection('product_images');
         }
 
         return $product->toResource()
@@ -68,7 +68,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $product->clearMediaCollection('product_images');
             $product->addMediaFromRequest('image')
-                    ->toMediaCollection('product_images');
+                ->toMediaCollection('product_images');
         }
 
         $product->update($request->validated());

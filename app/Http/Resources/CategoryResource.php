@@ -7,7 +7,8 @@ use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
 class CategoryResource extends JsonApiResource
 {
-    public function toAttributes(Request $request) {
+    public function toAttributes(Request $request)
+    {
         return [
             'name' => $this->name,
             'slug' => $this->slug,

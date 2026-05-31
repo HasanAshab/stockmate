@@ -18,7 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $attributes = [
         'is_active' => true,
@@ -44,7 +44,8 @@ class User extends Authenticatable
         return $this->hasMany(StockLog::class);
     }
 
-    public function roleIs(Role ...$roles) {
+    public function roleIs(Role ...$roles)
+    {
         return in_array($this->role, $roles);
     }
 }

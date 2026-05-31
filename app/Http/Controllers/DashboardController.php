@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\StockLog;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -23,6 +23,6 @@ class DashboardController extends Controller
             ->with(['user', 'product'])
             ->get();
 
-        return ["data" => $dashboard];
+        return ['data' => $dashboard];
     }
 }

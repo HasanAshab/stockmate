@@ -10,7 +10,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:70'],
-            'slug' =>  ['required', 'string', 'max:70', 'unique:categories'],
+            'slug' => ['required', 'string', 'max:70', 'unique:categories'],
             'description' => ['string', 'max:255'],
         ];
     }

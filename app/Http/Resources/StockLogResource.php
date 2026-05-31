@@ -18,7 +18,8 @@ class StockLogResource extends JsonApiResource
         ];
     }
 
-    public function toRelationships(Request $request) {
+    public function toRelationships(Request $request)
+    {
         return [
             'user' => $this->whenLoaded('user'),
             'product' => $this->whenLoaded('product'),

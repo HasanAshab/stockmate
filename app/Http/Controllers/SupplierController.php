@@ -52,6 +52,7 @@ class SupplierController extends Controller
     public function trashed()
     {
         Gate::authorize('viewAny', Supplier::class);
+
         return Supplier::onlyTrashed()->get()->toResourceCollection();
     }
 

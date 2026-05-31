@@ -29,5 +29,5 @@ it('rejects inactive user with 403', function () {
     ]);
 
     $response->assertStatus(403)
-             ->assertJson(['message' => 'Your account has been deactivated.']);
+        ->assertJson(['message' => 'Your account has been deactivated.']);
 });

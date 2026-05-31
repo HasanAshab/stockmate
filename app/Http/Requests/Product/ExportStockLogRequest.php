@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests\Product;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ExportStockLogRequest extends FormRequest
 {
-
     public function rules(): array
     {
         return [
