@@ -34,7 +34,7 @@ pending → paid → failed → cancelled
 - customer_email (string, required)
 - customer_phone (string, nullable)
 - warehouse_id (foreign key → warehouses.id) — stock deducted from this warehouse
-- status (enum: pending, paid, failed, cancelled — default pending)
+- status (unsingedTinyInteger)
 - total_amount (decimal 10,2)
 - transaction_id (string, nullable) — SSLCommerz transaction ID on success
 - payment_payload (json, nullable) — full SSLCommerz response stored for audit
@@ -55,6 +55,7 @@ pending → paid → failed → cancelled
 
 #### SalesOrder model
 - fillable: customer_name, customer_email, customer_phone, warehouse_id, status, total_amount, transaction_id, payment_payload, created_by
+- 'status' -> SalesOrderStatus enum, default SalesOrderStatus::Pending
 - cast payment_payload as array
 - belongsTo Warehouse
 - belongsTo User (as createdBy)
@@ -68,27 +69,26 @@ pending → paid → failed → cancelled
 ---
 
 ### Middleware & Access Control
-- POST /api/sales-orders (create): admin and staff
-- GET /api/sales-orders (list): admin and staff
-- GET /api/sales-orders/{id}: admin and staff
-- PATCH /api/sales-orders/{id}/cancel: admin only
-- POST /api/sales-orders/{id}/initiate-payment: admin and staff
-- POST /api/payment/success: no auth required (SSLCommerz posts here)
-- POST /api/payment/fail: no auth required
-- POST /api/payment/cancel: no auth required
-- Add success, fail, cancel routes to the CSRF exception list in VerifyCsrfToken middleware (or use api.php which is already exempt)
+- POST /sales-orders (create): admin and staff
+- GET /sales-orders (list): admin and staff
+- GET /sales-orders/{id}: admin and staff
+- PATCH /sales-orders/{id}/cancel: admin only
+- POST /sales-orders/{id}/initiate-payment: admin and staff
+- POST /payment/success: no auth required (SSLCommerz posts here)
+- POST /payment/fail: no auth required
+- POST /payment/cancel: no auth required
 
 ---
 
 ### API Endpoints
 
-#### GET /api/sales-orders
+#### GET /sales-orders
 - Admin and staff.
 - Paginate at 15 per page.
 - Support filters: status (query param), from and to date on created_at.
 - Return each order: id, customer name, customer email, warehouse name, status, total_amount, transaction_id, item count, created_by name, created_at.
 
-#### POST /api/sales-orders
+#### POST /sales-orders
 - Admin and staff.
 - Request body: customer_name (required), customer_email (required, email), customer_phone (nullable), warehouse_id (required, exists), items (required, array min 1).
 - Each item: product_id (required, exists), quantity (required, integer min 1), unit_price (required, numeric min 0).
@@ -99,12 +99,12 @@ pending → paid → failed → cancelled
 - Do not touch stock at this point.
 - Return 201 with the created order and items.
 
-#### GET /api/sales-orders/{id}
+#### GET /sales-orders/{id}
 - Admin and staff.
 - Return full order with warehouse, createdBy, and all items (product name, sku, quantity, unit_price).
 - Return 404 if not found.
 
-#### POST /api/sales-orders/{id}/initiate-payment
+#### POST /sales-orders/{id}/initiate-payment
 - Admin and staff.
 - Only allowed if status is pending.
 - Build the SSLCommerz payment payload using the package. Required fields:
@@ -127,7 +127,7 @@ pending → paid → failed → cancelled
 - Call the SSLCommerz package to generate the payment URL.
 - Return 200 with the payment URL so the client can redirect the customer.
 
-#### POST /api/payment/success
+#### POST /payment/success
 - No auth required. SSLCommerz posts here after successful payment.
 - Verify the payment with SSLCommerz using the val_id from the POST body and the package's validation method.
 - If validation fails, return 400 with message "Payment validation failed."
@@ -141,21 +141,21 @@ pending → paid → failed → cancelled
   5. Set SalesOrder status to paid, store transaction_id and full POST body in payment_payload.
 - Return 200 with message "Payment successful."
 
-#### POST /api/payment/fail
+#### POST /payment/fail
 - No auth required.
 - Find the SalesOrder by tran_id from POST body.
 - Set status to failed.
 - Store full POST body in payment_payload.
 - Return 200 with message "Payment failed."
 
-#### POST /api/payment/cancel
+#### POST /payment/cancel
 - No auth required.
 - Find the SalesOrder by tran_id from POST body.
 - Set status to cancelled.
 - Store full POST body in payment_payload.
 - Return 200 with message "Payment cancelled."
 
-#### PATCH /api/sales-orders/{id}/cancel
+#### PATCH /sales-orders/{id}/cancel
 - Admin only.
 - Only allowed if status is pending.
 - If status is paid, return 422 with message "Cannot cancel a paid order."
@@ -170,4 +170,3 @@ pending → paid → failed → cancelled
 - Store the full SSLCommerz POST body in payment_payload on all three callbacks (success, fail, cancel) for audit purposes.
 - Never decrement stock on fail or cancel callbacks.
 - The success callback must validate the payment with SSLCommerz using val_id before doing anything. Never trust the POST body alone.
-- Use SSLCOMMERZ_SANDBOX_MODE=true during development. Switch to false only in production with real credentials.
