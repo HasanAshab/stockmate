@@ -23,45 +23,9 @@ Once a PO is cancelled, it cannot be reopened.
 
 ---
 
-### Database
+### Database + models
 
-#### New table: purchase_orders
-- id (bigint, primary key)
-- supplier_id (foreign key → suppliers.id)
-- warehouse_id (foreign key → warehouses.id) — destination warehouse for received stock
-- status (enum: draft, ordered, partially_received, received, cancelled — default draft)
-- note (text, nullable)
-- ordered_at (timestamp, nullable) — set when status changes to ordered
-- received_at (timestamp, nullable) — set when status changes to received
-- created_by (foreign key → users.id)
-- timestamps
-
-#### New table: purchase_order_items
-- id (bigint, primary key)
-- purchase_order_id (foreign key → purchase_orders.id, cascade delete)
-- product_id (foreign key → products.id)
-- ordered_quantity (integer, required, min 1)
-- received_quantity (integer, default 0)
-- unit_cost (decimal 10,2, required)
-- timestamps
-
----
-
-### Models
-
-#### PurchaseOrder model
-- fillable: supplier_id, warehouse_id, status, note, ordered_at, received_at, created_by
-- belongsTo Supplier
-- belongsTo Warehouse
-- belongsTo User (as createdBy)
-- hasMany PurchaseOrderItem
-
-#### PurchaseOrderItem model
-- fillable: purchase_order_id, product_id, ordered_quantity, received_quantity, unit_cost
-- belongsTo PurchaseOrder
-- belongsTo Product
-- helper method isFullyReceived(): returns true if received_quantity >= ordered_quantity
-
+#### created for you: purchase_orders, purchase_order_items
 ---
 
 ### Middleware & Access Control
@@ -72,13 +36,13 @@ Once a PO is cancelled, it cannot be reopened.
 
 ### API Endpoints
 
-#### GET /api/purchase-orders
+#### GET /purchase-orders
 - Admin only.
 - Paginate at 15 per page.
 - Support filters: status (query param), supplier_id (query param), from and to date range on created_at.
 - Return each PO: id, supplier name, warehouse name, status, item count, note, ordered_at, received_at, created_by name, created_at.
 
-#### POST /api/purchase-orders
+#### POST /purchase-orders
 - Admin only.
 - Request body: supplier_id (required, exists), warehouse_id (required, exists), note (nullable), items (required, array, min 1 item).
 - Each item in items: product_id (required, exists), ordered_quantity (required, integer min 1), unit_cost (required, numeric min 0).
@@ -86,12 +50,12 @@ Once a PO is cancelled, it cannot be reopened.
 - Create one PurchaseOrderItem per item in the array.
 - Return 201 with the created PO and its items.
 
-#### GET /api/purchase-orders/{id}
+#### GET /purchase-orders/{id}
 - Admin only.
 - Return PO with supplier, warehouse, createdBy, and all items (each with product name, sku, ordered_quantity, received_quantity, unit_cost, isFullyReceived).
 - Return 404 if not found.
 
-#### PUT /api/purchase-orders/{id}
+#### PUT /purchase-orders/{id}
 - Admin only.
 - Only allowed if status is draft or ordered.
 - If status is received or cancelled, return 422 with message "This purchase order can no longer be edited."
@@ -99,20 +63,20 @@ Once a PO is cancelled, it cannot be reopened.
 - If items is provided, delete all existing PurchaseOrderItems and recreate from the new array.
 - Return 200 with updated PO and items.
 
-#### PATCH /api/purchase-orders/{id}/mark-ordered
+#### PATCH /purchase-orders/{id}/mark-ordered
 - Admin only.
 - Only allowed if current status is draft.
 - Set status to ordered and set ordered_at to current timestamp.
 - Return 200 with updated PO.
 
-#### PATCH /api/purchase-orders/{id}/cancel
+#### PATCH /purchase-orders/{id}/cancel
 - Admin only.
 - Only allowed if status is draft or ordered.
 - If status is partially_received, received, return 422 with message "Cannot cancel a PO that has already received stock."
 - Set status to cancelled.
 - Return 200 with message "Purchase order cancelled."
 
-#### POST /api/purchase-orders/{id}/receive
+#### POST /purchase-orders/{id}/receive
 - Admin and staff.
 - Only allowed if status is ordered or partially_received.
 - Request body: items (required, array). Each item: purchase_order_item_id (required, exists), quantity_received (required, integer min 1).

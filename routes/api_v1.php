@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:'.Role::Admin->value)->group(function () {
         // Users
         Route::apiResource('users', UserController::class)->except(['destroy']);
-        Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+        Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
 
         // Activity Logs
         Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
