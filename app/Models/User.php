@@ -46,11 +46,6 @@ class User extends Authenticatable
         return $this->hasMany(StockLog::class);
     }
 
-    public function roleIs(Role ...$roles)
-    {
-        return in_array($this->role, $roles);
-    }
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

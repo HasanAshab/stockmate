@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Enums\Role;
 use App\Models\Category;
 use App\Models\User;
 
@@ -10,7 +9,7 @@ class CategoryPolicy
 {
     public function before(User $user): ?bool
     {
-        if ($user->roleIs(Role::Admin, Role::Staff)) {
+        if ($user->role->isAdmin() || $user->role->isStaff()) {
             return true;
         }
 
@@ -24,26 +23,26 @@ class CategoryPolicy
 
     public function create(User $user): bool
     {
-        return $user->roleIs(Role::Admin);
+        return $user->role->isAdmin();
     }
 
     public function update(User $user, Category $category): bool
     {
-        return $user->roleIs(Role::Admin);
+        return $user->role->isAdmin();
     }
 
     public function delete(User $user, Category $category): bool
     {
-        return $user->roleIs(Role::Admin);
+        return $user->role->isAdmin();
     }
 
     public function restore(User $user, Category $category): bool
     {
-        return $user->roleIs(Role::Admin);
+        return $user->role->isAdmin();
     }
 
     public function forceDelete(User $user, Category $category): bool
     {
-        return $user->role(Role::Admin);
+        return $user->role->isAdmin();
     }
 }
