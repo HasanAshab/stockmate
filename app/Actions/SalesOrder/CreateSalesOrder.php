@@ -48,19 +48,13 @@ class CreateSalesOrderAction
             ->keyBy('id');
     }
 
-    private function validateStock(
-        Collection $items,
-        Collection $products,
-    ): void {
-
+    private function validateStock(Collection $items, Collection $products): void
+    {
         foreach ($items as $item) {
-
             $product = $products[$item['product_id']] ?? null;
-
             $stock = $product?->warehouseStocks->first();
 
             if (! $stock || $stock->quantity < $item['quantity']) {
-
                 throw ValidationException::withMessages([
                     'items' => [
                         "Insufficient stock for product {$product?->name}.",
@@ -77,12 +71,8 @@ class CreateSalesOrderAction
         );
     }
 
-    private function createSalesOrder(
-        array $data,
-        int $userId,
-        float $totalAmount,
-    ): SalesOrder {
-
+    private function createSalesOrder(array $data, int $userId, float $totalAmount): SalesOrder 
+    {
         return SalesOrder::create([
             'customer_name' => $data['customer_name'],
             'customer_email' => $data['customer_email'],
@@ -93,11 +83,8 @@ class CreateSalesOrderAction
         ]);
     }
 
-    private function createItems(
-        SalesOrder $salesOrder,
-        Collection $items,
-    ): void {
-
+    private function createItems(SalesOrder $salesOrder, Collection $items): void
+    {
         $salesOrder->items()->insert(
             $items->map(fn ($item) => [
                 'sales_order_id' => $salesOrder->id,
