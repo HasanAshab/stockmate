@@ -20,16 +20,15 @@ class InitiateSalesOrderPayment
                 $tranId,
                 $productName
             )
-            ->setCustomer(
-                $salesOrder->customer_name,
-                $salesOrder->customer_email,
-                $salesOrder->customer_phone
-            )
-            ->makePayment();
+                ->setCustomer(
+                    $salesOrder->customer_name,
+                    $salesOrder->customer_email,
+                    $salesOrder->customer_phone
+                )
+                ->makePayment();
 
             return $response->gatewayPageURL();
-        } 
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Connection error. Please try again later.',
             ]);

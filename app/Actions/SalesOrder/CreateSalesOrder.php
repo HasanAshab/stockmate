@@ -71,7 +71,7 @@ class CreateSalesOrder
         );
     }
 
-    private function createSalesOrder(array $data, int $userId, float $totalAmount): SalesOrder 
+    private function createSalesOrder(array $data, int $userId, float $totalAmount): SalesOrder
     {
         return SalesOrder::create([
             'customer_name' => $data['customer_name'],

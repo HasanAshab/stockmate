@@ -62,7 +62,7 @@ class WarehouseController extends Controller
 
         $warehouse->delete();
 
-        return response()->json(['message' => 'Warehouse deleted.']);
+        return response()->noContent();
     }
 
     public function stock(Warehouse $warehouse)
