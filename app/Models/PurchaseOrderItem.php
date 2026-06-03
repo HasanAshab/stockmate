@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Resources\PurchaseOrderItemResource;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,10 +33,5 @@ class PurchaseOrderItem extends Model
     public function isFullyReceived(): bool
     {
         return $this->received_quantity >= $this->ordered_quantity;
-    }
-
-    public function toResource(): PurchaseOrderItemResource
-    {
-        return new PurchaseOrderItemResource($this);
     }
 }
