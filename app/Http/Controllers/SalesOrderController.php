@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Actions\SalesOrder\CreateSalesOrder;
+use App\Actions\SalesOrder\InitiateSalesOrderPayment;
 use App\Enums\SalesOrderStatus;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\SalesOrder\StoreSalesOrderRequest;
 use App\Models\SalesOrder;
+use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -53,43 +55,12 @@ class SalesOrderController extends Controller
             ->toResource();
     }
 
-    public function initiatePayment(SalesOrder $salesOrder)
+    public function initiatePayment(SalesOrder $salesOrder, InitiateSalesOrderPayment $initiateSalesOrderPayment)
     {
         Gate::authorize('initiatePayment', $salesOrder);
-
-        if (! $salesOrder->status->isPending()) {
-            return response()->json([
-                'message' => 'Only pending sales orders can initiate payment.',
-            ], 422);
-        }
-
-        $tranId = "SO-{$salesOrder->id}-".time();
-
-        $paymentData = [
-            'total_amount' => $salesOrder->total_amount,
-            'currency' => 'BDT',
-            'tran_id' => $tranId,
-            'success_url' => url('/api/v1/payment/success'),
-            'fail_url' => url('/api/v1/payment/fail'),
-            'cancel_url' => url('/api/v1/payment/cancel'),
-            'cus_name' => $salesOrder->customer_name,
-            'cus_email' => $salesOrder->customer_email,
-            'cus_add1' => 'Dhaka',
-            'cus_city' => 'Dhaka',
-            'cus_country' => 'Bangladesh',
-            'cus_phone' => $salesOrder->customer_phone ?: 'N/A',
-            'shipping_method' => 'NO',
-            'product_name' => "Sales Order #{$salesOrder->id}",
-            'product_category' => 'General',
-            'product_profile' => 'general',
-        ];
-
-        $sslc = new SslCommerzNotification;
-        $paymentUrl = $sslc->makePayment($paymentData, 'hosted');
-
+        $paymentUrl = $initiateSalesOrderPayment->execute($salesOrder);
         return response()->json([
-            'payment_url' => $paymentUrl,
-            'transaction_id' => $tranId,
+            'payment_url' => $paymentUrl
         ]);
     }
 
