@@ -4,9 +4,11 @@ use App\Enums\Role;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -54,6 +56,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('warehouses/{warehouse}/stock', [WarehouseController::class, 'stock'])
         ->name('warehouses.stock');
 
+    // Sales Orders (Admin and Staff)
+    Route::apiResource('sales-orders', SalesOrderController::class)->only(['index', 'store', 'show']);
+    Route::post('sales-orders/{salesOrder}/initiate-payment', [SalesOrderController::class, 'initiatePayment'])
+        ->name('sales-orders.initiate-payment');
+
     Route::middleware('role:'.Role::Admin->value)->group(function () {
         // Users
         Route::apiResource('users', UserController::class)->except(['destroy']);
@@ -68,6 +75,10 @@ Route::middleware('auth:sanctum')->group(function () {
             ->name('purchase-orders.mark-ordered');
         Route::patch('purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel'])
             ->name('purchase-orders.cancel');
+
+        // Sales Order Cancel (Admin only)
+        Route::patch('sales-orders/{salesOrder}/cancel', [SalesOrderController::class, 'cancel'])
+            ->name('sales-orders.cancel');
     });
 
     // Purchase Order Receiving (Admin and Staff)
@@ -77,3 +88,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Profile
     Route::apiSingleton('profile', ProfileController::class);
 });
+
+// Payment Callbacks (No auth required)
+Route::post('payment/success', [PaymentCallbackController::class, 'success'])->name('payment.success');
+Route::post('payment/fail', [PaymentCallbackController::class, 'fail'])->name('payment.fail');
+Route::post('payment/cancel', [PaymentCallbackController::class, 'cancel'])->name('payment.cancel');
