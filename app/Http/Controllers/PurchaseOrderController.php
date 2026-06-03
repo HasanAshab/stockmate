@@ -76,7 +76,7 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('update', $purchaseOrder);
 
-        if ($purchaseOrder->status === PurchaseOrderStatus::Received || $purchaseOrder->status === PurchaseOrderStatus::Cancelled) {
+        if ($purchaseOrder->status->isReceived() || $purchaseOrder->status->isCancelled()) {
             return response()->json([
                 'message' => 'This purchase order can no longer be edited.',
             ], 422);
@@ -125,7 +125,7 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('cancel', $purchaseOrder);
 
-        if ($purchaseOrder->status === PurchaseOrderStatus::PartiallyReceived || $purchaseOrder->status === PurchaseOrderStatus::Received) {
+        if ($purchaseOrder->status->isPartiallyReceived() || $purchaseOrder->status->isReceived()) {
             return response()->json([
                 'message' => 'Cannot cancel a PO that has already received stock.',
             ], 422);

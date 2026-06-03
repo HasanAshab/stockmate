@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
-class CreateSalesOrderAction
+class CreateSalesOrder
 {
     public function execute(array $data, int $userId): SalesOrder
     {

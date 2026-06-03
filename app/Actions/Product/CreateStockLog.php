@@ -23,7 +23,7 @@ class CreateStockLog
             $type = StockLogType::from($data['type']);
             $quantity = $data['quantity'];
 
-            if ($type === StockLogType::In) {
+            if ($type->isIn()) {
                 if (! $warehouseStock) {
                     $warehouseStock = WarehouseStock::create([
                         'warehouse_id' => $data['warehouse_id'],

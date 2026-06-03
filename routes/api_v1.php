@@ -13,6 +13,7 @@ use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -89,7 +90,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiSingleton('profile', ProfileController::class);
 });
 
-// Payment Callbacks (No auth required)
-Route::post('payment/success', [PaymentCallbackController::class, 'success'])->name('payment.success');
-Route::post('payment/fail', [PaymentCallbackController::class, 'fail'])->name('payment.fail');
-Route::post('payment/cancel', [PaymentCallbackController::class, 'cancel'])->name('payment.cancel');
+// Payment Callbacks
+Route::controller(PaymentCallbackController::class)
+    ->prefix('payment')
+    ->name('payment.')
+    ->withoutMiddleware(PreventRequestForgery::class)
+    ->group(function () {
+        Route::post('success', 'success')->name('success');
+        Route::post('fail', 'fail')->name('fail');
+        Route::post('cancel', 'cancel')->name('cancel');
+    });

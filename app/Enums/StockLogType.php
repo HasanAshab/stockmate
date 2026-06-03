@@ -20,4 +20,14 @@ enum StockLogType: int
             ],
         ];
     }
+
+    public function isIn(): bool
+    {
+        return $this === self::In;
+    }
+
+    public function isOut(): bool
+    {
+        return $this === self::Out;
+    }
 }

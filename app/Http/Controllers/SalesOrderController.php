@@ -57,7 +57,7 @@ class SalesOrderController extends Controller
     {
         Gate::authorize('initiatePayment', $salesOrder);
 
-        if ($salesOrder->status !== SalesOrderStatus::Pending) {
+        if (! $salesOrder->status->isPending()) {
             return response()->json([
                 'message' => 'Only pending sales orders can initiate payment.',
             ], 422);
@@ -97,7 +97,7 @@ class SalesOrderController extends Controller
     {
         Gate::authorize('cancel', $salesOrder);
 
-        if ($salesOrder->status === SalesOrderStatus::Paid) {
+        if ($salesOrder->status->isPaid()) {
             return response()->json([
                 'message' => 'Cannot cancel a paid order.',
             ], 422);
