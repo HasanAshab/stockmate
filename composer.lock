@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb0aa38c30e3c605de6466b180eea33c",
+    "content-hash": "2212cdf124de2cf510cb24db2a4f8ce0",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1423,6 +1423,74 @@
                 }
             ],
             "time": "2026-05-23T22:00:21+00:00"
+        },
+        {
+            "name": "hasinhayder/sslcommerz-laravel",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hasinhayder/sslcommerz-laravel.git",
+                "reference": "0f1a29636e7cfd8448cc56e738e20f7c771ca3be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hasinhayder/sslcommerz-laravel/zipball/0f1a29636e7cfd8448cc56e738e20f7c771ca3be",
+                "reference": "0f1a29636e7cfd8448cc56e738e20f7c771ca3be",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0||^11.0||^12.0||^13.0",
+                "php": "^8.2||^8.3||^8.4",
+                "spatie/laravel-package-tools": "^1.93.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.1.1||^7.10.0||^8.6",
+                "orchestra/testbench": "^10.0.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-arch": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Sslcommerz": "HasinHayder\\Sslcommerz\\Facades\\Sslcommerz"
+                    },
+                    "providers": [
+                        "HasinHayder\\Sslcommerz\\SslcommerzServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "HasinHayder\\Sslcommerz\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hasin Hayder",
+                    "email": "hasin@hasinhayder.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SSLCommerz Laravel is a super easy package to integrate SSLCommerz on Laravel websites.",
+            "homepage": "https://github.com/hasinhayder/sslcommerz-laravel",
+            "keywords": [
+                "laravel",
+                "laravel-sslcommerz",
+                "sslcommerz",
+                "sslcommerz-laravel",
+                "sslcommerz-payment-gateway"
+            ],
+            "support": {
+                "source": "https://github.com/hasinhayder/sslcommerz-laravel/tree/v1.1.1"
+            },
+            "time": "2026-03-23T16:18:17+00:00"
         },
         {
             "name": "laravel/fortify",

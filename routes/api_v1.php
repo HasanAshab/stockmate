@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -60,7 +61,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // Activity Logs
         Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
+
+        // Purchase Orders (Admin only)
+        Route::apiResource('purchase-orders', PurchaseOrderController::class)->except(['destroy']);
+        Route::patch('purchase-orders/{purchaseOrder}/mark-ordered', [PurchaseOrderController::class, 'markOrdered'])
+            ->name('purchase-orders.mark-ordered');
+        Route::patch('purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel'])
+            ->name('purchase-orders.cancel');
     });
+
+    // Purchase Order Receiving (Admin and Staff)
+    Route::post('purchase-orders/{purchaseOrder}/receive', [PurchaseOrderController::class, 'receive'])
+        ->name('purchase-orders.receive');
 
     // Profile
     Route::apiSingleton('profile', ProfileController::class);
