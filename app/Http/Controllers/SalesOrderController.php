@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\SalesOrder\CreateSalesOrder;
 use App\Enums\SalesOrderStatus;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\SalesOrder\StoreSalesOrderRequest;
-use App\Models\Product;
 use App\Models\SalesOrder;
-use App\Models\WarehouseStock;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -31,49 +29,17 @@ class SalesOrderController extends Controller
             ->toResourceCollection();
     }
 
-    public function store(StoreSalesOrderRequest $request)
+    public function store(StoreSalesOrderRequest $request, CreateSalesOrder $createSalesOrder)
     {
         Gate::authorize('create', SalesOrder::class);
 
-        foreach ($request->validated('items') as $item) {
-            $warehouseStock = WarehouseStock::where('warehouse_id', $request->validated('warehouse_id'))
-                ->where('product_id', $item['product_id'])
-                ->first();
+        $salesOrder = $createSalesOrder->execute(
+            $request->user(),
+            $request->validated(),
+        );
 
-            $product = Product::find($item['product_id']);
-
-            if (! $warehouseStock || $warehouseStock->quantity < $item['quantity']) {
-                return response()->json([
-                    'message' => "Insufficient stock for product {$product->name} in selected warehouse.",
-                ], 422);
-            }
-        }
-
-        $salesOrder = DB::transaction(function () use ($request) {
-            $totalAmount = collect($request->validated('items'))
-                ->sum(fn ($item) => $item['quantity'] * $item['unit_price']);
-
-            $salesOrder = SalesOrder::create([
-                'customer_name' => $request->validated('customer_name'),
-                'customer_email' => $request->validated('customer_email'),
-                'customer_phone' => $request->validated('customer_phone'),
-                'warehouse_id' => $request->validated('warehouse_id'),
-                'total_amount' => $totalAmount,
-                'created_by' => $request->user()->id,
-            ]);
-
-            foreach ($request->validated('items') as $item) {
-                $salesOrder->items()->create([
-                    'product_id' => $item['product_id'],
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
-                ]);
-            }
-
-            return $salesOrder;
-        });
-
-        return $salesOrder->load(['warehouse', 'createdBy', 'items.product'])
+        return $salesOrder
+            ->load(['warehouse', 'createdBy', 'items.product'])
             ->toResource()
             ->response()
             ->setStatusCode(201);
