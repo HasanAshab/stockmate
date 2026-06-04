@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Warehouse\DeleteWarehouse;
 use App\Http\Requests\Warehouse\StoreWarehouseRequest;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
-use App\Http\Resources\WarehouseResource;
-use App\Http\Resources\WarehouseStockResource;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,19 +14,17 @@ class WarehouseController extends Controller
     {
         Gate::authorize('viewAny', Warehouse::class);
 
-        $warehouses = Warehouse::withCount('warehouseStocks')->paginate(15);
-
-        return WarehouseResource::collection($warehouses);
+        return Warehouse::withCount('warehouseStocks')
+            ->paginate(15)
+            ->toResourceCollection();
     }
 
     public function store(StoreWarehouseRequest $request)
     {
         Gate::authorize('create', Warehouse::class);
 
-        $warehouse = Warehouse::create($request->validated());
-        $warehouse->refresh();
-
-        return (new WarehouseResource($warehouse))
+        return Warehouse::create($request->validated())
+            ->toResource()
             ->response()
             ->setStatusCode(201);
     }
@@ -36,31 +33,21 @@ class WarehouseController extends Controller
     {
         Gate::authorize('view', $warehouse);
 
-        return new WarehouseResource($warehouse);
+        return $warehouse->toResource();
     }
 
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
     {
         Gate::authorize('update', $warehouse);
-
         $warehouse->update($request->validated());
 
-        return new WarehouseResource($warehouse);
+        return $warehouse->toResource();
     }
 
-    public function destroy(Warehouse $warehouse)
+    public function destroy(Warehouse $warehouse, DeleteWarehouse $deleteWarehouse)
     {
         Gate::authorize('delete', $warehouse);
-
-        $hasStock = $warehouse->warehouseStocks()->where('quantity', '>', 0)->exists();
-
-        if ($hasStock) {
-            return response()->json([
-                'message' => 'Cannot delete warehouse with existing stock. Transfer or clear stock first.',
-            ], 422);
-        }
-
-        $warehouse->delete();
+        $deleteWarehouse->execute($warehouse);
 
         return response()->noContent();
     }
@@ -69,10 +56,9 @@ class WarehouseController extends Controller
     {
         Gate::authorize('view', $warehouse);
 
-        $stocks = $warehouse->warehouseStocks()
+        return $warehouse->warehouseStocks()
             ->with(['product.category'])
-            ->paginate(20);
-
-        return WarehouseStockResource::collection($stocks);
+            ->paginate(20)
+            ->toResourceCollection();
     }
 }

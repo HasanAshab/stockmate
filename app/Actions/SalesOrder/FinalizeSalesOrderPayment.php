@@ -64,7 +64,7 @@ class FinalizeSalesOrderPayment
             $stock = $stocks->get($item->product_id);
 
             if (! $stock || $stock->quantity < $item->quantity) {
-                throw new InsufficientStockException();
+                throw new InsufficientStockException;
             }
         }
     }
@@ -85,14 +85,14 @@ class FinalizeSalesOrderPayment
 
         $logs = $salesOrder->items
             ->map(fn ($item) => [
-                'product_id'   => $item->product_id,
+                'product_id' => $item->product_id,
                 'warehouse_id' => $salesOrder->warehouse_id,
-                'type'         => StockLogType::Out,
-                'quantity'     => $item->quantity,
-                'unit_cost'    => $item->unit_price,
-                'note'         => "Sold via Sales Order #{$salesOrder->id}",
-                'created_at'   => $now,
-                'updated_at'   => $now,
+                'type' => StockLogType::Out,
+                'quantity' => $item->quantity,
+                'unit_cost' => $item->unit_price,
+                'note' => "Sold via Sales Order #{$salesOrder->id}",
+                'created_at' => $now,
+                'updated_at' => $now,
             ])
             ->toArray();
 
@@ -104,7 +104,7 @@ class FinalizeSalesOrderPayment
     private function markAsPaid(SalesOrder $salesOrder, SslcommerzPaymentPayload $payload): void
     {
         $salesOrder->update([
-            'status'          => SalesOrderStatus::Paid,
+            'status' => SalesOrderStatus::Paid,
             'payment_payload' => $payload,
         ]);
     }

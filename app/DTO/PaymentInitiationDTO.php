@@ -13,7 +13,7 @@ class PaymentInitiationDTO
     {
         return [
             'transaction_id' => $this->transactionId,
-            'payment_url'    => $this->paymentUrl,
+            'payment_url' => $this->paymentUrl,
         ];
     }
 }

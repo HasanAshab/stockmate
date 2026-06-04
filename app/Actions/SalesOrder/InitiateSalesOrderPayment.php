@@ -2,8 +2,8 @@
 
 namespace App\Actions\SalesOrder;
 
-use App\Models\SalesOrder;
 use App\DTOs\PaymentInitiationDTO;
+use App\Models\SalesOrder;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Validation\ValidationException;
 
@@ -29,6 +29,7 @@ class InitiateSalesOrderPayment
                 ->makePayment();
 
             $salesOrder->save();
+
             return new PaymentInitiationDTO(
                 transactionId: $salesOrder->transaction_id,
                 paymentUrl: $response->gatewayPageURL(),

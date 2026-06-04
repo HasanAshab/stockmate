@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\SslcommerzPaymentPayload;
-use App\Enums\SslcommerzPaymentStatus;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use App\Actions\SalesOrder\FinalizeSalesOrderPayment;
 use App\Actions\SalesOrder\ResolveSalesOrderPaymentState;
+use App\DTO\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
+use App\Enums\SslcommerzPaymentStatus;
+use HasinHayder\Sslcommerz\Facades\Sslcommerz;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PaymentCallbackController extends Controller
 {
