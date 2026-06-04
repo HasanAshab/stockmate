@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\SalesOrder;
 
+use App\DTO\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use App\Enums\StockLogType;
+use App\Exceptions\InsufficientStockException;
 use App\Models\SalesOrder;
 use App\Models\WarehouseStock;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use RuntimeException;
 
 class FinalizeSalesOrderPayment
 {
-    public function execute(string $trxId, array $payload): SalesOrder
+    public function execute(SslcommerzPaymentPayload $payload): SalesOrder
     {
+        $trxId = $payload->tranId;
         $salesOrder = $this->getSalesOrder($trxId);
 
         if (! $salesOrder->status->isPending()) {
@@ -62,9 +64,7 @@ class FinalizeSalesOrderPayment
             $stock = $stocks->get($item->product_id);
 
             if (! $stock || $stock->quantity < $item->quantity) {
-                throw new RuntimeException(
-                    "Insufficient stock for product {$item->product->name}"
-                );
+                throw new InsufficientStockException();
             }
         }
     }
@@ -101,7 +101,7 @@ class FinalizeSalesOrderPayment
             ->insert($logs);
     }
 
-    private function markAsPaid(SalesOrder $salesOrder, array $payload): void
+    private function markAsPaid(SalesOrder $salesOrder, SslcommerzPaymentPayload $payload): void
     {
         $salesOrder->update([
             'status'          => SalesOrderStatus::Paid,

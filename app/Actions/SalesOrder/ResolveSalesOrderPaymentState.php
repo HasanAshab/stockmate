@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Actions\SalesOrder;
+
+use App\Enums\SalesOrderStatus;
+use App\Models\SalesOrder;
+
+class ResolveSalesOrderPaymentState
+{
+    public function execute(SalesOrderStatus $status, array $payload): SalesOrder
+    {
+        $salesOrder = SalesOrder::where('transaction_id', $payload['tran_id'])->firstOrFail();
+
+        $salesOrder->update([
+            'status' => $status,
+            'payment_payload' => $payload,
+        ]);
+
+        return $salesOrder;
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\DTO\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
@@ -20,8 +21,8 @@ class SalesOrder extends Model
     {
         return [
             'status' => SalesOrderStatus::class,
+            'payment_payload' => SslcommerzPaymentPayload::class,
             'total_amount' => 'decimal:2',
-            'payment_payload' => 'array',
         ];
     }
 

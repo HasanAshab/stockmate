@@ -3,12 +3,13 @@
 namespace App\Actions\SalesOrder;
 
 use App\Models\SalesOrder;
+use App\DTOs\PaymentInitiationDTO;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Validation\ValidationException;
 
 class InitiateSalesOrderPayment
 {
-    public function execute(SalesOrder $salesOrder): string
+    public function execute(SalesOrder $salesOrder): PaymentInitiationDTO
     {
         $this->ensureStatusIsPending($salesOrder);
         $productName = $this->getProductName($salesOrder);
@@ -28,7 +29,10 @@ class InitiateSalesOrderPayment
                 ->makePayment();
 
             $salesOrder->save();
-            return $response->gatewayPageURL();
+            return new PaymentInitiationDTO(
+                transactionId: $salesOrder->transaction_id,
+                paymentUrl: $response->gatewayPageURL(),
+            );
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Connection error. Please try again later.',

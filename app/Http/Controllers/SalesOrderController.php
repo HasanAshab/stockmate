@@ -57,11 +57,7 @@ class SalesOrderController extends Controller
     public function initiatePayment(SalesOrder $salesOrder, InitiateSalesOrderPayment $initiateSalesOrderPayment)
     {
         Gate::authorize('initiatePayment', $salesOrder);
-        $paymentUrl = $initiateSalesOrderPayment->execute($salesOrder);
-
-        return response()->json([
-            'payment_url' => $paymentUrl,
-        ]);
+        return $initiateSalesOrderPayment->execute($salesOrder);
     }
 
     public function cancel(SalesOrder $salesOrder, CancelSalesOrder $cancelSalesOrder)

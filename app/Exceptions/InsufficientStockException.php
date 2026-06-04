@@ -2,18 +2,10 @@
 
 namespace App\Exceptions;
 
-use Exception;
 
-class InsufficientStockException extends Exception
+class InsufficientStockException extends APIException
 {
-    public function __construct(
-        public readonly int $productId,
-        public readonly string $productName,
-        public readonly int $available,
-        public readonly int $requested,
-    ) {
-        parent::__construct(
-            "Insufficient stock for product {$productName}"
-        );
+    public function __construct() {
+        parent::__construct('Insufficient Stock', 400);
     }
 }
