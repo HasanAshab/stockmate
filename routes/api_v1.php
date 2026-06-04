@@ -99,4 +99,5 @@ Route::controller(PaymentCallbackController::class)
         Route::post('success', 'success')->name('success');
         Route::post('fail', 'fail')->name('fail');
         Route::post('cancel', 'cancel')->name('cancel');
+        Route::post('ipn', 'ipn')->name('ipn');
     });

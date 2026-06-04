@@ -11,13 +11,13 @@ class InitiateSalesOrderPayment
     public function execute(SalesOrder $salesOrder): string
     {
         $this->ensureStatusIsPending($salesOrder);
-        $tranId = $this->generateTransactionId($salesOrder);
         $productName = $this->getProductName($salesOrder);
+        $salesOrder->generateTransactionId();
 
         try {
             $response = Sslcommerz::setOrder(
                 (float) $salesOrder->total_amount,
-                $tranId,
+                $salesOrder->transaction_id,
                 $productName
             )
                 ->setCustomer(
@@ -27,6 +27,7 @@ class InitiateSalesOrderPayment
                 )
                 ->makePayment();
 
+            $salesOrder->save();
             return $response->gatewayPageURL();
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
@@ -42,11 +43,6 @@ class InitiateSalesOrderPayment
                 'status' => 'Only pending sales orders can initiate payment.',
             ]);
         }
-    }
-
-    private function generateTransactionId(SalesOrder $salesOrder): string
-    {
-        return "SO-{$salesOrder->id}-".time();
     }
 
     private function getProductName(SalesOrder $salesOrder): string

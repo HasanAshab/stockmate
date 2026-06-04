@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('status');
             $table->decimal('total_amount', 10, 2);
-            $table->string('transaction_id')->nullable();
+            $table->ulid('transaction_id')->nullable();
             $table->json('payment_payload')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->timestamps();

@@ -2,99 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\FinalizeSalesOrderPayment;
 use App\Enums\SalesOrderStatus;
-use App\Enums\StockLogType;
 use App\Models\SalesOrder;
-use App\Models\WarehouseStock;
+use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Library\SslCommerz\SslCommerzNotification;
 
 class PaymentCallbackController extends Controller
 {
-    public function success(Request $request)
+    public function success(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
-        $valId = $request->input('val_id');
-        $tranId = $request->input('tran_id');
+        $payload = $request->all();
+        $trxId = $payload['tran_id'];
+        $amount = $payload['amount'];
 
-        $sslc = new SslCommerzNotification;
-        $validation = $sslc->orderValidate($request->all(), $tranId, $request->input('amount'), $request->input('currency'));
-
-        if (! $validation) {
+        if (! Sslcommerz::verifyHash($payload)) {
             return response()->json([
                 'message' => 'Payment validation failed.',
             ], 400);
         }
 
-        $salesOrder = SalesOrder::where('transaction_id', $tranId)
-            ->orWhere(function ($query) use ($tranId) {
-                $query->whereNull('transaction_id')
-                    ->whereRaw("? LIKE CONCAT('SO-', id, '-%')", [$tranId]);
-            })
-            ->first();
-
-        if (! $salesOrder || $salesOrder->status !== SalesOrderStatus::Pending) {
+        if (! Sslcommerz::validatePayment($payload, $trxId, $amount)) {
             return response()->json([
-                'message' => 'Invalid order or order is not pending.',
+                'message' => 'Payment validation failed.',
             ], 400);
         }
 
-        try {
-            DB::transaction(function () use ($salesOrder, $request, $tranId) {
-                foreach ($salesOrder->items as $item) {
-                    $warehouseStock = WarehouseStock::where('warehouse_id', $salesOrder->warehouse_id)
-                        ->where('product_id', $item->product_id)
-                        ->lockForUpdate()
-                        ->first();
+        $finalizeSalesOrderPayment->execute($trxId, $payload);
 
-                    if (! $warehouseStock || $warehouseStock->quantity < $item->quantity) {
-                        throw new \Exception("Insufficient stock for product {$item->product->name}");
-                    }
-
-                    $warehouseStock->decrement('quantity', $item->quantity);
-
-                    $salesOrder->createdBy->stockLogs()->create([
-                        'product_id' => $item->product_id,
-                        'warehouse_id' => $salesOrder->warehouse_id,
-                        'type' => StockLogType::Out,
-                        'quantity' => $item->quantity,
-                        'unit_cost' => $item->unit_price,
-                        'note' => "Sold via Sales Order #{$salesOrder->id}",
-                    ]);
-                }
-
-                $salesOrder->update([
-                    'status' => SalesOrderStatus::Paid,
-                    'transaction_id' => $tranId,
-                    'payment_payload' => $request->all(),
-                ]);
-            });
-
-            return response()->json([
-                'message' => 'Payment successful.',
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 422);
-        }
+        return response()->json([
+            'message' => 'Payment successful.',
+        ]);
     }
 
     public function fail(Request $request)
     {
-        $tranId = $request->input('tran_id');
+        $trxId = $request->input('tran_id');
 
-        $salesOrder = SalesOrder::where('transaction_id', $tranId)
-            ->orWhere(function ($query) use ($tranId) {
+        $salesOrder = SalesOrder::where('transaction_id', $trxId)
+            ->orWhere(function ($query) use ($trxId) {
                 $query->whereNull('transaction_id')
-                    ->whereRaw("? LIKE CONCAT('SO-', id, '-%')", [$tranId]);
+                    ->whereRaw("? LIKE CONCAT('SO-', id, '-%')", [$trxId]);
             })
             ->first();
 
         if ($salesOrder) {
             $salesOrder->update([
                 'status' => SalesOrderStatus::Failed,
-                'transaction_id' => $tranId,
+                'transaction_id' => $trxId,
                 'payment_payload' => $request->all(),
             ]);
         }
@@ -106,19 +61,19 @@ class PaymentCallbackController extends Controller
 
     public function cancel(Request $request)
     {
-        $tranId = $request->input('tran_id');
+        $trxId = $request->input('tran_id');
 
-        $salesOrder = SalesOrder::where('transaction_id', $tranId)
-            ->orWhere(function ($query) use ($tranId) {
+        $salesOrder = SalesOrder::where('transaction_id', $trxId)
+            ->orWhere(function ($query) use ($trxId) {
                 $query->whereNull('transaction_id')
-                    ->whereRaw("? LIKE CONCAT('SO-', id, '-%')", [$tranId]);
+                    ->whereRaw("? LIKE CONCAT('SO-', id, '-%')", [$trxId]);
             })
             ->first();
 
         if ($salesOrder) {
             $salesOrder->update([
                 'status' => SalesOrderStatus::Cancelled,
-                'transaction_id' => $tranId,
+                'transaction_id' => $trxId,
                 'payment_payload' => $request->all(),
             ]);
         }
@@ -126,5 +81,22 @@ class PaymentCallbackController extends Controller
         return response()->json([
             'message' => 'Payment cancelled.',
         ]);
+    }
+
+    public function ipn(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
+    {
+        $payload = $request->all();
+        $trxId = $payload['tran_id'];
+        $status = $payload['status'];
+
+        if (! Sslcommerz::verifyHash($payload)) {
+            return response()->json(['error' => 'Hash verification failed'], 400);
+        }
+
+        if ($status === 'VALID' || $status === 'VALIDATED') {
+            $finalizeSalesOrderPayment->execute($trxId, $payload);
+        }
+
+        return response()->json(['received' => true]);
     }
 }
