@@ -61,12 +61,6 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('update', $purchaseOrder);
 
-        if ($purchaseOrder->status->isReceived() || $purchaseOrder->status->isCancelled()) {
-            return response()->json([
-                'message' => 'This purchase order can no longer be edited.',
-            ], 422);
-        }
-
         $purchaseOrder = $updatePurchaseOrder->execute($purchaseOrder, $request->validated());
 
         return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
@@ -76,12 +70,6 @@ class PurchaseOrderController extends Controller
     public function markOrdered(PurchaseOrder $purchaseOrder)
     {
         Gate::authorize('markOrdered', $purchaseOrder);
-
-        if ($purchaseOrder->status !== PurchaseOrderStatus::Draft) {
-            return response()->json([
-                'message' => 'Only draft purchase orders can be marked as ordered.',
-            ], 422);
-        }
 
         $purchaseOrder->update([
             'status' => PurchaseOrderStatus::Ordered,
@@ -96,18 +84,6 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('cancel', $purchaseOrder);
 
-        if ($purchaseOrder->status->isPartiallyReceived() || $purchaseOrder->status->isReceived()) {
-            return response()->json([
-                'message' => 'Cannot cancel a PO that has already received stock.',
-            ], 422);
-        }
-
-        if ($purchaseOrder->status !== PurchaseOrderStatus::Draft && $purchaseOrder->status !== PurchaseOrderStatus::Ordered) {
-            return response()->json([
-                'message' => 'Only draft or ordered purchase orders can be cancelled.',
-            ], 422);
-        }
-
         $purchaseOrder->update([
             'status' => PurchaseOrderStatus::Cancelled,
         ]);
@@ -120,12 +96,6 @@ class PurchaseOrderController extends Controller
     public function receive(ReceivePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder, ReceivePurchaseOrder $receivePurchaseOrder)
     {
         Gate::authorize('receive', $purchaseOrder);
-
-        if ($purchaseOrder->status !== PurchaseOrderStatus::Ordered && $purchaseOrder->status !== PurchaseOrderStatus::PartiallyReceived) {
-            return response()->json([
-                'message' => 'Only ordered or partially received purchase orders can receive stock.',
-            ], 422);
-        }
 
         $purchaseOrder = $receivePurchaseOrder->execute(
             $request->user(),

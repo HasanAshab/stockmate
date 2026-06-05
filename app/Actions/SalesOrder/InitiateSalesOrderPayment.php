@@ -11,7 +11,6 @@ class InitiateSalesOrderPayment
 {
     public function execute(SalesOrder $salesOrder): PaymentInitiationDTO
     {
-        $this->ensureStatusIsPending($salesOrder);
         $productName = $this->getProductName($salesOrder);
         $salesOrder->generateTransactionId();
 
@@ -37,15 +36,6 @@ class InitiateSalesOrderPayment
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Connection error. Please try again later.',
-            ]);
-        }
-    }
-
-    private function ensureStatusIsPending(SalesOrder $salesOrder): void
-    {
-        if (! $salesOrder->status->isPending()) {
-            throw ValidationException::withMessages([
-                'status' => 'Only pending sales orders can initiate payment.',
             ]);
         }
     }
