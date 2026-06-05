@@ -13,7 +13,7 @@ visual demonstration. Both are live and running.
 
 | | URL |
 |---|---|
-| **Frontend** | [stockmate.vercel.app](https://stockmate.vercel.app) |
+| **Frontend** | [stockmate-demo.vercel.app](https://stockmate-demo.vercel.app) |
 | **Backend API** | [stockmate-api.onrender.com](https://stockmate-api.onrender.com) |
 | **API Docs** | [stockmate-api.onrender.com/docs/api](https://stockmate-api.onrender.com/docs/api) |
 
@@ -102,14 +102,14 @@ requirements are documented and always in sync with the code.
 
 **Live docs:** [stockmate-api.onrender.com/docs/api](https://stockmate-api.onrender.com/docs/api)
 
-Alternatively, the [frontend](https://stockmate.vercel.app) covers the core flows
+Alternatively, the [frontend](https://stockmate-demo.vercel.app) covers the core flows
 visually if you prefer to explore that way.
 
 ---
 
 ## Frontend
 
-**[stockmate.vercel.app](https://stockmate.vercel.app)**
+**[stockmate-demo.vercel.app](https://stockmate-demo.vercel.app)**
 — React, connects to the live API
 
 > **Note:** The frontend is fully vibe coded and covers approximately 50% of the API's capabilities and
