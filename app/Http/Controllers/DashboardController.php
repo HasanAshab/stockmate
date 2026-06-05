@@ -6,22 +6,25 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\StockLog;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
     public function __invoke()
     {
-        $dashboard = [];
+        return Cache::remember('dashboard:metrics', now()->addMinutes(5), function () {
+            $dashboard = [];
 
-        $dashboard['total_products'] = Product::count();
-        $dashboard['total_low_stock'] = Product::lowStock()->count();
-        $dashboard['total_categories'] = Category::count();
-        $dashboard['total_suppliers'] = Supplier::count();
-        $dashboard['recent_stock_logs'] = StockLog::latest()
-            ->limit(5)
-            ->with(['user', 'product'])
-            ->get();
+            $dashboard['total_products'] = Product::count();
+            $dashboard['total_low_stock'] = Product::lowStock()->count();
+            $dashboard['total_categories'] = Category::count();
+            $dashboard['total_suppliers'] = Supplier::count();
+            $dashboard['recent_stock_logs'] = StockLog::latest()
+                ->limit(5)
+                ->with(['user', 'product'])
+                ->get();
 
-        return ['data' => $dashboard];
+            return ['data' => $dashboard];
+        });
     }
 }

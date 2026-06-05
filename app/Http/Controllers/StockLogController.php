@@ -12,6 +12,7 @@ use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Http\Requests\Product\TransferStockRequest;
 use App\Models\StockLog;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -51,6 +52,8 @@ class StockLogController extends Controller
             $request->validated(),
         );
 
+        Cache::forget('dashboard:metrics');
+
         return $stockLog->toResource()
             ->response()
             ->setStatusCode(201);
@@ -75,6 +78,8 @@ class StockLogController extends Controller
             $request->user(),
             $request->validated()
         );
+
+        Cache::forget('dashboard:metrics');
 
         return response()->json(['message' => 'Stock transferred successfully.']);
     }

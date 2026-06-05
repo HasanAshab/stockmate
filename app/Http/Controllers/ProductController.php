@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -49,6 +50,8 @@ class ProductController extends Controller
                 ->toMediaCollection('product_images');
         }
 
+        Cache::forget('dashboard:metrics');
+
         return $product->toResource()
             ->response()
             ->setStatusCode(201);
@@ -73,6 +76,8 @@ class ProductController extends Controller
 
         $product->update($request->validated());
 
+        Cache::forget('dashboard:metrics');
+
         return $product->toResource();
     }
 
@@ -80,6 +85,8 @@ class ProductController extends Controller
     {
         Gate::authorize('delete', $product);
         $product->delete();
+
+        Cache::forget('dashboard:metrics');
 
         return response()->noContent();
     }

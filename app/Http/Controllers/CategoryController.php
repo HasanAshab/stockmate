@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
@@ -13,15 +14,22 @@ class CategoryController extends Controller
     {
         Gate::authorize('viewAny', Category::class);
 
-        return Category::all()->toResourceCollection();
+        $categories = Cache::remember('categories:all', now()->addHour(), function () {
+            return Category::all();
+        });
+
+        return $categories->toResourceCollection();
     }
 
     public function store(StoreCategoryRequest $request)
     {
         Gate::authorize('create', Category::class);
 
-        return Category::create($request->validated())
-            ->toResource()
+        $category = Category::create($request->validated());
+
+        $this->clearCategoryCache();
+
+        return $category->toResource()
             ->response()
             ->setStatusCode(201);
     }
@@ -38,6 +46,8 @@ class CategoryController extends Controller
         Gate::authorize('update', $category);
         $category->update($request->validated());
 
+        $this->clearCategoryCache();
+
         return $category->toResource();
     }
 
@@ -46,6 +56,8 @@ class CategoryController extends Controller
         Gate::authorize('delete', $category);
         $category->delete();
 
+        $this->clearCategoryCache();
+
         return response()->noContent();
     }
 
@@ -53,7 +65,11 @@ class CategoryController extends Controller
     {
         Gate::authorize('viewAny', Category::class);
 
-        return Category::onlyTrashed()->get()->toResourceCollection();
+        $trashed = Cache::remember('categories:trashed', now()->addMinutes(30), function () {
+            return Category::onlyTrashed()->get();
+        });
+
+        return $trashed->toResourceCollection();
     }
 
     public function restore(Category $category)
@@ -61,6 +77,15 @@ class CategoryController extends Controller
         Gate::authorize('restore', $category);
         $category->restore();
 
+        $this->clearCategoryCache();
+
         return $category->toResource();
+    }
+
+    protected function clearCategoryCache(): void
+    {
+        Cache::forget('categories:all');
+        Cache::forget('categories:trashed');
+        Cache::forget('dashboard:metrics');
     }
 }
