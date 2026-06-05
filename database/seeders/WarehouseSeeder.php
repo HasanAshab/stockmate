@@ -11,11 +11,7 @@ class WarehouseSeeder extends Seeder
 {
     public function run(): void
     {
-        $warehouses = Warehouse::factory()->count(3)->create([
-            ['name' => 'Main Warehouse', 'location' => 'Downtown District'],
-            ['name' => 'North Warehouse', 'location' => 'North Industrial Zone'],
-            ['name' => 'South Warehouse', 'location' => 'South Business Park'],
-        ]);
+        $warehouses = Warehouse::factory()->count(3)->create();
 
         $products = Product::all();
 

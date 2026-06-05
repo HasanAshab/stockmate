@@ -16,13 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default admin if not exists
-        User::findOrNew([
+        // Create default admin
+        User::create([
             'role' => Role::Admin,
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => 'admin123',
             'is_active' => true,
         ]);
+        $this->call(WarehouseSeeder::class);
     }
 }
