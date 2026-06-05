@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Product\CreateStockLog;
+use App\Actions\StockLog\ExportStockLog;
+use App\Actions\StockLog\TransferStock;
 use App\Enums\StockLogExportFormat;
-use App\Enums\StockLogType;
-use App\Exports\StockLogExport;
 use App\Http\Requests\Product\ExportStockLogRequest;
 use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Http\Requests\Product\TransferStockRequest;
 use App\Models\StockLog;
-use App\Models\WarehouseStock;
-use Illuminate\Support\Facades\DB;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\ValidationException;
-use Maatwebsite\Excel\Facades\Excel;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -63,79 +60,26 @@ class StockLogController extends Controller
             ->setStatusCode(201);
     }
 
-    public function export(ExportStockLogRequest $request, StockLogExportFormat $format)
+    public function export(ExportStockLogRequest $request, StockLogExportFormat $format, ExportStockLog $exportStockLog)
     {
         Gate::authorize('viewAny', StockLog::class);
 
-        $from = $request->validated('from');
-        $to = $request->validated('to');
-        $dateSlug = match (true) {
-            $from && $to => "from_{$from}_to_{$to}",
-            $from => "from_{$from}",
-            $to => "until_{$to}",
-            default => 'all',
-        };
-
-        $fileName = "stock-logs-{$dateSlug}.{$format->extension()}";
-
-        return Excel::download(new StockLogExport($from, $to), $fileName, $format->contentType());
+        return $exportStockLog->execute(
+            $format,
+            $request->validated('from'),
+            $request->validated('to'),
+        );
     }
 
-    public function transfer(TransferStockRequest $request)
+    public function transfer(TransferStockRequest $request, TransferStock $transferStock)
     {
         Gate::authorize('create', Warehouse::class);
 
-        $validated = $request->validated();
+        $transferStock->execute(
+            $request->user(),
+            $request->validated()
+        );
 
-        return DB::transaction(function () use ($request, $validated) {
-            $sourceStock = WarehouseStock::query()
-                ->where('warehouse_id', $validated['from_warehouse_id'])
-                ->where('product_id', $validated['product_id'])
-                ->lockForUpdate()
-                ->first();
-
-            if (! $sourceStock || $sourceStock->quantity < $validated['quantity']) {
-                throw ValidationException::withMessages([
-                    'quantity' => 'Insufficient stock in source warehouse.',
-                ]);
-            }
-
-            $sourceStock->decrement('quantity', $validated['quantity']);
-
-            StockLog::create([
-                'product_id' => $validated['product_id'],
-                'warehouse_id' => $validated['from_warehouse_id'],
-                'user_id' => $request->user()->id,
-                'type' => StockLogType::Out,
-                'quantity' => $validated['quantity'],
-                'unit_cost' => null,
-                'note' => 'Transfer to warehouse #'.$validated['to_warehouse_id'].($validated['note'] ? ': '.$validated['note'] : ''),
-            ]);
-
-            $destinationStock = WarehouseStock::firstOrCreate(
-                [
-                    'warehouse_id' => $validated['to_warehouse_id'],
-                    'product_id' => $validated['product_id'],
-                ],
-                [
-                    'quantity' => 0,
-                    'reorder_threshold' => 10,
-                ]
-            );
-
-            $destinationStock->increment('quantity', $validated['quantity']);
-
-            StockLog::create([
-                'product_id' => $validated['product_id'],
-                'warehouse_id' => $validated['to_warehouse_id'],
-                'user_id' => $request->user()->id,
-                'type' => StockLogType::In,
-                'quantity' => $validated['quantity'],
-                'unit_cost' => null,
-                'note' => 'Transfer from warehouse #'.$validated['from_warehouse_id'].($validated['note'] ? ': '.$validated['note'] : ''),
-            ]);
-
-            return response()->json(['message' => 'Stock transferred successfully.']);
-        });
+        return response()->json(['message' => 'Stock transferred successfully.']);
     }
 }

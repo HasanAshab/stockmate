@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\PurchaseOrder\CreatePurchaseOrder;
+use App\Actions\PurchaseOrder\ReceivePurchaseOrder;
+use App\Actions\PurchaseOrder\UpdatePurchaseOrder;
 use App\Enums\PurchaseOrderStatus;
-use App\Enums\StockLogType;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\PurchaseOrder\ReceivePurchaseOrderRequest;
 use App\Http\Requests\PurchaseOrder\StorePurchaseOrderRequest;
 use App\Http\Requests\PurchaseOrder\UpdatePurchaseOrderRequest;
 use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderItem;
-use App\Models\WarehouseStock;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -35,28 +34,14 @@ class PurchaseOrderController extends Controller
             ->toResourceCollection();
     }
 
-    public function store(StorePurchaseOrderRequest $request)
+    public function store(StorePurchaseOrderRequest $request, CreatePurchaseOrder $createPurchaseOrder)
     {
         Gate::authorize('create', PurchaseOrder::class);
 
-        $purchaseOrder = DB::transaction(function () use ($request) {
-            $purchaseOrder = PurchaseOrder::create([
-                'supplier_id' => $request->validated('supplier_id'),
-                'warehouse_id' => $request->validated('warehouse_id'),
-                'note' => $request->validated('note'),
-                'created_by' => $request->user()->id,
-            ]);
-
-            foreach ($request->validated('items') as $item) {
-                $purchaseOrder->items()->create([
-                    'product_id' => $item['product_id'],
-                    'ordered_quantity' => $item['ordered_quantity'],
-                    'unit_cost' => $item['unit_cost'],
-                ]);
-            }
-
-            return $purchaseOrder;
-        });
+        $purchaseOrder = $createPurchaseOrder->execute(
+            $request->user(),
+            $request->validated()
+        );
 
         return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
             ->toResource()
@@ -72,7 +57,7 @@ class PurchaseOrderController extends Controller
             ->toResource();
     }
 
-    public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
+    public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder, UpdatePurchaseOrder $updatePurchaseOrder)
     {
         Gate::authorize('update', $purchaseOrder);
 
@@ -82,21 +67,7 @@ class PurchaseOrderController extends Controller
             ], 422);
         }
 
-        DB::transaction(function () use ($request, $purchaseOrder) {
-            $purchaseOrder->update($request->safe()->except('items'));
-
-            if ($request->has('items')) {
-                $purchaseOrder->items()->delete();
-
-                foreach ($request->validated('items') as $item) {
-                    $purchaseOrder->items()->create([
-                        'product_id' => $item['product_id'],
-                        'ordered_quantity' => $item['ordered_quantity'],
-                        'unit_cost' => $item['unit_cost'],
-                    ]);
-                }
-            }
-        });
+        $purchaseOrder = $updatePurchaseOrder->execute($purchaseOrder, $request->validated());
 
         return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
             ->toResource();
@@ -146,7 +117,7 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
-    public function receive(ReceivePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
+    public function receive(ReceivePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder, ReceivePurchaseOrder $receivePurchaseOrder)
     {
         Gate::authorize('receive', $purchaseOrder);
 
@@ -156,51 +127,11 @@ class PurchaseOrderController extends Controller
             ], 422);
         }
 
-        DB::transaction(function () use ($request, $purchaseOrder) {
-            foreach ($request->validated('items') as $item) {
-                $purchaseOrderItem = PurchaseOrderItem::with('product')->findOrFail($item['purchase_order_item_id']);
-
-                $outstanding = $purchaseOrderItem->ordered_quantity - $purchaseOrderItem->received_quantity;
-
-                if ($item['quantity_received'] > $outstanding) {
-                    throw new \Exception("Received quantity exceeds outstanding quantity for product {$purchaseOrderItem->product->name}.");
-                }
-
-                $purchaseOrderItem->increment('received_quantity', $item['quantity_received']);
-
-                $warehouseStock = WarehouseStock::firstOrCreate(
-                    [
-                        'warehouse_id' => $purchaseOrder->warehouse_id,
-                        'product_id' => $purchaseOrderItem->product_id,
-                    ],
-                    ['quantity' => 0]
-                );
-
-                $warehouseStock->increment('quantity', $item['quantity_received']);
-
-                $request->user()->stockLogs()->create([
-                    'product_id' => $purchaseOrderItem->product_id,
-                    'warehouse_id' => $purchaseOrder->warehouse_id,
-                    'type' => StockLogType::In,
-                    'quantity' => $item['quantity_received'],
-                    'unit_cost' => $purchaseOrderItem->unit_cost,
-                    'note' => "Received from PO #{$purchaseOrder->id}",
-                ]);
-            }
-
-            $allFullyReceived = $purchaseOrder->items()->get()->every(fn ($item) => $item->isFullyReceived());
-
-            if ($allFullyReceived) {
-                $purchaseOrder->update([
-                    'status' => PurchaseOrderStatus::Received,
-                    'received_at' => now(),
-                ]);
-            } else {
-                $purchaseOrder->update([
-                    'status' => PurchaseOrderStatus::PartiallyReceived,
-                ]);
-            }
-        });
+        $purchaseOrder = $receivePurchaseOrder->execute(
+            $request->user(),
+            $purchaseOrder,
+            $request->validated('items')
+        );
 
         return response()->json([
             'message' => 'Stock received.',

@@ -12,15 +12,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class StockLogExport implements FromCollection, WithHeadings, WithStyles
 {
-    protected ?string $from = null;
-
-    protected ?string $to = null;
-
-    public function __construct(?string $from, ?string $to)
-    {
-        $this->from = $from;
-        $this->to = $to;
-    }
+    public function __construct(private readonly Collection $stockLogs) {}
 
     public function headings(): array
     {
@@ -38,26 +30,18 @@ class StockLogExport implements FromCollection, WithHeadings, WithStyles
 
     public function collection(): Collection
     {
-        return StockLog::with(['product', 'user'])
-            ->when($this->from, function ($query) {
-                return $query->whereDate('created_at', '>=', $this->from);
-            })
-            ->when($this->to, function ($query) {
-                return $query->whereDate('created_at', '<=', $this->to);
-            })
-            ->get()
-            ->map(function (StockLog $stockLog) {
-                return [
-                    'Product' => $stockLog->product->name,
-                    'SKU' => $stockLog->product->sku,
-                    'Type' => strtoupper($stockLog->type->name),
-                    'Quantity' => $stockLog->quantity,
-                    'Unit Cost' => $stockLog->unit_cost,
-                    'Recorded By' => $stockLog->user->name,
-                    'Note' => $stockLog->note ?? 'N/A',
-                    'Date' => $stockLog->created_at->format('Y-m-d H:i'),
-                ];
-            });
+        return $this->stockLogs->map(function (StockLog $stockLog) {
+            return [
+                'Product' => $stockLog->product->name,
+                'SKU' => $stockLog->product->sku,
+                'Type' => strtoupper($stockLog->type->name),
+                'Quantity' => $stockLog->quantity,
+                'Unit Cost' => $stockLog->unit_cost,
+                'Recorded By' => $stockLog->user->name,
+                'Note' => $stockLog->note ?? 'N/A',
+                'Date' => $stockLog->created_at->format('Y-m-d H:i'),
+            ];
+        });
     }
 
     public function styles(Worksheet $sheet)
