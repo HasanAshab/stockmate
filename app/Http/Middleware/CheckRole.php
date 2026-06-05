@@ -18,7 +18,7 @@ class CheckRole
     {
         $role = Role::from($role);
 
-        if (! $request->user()?->role !== $role) {
+        if ($request->user()?->role !== $role) {
             abort(403, 'Unauthorized.');
         }
 
