@@ -10,7 +10,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('viewApiDocs', function () {
-            return !app()->environment('production');
+        // WARN: This is a dummy project otherwise
+        // never expose API DOCS on production
+            // return !app()->environment('production');
+
+            return true;
         });
     }
 }
