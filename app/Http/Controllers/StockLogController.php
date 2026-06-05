@@ -6,6 +6,7 @@ use App\Actions\Product\CreateStockLog;
 use App\Actions\StockLog\ExportStockLog;
 use App\Actions\StockLog\TransferStock;
 use App\Enums\StockLogExportFormat;
+use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\Product\ExportStockLogRequest;
 use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Http\Requests\Product\TransferStockRequest;
@@ -27,12 +28,7 @@ class StockLogController extends Controller
                 AllowedFilter::belongsTo('user'),
                 AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::exact('type'),
-                AllowedFilter::callback('from', function ($query, $value) {
-                    $query->where('created_at', '>=', $value);
-                }),
-                AllowedFilter::callback('to', function ($query, $value) {
-                    $query->where('created_at', '<=', $value);
-                }),
+                AllowedFilter::custom('created_at', new FiltersDateRange)
             )
             ->allowedSorts(
                 'created_at',

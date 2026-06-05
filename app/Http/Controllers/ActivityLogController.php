@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\FiltersDateRange;
 use App\Http\Resources\ActivityLogResource;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\Models\Activity;
@@ -20,12 +21,7 @@ class ActivityLogController extends Controller
                     $query->where('subject_type', $class);
                 }),
                 AllowedFilter::exact('causer_id'),
-                AllowedFilter::callback('from', function ($query, $value) {
-                    $query->whereDate('created_at', '>=', $value);
-                }),
-                AllowedFilter::callback('to', function ($query, $value) {
-                    $query->whereDate('created_at', '<=', $value);
-                }),
+                AllowedFilter::custom('created_at', new FiltersDateRange)
             )
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')
