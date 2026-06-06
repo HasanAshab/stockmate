@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 #[Fillable('name', 'sku', 'price')]
-class Product extends Model
+class Product extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, LogsActivity;
 
@@ -54,7 +56,7 @@ class Product extends Model
         $this->addMediaCollection('product_images')->singleFile();
     }
 
-    public function registerMediaConversions(): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(200)
