@@ -34,17 +34,10 @@ class SalesOrderFactory extends Factory
         ]);
     }
 
-    public function processing(): static
+    public function paid(): static
     {
         return $this->state(fn (array $attributes) => [
-            'status' => SalesOrderStatus::Processing,
-        ]);
-    }
-
-    public function completed(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'status' => SalesOrderStatus::Completed,
+            'status' => SalesOrderStatus::Paid,
         ]);
     }
 

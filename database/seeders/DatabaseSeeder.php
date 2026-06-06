@@ -142,31 +142,13 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $processingSalesOrders = SalesOrder::factory()
-            ->count(12)
-            ->processing()
-            ->recycle([$warehouses, $allUsers])
-            ->create();
-
-        foreach ($processingSalesOrders as $so) {
-            $items = SalesOrderItem::factory()
-                ->count(rand(1, 5))
-                ->for($so)
-                ->recycle($products)
-                ->create();
-            
-            $so->update([
-                'total_amount' => $items->sum(fn ($item) => $item->quantity * $item->unit_price),
-            ]);
-        }
-
-        $completedSalesOrders = SalesOrder::factory()
+        $paidSalesOrders = SalesOrder::factory()
             ->count(20)
-            ->completed()
+            ->paid()
             ->recycle([$warehouses, $allUsers])
             ->create();
 
-        foreach ($completedSalesOrders as $so) {
+        foreach ($paidSalesOrders as $so) {
             $items = SalesOrderItem::factory()
                 ->count(rand(2, 6))
                 ->for($so)

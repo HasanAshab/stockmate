@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PurchaseOrderStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable('supplier_id', 'warehouse_id', 'status', 'note', 'ordered_at', 'received_at', 'created_by')]
 class PurchaseOrder extends Model
 {
+    use HasFactory;
+
     protected $attributes = [
         'status' => PurchaseOrderStatus::Draft,
     ];
