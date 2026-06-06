@@ -23,7 +23,7 @@ class DashboardController extends Controller
                 ->limit(5)
                 ->with(['user', 'product'])
                 ->get()
-                ->toResourceCollection();
+                ->toArray();
 
             return ['data' => $dashboard];
         });
