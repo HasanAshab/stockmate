@@ -2,6 +2,7 @@
 
 use App\Enums\Role;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
@@ -16,6 +17,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
+
+// Auth
+Route::post('token/login', [AuthController::class, 'tokenLogin'])->name('auth.token-login');
 
 Route::middleware('auth:sanctum')->group(function () {
     // Dashboard
