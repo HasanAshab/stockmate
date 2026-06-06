@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('type');
             $table->unsignedSmallInteger('quantity');
             $table->decimal('unit_cost', 10, 2)->nullable();
-            $table->text('note')->default('');
+            $table->text('note')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
     }

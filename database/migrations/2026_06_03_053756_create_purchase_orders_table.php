@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('supplier_id')->constrained()->cascadeOnDelete();
             $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('status');
-            $table->text('note')->default('');
+            $table->text('note')->nullable();
             $table->timestamp('ordered_at')->nullable();
             $table->timestamp('received_at')->nullable();
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();

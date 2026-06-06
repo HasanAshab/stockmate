@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TransferStockRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [
@@ -18,7 +13,7 @@ class TransferStockRequest extends FormRequest
             'to_warehouse_id' => ['required', 'exists:warehouses,id', 'different:from_warehouse_id'],
             'product_id' => ['required', 'exists:products,id'],
             'quantity' => ['required', 'integer', 'min:1'],
-            'note' => ['nullable', 'string', 'max:1000'],
+            'note' => ['nullable', 'string'],
         ];
     }
 
