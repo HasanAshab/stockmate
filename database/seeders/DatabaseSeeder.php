@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create users: 3 admins + 15 staff
+        // Create users: 3 admins + 16 staff
         $admins = collect([
             User::factory()->admin()->create([
                 'email' => 'admin1@example.com',
@@ -42,8 +42,12 @@ class DatabaseSeeder extends Seeder
             ]),
         ]);
 
-        $staff = User::factory()->count(15)->staff()->create();
-        $allUsers = $admins->merge($staff);
+        $demoStaff = User::factory()->staff()->create([
+            'email' => 'staff1@example.com',
+            'name' => 'Staff User One',
+        ]);
+        $staffs = User::factory()->count(15)->staff()->create();
+        $allUsers = $admins->merge($staffs->push($demoStaff));
 
         // Create core inventory data
         $categories = Category::factory()->count(10)->create();

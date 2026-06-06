@@ -25,8 +25,8 @@ visual demonstration. Both are live and running.
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@stockmate.test | password |
-| Staff | staff@stockmate.test | password |
+| Admin | admin1@example.com | password |
+| Staff | staff1@example.com | password |
 
 ---
 
