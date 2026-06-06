@@ -14,6 +14,7 @@ class UpdateProductRequest extends FormRequest
             'name' => ['string', 'max:255'],
             'sku' => ['string', 'max:255', 'unique:products'],
             'price' => ['numeric:strict', 'min:0'],
+            'reorder_threshold' => ['integer:strict', 'min:0'],
             'image' => ['image', 'max:2048', 'mimes:jpeg,png,jpg,webp'],
         ];
     }
