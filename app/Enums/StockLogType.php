@@ -2,24 +2,15 @@
 
 namespace App\Enums;
 
-enum StockLogType: int
-{
-    case In = 1;
-    case Out = 2;
+use App\Enums\Concerns\EnumToArray;
 
-    public static function toArray(): array
-    {
-        return [
-            [
-                'id' => self::In->value,
-                'name' => self::In->name,
-            ],
-            [
-                'id' => self::Out->value,
-                'name' => self::Out->name,
-            ],
-        ];
-    }
+enum StockLogType: int implements \JsonSerializable
+{
+    use EnumToArray;
+
+    case In = 1;
+
+    case Out = 2;
 
     public function isIn(): bool
     {

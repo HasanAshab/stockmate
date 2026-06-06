@@ -12,10 +12,10 @@ class ConfigController extends Controller
     public function enums(): array
     {
         return [
-            'roles' => Role::toArray(),
-            'purchase_order_statuses' => PurchaseOrderStatus::toArray(),
-            'sales_order_statuses' => SalesOrderStatus::toArray(),
-            'stock_log_types' => StockLogType::toArray(),
+            'roles' => Role::allCasesArray(),
+            'purchase_order_statuses' => PurchaseOrderStatus::allCasesArray(),
+            'sales_order_statuses' => SalesOrderStatus::allCasesArray(),
+            'stock_log_types' => StockLogType::allCasesArray(),
         ];
     }
 }

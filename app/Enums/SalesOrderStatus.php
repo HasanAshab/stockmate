@@ -2,34 +2,19 @@
 
 namespace App\Enums;
 
-enum SalesOrderStatus: int
-{
-    case Pending = 1;
-    case Paid = 2;
-    case Failed = 3;
-    case Cancelled = 4;
+use App\Enums\Concerns\EnumToArray;
 
-    public static function toArray(): array
-    {
-        return [
-            [
-                'id' => self::Pending->value,
-                'name' => self::Pending->name,
-            ],
-            [
-                'id' => self::Paid->value,
-                'name' => self::Paid->name,
-            ],
-            [
-                'id' => self::Failed->value,
-                'name' => self::Failed->name,
-            ],
-            [
-                'id' => self::Cancelled->value,
-                'name' => self::Cancelled->name,
-            ],
-        ];
-    }
+enum SalesOrderStatus: int implements \JsonSerializable
+{
+    use EnumToArray;
+
+    case Pending = 1;
+
+    case Paid = 2;
+
+    case Failed = 3;
+
+    case Cancelled = 4;
 
     public function isPending(): bool
     {

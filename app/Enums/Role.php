@@ -2,24 +2,15 @@
 
 namespace App\Enums;
 
-enum Role: int
-{
-    case Staff = 1;
-    case Admin = 2;
+use App\Enums\Concerns\EnumToArray;
 
-    public static function toArray(): array
-    {
-        return [
-            [
-                'id' => self::Staff->value,
-                'name' => self::Staff->name,
-            ],
-            [
-                'id' => self::Admin->value,
-                'name' => self::Admin->name,
-            ],
-        ];
-    }
+enum Role: int implements \JsonSerializable
+{
+    use EnumToArray;
+
+    case Staff = 1;
+
+    case Admin = 2;
 
     public function isStaff(): bool
     {

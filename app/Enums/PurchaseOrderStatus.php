@@ -2,39 +2,21 @@
 
 namespace App\Enums;
 
-enum PurchaseOrderStatus: int
-{
-    case Draft = 1;
-    case Ordered = 2;
-    case PartiallyReceived = 3;
-    case Received = 4;
-    case Cancelled = 5;
+use App\Enums\Concerns\EnumToArray;
 
-    public static function toArray(): array
-    {
-        return [
-            [
-                'id' => self::Draft->value,
-                'name' => self::Draft->name,
-            ],
-            [
-                'id' => self::Ordered->value,
-                'name' => self::Ordered->name,
-            ],
-            [
-                'id' => self::PartiallyReceived->value,
-                'name' => self::PartiallyReceived->name,
-            ],
-            [
-                'id' => self::Received->value,
-                'name' => self::Received->name,
-            ],
-            [
-                'id' => self::Cancelled->value,
-                'name' => self::Cancelled->name,
-            ],
-        ];
-    }
+enum PurchaseOrderStatus: int implements \JsonSerializable
+{
+    use EnumToArray;
+
+    case Draft = 1;
+
+    case Ordered = 2;
+
+    case PartiallyReceived = 3;
+
+    case Received = 4;
+
+    case Cancelled = 5;
 
     public function isDraft(): bool
     {
