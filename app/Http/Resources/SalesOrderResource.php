@@ -7,6 +7,12 @@ use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
 class SalesOrderResource extends JsonApiResource
 {
+    public $relationships = [
+        'warehouse',
+        'createdBy',
+        'items',
+    ];
+
     public function toAttributes(Request $request): array
     {
         return [
@@ -21,15 +27,6 @@ class SalesOrderResource extends JsonApiResource
             'created_by_name' => $this->whenLoaded('createdBy', fn () => $this->createdBy->name),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-        ];
-    }
-
-    public function toRelationships(Request $request)
-    {
-        return [
-            'warehouse' => $this->whenLoaded('warehouse'),
-            'createdBy' => $this->whenLoaded('createdBy'),
-            'items' => $this->whenLoaded('items'),
         ];
     }
 }

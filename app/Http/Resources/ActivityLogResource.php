@@ -7,6 +7,11 @@ use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
 class ActivityLogResource extends JsonApiResource
 {
+    public $relationships = [
+        'causer',
+        'subject',
+    ];
+
     public function toAttributes(Request $request): array
     {
         return [
@@ -18,14 +23,6 @@ class ActivityLogResource extends JsonApiResource
             'changes' => $this->properties['attributes'] ?? null,
             'old_values' => $this->properties['old'] ?? null,
             'when' => $this->created_at,
-        ];
-    }
-
-    public function toRelationships(Request $request)
-    {
-        return [
-            'causer' => $this->whenLoaded('causer'),
-            'subject' => $this->whenLoaded('subject'),
         ];
     }
 }

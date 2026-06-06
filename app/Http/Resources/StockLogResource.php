@@ -7,6 +7,12 @@ use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
 class StockLogResource extends JsonApiResource
 {
+    public $relationships = [
+        'user',
+        'product',
+        'warehouse',
+    ];
+
     public function toAttributes(Request $request): array
     {
         return [
@@ -15,15 +21,6 @@ class StockLogResource extends JsonApiResource
             'unit_cost' => $this->unit_cost,
             'note' => $this->note,
             'created_at' => $this->created_at,
-        ];
-    }
-
-    public function toRelationships(Request $request)
-    {
-        return [
-            'user' => $this->whenLoaded('user'),
-            'product' => $this->whenLoaded('product'),
-            'warehouse' => $this->whenLoaded('warehouse'),
         ];
     }
 }

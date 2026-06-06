@@ -7,6 +7,11 @@ use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
 class PurchaseOrderItemResource extends JsonApiResource
 {
+    public $relationships = [
+        'product',
+        'purchaseOrder',
+    ];
+
     public function toAttributes(Request $request): array
     {
         return [
@@ -18,14 +23,6 @@ class PurchaseOrderItemResource extends JsonApiResource
             'is_fully_received' => $this->isFullyReceived(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-        ];
-    }
-
-    public function toRelationships(Request $request)
-    {
-        return [
-            'product' => $this->whenLoaded('product'),
-            'purchaseOrder' => $this->whenLoaded('purchaseOrder'),
         ];
     }
 }

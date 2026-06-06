@@ -7,6 +7,11 @@ use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
 class ProductResource extends JsonApiResource
 {
+    public $relationships = [
+        'category',
+        'supplier',
+    ];
+
     public function toAttributes(Request $request): array
     {
         return [
@@ -17,14 +22,6 @@ class ProductResource extends JsonApiResource
             'image_thumb_url' => $this->getFirstMediaUrl('product_images', 'thumb') ?: null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-        ];
-    }
-
-    public function toRelationships(Request $request)
-    {
-        return [
-            'category' => $this->whenLoaded('category'),
-            'supplier' => $this->whenLoaded('supplier'),
         ];
     }
 }
