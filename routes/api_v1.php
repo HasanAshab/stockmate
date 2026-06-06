@@ -19,7 +19,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 // Auth
-Route::post('token/login', [AuthController::class, 'tokenLogin'])->name('auth.token-login');
+Route::post('auth/token/login', [AuthController::class, 'tokenLogin'])->name('auth.token-login');
 
 Route::middleware('auth:sanctum')->group(function () {
     // Dashboard
