@@ -4,6 +4,7 @@ use App\Enums\Role;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentCallbackController;
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 // Auth
 Route::post('auth/token/login', [AuthController::class, 'tokenLogin'])->name('auth.token-login');
+
+// Config
+Route::get('config/enums', [ConfigController::class, 'enums'])->name('config.enums');
 
 Route::middleware('auth:sanctum')->group(function () {
     // Dashboard
