@@ -22,7 +22,8 @@ class DashboardController extends Controller
             $dashboard['recent_stock_logs'] = StockLog::latest()
                 ->limit(5)
                 ->with(['user', 'product'])
-                ->get();
+                ->get()
+                ->toResourceCollection();
 
             return ['data' => $dashboard];
         });
