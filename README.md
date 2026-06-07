@@ -10,7 +10,7 @@ visual demonstration. Both are live and running.
 ---
 
 ## Live Demo
-
+![Inventory Management System](stockmate.png)
 | | URL |
 |---|---|
 | **Frontend** | [stockmate-demo.vercel.app](https://stockmate-demo.vercel.app) |
