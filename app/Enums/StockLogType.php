@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use App\Enums\Concerns\EnumToArray;
+use Illuminate\Contracts\Support\Arrayable;
 
-enum StockLogType: int implements \JsonSerializable
+enum StockLogType: int implements \JsonSerializable, Arrayable
 {
     use EnumToArray;
 

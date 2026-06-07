@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use App\Enums\Concerns\EnumToArray;
+use Illuminate\Contracts\Support\Arrayable;
 
-enum PurchaseOrderStatus: int implements \JsonSerializable
+enum PurchaseOrderStatus: int implements \JsonSerializable, Arrayable
 {
     use EnumToArray;
 

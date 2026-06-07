@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use App\Enums\Concerns\EnumToArray;
+use Illuminate\Contracts\Support\Arrayable;
 
-enum Role: int implements \JsonSerializable
+enum Role: int implements \JsonSerializable, Arrayable
 {
     use EnumToArray;
 

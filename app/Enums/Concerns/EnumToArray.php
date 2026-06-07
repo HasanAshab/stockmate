@@ -4,7 +4,7 @@ namespace App\Enums\Concerns;
 
 trait EnumToArray
 {
-    public function jsonSerialize(): array
+    public function toArray(): array
     {
         return [
             'id'   => $this->value,
@@ -12,8 +12,13 @@ trait EnumToArray
         ];
     }
 
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+
     public static function allCasesArray(): array
     {
-        return array_map(fn(self $case) => $case->jsonSerialize(), self::cases());
+        return array_map(fn(self $case) => $case->toArray(), self::cases());
     }
 }
