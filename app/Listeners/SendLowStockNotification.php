@@ -14,10 +14,7 @@ class SendLowStockNotification
 
     public function handle(ProductStockLow $event): void
     {
-        $admins = User::query()
-            ->where('role', Role::Admin)
-            ->get();
-
+        $admins = User::whereRole(Role::Admin)->get();
         Notification::send($admins, new LowStockAlert($event->product));
     }
 }

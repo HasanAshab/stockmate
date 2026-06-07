@@ -25,8 +25,8 @@ visual demonstration. Both are live and running.
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin1@example.com | password |
-| Staff | staff1@example.com | password |
+| Admin | admin@example.com | password |
+| Staff | staff@example.com | password |
 
 ---
 
@@ -215,8 +215,8 @@ API Docs: `http://localhost:8000/docs/api`
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@stockmate.test | password |
-| Staff | staff@stockmate.test | password |
+| Admin | admin@example.com | password |
+| Staff | staff@example.com | password |
 
 ---
 

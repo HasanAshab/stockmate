@@ -41,6 +41,13 @@ class SalesOrderFactory extends Factory
         ]);
     }
 
+    public function failed(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => SalesOrderStatus::Failed,
+        ]);
+    }
+
     public function cancelled(): static
     {
         return $this->state(fn (array $attributes) => [
