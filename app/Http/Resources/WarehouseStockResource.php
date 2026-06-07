@@ -2,21 +2,12 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
-class WarehouseStockResource extends JsonResource
+class WarehouseStockResource extends JsonApiResource
 {
-    public function toArray(Request $request): array
-    {
-        return [
-            'product_id' => $this->product_id,
-            'product_name' => $this->product->name,
-            'sku' => $this->product->sku,
-            'category' => $this->product->category->name,
-            'quantity' => $this->quantity,
-            'reorder_threshold' => $this->reorder_threshold,
-            'status' => $this->isLow() ? 'low' : 'ok',
-        ];
-    }
+    public $attributes = [
+        'quantity',
+        'reorder_threshold',
+    ];
 }

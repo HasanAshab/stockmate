@@ -33,15 +33,12 @@ class WarehouseStockSeeder extends Seeder
         $existingStockIds = WarehouseStock::pluck('product_id')->toArray();
         $availableProducts = $products->whereNotIn('id', $existingStockIds);
 
-        $lowStockCount = 0;
-        if ($availableProducts->count() >= 5) {
-            WarehouseStock::factory()
-                ->count(5)
-                ->low()
-                ->recycle([$warehouses, $availableProducts])
-                ->create();
-            $lowStockCount = 5;
-        }
+        $lowStockCount = 5;
+        WarehouseStock::factory()
+            ->count($lowStockCount)
+            ->low()
+            ->recycle([$warehouses, Product::factory()->count($lowStockCount)->create()])
+            ->create();
 
         $this->command->info("Created {$stockCount} warehouse stock records ({$lowStockCount} low stock)");
     }

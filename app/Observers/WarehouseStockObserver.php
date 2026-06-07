@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Events\ProductStockLow;
+use App\Events\WarehouseStockLow;
 use App\Models\WarehouseStock;
 
 class WarehouseStockObserver
@@ -24,6 +24,6 @@ class WarehouseStockObserver
             return;
         }
 
-        ProductStockLow::dispatch($warehouseStock->product);
+        WarehouseStockLow::dispatch($warehouseStock);
     }
 }

@@ -16,6 +16,7 @@ use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\WarehouseStockController;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::post('auth/token/login', [AuthController::class, 'tokenLogin'])->name('au
 // Config
 Route::get('config/enums', [ConfigController::class, 'enums'])->name('config.enums');
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     // Dashboard
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
@@ -72,10 +73,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Warehouses
     Route::apiResource('warehouses', WarehouseController::class);
-    Route::get('warehouses/{warehouse}/stock', [WarehouseController::class, 'stock'])
-        ->name('warehouses.stock');
-    Route::patch('warehouses/{warehouse}/stock/{warehouseStock}', [WarehouseController::class, 'updateStock'])
-        ->name('warehouses.update-stock');
+    Route::apiResource('warehouses.stocks', WarehouseStockController::class)
+        ->only(['index', 'show', 'update']);
 
     // Sales Orders (Admin and Staff)
     Route::apiResource('sales-orders', SalesOrderController::class)->only(['index', 'store', 'show']);

@@ -3,11 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\JsonApi\JsonApiResource;
 
-class WarehouseResource extends JsonResource
+class WarehouseResource extends JsonApiResource
 {
-    public function toArray(Request $request): array
+    public function toAttributes(Request $request): array
     {
         return [
             'id' => $this->id,

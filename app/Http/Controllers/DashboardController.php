@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\StockLog;
 use App\Models\Supplier;
+use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
@@ -16,7 +17,7 @@ class DashboardController extends Controller
             $dashboard = [];
 
             $dashboard['total_products'] = Product::count();
-            $dashboard['total_low_stock'] = Product::lowStock()->count();
+            $dashboard['total_low_stock'] = WarehouseStock::lowStock()->count();
             $dashboard['total_categories'] = Category::count();
             $dashboard['total_suppliers'] = Supplier::count();
             $dashboard['recent_stock_logs'] = StockLog::latest()

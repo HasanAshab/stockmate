@@ -2,13 +2,13 @@
 
 namespace App\Events;
 
-use App\Models\Product;
+use App\Models\WarehouseStock;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ProductStockLow
+class WarehouseStockLow
 {
     use Dispatchable, SerializesModels;
 
-    public function __construct(public readonly Product $product) {}
+    public function __construct(public readonly WarehouseStock $warehouseStock) {}
 }

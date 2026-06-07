@@ -25,11 +25,11 @@ beforeEach(function () {
 
 test('admin can update warehouse stock reorder threshold', function () {
     actingAs($this->admin, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [
+        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [
             'reorder_threshold' => 25,
         ])
         ->assertOk()
-        ->assertJsonPath('data.reorder_threshold', 25);
+        ->assertJsonPath('data.attributes.reorder_threshold', 25);
 
     assertDatabaseHas('warehouse_stock', [
         'id' => $this->warehouseStock->id,
@@ -39,11 +39,11 @@ test('admin can update warehouse stock reorder threshold', function () {
 
 test('staff can update warehouse stock reorder threshold', function () {
     actingAs($this->staff, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [
+        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [
             'reorder_threshold' => 30,
         ])
         ->assertOk()
-        ->assertJsonPath('data.reorder_threshold', 30);
+        ->assertJsonPath('data.attributes.reorder_threshold', 30);
 
     assertDatabaseHas('warehouse_stock', [
         'id' => $this->warehouseStock->id,
@@ -53,7 +53,7 @@ test('staff can update warehouse stock reorder threshold', function () {
 
 test('reorder threshold must be a non-negative integer', function () {
     actingAs($this->admin, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [
+        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [
             'reorder_threshold' => -5,
         ])
         ->assertUnprocessable()
@@ -62,14 +62,14 @@ test('reorder threshold must be a non-negative integer', function () {
 
 test('reorder threshold is required', function () {
     actingAs($this->admin, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [])
+        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [])
         ->assertUnprocessable()
         ->assertJsonValidationErrors('reorder_threshold');
 });
 
 test('reorder threshold must be an integer', function () {
     actingAs($this->admin, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [
+        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [
             'reorder_threshold' => 'not-an-integer',
         ])
         ->assertUnprocessable()
@@ -80,21 +80,21 @@ test('cannot update warehouse stock from different warehouse', function () {
     $otherWarehouse = Warehouse::factory()->create();
 
     actingAs($this->admin, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$otherWarehouse->id}/stock/{$this->warehouseStock->id}", [
+        ->patchJson("/api/v1/warehouses/{$otherWarehouse->id}/stocks/{$this->warehouseStock->id}", [
             'reorder_threshold' => 25,
         ])
         ->assertNotFound();
 });
 
 test('guest cannot update warehouse stock reorder threshold', function () {
-    patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [
+    patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [
         'reorder_threshold' => 25,
     ])->assertUnauthorized();
 });
 
 test('updating reorder threshold does not change quantity', function () {
     actingAs($this->admin, 'sanctum')
-        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stock/{$this->warehouseStock->id}", [
+        ->patchJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}", [
             'reorder_threshold' => 50,
         ])
         ->assertOk();
@@ -104,4 +104,36 @@ test('updating reorder threshold does not change quantity', function () {
         'quantity' => 100, // unchanged
         'reorder_threshold' => 50,
     ]);
+});
+
+test('admin can view warehouse stocks list', function () {
+    actingAs($this->admin, 'sanctum')
+        ->getJson("/api/v1/warehouses/{$this->warehouse->id}/stocks")
+        ->assertOk()
+        ->assertJsonStructure([
+            'data' => [
+                '*' => ['id', 'attributes'],
+            ],
+        ]);
+});
+
+test('staff can view warehouse stocks list', function () {
+    actingAs($this->staff, 'sanctum')
+        ->getJson("/api/v1/warehouses/{$this->warehouse->id}/stocks")
+        ->assertOk();
+});
+
+test('admin can view single warehouse stock', function () {
+    actingAs($this->admin, 'sanctum')
+        ->getJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}")
+        ->assertOk()
+        ->assertJsonPath('data.id', (string) $this->warehouseStock->id)
+        ->assertJsonPath('data.attributes.quantity', 100)
+        ->assertJsonPath('data.attributes.reorder_threshold', 10);
+});
+
+test('staff can view single warehouse stock', function () {
+    actingAs($this->staff, 'sanctum')
+        ->getJson("/api/v1/warehouses/{$this->warehouse->id}/stocks/{$this->warehouseStock->id}")
+        ->assertOk();
 });

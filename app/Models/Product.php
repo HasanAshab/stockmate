@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,14 +40,6 @@ class Product extends Model implements HasMedia
     public function warehouseStocks(): HasMany
     {
         return $this->hasMany(WarehouseStock::class);
-    }
-
-    #[Scope]
-    protected function lowStock($query): void
-    {
-        $query->whereHas('warehouseStocks', function ($q) {
-            $q->whereColumn('quantity', '<=', 'reorder_threshold');
-        });
     }
 
     public function registerMediaCollections(): void

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 
 #[Fillable('warehouse_id', 'product_id', 'quantity', 'reorder_threshold')]
 #[ObservedBy(WarehouseStockObserver::class)]
@@ -30,5 +31,11 @@ class WarehouseStock extends Model
     public function isLow(): bool
     {
         return $this->quantity <= $this->reorder_threshold;
+    }
+
+    #[Scope]
+    protected function lowStock($query): void
+    {
+        $query->whereColumn('quantity', '<=', 'reorder_threshold');
     }
 }

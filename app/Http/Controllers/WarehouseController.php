@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Warehouse\DeleteWarehouse;
 use App\Http\Requests\Warehouse\StoreWarehouseRequest;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
-use App\Http\Requests\Warehouse\UpdateWarehouseStockRequest;
 use App\Models\Warehouse;
-use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\Gate;
 
 class WarehouseController extends Controller
@@ -52,30 +50,5 @@ class WarehouseController extends Controller
         $deleteWarehouse->execute($warehouse);
 
         return response()->noContent();
-    }
-
-    public function stock(Warehouse $warehouse)
-    {
-        Gate::authorize('view', $warehouse);
-
-        return $warehouse->warehouseStocks()
-            ->with(['product.category'])
-            ->paginate(20)
-            ->toResourceCollection();
-    }
-
-    public function updateStock(UpdateWarehouseStockRequest $request, Warehouse $warehouse, WarehouseStock $warehouseStock)
-    {
-        Gate::authorize('view', $warehouse);
-
-        abort_if(
-            $warehouseStock->warehouse_id !== $warehouse->id,
-            404,
-            'Warehouse stock not found in this warehouse'
-        );
-
-        $warehouseStock->update($request->validated());
-
-        return $warehouseStock->toResource();
     }
 }
