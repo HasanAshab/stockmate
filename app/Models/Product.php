@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-#[Fillable('name', 'sku', 'price', 'category_id', 'supplier_id', 'reorder_threshold')]
+#[Fillable('name', 'sku', 'price', 'category_id', 'supplier_id')]
 class Product extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, LogsActivity;

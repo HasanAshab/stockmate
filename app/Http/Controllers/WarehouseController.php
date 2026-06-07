@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Actions\Warehouse\DeleteWarehouse;
 use App\Http\Requests\Warehouse\StoreWarehouseRequest;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
+use App\Http\Requests\Warehouse\UpdateWarehouseStockRequest;
 use App\Models\Warehouse;
+use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\Gate;
 
 class WarehouseController extends Controller

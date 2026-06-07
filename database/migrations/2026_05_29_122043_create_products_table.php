@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku')->unique();
             $table->decimal('price', 10, 2);
-            $table->unsignedMediumInteger('quantity')->default(0);
-            $table->unsignedSmallInteger('reorder_threshold')->default(10);
             $table->timestamps();
         });
     }
