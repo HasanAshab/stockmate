@@ -74,6 +74,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('warehouses', WarehouseController::class);
     Route::get('warehouses/{warehouse}/stock', [WarehouseController::class, 'stock'])
         ->name('warehouses.stock');
+    Route::patch('warehouses/{warehouse}/stock/{warehouseStock}', [WarehouseController::class, 'updateStock'])
+        ->name('warehouses.update-stock');
 
     // Sales Orders (Admin and Staff)
     Route::apiResource('sales-orders', SalesOrderController::class)->only(['index', 'store', 'show']);

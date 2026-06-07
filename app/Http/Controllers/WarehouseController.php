@@ -63,4 +63,19 @@ class WarehouseController extends Controller
             ->paginate(20)
             ->toResourceCollection();
     }
+
+    public function updateStock(UpdateWarehouseStockRequest $request, Warehouse $warehouse, WarehouseStock $warehouseStock)
+    {
+        Gate::authorize('view', $warehouse);
+
+        abort_if(
+            $warehouseStock->warehouse_id !== $warehouse->id,
+            404,
+            'Warehouse stock not found in this warehouse'
+        );
+
+        $warehouseStock->update($request->validated());
+
+        return $warehouseStock->toResource();
+    }
 }
