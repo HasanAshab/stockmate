@@ -52,8 +52,6 @@ class StockLogController extends Controller
             $request->validated(),
         );
 
-        Cache::forget('dashboard:metrics');
-
         return $stockLog->toResource()
             ->response()
             ->setStatusCode(201);
@@ -78,8 +76,6 @@ class StockLogController extends Controller
             $request->user(),
             $request->validated()
         );
-
-        Cache::forget('dashboard:metrics');
 
         return response()->json(['message' => 'Stock transferred successfully.']);
     }

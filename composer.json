@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "dedoc/scramble": "^0.13.26",
         "hasinhayder/sslcommerz-laravel": "^1.1",
         "laravel/fortify": "^1.37",
         "laravel/framework": "^13.8",
@@ -21,7 +22,6 @@
         "spatie/laravel-query-builder": "^7.3"
     },
     "require-dev": {
-        "dedoc/scramble": "^0.13.24",
         "fakerphp/faker": "^1.23",
         "laravel/boost": "^2.2",
         "laravel/pail": "^1.2.5",
