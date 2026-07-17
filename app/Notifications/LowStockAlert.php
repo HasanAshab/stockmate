@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Models\Product;
 use App\Models\WarehouseStock;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;

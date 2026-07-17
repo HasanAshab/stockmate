@@ -7,7 +7,7 @@ trait EnumToArray
     public function toArray(): array
     {
         return [
-            'id'   => $this->value,
+            'id' => $this->value,
             'name' => $this->name,
         ];
     }
@@ -19,6 +19,6 @@ trait EnumToArray
 
     public static function allCasesArray(): array
     {
-        return array_map(fn(self $case) => $case->toArray(), self::cases());
+        return array_map(fn (self $case) => $case->toArray(), self::cases());
     }
 }

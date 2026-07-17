@@ -12,7 +12,6 @@ use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Http\Requests\Product\TransferStockRequest;
 use App\Models\StockLog;
 use App\Models\Warehouse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;

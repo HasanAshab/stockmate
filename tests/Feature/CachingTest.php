@@ -1,8 +1,6 @@
 <?php
 
-use App\Enums\Role;
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
@@ -203,7 +201,7 @@ test('both category caches are cleared when category is restored', function () {
     // Manually set both caches to simulate they were previously cached
     Cache::put('categories:all', collect([]), now()->addHour());
     Cache::put('categories:trashed', collect([]), now()->addMinutes(30));
-    
+
     expect(Cache::has('categories:all'))->toBeTrue();
     expect(Cache::has('categories:trashed'))->toBeTrue();
 
@@ -224,7 +222,7 @@ test('both supplier caches are cleared when supplier is restored', function () {
     // Manually set both caches to simulate they were previously cached
     Cache::put('suppliers:all', collect([]), now()->addHour());
     Cache::put('suppliers:trashed', collect([]), now()->addMinutes(30));
-    
+
     expect(Cache::has('suppliers:all'))->toBeTrue();
     expect(Cache::has('suppliers:trashed'))->toBeTrue();
 

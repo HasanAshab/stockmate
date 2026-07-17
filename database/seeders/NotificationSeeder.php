@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Enums\Role;
+use App\Models\User;
+use App\Models\WarehouseStock;
+use App\Notifications\LowStockAlert;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Notification;
-use App\Models\User;
-use App\Notifications\LowStockAlert;
-use App\Models\WarehouseStock;
 
 class NotificationSeeder extends Seeder
 {
@@ -21,6 +21,6 @@ class NotificationSeeder extends Seeder
             Notification::sendNow($admins, new LowStockAlert($warehouseStock));
         }
 
-        $this->command->info("Created notifications");
+        $this->command->info('Created notifications');
     }
 }

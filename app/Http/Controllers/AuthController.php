@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function tokenLogin(LoginRequest $request) {
+    public function tokenLogin(LoginRequest $request)
+    {
         $credentials = $request->validated();
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Invalid credentials',
             ], 401);
@@ -25,5 +26,5 @@ class AuthController extends Controller
             'token' => $token,
             'token_type' => 'Bearer',
         ]);
-    }    
+    }
 }
