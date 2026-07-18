@@ -4,11 +4,11 @@ namespace App\Notifications;
 
 use App\Models\WarehouseStock;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LowStockAlert extends Notification implements ShouldQueueAfterCommit
+class LowStockAlert extends Notification implements ShouldQueue
 {
     use Queueable;
 

@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Notification;
 
 class SendLowStockNotification
 {
-    public $afterCommit = true;
-
     public function handle(WarehouseStockLow $event): void
     {
         $admins = User::whereRole(Role::Admin)->get();
