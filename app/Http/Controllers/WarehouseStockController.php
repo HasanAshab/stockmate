@@ -15,7 +15,7 @@ class WarehouseStockController extends Controller
 
         return $warehouse->warehouseStocks()
             ->with(['product.category'])
-            ->paginate(20)
+            ->cursorPaginate(15)
             ->toResourceCollection();
     }
 

@@ -10,14 +10,14 @@ class NotificationController extends Controller
     {
         return $request->user()
             ->notifications()
-            ->paginate(15);
+            ->cursorPaginate(10);
     }
 
     public function unread(Request $request)
     {
         return $request->user()
             ->unreadNotifications()
-            ->paginate(15);
+            ->cursorPaginate(10);
     }
 
     public function markAsRead(Request $request, string $id)

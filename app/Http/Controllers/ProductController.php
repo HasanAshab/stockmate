@@ -33,7 +33,7 @@ class ProductController extends Controller
             )
             ->allowedIncludes('category', 'supplier', 'media')
             ->defaultSort('-created_at')
-            ->paginate(10)
+            ->cursorPaginate(10)
             ->appends(request()->query())
             ->toResourceCollection();
     }

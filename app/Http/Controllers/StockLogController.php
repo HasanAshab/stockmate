@@ -37,7 +37,7 @@ class StockLogController extends Controller
             )
             ->allowedIncludes('user', 'product', 'warehouse')
             ->defaultSort('-created_at')
-            ->paginate(10)
+            ->cursorPaginate(10)
             ->appends(request()->query())
             ->toResourceCollection();
     }

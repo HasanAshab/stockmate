@@ -27,7 +27,7 @@ class ActivityLogController extends Controller
             ->defaultSort('-created_at')
             ->allowedIncludes('causer', 'subject')
             ->with(['causer', 'subject'])
-            ->paginate(15)
+            ->cursorPaginate(15)
             ->appends(request()->query())
             ->toResourceCollection(ActivityLogResource::class);
     }

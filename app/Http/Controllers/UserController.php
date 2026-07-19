@@ -26,7 +26,7 @@ class UserController extends Controller
             )
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')
-            ->paginate(10)
+            ->cursorPaginate(10)
             ->appends(request()->query())
             ->toResourceCollection();
     }

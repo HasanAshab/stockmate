@@ -25,7 +25,7 @@ class SalesOrderController extends Controller
                 AllowedFilter::custom('created_at', new FiltersDateRange),
             )
             ->defaultSort('-created_at')
-            ->paginate(15)
+            ->cursorPaginate(10)
             ->appends(request()->query())
             ->toResourceCollection();
     }

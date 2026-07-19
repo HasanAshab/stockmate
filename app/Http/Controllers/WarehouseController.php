@@ -15,7 +15,7 @@ class WarehouseController extends Controller
         Gate::authorize('viewAny', Warehouse::class);
 
         return Warehouse::withCount('warehouseStocks')
-            ->paginate(15)
+            ->cursorPaginate(7)
             ->toResourceCollection();
     }
 
