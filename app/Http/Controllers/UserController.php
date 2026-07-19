@@ -2,16 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return User::paginate(15)->toResourceCollection();
+        return QueryBuilder::for(User::class)
+            ->allowedFilters(
+                AllowedFilter::exact('role'),
+                AllowedFilter::exact('is_active'),
+                AllowedFilter::custom('created_at', new FiltersDateRange),
+                AllowedFilter::groupOr('q', [
+                    AllowedFilter::beginsWith('name'),
+                    AllowedFilter::beginsWith('email'),
+                ])
+            )
+            ->allowedSorts('created_at')
+            ->defaultSort('-created_at')
+            ->paginate(10)
+            ->appends(request()->query())
+            ->toResourceCollection();
     }
 
     public function store(StoreUserRequest $request)
