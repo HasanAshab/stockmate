@@ -14,6 +14,7 @@ use App\Models\StockLog;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class StockLogController extends Controller
@@ -28,6 +29,9 @@ class StockLogController extends Controller
                 AllowedFilter::belongsTo('user'),
                 AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::exact('type'),
+                AllowedFilter::partial('note'),
+                AllowedFilter::operator('quantity', FilterOperator::DYNAMIC),
+                AllowedFilter::operator('unit_cost', FilterOperator::DYNAMIC),
                 AllowedFilter::custom('created_at', new FiltersDateRange)
             )
             ->allowedSorts(
