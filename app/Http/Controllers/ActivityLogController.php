@@ -15,13 +15,18 @@ class ActivityLogController extends Controller
     {
         return QueryBuilder::for(Activity::class)
             ->allowedFilters(
+                AllowedFilter::belongsTo('causer'),
+                AllowedFilter::belongsTo('subject'),
                 AllowedFilter::callback('subject_type', function ($query, $value) {
                     $class = 'App\\Models\\'.Str::studly($value);
                     abort_unless(class_exists($class), 422, 'Invalid subject type.');
                     $query->where('subject_type', $class);
                 }),
-                AllowedFilter::exact('causer_id'),
-                AllowedFilter::custom('created_at', new FiltersDateRange)
+                AllowedFilter::custom('created_at', new FiltersDateRange),
+                AllowedFilter::groupOR('search', [
+                    AllowedFilter::partial('log_name'),
+                    AllowedFilter::partial('description'),
+                ]),
             )
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')
