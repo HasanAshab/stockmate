@@ -31,7 +31,7 @@ class SalesOrderController extends Controller
                     AllowedFilter::partial('customer_name'),
                     AllowedFilter::partial('customer_email'),
                     AllowedFilter::partial('customer_phone'),
-                    AllowedFilter::partial('transaction_id'),
+                    AllowedFilter::partial('transaction_reference'),
                     AllowedFilter::partial('items.product.name'),
                     AllowedFilter::partial('items.product.sku'),
                 ])

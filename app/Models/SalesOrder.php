@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
     'warehouse_id',
     'status',
     'total_amount',
-    'transaction_id',
+    'transaction_reference',
     'payment_payload',
     'creator_id'
 )]
@@ -56,6 +56,6 @@ class SalesOrder extends Model
 
     public function generateTransactionId(): string
     {
-        return $this->transaction_id = Str::ulid();
+        return $this->transaction_reference = Str::ulid();
     }
 }

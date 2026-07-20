@@ -36,7 +36,7 @@ class FinalizeSalesOrderPayment
     private function getSalesOrder(string $trxId): SalesOrder
     {
         return SalesOrder::query()
-            ->where('transaction_id', $trxId)
+            ->where('transaction_reference', $trxId)
             ->with([
                 'items.product:id,name',
                 'creator:id',

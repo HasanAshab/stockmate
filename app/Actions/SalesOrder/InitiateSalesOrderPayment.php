@@ -17,7 +17,7 @@ class InitiateSalesOrderPayment
         try {
             $response = Sslcommerz::setOrder(
                 (float) $salesOrder->total_amount,
-                $salesOrder->transaction_id,
+                $salesOrder->transaction_reference,
                 $productName
             )
                 ->setCustomer(
@@ -30,7 +30,7 @@ class InitiateSalesOrderPayment
             $salesOrder->save();
 
             return new PaymentInitiationDTO(
-                transactionId: $salesOrder->transaction_id,
+                transactionId: $salesOrder->transaction_reference,
                 paymentUrl: $response->gatewayPageURL(),
             );
         } catch (\Exception $e) {

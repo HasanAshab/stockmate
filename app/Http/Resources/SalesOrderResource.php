@@ -22,7 +22,7 @@ class SalesOrderResource extends JsonApiResource
             'warehouse_name' => $this->whenLoaded('warehouse', fn () => $this->warehouse->name),
             'status' => $this->status->name,
             'total_amount' => $this->total_amount,
-            'transaction_id' => $this->transaction_id,
+            'transaction_reference' => $this->transaction_reference,
             'item_count' => $this->whenLoaded('items', fn () => $this->items->count()),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

@@ -23,7 +23,7 @@ class SalesOrderFactory extends Factory
             'creator_id' => User::factory(),
             'status' => fake()->randomElement(SalesOrderStatus::cases()),
             'total_amount' => fake()->randomFloat(2, 50, 5000),
-            'transaction_id' => null,
+            'transaction_reference' => null,
         ];
     }
 

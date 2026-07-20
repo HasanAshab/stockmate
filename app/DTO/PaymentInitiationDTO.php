@@ -12,7 +12,7 @@ class PaymentInitiationDTO
     public function toArray(): array
     {
         return [
-            'transaction_id' => $this->transactionId,
+            'transaction_reference' => $this->transactionId,
             'payment_url' => $this->paymentUrl,
         ];
     }

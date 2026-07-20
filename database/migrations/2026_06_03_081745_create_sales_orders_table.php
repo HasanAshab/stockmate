@@ -16,14 +16,12 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('status');
             $table->decimal('total_amount', 10, 2);
-            $table->ulid('transaction_id')->nullable();
+            $table->ulid('transaction_reference')->nullable();
             $table->json('payment_payload')->nullable();
             $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
 
-            $table->index('status');
-            $table->index('created_at');
-            $table->index('transaction_id');
+            $table->index(['status', 'created_at', 'transaction_reference']);
         });
     }
 
