@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Resources\ActivityLogResource;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -18,8 +18,8 @@ class ActivityLogController extends Controller
                 AllowedFilter::belongsTo('causer'),
                 AllowedFilter::belongsTo('subject'),
                 AllowedFilter::callback('subject_type', function ($query, $value) {
-                    $class = 'App\\Models\\'.Str::studly($value);
-                    abort_unless(class_exists($class), 422, 'Invalid subject type.');
+                    $class = Relation::getMorphedModel($value);
+                    abort_unless($class !== null, 422, 'Invalid type.');
                     $query->where('subject_type', $class);
                 }),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
