@@ -10,6 +10,7 @@ use App\Http\Requests\SalesOrder\StoreSalesOrderRequest;
 use App\Models\SalesOrder;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class SalesOrderController extends Controller
@@ -21,8 +22,11 @@ class SalesOrderController extends Controller
         return QueryBuilder::for(SalesOrder::class)
             ->with(['warehouse', 'createdBy', 'items'])
             ->allowedFilters(
+                AllowedFilter::belongsTo('created_by'),
+                AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
+                AllowedFilter::operator('total_amount', FilterOperator::DYNAMIC),
                 AllowedFilter::groupOr('search', [
                     AllowedFilter::partial('customer_name'),
                     AllowedFilter::partial('customer_email'),
