@@ -32,6 +32,8 @@ class SalesOrderController extends Controller
                     AllowedFilter::partial('customer_email'),
                     AllowedFilter::partial('customer_phone'),
                     AllowedFilter::partial('transaction_id'),
+                    AllowedFilter::partial('items.product.name'),
+                    AllowedFilter::partial('items.product.sku'),
                 ])
             )
             ->defaultSort('-created_at')
