@@ -23,7 +23,7 @@ class ActivityLogResource extends JsonApiResource
             'done_by' => $this->causer?->name ?? 'System',
             'changes' => $this->properties['attributes'] ?? null,
             'old_values' => $this->properties['old'] ?? null,
-            'when' => $this->created_at,
+            'created_at' => $this->created_at,
         ];
     }
 }
