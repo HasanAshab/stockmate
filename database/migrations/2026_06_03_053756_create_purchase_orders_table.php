@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->timestamp('ordered_at')->nullable();
             $table->timestamp('received_at')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

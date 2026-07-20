@@ -9,7 +9,7 @@ class SalesOrderResource extends JsonApiResource
 {
     public $relationships = [
         'warehouse',
-        'createdBy',
+        'creator',
         'items',
     ];
 
@@ -24,7 +24,6 @@ class SalesOrderResource extends JsonApiResource
             'total_amount' => $this->total_amount,
             'transaction_id' => $this->transaction_id,
             'item_count' => $this->whenLoaded('items', fn () => $this->items->count()),
-            'created_by_name' => $this->whenLoaded('createdBy', fn () => $this->createdBy->name),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

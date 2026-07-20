@@ -10,7 +10,7 @@ class PurchaseOrderResource extends JsonApiResource
     public $relationships = [
         'supplier',
         'warehouse',
-        'createdBy',
+        'creator',
         'items',
     ];
 
@@ -24,7 +24,6 @@ class PurchaseOrderResource extends JsonApiResource
             'note' => $this->note,
             'ordered_at' => $this->ordered_at,
             'received_at' => $this->received_at,
-            'created_by_name' => $this->whenLoaded('createdBy', fn () => $this->createdBy->name),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

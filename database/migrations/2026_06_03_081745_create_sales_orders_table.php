@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('total_amount', 10, 2);
             $table->ulid('transaction_id')->nullable();
             $table->json('payment_payload')->nullable();
-            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
 
             $table->index('status');

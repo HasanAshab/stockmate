@@ -74,12 +74,12 @@ class CreateSalesOrder
     private function createSalesOrder(array $data, int $userId, float $totalAmount): SalesOrder
     {
         return SalesOrder::create([
+            'creator_id' => $userId,
+            'warehouse_id' => $data['warehouse_id'],
             'customer_name' => $data['customer_name'],
             'customer_email' => $data['customer_email'],
             'customer_phone' => $data['customer_phone'],
-            'warehouse_id' => $data['warehouse_id'],
             'total_amount' => $totalAmount,
-            'created_by' => $userId,
         ]);
     }
 

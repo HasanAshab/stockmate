@@ -22,7 +22,7 @@ class PurchaseOrderController extends Controller
         Gate::authorize('viewAny', PurchaseOrder::class);
 
         return QueryBuilder::for(PurchaseOrder::class)
-            ->with(['supplier', 'warehouse', 'createdBy', 'items'])
+            ->with(['supplier', 'warehouse', 'creator', 'items'])
             ->allowedFilters(
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('supplier_id'),
@@ -43,7 +43,7 @@ class PurchaseOrderController extends Controller
             $request->validated()
         );
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
+        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
             ->toResource()
             ->response()
             ->setStatusCode(201);
@@ -53,7 +53,7 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('view', $purchaseOrder);
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
+        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
             ->toResource();
     }
 
@@ -63,7 +63,7 @@ class PurchaseOrderController extends Controller
 
         $purchaseOrder = $updatePurchaseOrder->execute($purchaseOrder, $request->validated());
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
+        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
             ->toResource();
     }
 
@@ -76,7 +76,7 @@ class PurchaseOrderController extends Controller
             'ordered_at' => now(),
         ]);
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
+        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
             ->toResource();
     }
 
@@ -105,7 +105,7 @@ class PurchaseOrderController extends Controller
 
         return response()->json([
             'message' => 'Stock received.',
-            'purchase_order' => $purchaseOrder->load(['supplier', 'warehouse', 'createdBy', 'items.product'])
+            'purchase_order' => $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
                 ->toResource(),
         ]);
     }

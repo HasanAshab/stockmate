@@ -39,7 +39,7 @@ class FinalizeSalesOrderPayment
             ->where('transaction_id', $trxId)
             ->with([
                 'items.product:id,name',
-                'createdBy:id',
+                'creator:id',
             ])
             ->firstOrFail();
     }
@@ -96,7 +96,7 @@ class FinalizeSalesOrderPayment
             ])
             ->toArray();
 
-        $salesOrder->createdBy
+        $salesOrder->creator
             ->stockLogs()
             ->insert($logs);
     }

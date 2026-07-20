@@ -19,7 +19,7 @@ class PurchaseOrderFactory extends Factory
         return [
             'supplier_id' => Supplier::factory(),
             'warehouse_id' => Warehouse::factory(),
-            'created_by' => User::factory(),
+            'creator_id' => User::factory(),
             'status' => fake()->randomElement(PurchaseOrderStatus::cases()),
             'note' => fake()->optional(default: '')->sentence(),
             'ordered_at' => fake()->dateTimeBetween('-3 months', 'now'),

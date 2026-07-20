@@ -20,9 +20,9 @@ class SalesOrderController extends Controller
         Gate::authorize('viewAny', SalesOrder::class);
 
         return QueryBuilder::for(SalesOrder::class)
-            ->with(['warehouse', 'createdBy', 'items'])
+            ->with(['warehouse', 'creator', 'items'])
             ->allowedFilters(
-                AllowedFilter::belongsTo('created_by', 'createdBy'),
+                AllowedFilter::belongsTo('creator'),
                 AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
@@ -52,7 +52,7 @@ class SalesOrderController extends Controller
         );
 
         return $salesOrder
-            ->load(['warehouse', 'createdBy', 'items.product'])
+            ->load(['warehouse', 'creator', 'items.product'])
             ->toResource()
             ->response()
             ->setStatusCode(201);
@@ -62,7 +62,7 @@ class SalesOrderController extends Controller
     {
         Gate::authorize('view', $salesOrder);
 
-        return $salesOrder->load(['warehouse', 'createdBy', 'items.product'])
+        return $salesOrder->load(['warehouse', 'creator', 'items.product'])
             ->toResource();
     }
 

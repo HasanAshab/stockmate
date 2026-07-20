@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
     'total_amount',
     'transaction_id',
     'payment_payload',
-    'created_by'
+    'creator_id'
 )]
 class SalesOrder extends Model
 {
@@ -44,9 +44,9 @@ class SalesOrder extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function createdBy(): BelongsTo
+    public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'creator_id');
     }
 
     public function items(): HasMany

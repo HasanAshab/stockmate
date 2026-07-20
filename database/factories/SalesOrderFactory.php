@@ -20,7 +20,7 @@ class SalesOrderFactory extends Factory
             'customer_email' => fake()->safeEmail(),
             'customer_phone' => fake()->phoneNumber(),
             'warehouse_id' => Warehouse::factory(),
-            'created_by' => User::factory(),
+            'creator_id' => User::factory(),
             'status' => fake()->randomElement(SalesOrderStatus::cases()),
             'total_amount' => fake()->randomFloat(2, 50, 5000),
             'transaction_id' => null,

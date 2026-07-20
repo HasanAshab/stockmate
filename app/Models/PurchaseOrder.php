@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable('supplier_id', 'warehouse_id', 'status', 'note', 'ordered_at', 'received_at', 'created_by')]
+#[Fillable('supplier_id', 'warehouse_id', 'status', 'note', 'ordered_at', 'received_at', 'creator_id')]
 class PurchaseOrder extends Model
 {
     use HasFactory;
@@ -37,9 +37,9 @@ class PurchaseOrder extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function createdBy(): BelongsTo
+    public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'creator_id');
     }
 
     public function items(): HasMany

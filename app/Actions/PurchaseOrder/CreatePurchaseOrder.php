@@ -12,10 +12,10 @@ class CreatePurchaseOrder
     {
         return DB::transaction(function () use ($user, $data) {
             $purchaseOrder = PurchaseOrder::create([
+                'creator_id' => $user->id,
                 'supplier_id' => $data['supplier_id'],
                 'warehouse_id' => $data['warehouse_id'],
                 'note' => $data['note'] ?? null,
-                'created_by' => $user->id,
             ]);
 
             foreach ($data['items'] as $item) {
