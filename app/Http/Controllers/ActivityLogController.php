@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Filters\FiltersMorphType;
 use App\Http\Resources\ActivityLogResource;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;

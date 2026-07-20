@@ -2,6 +2,17 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\PurchaseOrder;
+use App\Models\PurchaseOrderItem;
+use App\Models\SalesOrder;
+use App\Models\SalesOrderItem;
+use App\Models\StockLog;
+use App\Models\Supplier;
+use App\Models\User;
+use App\Models\Warehouse;
+use App\Models\WarehouseStock;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -24,17 +35,17 @@ class AppServiceProvider extends ServiceProvider
         );
 
         Relation::enforceMorphMap([
-            'user'                => \App\Models\User::class,
-            'category'            => \App\Models\Category::class,
-            'product'             => \App\Models\Product::class,
-            'sales-order'         => \App\Models\SalesOrder::class,
-            'sales-order-item'    => \App\Models\SalesOrderItem::class,
-            'purchase-order'      => \App\Models\PurchaseOrder::class,
-            'purchase-order-item' => \App\Models\PurchaseOrderItem::class,
-            'stock-log'           => \App\Models\StockLog::class,
-            'supplier'            => \App\Models\Supplier::class,
-            'warehouse'           => \App\Models\Warehouse::class,
-            'warehouse-stock'     => \App\Models\WarehouseStock::class,
+            'user' => User::class,
+            'category' => Category::class,
+            'product' => Product::class,
+            'sales-order' => SalesOrder::class,
+            'sales-order-item' => SalesOrderItem::class,
+            'purchase-order' => PurchaseOrder::class,
+            'purchase-order-item' => PurchaseOrderItem::class,
+            'stock-log' => StockLog::class,
+            'supplier' => Supplier::class,
+            'warehouse' => Warehouse::class,
+            'warehouse-stock' => WarehouseStock::class,
         ]);
     }
 }
