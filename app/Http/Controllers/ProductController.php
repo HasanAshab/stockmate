@@ -7,6 +7,7 @@ use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductController extends Controller
@@ -21,6 +22,7 @@ class ProductController extends Controller
                 AllowedFilter::belongsTo('category'),
                 AllowedFilter::belongsTo('supplier'),
                 AllowedFilter::scope('low_stock'),
+                AllowedFilter::operator('price', FilterOperator::DYNAMIC),
                 AllowedFilter::callback('search', function ($query, $value) {
                     $query->where('name', 'ilike', "%{$value}%")
                         ->orWhere('sku', 'ilike', "%{$value}%");
