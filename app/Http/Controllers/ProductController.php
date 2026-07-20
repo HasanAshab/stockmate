@@ -23,10 +23,10 @@ class ProductController extends Controller
                 AllowedFilter::belongsTo('supplier'),
                 AllowedFilter::scope('low_stock'),
                 AllowedFilter::operator('price', FilterOperator::DYNAMIC),
-                AllowedFilter::callback('search', function ($query, $value) {
-                    $query->where('name', 'ilike', "%{$value}%")
-                        ->orWhere('sku', 'ilike', "%{$value}%");
-                }),
+                AllowedFilter::groupOr('search', [
+                    AllowedFilter::partial('name'),
+                    AllowedFilter::partial('sku'),
+                ]),
             )
             ->allowedSorts(
                 'price',
