@@ -27,15 +27,12 @@ class PurchaseOrderController extends Controller
                 AllowedFilter::belongsTo('supplier'),
                 AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::belongsTo('creator'),
+                AllowedFilter::belongsTo('product', 'items.product'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('ordered_at', new FiltersDateRange),
                 AllowedFilter::custom('received_at', new FiltersDateRange),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
-                AllowedFilter::groupOr('search', [
-                    AllowedFilter::partial('note'),
-                    AllowedFilter::partial('items.product.name'),
-                    AllowedFilter::partial('items.product.sku'),
-                ])
+                AllowedFilter::partial('search', 'note'),
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
