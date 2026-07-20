@@ -19,10 +19,6 @@ class ActivityLogController extends Controller
                 AllowedFilter::belongsTo('subject'),
                 AllowedFilter::custom('subject_type', new FiltersMorphType),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
-                AllowedFilter::groupOR('search', [
-                    AllowedFilter::partial('log_name'),
-                    AllowedFilter::partial('description'),
-                ]),
             )
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')
