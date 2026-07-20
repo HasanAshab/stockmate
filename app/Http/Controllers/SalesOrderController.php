@@ -22,7 +22,7 @@ class SalesOrderController extends Controller
         return QueryBuilder::for(SalesOrder::class)
             ->with(['warehouse', 'createdBy', 'items'])
             ->allowedFilters(
-                AllowedFilter::belongsTo('created_by'),
+                AllowedFilter::belongsTo('created_by', 'createdBy'),
                 AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
