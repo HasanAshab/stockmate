@@ -24,9 +24,18 @@ class PurchaseOrderController extends Controller
         return QueryBuilder::for(PurchaseOrder::class)
             ->with(['supplier', 'warehouse', 'creator', 'items'])
             ->allowedFilters(
+                AllowedFilter::belongsTo('supplier'),
+                AllowedFilter::belongsTo('warehouse'),
+                AllowedFilter::belongsTo('creator'),
                 AllowedFilter::exact('status'),
-                AllowedFilter::exact('supplier_id'),
+                AllowedFilter::custom('ordered_at', new FiltersDateRange),
+                AllowedFilter::custom('received_at', new FiltersDateRange),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
+                AllowedFilter::groupOr('search', [
+                    AllowedFilter::partial('note'),
+                    AllowedFilter::partial('items.product.name'),
+                    AllowedFilter::partial('items.product.sku'),
+                ])
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
