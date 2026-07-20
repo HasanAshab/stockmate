@@ -16,6 +16,7 @@ class ActivityLogResource extends JsonApiResource
     {
         return [
             'id' => $this->id,
+            'log_name' => $this->log_name,
             'description' => $this->description,
             'subject_type' => class_basename($this->subject_type),
             'subject_id' => $this->subject_id,
