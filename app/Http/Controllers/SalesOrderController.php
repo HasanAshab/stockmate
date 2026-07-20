@@ -24,6 +24,7 @@ class SalesOrderController extends Controller
             ->allowedFilters(
                 AllowedFilter::belongsTo('creator'),
                 AllowedFilter::belongsTo('warehouse'),
+                AllowedFilter::belongsTo('product', 'items.product'),
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
                 AllowedFilter::operator('total_amount', FilterOperator::DYNAMIC),
@@ -32,8 +33,6 @@ class SalesOrderController extends Controller
                     AllowedFilter::partial('customer_email'),
                     AllowedFilter::partial('customer_phone'),
                     AllowedFilter::partial('transaction_reference'),
-                    AllowedFilter::partial('items.product.name'),
-                    AllowedFilter::partial('items.product.sku'),
                 ])
             )
             ->defaultSort('-created_at')
