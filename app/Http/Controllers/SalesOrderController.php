@@ -28,12 +28,6 @@ class SalesOrderController extends Controller
                 AllowedFilter::exact('status'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
                 AllowedFilter::operator('total_amount', FilterOperator::DYNAMIC),
-                AllowedFilter::groupOr('search', [
-                    AllowedFilter::partial('customer_name'),
-                    AllowedFilter::partial('customer_email'),
-                    AllowedFilter::partial('customer_phone'),
-                    AllowedFilter::partial('transaction_reference'),
-                ])
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(10)

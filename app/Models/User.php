@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -20,7 +23,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, LogsActivity, Notifiable;
+    use HasApiTokens, HasFactory, LogsActivity, Notifiable, Searchable;
 
     protected $attributes = [
         'is_active' => true,
@@ -44,6 +47,17 @@ class User extends Authenticatable
     public function stockLogs(): HasMany
     {
         return $this->hasMany(StockLog::class);
+    }
+
+    #[SearchUsingPrefix(['id'])]
+    #[SearchUsingFullText(['name', 'email'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
     }
 
     public function getActivitylogOptions(): LogOptions

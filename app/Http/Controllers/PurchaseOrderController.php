@@ -32,7 +32,6 @@ class PurchaseOrderController extends Controller
                 AllowedFilter::custom('ordered_at', new FiltersDateRange),
                 AllowedFilter::custom('received_at', new FiltersDateRange),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
-                AllowedFilter::partial('search', 'note'),
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(10)

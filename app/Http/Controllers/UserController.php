@@ -19,10 +19,6 @@ class UserController extends Controller
                 AllowedFilter::exact('role'),
                 AllowedFilter::exact('is_active'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
-                AllowedFilter::groupOr('search', [
-                    AllowedFilter::partial('name'),
-                    AllowedFilter::partial('email'),
-                ])
             )
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')

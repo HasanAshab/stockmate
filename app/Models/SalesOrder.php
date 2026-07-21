@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 
 #[Fillable(
     'customer_name',
@@ -24,7 +27,7 @@ use Illuminate\Support\Str;
 )]
 class SalesOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $attributes = [
         'status' => SalesOrderStatus::Pending,
@@ -52,6 +55,19 @@ class SalesOrder extends Model
     public function items(): HasMany
     {
         return $this->hasMany(SalesOrderItem::class);
+    }
+
+    #[SearchUsingPrefix(['id', 'transaction_reference'])]
+    #[SearchUsingFullText(['customer_name', 'customer_email', 'customer_phone'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'customer_name' => $this->customer_name,
+            'customer_email' => $this->customer_email,
+            'customer_phone' => $this->customer_phone,
+            'transaction_reference' => $this->transaction_reference,
+        ];
     }
 
     public function generateTransactionId(): string

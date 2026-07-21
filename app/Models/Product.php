@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
@@ -16,7 +19,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 #[Fillable('name', 'sku', 'price', 'category_id', 'supplier_id')]
 class Product extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, LogsActivity;
+    use HasFactory, InteractsWithMedia, LogsActivity, Searchable;
 
     protected function casts(): array
     {
@@ -55,6 +58,17 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(200)
             ->height(200);
+    }
+
+    #[SearchUsingPrefix(['id'])]
+    #[SearchUsingFullText(['name', 'sku'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'sku' => $this->sku,
+        ];
     }
 
     public function getActivitylogOptions(): LogOptions

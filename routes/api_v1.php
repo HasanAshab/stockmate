@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StockLogController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -108,6 +109,12 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
 
     // Profile
     Route::apiSingleton('profile', ProfileController::class);
+
+    // Search
+    Route::get('search', [SearchController::class, 'searchAll']);
+
+    Route::get('search/{scope}', [SearchController::class, 'searchScope'])
+        ->whereIn('scope', array_keys(config('search.scopes')));
 });
 
 // Payment Callbacks

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -15,7 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class StockLog extends Model
 {
     /** @use HasFactory<StockLogFactory> */
-    use HasFactory, LogsActivity;
+    use HasFactory, LogsActivity, Searchable;
 
     public const UPDATED_AT = null;
 
@@ -40,6 +43,16 @@ class StockLog extends Model
     public function warehouse(): BelongsTo
     {
         return $this->belongsTo(Warehouse::class);
+    }
+
+    #[SearchUsingPrefix(['id'])]
+    #[SearchUsingFullText('note')]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'note' => $this->note,
+        ];
     }
 
     public function getActivitylogOptions(): LogOptions

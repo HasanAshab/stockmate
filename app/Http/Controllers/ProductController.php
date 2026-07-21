@@ -23,10 +23,6 @@ class ProductController extends Controller
                 AllowedFilter::belongsTo('supplier'),
                 AllowedFilter::scope('low_stock'),
                 AllowedFilter::operator('price', FilterOperator::DYNAMIC),
-                AllowedFilter::groupOr('search', [
-                    AllowedFilter::partial('name'),
-                    AllowedFilter::partial('sku'),
-                ]),
             )
             ->allowedSorts(
                 'price',

@@ -29,7 +29,6 @@ class StockLogController extends Controller
                 AllowedFilter::belongsTo('user'),
                 AllowedFilter::belongsTo('warehouse'),
                 AllowedFilter::exact('type'),
-                AllowedFilter::partial('search', 'note'),
                 AllowedFilter::operator('quantity', FilterOperator::DYNAMIC),
                 AllowedFilter::operator('unit_cost', FilterOperator::DYNAMIC),
                 AllowedFilter::custom('created_at', new FiltersDateRange)

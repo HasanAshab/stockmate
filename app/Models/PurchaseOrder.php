@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 
 #[Fillable(
     'supplier_id',
@@ -20,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 )]
 class PurchaseOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $attributes = [
         'status' => PurchaseOrderStatus::Draft,
@@ -53,5 +56,15 @@ class PurchaseOrder extends Model
     public function items(): HasMany
     {
         return $this->hasMany(PurchaseOrderItem::class);
+    }
+
+    #[SearchUsingPrefix(['id'])]
+    #[SearchUsingFullText(['note'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'note' => $this->note,
+        ];
     }
 }
