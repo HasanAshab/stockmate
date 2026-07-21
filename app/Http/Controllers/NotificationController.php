@@ -20,6 +20,19 @@ class NotificationController extends Controller
             ->cursorPaginate(10);
     }
 
+    public function unreadCount(Request $request)
+    {
+        $unreadCount = $request->user()
+            ->unreadNotifications()
+            ->count();
+
+        return [
+            "data" => [
+                "count" => $unreadCount
+            ]
+        ];
+    }
+
     public function markAsRead(Request $request, string $id)
     {
         $notification = $request->user()

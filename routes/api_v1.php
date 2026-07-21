@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::prefix('notifications')->name('notifications.')->group(function () {
         Route::get('/', [NotificationController::class, 'index'])->name('index');
         Route::get('/unread', [NotificationController::class, 'unread'])->name('unread');
+        Route::get('/unread/count', [NotificationController::class, 'unreadCount'])->name('unread.count');
         Route::patch('/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
         Route::patch('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
         Route::delete('/{id}', [NotificationController::class, 'destroy'])->name('destroy');
