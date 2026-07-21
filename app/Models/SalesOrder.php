@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\DTO\SslcommerzPaymentPayload;
+use App\DTOs\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\SalesOrder\FinalizeSalesOrderPayment;
 use App\Actions\SalesOrder\ResolveSalesOrderPaymentState;
-use App\DTO\SslcommerzPaymentPayload;
+use App\DTOs\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use App\Enums\SslcommerzPaymentStatus;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;

@@ -2,7 +2,7 @@
 
 namespace App\Actions\SalesOrder;
 
-use App\DTO\SslcommerzPaymentPayload;
+use App\DTOs\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use App\Enums\StockLogType;
 use App\Exceptions\InsufficientStockException;
