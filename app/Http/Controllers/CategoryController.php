@@ -27,8 +27,6 @@ class CategoryController extends Controller
 
         $category = Category::create($request->validated());
 
-        $this->clearCategoryCache();
-
         return $category->toResource()
             ->response()
             ->setStatusCode(201);
@@ -45,9 +43,6 @@ class CategoryController extends Controller
     {
         Gate::authorize('update', $category);
         $category->update($request->validated());
-
-        $this->clearCategoryCache();
-
         return $category->toResource();
     }
 
@@ -55,8 +50,6 @@ class CategoryController extends Controller
     {
         Gate::authorize('delete', $category);
         $category->delete();
-
-        $this->clearCategoryCache();
 
         return response()->noContent();
     }
@@ -76,16 +69,6 @@ class CategoryController extends Controller
     {
         Gate::authorize('restore', $category);
         $category->restore();
-
-        $this->clearCategoryCache();
-
         return $category->toResource();
-    }
-
-    protected function clearCategoryCache(): void
-    {
-        Cache::forget('categories:all');
-        Cache::forget('categories:trashed');
-        Cache::forget('dashboard:metrics');
     }
 }
