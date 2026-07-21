@@ -58,11 +58,7 @@ class CategoryController extends Controller
     {
         Gate::authorize('viewAny', Category::class);
 
-        $trashed = Cache::remember('categories:trashed', now()->addMinutes(30), function () {
-            return Category::onlyTrashed()->get();
-        });
-
-        return $trashed->toResourceCollection();
+        return Category::onlyTrashed()->get()->toResourceCollection();
     }
 
     public function restore(Category $category)

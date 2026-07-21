@@ -9,7 +9,6 @@ class CategoryObserver
 {
     private const array CACHE_KEYS = [
         'all'       => 'categories:all',
-        'trashed'   => 'categories:trashed',
         'dashboard' => 'dashboard:metrics',
     ];
 
@@ -25,17 +24,12 @@ class CategoryObserver
 
     public function deleted(Category $category): void
     {
-        $this->forget('all', 'trashed', 'dashboard');
+        $this->forget('all', 'dashboard');
     }
 
     public function restored(Category $category): void
     {
-        $this->forget('all', 'trashed', 'dashboard');
-    }
-
-    public function forceDeleted(Category $category): void
-    {
-        $this->forget('trashed', 'dashboard');
+        $this->forget('all', 'dashboard');
     }
 
     private function forget(string ...$keys): void
