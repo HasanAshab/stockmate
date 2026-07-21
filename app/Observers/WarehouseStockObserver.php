@@ -13,17 +13,6 @@ class WarehouseStockObserver
             return;
         }
 
-        $oldQuantity = $warehouseStock->getOriginal('quantity');
-        $newQuantity = $warehouseStock->quantity;
-
-        $crossedThreshold =
-            $oldQuantity >= $warehouseStock->reorder_threshold &&
-            $newQuantity < $warehouseStock->reorder_threshold;
-
-        if (! $crossedThreshold) {
-            return;
-        }
-
-        WarehouseStockLow::dispatch($warehouseStock);
+        WarehouseStockLow::dispatchIf($warehouseStock->isLow(), $warehouseStock);
     }
 }
