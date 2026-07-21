@@ -13,6 +13,7 @@ use App\Models\Supplier;
 use App\Models\User;
 use App\Models\Warehouse;
 use App\Models\WarehouseStock;
+use App\Policies\DashboardPolicy;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -29,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
 
             return true;
         });
+
+        Gate::policy(DashboardPolicy::class, DashboardPolicy::class);
 
         DB::prohibitDestructiveCommands(
             app()->isProduction()

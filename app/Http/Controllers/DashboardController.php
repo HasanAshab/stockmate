@@ -7,12 +7,16 @@ use App\Models\Product;
 use App\Models\StockLog;
 use App\Models\Supplier;
 use App\Models\WarehouseStock;
+use App\Policies\DashboardPolicy;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
     public function __invoke()
     {
+        Gate::authorize('viewAny', DashboardPolicy::class);
+
         return Cache::flexible('dashboard:metrics', [300, 600], fn () => [
             'data' => [
                 'total_products' => Product::count(),
