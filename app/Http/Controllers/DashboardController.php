@@ -13,20 +13,19 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        return Cache::remember('dashboard:metrics', now()->addMinutes(5), function () {
-            $dashboard = [];
-
-            $dashboard['total_products'] = Product::count();
-            $dashboard['total_low_stock'] = WarehouseStock::lowStock()->count();
-            $dashboard['total_categories'] = Category::count();
-            $dashboard['total_suppliers'] = Supplier::count();
-            $dashboard['recent_stock_logs'] = StockLog::latest()
-                ->limit(5)
-                ->with(['user', 'product'])
-                ->get()
-                ->toArray();
-
-            return ['data' => $dashboard];
-        });
+        return Cache::flexible('dashboard:metrics', [300, 600], fn () => [
+            'data' => [
+                'total_products' => Product::count(),
+                'total_low_stock' => WarehouseStock::lowStock()->count(),
+                'total_categories' => Category::count(),
+                'total_suppliers' => Supplier::count(),
+                'recent_stock_logs' => StockLog::latest()
+                    ->take(5)
+                    ->with(['user', 'product'])
+                    ->get()
+                    ->toResourceCollection()
+                    ->resolve(),
+            ]
+        ]);
     }
 }
