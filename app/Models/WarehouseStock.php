@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable('warehouse_id', 'product_id', 'quantity', 'reorder_threshold')]
 #[ObservedBy(WarehouseStockObserver::class)]
+#[Fillable('warehouse_id', 'product_id', 'quantity', 'reorder_threshold')]
 class WarehouseStock extends Model
 {
     use HasFactory;

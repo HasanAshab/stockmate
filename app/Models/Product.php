@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +18,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+#[ObservedBy(ProductObserver::class)]
 #[Fillable('name', 'sku', 'price', 'category_id', 'supplier_id')]
 class Product extends Model implements HasMedia
 {

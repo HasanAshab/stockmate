@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\StockLogType;
+use App\Observers\StockLogObserver;
 use Database\Factories\StockLogFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +16,7 @@ use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+#[ObservedBy(StockLogObserver::class)]
 #[Fillable('product_id', 'warehouse_id', 'user_id', 'type', 'quantity', 'unit_cost', 'note')]
 class StockLog extends Model
 {
