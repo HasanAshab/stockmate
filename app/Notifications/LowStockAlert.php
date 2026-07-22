@@ -12,6 +12,8 @@ class LowStockAlert extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public const string TYPE = 'low_stock_alert';
+
     public function __construct(public WarehouseStock $warehouseStock) {}
 
     public function via(object $notifiable): array
@@ -33,6 +35,7 @@ class LowStockAlert extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
+            'type' => static::TYPE,
             'warehouse_stock_id' => $this->warehouseStock->id,
             'message' => 'Product '.$this->warehouseStock->product->name.' is low on stock ('.$this->warehouseStock->quantity.' remaining).',
         ];
