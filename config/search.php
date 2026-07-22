@@ -1,12 +1,12 @@
 <?php
 
 use App\Enums\SearchContext;
-use App\Http\Resources\Search\ProductSearchResultResource;
-use App\Http\Resources\Search\PurchaseOrderSearchResultResource;
-use App\Http\Resources\Search\SalesOrderSearchResultResource;
-use App\Http\Resources\Search\StockLogSearchResultResource;
-use App\Http\Resources\Search\UserSearchResultResource;
-use App\Http\Resources\Search\WarehouseSearchResultResource;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\PurchaseOrderResource;
+use App\Http\Resources\SalesOrderResource;
+use App\Http\Resources\StockLogResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\WarehouseResource;
 use App\Models\Product;
 use App\Models\PurchaseOrder;
 use App\Models\SalesOrder;
@@ -56,37 +56,37 @@ return [
         'sales_orders' => [
             'model' => SalesOrder::class,
             'ability' => 'viewAny',
-            'resource' => SalesOrderSearchResultResource::class,
+            'resource' => SalesOrderResource::class,
         ],
 
         'products' => [
             'model' => Product::class,
             'ability' => 'viewAny',
-            'resource' => ProductSearchResultResource::class,
+            'resource' => ProductResource::class,
         ],
 
         'warehouses' => [
             'model' => Warehouse::class,
             'ability' => 'viewAny',
-            'resource' => WarehouseSearchResultResource::class,
+            'resource' => WarehouseResource::class,
         ],
 
         'purchase_orders' => [
             'model' => PurchaseOrder::class,
             'ability' => 'viewAny',
-            'resource' => PurchaseOrderSearchResultResource::class,
+            'resource' => PurchaseOrderResource::class,
         ],
 
         'stock_logs' => [
             'model' => StockLog::class,
             'ability' => 'viewAny',
-            'resource' => StockLogSearchResultResource::class,
+            'resource' => StockLogResource::class,
         ],
 
         'users' => [
             'model' => User::class,
             'ability' => 'viewAny',
-            'resource' => UserSearchResultResource::class,
+            'resource' => UserResource::class,
         ],
     ],
 
