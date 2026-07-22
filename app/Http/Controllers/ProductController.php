@@ -21,12 +21,10 @@ class ProductController extends Controller
                 AllowedFilter::trashed(),
                 AllowedFilter::belongsTo('category'),
                 AllowedFilter::belongsTo('supplier'),
-                AllowedFilter::scope('low_stock'),
                 AllowedFilter::operator('price', FilterOperator::DYNAMIC),
             )
             ->allowedSorts(
                 'price',
-                'quantity',
                 'created_at',
             )
             ->allowedIncludes('category', 'supplier', 'media')
