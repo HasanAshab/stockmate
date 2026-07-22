@@ -1,0 +1,29 @@
+service: stock-mate
+
+useDotenv: true
+
+provider:
+  name: aws
+  region: ap-south-1
+  runtime: provided.al2023
+  memorySize: 1024
+  timeout: 28
+
+plugins:
+  - ./vendor/bref/bref
+
+functions:
+  web:
+    handler: public/index.php
+    runtime: php-83-fpm
+    url: true
+
+  # queue-worker:
+  #   handler: artisan
+  #   runtime: php-83-console
+  #   timeout: 60
+  #   events:
+  #     - schedule:
+  #         rate: rate(30 minutes)
+  #         input:
+  #           cli: "queue:work --stop-when-empty --max-time=50"
