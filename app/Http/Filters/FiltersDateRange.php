@@ -9,8 +9,16 @@ class FiltersDateRange implements Filter
 {
     public function __invoke(Builder $query, mixed $value, string $property): void
     {
-        if (is_array($value) && isset($value['from']) && isset($value['to'])) {
-            $query->whereBetween($property, [$value['from'], $value['to']]);
+        if (!is_array($value)) return;
+
+        if (isset($value['from']))
+        {
+            $query->where($property, '>=', $value['from']);
+        }
+
+        if (isset($value['to']))
+        {
+            $query->where($property, '<=', $value['to']);
         }
     }
 }
