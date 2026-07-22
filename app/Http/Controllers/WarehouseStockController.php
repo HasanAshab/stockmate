@@ -6,6 +6,9 @@ use App\Http\Requests\Warehouse\UpdateWarehouseStockRequest;
 use App\Models\Warehouse;
 use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\Gate;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Enums\FilterOperator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class WarehouseStockController extends Controller
 {
@@ -13,9 +16,21 @@ class WarehouseStockController extends Controller
     {
         Gate::authorize('view', $warehouse);
 
-        return $warehouse->warehouseStocks()
-            ->with(['product.category'])
+        return QueryBuilder::for($warehouse->warehouseStocks())
+            ->allowedFilters(
+                AllowedFilter::belongsTo('product'),
+                AllowedFilter::belongsTo('warehouse'),
+                AllowedFilter::operator('quantity', FilterOperator::DYNAMIC),
+                AllowedFilter::scope('low_stock'),
+            )
+            ->allowedSorts(
+                'quantity',
+                'created_at',
+            )
+            ->allowedIncludes('product.category')
+            ->defaultSort('-created_at')
             ->cursorPaginate(15)
+            ->appends(request()->query())
             ->toResourceCollection();
     }
 
