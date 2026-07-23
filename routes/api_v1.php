@@ -8,9 +8,11 @@ use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentCallbackController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StockLogController;
@@ -83,25 +85,29 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::post('sales-orders/{salesOrder}/initiate-payment', [SalesOrderController::class, 'initiatePayment'])
         ->name('sales-orders.initiate-payment');
 
-    Route::middleware('role:'.Role::Admin->value)->group(function () {
-        // Users
-        Route::apiResource('users', UserController::class)->except(['destroy']);
-        Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    // Roles and Permissions
+    Route::apiResource('roles', RoleController::class)->only('index');
+    Route::apiResource('permissions', PermissionController::class)->only('index');
 
-        // Activity Logs
-        Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
+    // Users
+    Route::apiResource('users', UserController::class)->except(['destroy']);
+    Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::put('users/{user}/roles', [UserController::class, 'assignRoles'])->name('users.assign-roles');
+    Route::put('users/{user}/permissions', [UserController::class, 'assignPermissions'])->name('users.assign-permissions');
 
-        // Purchase Orders (Admin only)
-        Route::apiResource('purchase-orders', PurchaseOrderController::class)->except(['destroy']);
-        Route::patch('purchase-orders/{purchaseOrder}/mark-ordered', [PurchaseOrderController::class, 'markOrdered'])
-            ->name('purchase-orders.mark-ordered');
-        Route::patch('purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel'])
-            ->name('purchase-orders.cancel');
+    // Activity Logs
+    Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
 
-        // Sales Order Cancel (Admin only)
-        Route::patch('sales-orders/{salesOrder}/cancel', [SalesOrderController::class, 'cancel'])
-            ->name('sales-orders.cancel');
-    });
+    // Purchase Orders (Admin only)
+    Route::apiResource('purchase-orders', PurchaseOrderController::class)->except(['destroy']);
+    Route::patch('purchase-orders/{purchaseOrder}/mark-ordered', [PurchaseOrderController::class, 'markOrdered'])
+        ->name('purchase-orders.mark-ordered');
+    Route::patch('purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel'])
+        ->name('purchase-orders.cancel');
+
+    // Sales Order Cancel (Admin only)
+    Route::patch('sales-orders/{salesOrder}/cancel', [SalesOrderController::class, 'cancel'])
+        ->name('sales-orders.cancel');
 
     // Purchase Order Receiving (Admin and Staff)
     Route::post('purchase-orders/{purchaseOrder}/receive', [PurchaseOrderController::class, 'receive'])

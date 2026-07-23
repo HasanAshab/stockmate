@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -17,13 +16,14 @@ use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'role', 'is_active'])]
+#[Fillable(['name', 'email', 'password', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, LogsActivity, Notifiable, Searchable;
+    use HasApiTokens, HasFactory, HasRoles, LogsActivity, Notifiable, Searchable;
 
     protected $attributes = [
         'is_active' => true,
@@ -39,7 +39,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => Role::class,
             'is_active' => 'boolean',
         ];
     }
@@ -63,7 +62,7 @@ class User extends Authenticatable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email', 'role', 'is_active'])
+            ->logOnly(['name', 'email', 'is_active'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\Permission;
 use App\Enums\PurchaseOrderStatus;
 use App\Models\PurchaseOrder;
 use App\Models\User;
@@ -11,22 +12,22 @@ class PurchaseOrderPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::PurchaseOrdersView);
     }
 
     public function view(User $user, PurchaseOrder $purchaseOrder): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::PurchaseOrdersView);
     }
 
     public function create(User $user): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::PurchaseOrdersCreate);
     }
 
     public function update(User $user, PurchaseOrder $purchaseOrder): Response
     {
-        if (! $user->role->isAdmin()) {
+        if (! $user->hasPermissionTo(Permission::PurchaseOrdersUpdate)) {
             return Response::deny('You do not have permission to update purchase orders.');
         }
 
@@ -39,12 +40,12 @@ class PurchaseOrderPolicy
 
     public function delete(User $user, PurchaseOrder $purchaseOrder): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::PurchaseOrdersDelete);
     }
 
     public function cancel(User $user, PurchaseOrder $purchaseOrder): Response
     {
-        if (! $user->role->isAdmin()) {
+        if (! $user->hasPermissionTo(Permission::PurchaseOrdersCancel)) {
             return Response::deny('You do not have permission to cancel purchase orders.');
         }
 
@@ -61,7 +62,7 @@ class PurchaseOrderPolicy
 
     public function markOrdered(User $user, PurchaseOrder $purchaseOrder): Response
     {
-        if (! $user->role->isAdmin()) {
+        if (! $user->hasPermissionTo(Permission::PurchaseOrdersMarkOrdered)) {
             return Response::deny('You do not have permission to mark purchase orders as ordered.');
         }
 
@@ -74,7 +75,7 @@ class PurchaseOrderPolicy
 
     public function receive(User $user, PurchaseOrder $purchaseOrder): Response
     {
-        if (! $user->role->isAdmin() && ! $user->role->isStaff()) {
+        if (! $user->hasPermissionTo(Permission::PurchaseOrdersReceive)) {
             return Response::deny('You do not have permission to receive purchase orders.');
         }
 

@@ -2,47 +2,44 @@
 
 namespace App\Policies;
 
+use App\Enums\Permission;
 use App\Models\Supplier;
 use App\Models\User;
 
 class SupplierPolicy
 {
-    public function before(User $user): ?bool
-    {
-        if ($user->role->isAdmin() || $user->role->isStaff()) {
-            return true;
-        }
-
-        return null;
-    }
-
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->hasPermissionTo(Permission::SuppliersView);
+    }
+
+    public function view(User $user, Supplier $supplier): bool
+    {
+        return $user->hasPermissionTo(Permission::SuppliersView);
     }
 
     public function create(User $user): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::SuppliersCreate);
     }
 
     public function update(User $user, Supplier $supplier): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::SuppliersUpdate);
     }
 
     public function delete(User $user, Supplier $supplier): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::SuppliersDelete);
     }
 
     public function restore(User $user, Supplier $supplier): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::SuppliersRestore);
     }
 
     public function forceDelete(User $user, Supplier $supplier): bool
     {
-        return $user->role->isAdmin();
+        return $user->hasPermissionTo(Permission::SuppliersForceDelete);
     }
 }

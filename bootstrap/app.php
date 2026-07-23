@@ -1,11 +1,13 @@
 <?php
 
+use App\Enums\Role;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\EnsureAccountIsActive;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Sentry\Laravel\Integration;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,9 +19,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(EnsureAccountIsActive::class);
-        $middleware->alias([
-            'role' => CheckRole::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         Integration::handles($exceptions);
@@ -27,4 +26,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
-    })->create();
+    })
+    ->booted(function (): void {
+        // Super Admin bypass - grant all permissions
+        Gate::before(function ($user, $ability) {
+            if ($user?->hasRole(Role::SuperAdmin->value)) {
+                return true;
+            }
+        });
+    })
+    ->create();

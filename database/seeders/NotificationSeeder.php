@@ -15,7 +15,7 @@ class NotificationSeeder extends Seeder
     {
         $warehouseStocks = WarehouseStock::lowStock()->limit(3)->get();
 
-        $admins = User::whereRole(Role::Admin)->get();
+        $admins = User::role([Role::SuperAdmin->value, Role::Administrator->value])->get();
 
         foreach ($warehouseStocks as $warehouseStock) {
             Notification::sendNow($admins, new LowStockAlert($warehouseStock));

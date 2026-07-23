@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Filters\FiltersDateRange;
+use App\Http\Requests\User\AssignPermissionsRequest;
+use App\Http\Requests\User\AssignRolesRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
@@ -16,7 +18,7 @@ class UserController extends Controller
     {
         return QueryBuilder::for(User::class)
             ->allowedFilters(
-                AllowedFilter::exact('role'),
+                AllowedFilter::scope('role'),
                 AllowedFilter::exact('is_active'),
                 AllowedFilter::custom('created_at', new FiltersDateRange),
             )
@@ -37,16 +39,14 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        $user->load(['roles', 'permissions']);
+
         return $user->toResource();
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
         $validated = $request->validated();
-
-        if (isset($validated['role'])) {
-            Gate::authorize('updateRole', $user);
-        }
 
         $user->update($validated);
 
@@ -60,6 +60,28 @@ class UserController extends Controller
         $user->update([
             'is_active' => ! $user->is_active,
         ]);
+
+        return $user->toResource();
+    }
+
+    public function assignRoles(AssignRolesRequest $request, User $user)
+    {
+        Gate::authorize('updateRole', $user);
+
+        $user->syncRoles($request->validated('roles'));
+
+        $user->load(['roles', 'permissions']);
+
+        return $user->toResource();
+    }
+
+    public function assignPermissions(AssignPermissionsRequest $request, User $user)
+    {
+        Gate::authorize('updateRole', $user);
+
+        $user->syncPermissions($request->validated('permissions'));
+
+        $user->load(['roles', 'permissions']);
 
         return $user->toResource();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\Permission;
 use App\Enums\SalesOrderStatus;
 use App\Models\SalesOrder;
 use App\Models\User;
@@ -11,22 +12,22 @@ class SalesOrderPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->role->isAdmin() || $user->role->isStaff();
+        return $user->hasPermissionTo(Permission::SalesOrdersView);
     }
 
     public function view(User $user, SalesOrder $salesOrder): bool
     {
-        return $user->role->isAdmin() || $user->role->isStaff();
+        return $user->hasPermissionTo(Permission::SalesOrdersView);
     }
 
     public function create(User $user): bool
     {
-        return $user->role->isAdmin() || $user->role->isStaff();
+        return $user->hasPermissionTo(Permission::SalesOrdersCreate);
     }
 
     public function cancel(User $user, SalesOrder $salesOrder): Response
     {
-        if (! $user->role->isAdmin()) {
+        if (! $user->hasPermissionTo(Permission::SalesOrdersCancel)) {
             return Response::deny('You do not have permission to cancel sales orders.');
         }
 
@@ -43,7 +44,7 @@ class SalesOrderPolicy
 
     public function initiatePayment(User $user, SalesOrder $salesOrder): Response
     {
-        if (! $user->role->isAdmin() && ! $user->role->isStaff()) {
+        if (! $user->hasPermissionTo(Permission::SalesOrdersInitiatePayment)) {
             return Response::deny('You do not have permission to initiate payment.');
         }
 

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +30,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role' => Role::Staff,
             'is_active' => true,
         ];
     }
@@ -46,18 +44,64 @@ class UserFactory extends Factory
         ]);
     }
 
-    public function admin(): static
+    public function superAdmin(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'role' => Role::Admin,
-        ]);
+        return $this->state(fn (array $attributes) => []);
     }
 
-    public function staff(): static
+    public function administrator(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'role' => Role::Staff,
-        ]);
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function storeManager(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function warehouseManager(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function warehouseStaff(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function purchasingOfficer(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function salesRepresentative(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function cashier(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function inventoryClerk(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function accountant(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function auditor(): static
+    {
+        return $this->state(fn (array $attributes) => []);
+    }
+
+    public function viewer(): static
+    {
+        return $this->state(fn (array $attributes) => []);
     }
 
     public function inactive(): static
