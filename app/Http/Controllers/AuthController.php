@@ -2,29 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Auth\ChangeUserPassword;
+use App\Actions\Auth\LoginUser;
+use App\Actions\Auth\RegisterUser;
+use App\Actions\Auth\ResetUserPassword;
+use App\Actions\Auth\SendPasswordResetLink;
+use App\Http\Requests\Auth\ChangePasswordRequest;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function tokenLogin(LoginRequest $request)
+    public function login(LoginRequest $request, LoginUser $loginUser)
     {
-        $credentials = $request->validated();
+        $user = $loginUser->execute($request->validated());
 
-        if (! Auth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
-        }
+        $token = $user->createToken('stockmate')->plainTextToken;
 
-        $user = User::where('email', $credentials['email'])->firstOrFail();
+        return [
+            'user' => $user->toResource(),
+            'token' => $token,
+            'token_type' => 'Bearer',
+        ];
+    }
+
+    public function register(RegisterRequest $request, RegisterUser $registerUser)
+    {
+        $user = $registerUser->execute($request->validated());
+
         $token = $user->createToken('stockmate')->plainTextToken;
 
         return response()->json([
             'user' => $user->toResource(),
             'token' => $token,
             'token_type' => 'Bearer',
+        ], 201);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->noContent();
+    }
+
+    public function changePassword(ChangePasswordRequest $request, ChangeUserPassword $changeUserPassword)
+    {
+        $changeUserPassword->execute(
+            $request->user(),
+            $request->password
+        );
+
+        return [
+            'message' => 'Password changed successfully.',
+        ];
+    }
+
+    public function forgotPassword(ForgotPasswordRequest $request, SendPasswordResetLink $sendPasswordResetLink)
+    {
+        $sendPasswordResetLink->execute($request->email);
+
+        return response()->json([
+            'message' => 'Password reset link sent to your email.',
+        ], 202);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request, ResetUserPassword $resetUserPassword)
+    {
+        $resetUserPassword->execute([
+            'email' => $request->email,
+            'password' => $request->password,
+            'token' => $request->token,
         ]);
+
+        return [
+            'message' => 'Password has been reset successfully.',
+        ];
     }
 }

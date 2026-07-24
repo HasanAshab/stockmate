@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\Role;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
@@ -24,12 +23,19 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 // Auth
-Route::post('auth/token/login', [AuthController::class, 'tokenLogin'])->name('auth.token-login');
+Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('auth/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot-password');
+Route::post('auth/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset-password');
 
 // Config
 Route::get('config/enums', [ConfigController::class, 'enums'])->name('config.enums');
 
 Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
+    // Auth
+    Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::post('auth/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
+
     // Dashboard
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
