@@ -23,10 +23,15 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 // Auth
-Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
-Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('auth/forgot-password', [AuthController::class, 'forgotPassword'])->name('auth.forgot-password');
-Route::post('auth/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset-password');
+Route::controller(AuthController::class)
+    ->prefix('auth')
+    ->name('auth.')
+    ->group(function () {
+        Route::post('register', 'register')->name('register');
+        Route::post('login', 'login')->name('login');
+        Route::post('forgot-password', 'forgotPassword')->name('forgot-password');
+        Route::post('reset-password', 'resetPassword')->name('reset-password');
+    });
 
 // Config
 Route::get('config/enums', [ConfigController::class, 'enums'])->name('config.enums');
@@ -40,14 +45,17 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     // Notifications
-    Route::prefix('notifications')->name('notifications.')->group(function () {
-        Route::get('/', [NotificationController::class, 'index'])->name('index');
-        Route::get('/unread', [NotificationController::class, 'unread'])->name('unread');
-        Route::get('/unread/count', [NotificationController::class, 'unreadCount'])->name('unread.count');
-        Route::patch('/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
-        Route::patch('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
-        Route::delete('/{id}', [NotificationController::class, 'destroy'])->name('destroy');
-    });
+    Route::controller(NotificationController::class)
+        ->prefix('notifications')
+        ->name('notifications.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/unread', 'unread')->name('unread');
+            Route::get('/unread/count', 'unreadCount')->name('unread.count');
+            Route::patch('/{id}/mark-as-read', 'markAsRead')->name('mark-as-read');
+            Route::patch('/mark-all-as-read', 'markAllAsRead')->name('mark-all-as-read');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
 
     // Categories
     Route::apiResource('categories', CategoryController::class);
