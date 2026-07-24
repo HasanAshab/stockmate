@@ -40,8 +40,13 @@ Route::get('config/enums', [ConfigController::class, 'enums'])->name('config.enu
 
 Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     // Auth
-    Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
-    Route::post('auth/change-password', [AuthController::class, 'changePassword'])->name('auth.change-password');
+    Route::controller(AuthController::class)
+        ->prefix('auth')
+        ->name('auth.')
+        ->group(function () {
+            Route::post('logout', 'logout')->name('logout');
+            Route::post('change-password', 'changePassword')->name('change-password');
+        });
 
     // Dashboard
     Route::get('dashboard', DashboardController::class)->name('dashboard');
