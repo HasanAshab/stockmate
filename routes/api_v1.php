@@ -29,6 +29,8 @@ Route::controller(AuthController::class)
     ->group(function () {
         Route::post('register', 'register')->name('register');
         Route::post('login', 'login')->name('login');
+        Route::post('verify', 'verify')->name('verification.verify');
+        Route::post('verification-notification', 'resendOtp')->name('verification.send');
         Route::post('forgot-password', 'forgotPassword')->name('forgot-password');
         Route::post('reset-password', 'resetPassword')->name('reset-password');
     });

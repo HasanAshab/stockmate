@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Actions\Auth\ChangeUserPassword;
 use App\Actions\Auth\LoginUser;
 use App\Actions\Auth\RegisterUser;
+use App\Actions\Auth\ResendOtp;
 use App\Actions\Auth\ResetUserPassword;
 use App\Actions\Auth\SendPasswordResetLink;
+use App\Actions\Auth\VerifyAccount;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ResendOtpRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
+use App\Http\Requests\Auth\VerifyAccountRequest;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -49,6 +53,27 @@ class AuthController extends Controller
         return response()->noContent();
     }
 
+    public function verify(VerifyAccountRequest $request, VerifyAccount $verifyOtp)
+    {
+        $verifyOtp->execute(
+            $request->validated('identifier'),
+            $request->validated('code'),
+        );
+
+        return [
+            'message' => 'Account verified successfully',
+        ];
+    }
+
+    public function resendOtp(ResendOtpRequest $request, ResendOtp $resendOtp)
+    {
+        $resendOtp->execute(
+            $request->validated('identifier')
+        );  
+
+        return ['message' => 'Code resent.'];
+    }
+
     public function changePassword(ChangePasswordRequest $request, ChangeUserPassword $changeUserPassword)
     {
         $changeUserPassword->execute(
@@ -56,9 +81,7 @@ class AuthController extends Controller
             $request->password
         );
 
-        return [
-            'message' => 'Password changed successfully.',
-        ];
+        return ['message' => 'Password changed.'];
     }
 
     public function forgotPassword(ForgotPasswordRequest $request, SendPasswordResetLink $sendPasswordResetLink)

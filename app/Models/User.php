@@ -16,6 +16,7 @@ use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password', 'is_active'])]
@@ -23,7 +24,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, HasRoles, LogsActivity, Notifiable, Searchable;
+    use HasApiTokens, HasFactory, HasRoles, LogsActivity, Notifiable, Searchable, HasOneTimePasswords;
 
     protected $attributes = [
         'is_active' => true,
@@ -66,5 +67,10 @@ class User extends Authenticatable
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");
+    }
+
+    public function isVerified(): bool
+    {
+        return !is_null($this->email_verified_at);
     }
 }
