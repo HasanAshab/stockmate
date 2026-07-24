@@ -16,7 +16,7 @@ class EnsureAccountIsActive
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user() && ! $request->user()->is_active) {
-            abort(403, 'Your account has been deactivated.');
+            abort(403, 'Your account is not active. contact admin to activate it');
         }
 
         return $next($request);
