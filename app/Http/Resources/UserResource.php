@@ -13,6 +13,7 @@ class UserResource extends JsonApiResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'is_verified' => $this->isVerified(),
             'is_active' => $this->is_active,
             'roles' => $this->whenLoaded('roles', fn () => $this->roles->pluck('name')),
             'direct_permissions' => $this->whenLoaded('permissions', fn () => $this->permissions->pluck('name')),
