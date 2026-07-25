@@ -12,6 +12,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['string', 'max:50'],
             'email' => ['string', 'email', 'unique:users'],
+            'phone' => ['nullable', 'phone:BD', 'unique:users'],
             'password' => ['string', Password::default()],
         ];
     }

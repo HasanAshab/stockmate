@@ -19,6 +19,7 @@
         "laravel/scout": "^11.3",
         "laravel/tinker": "^3.0",
         "maatwebsite/excel": "^3.1",
+        "propaganistas/laravel-phone": "^6.0",
         "sentry/sentry-laravel": "^4.27",
         "spatie/laravel-activitylog": "^4.12",
         "spatie/laravel-medialibrary": "^11.23",

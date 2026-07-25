@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -19,7 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'is_active'])]
+#[Fillable(['name', 'email', 'phone', 'password', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -39,6 +38,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'phone_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_active' => 'boolean',
         ];
@@ -49,7 +49,7 @@ class User extends Authenticatable
         return $this->hasMany(StockLog::class);
     }
 
-    #[SearchUsingPrefix(['id'])]
+    #[SearchUsingPrefix(['id', 'phone'])]
     #[SearchUsingFullText(['name', 'email'])]
     public function toSearchableArray(): array
     {
@@ -57,13 +57,14 @@ class User extends Authenticatable
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone ?? '',
         ];
     }
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email', 'is_active'])
+            ->logOnly(['name', 'email', 'phone', 'is_active'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");
@@ -71,6 +72,20 @@ class User extends Authenticatable
 
     public function isVerified(): bool
     {
-        return !is_null($this->email_verified_at);
+        return !is_null($this->email_verified_at) || !is_null($this->phone_verified_at);
+    }
+
+    public function markPhoneAsVerified(): bool
+    {
+        return $this->forceFill([
+            'phone_verified_at' => now(),
+        ])->save();
+    }
+
+    public function markPhoneAsUnverified(): bool
+    {
+        return $this->forceFill([
+            'phone_verified_at' => null,
+        ])->save();
     }
 }
