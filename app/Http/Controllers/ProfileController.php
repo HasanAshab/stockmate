@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\UpdateProfile;
 use App\Http\Requests\User\UpdateProfileRequest;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,11 @@ class ProfileController extends Controller
         return $request->user()->toResource();
     }
 
-    public function update(UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request, UpdateProfile $updateProfile)
     {
         $user = $request->user();
-        $user->update($request->validated());
+
+        $updateProfile->execute($user, $request->validated());
 
         return $user->toResource();
     }
