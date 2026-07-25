@@ -19,6 +19,8 @@ class SendPasswordResetOtp
         }
 
         $otp = $user->createOneTimePassword();
-        $user->notify(new PasswordResetOtpNotification($otp));
+        $identifierType = User::identifierColumn($identifier);
+
+        $user->notify(new PasswordResetOtpNotification($otp, $identifierType));
     }
 }

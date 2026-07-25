@@ -2,11 +2,10 @@
 
 namespace App\Notifications;
 
-use Spatie\OneTimePasswords\Notifications\OneTimePasswordNotification;
 use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\Twilio\TwilioSmsMessage;
 
-class PasswordResetOtpNotification extends OneTimePasswordNotification
+class PasswordResetOtpNotification extends OtpChannelNotification
 {
     public function via($notifiable): array
     {
