@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Actions\Auth\ChangeUserPassword;
 use App\Actions\Auth\LoginUser;
 use App\Actions\Auth\RegisterUser;
-use App\Actions\Auth\ResendOtp;
 use App\Actions\Auth\ResetUserPassword;
+use App\Actions\Auth\SendAuthOtp;
 use App\Actions\Auth\SendPasswordResetOtp;
 use App\Actions\Auth\VerifyAccount;
 use App\Http\Requests\Auth\ChangePasswordRequest;
@@ -68,7 +68,7 @@ class AuthController extends Controller
         ];
     }
 
-    public function resendOtp(ResendOtpRequest $request, ResendOtp $resendOtp)
+    public function resendOtp(ResendOtpRequest $request, SendAuthOtp $resendOtp)
     {
         $resendOtp->execute($request->validated('identifier'));  
 

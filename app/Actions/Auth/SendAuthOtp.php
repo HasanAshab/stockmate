@@ -4,7 +4,7 @@ namespace App\Actions\Auth;
 
 use App\Models\User;
 
-class ResendOtp
+class SendAuthOtp
 {
     public function execute(string $identifier): void
     {
