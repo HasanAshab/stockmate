@@ -2,10 +2,13 @@
 
 namespace App\Actions\User;
 
+use App\Actions\Auth\SendVerificationOtp;
 use App\Models\User;
 
 class UpdateProfile
 {
+    public function __construct(protected SendVerificationOtp $verification) {}
+
     public function execute(User $user, array $data): User
     {
         $user->fill($data);
@@ -23,6 +26,14 @@ class UpdateProfile
         }
 
         $user->save();
+
+        if ($user->wasChanged('email')) {
+            $this->verification->execute($user->email);
+        }
+
+        if ($user->wasChanged('phone')) {
+            $this->verification->execute($user->phone);
+        }
 
         return $user;
     }
