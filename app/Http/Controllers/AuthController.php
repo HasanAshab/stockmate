@@ -7,7 +7,7 @@ use App\Actions\Auth\LoginUser;
 use App\Actions\Auth\RegisterUser;
 use App\Actions\Auth\ResendOtp;
 use App\Actions\Auth\ResetUserPassword;
-use App\Actions\Auth\SendPasswordResetLink;
+use App\Actions\Auth\SendPasswordResetOtp;
 use App\Actions\Auth\VerifyAccount;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
@@ -85,9 +85,9 @@ class AuthController extends Controller
         return ['message' => 'Password changed.'];
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request, SendPasswordResetLink $sendPasswordResetLink)
+    public function forgotPassword(ForgotPasswordRequest $request, SendPasswordResetOtp $sendPasswordResetOtp)
     {
-        $sendPasswordResetLink->execute($request->validated('email'));
+        $sendPasswordResetOtp->execute($request->validated('identifier'));
 
         return response()->json([
             'message' => 'Password reset link sent to your email.',
