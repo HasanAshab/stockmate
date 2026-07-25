@@ -14,6 +14,7 @@
         "bref/laravel-bridge": "^3.0",
         "dedoc/scramble": "^0.13.26",
         "hasinhayder/sslcommerz-laravel": "^1.1",
+        "laravel-notification-channels/twilio": "^4.2",
         "laravel/framework": "^13.8",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^11.3",

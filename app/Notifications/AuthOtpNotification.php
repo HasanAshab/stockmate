@@ -5,6 +5,7 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use NotificationChannels\Twilio\TwilioSmsMessage;
 use Spatie\OneTimePasswords\Notifications\OneTimePasswordNotification;
 
 class AuthOtpNotification extends OneTimePasswordNotification implements ShouldQueue
@@ -18,7 +19,7 @@ class AuthOtpNotification extends OneTimePasswordNotification implements ShouldQ
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return $notifiable->email ? ['mail'] : ['twilio'];
     }
 
     /**
@@ -30,5 +31,11 @@ class AuthOtpNotification extends OneTimePasswordNotification implements ShouldQ
             ->subject('Your verification code')
             ->line("Your code is: {$this->oneTimePassword->password}")
             ->line('It expires shortly.');
+    }
+
+    public function toTwilio($notifiable): TwilioSmsMessage
+    {
+        return (new TwilioSmsMessage)
+            ->content("Your verification code is: {$this->oneTimePassword->password}");
     }
 }

@@ -29,6 +29,17 @@ class User extends Authenticatable
         'is_active' => true,
     ];
 
+    public static function identifierColumn(string $identifier): string
+    {
+        return filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+    }
+
+    public static function findByIdentifier(string $identifier): ?self
+    {
+        $column = self::identifierColumn($identifier);
+        return static::where($column, $identifier)->first();
+    }
+
     /**
      * Get the attributes that should be cast.
      *

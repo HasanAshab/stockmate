@@ -8,7 +8,7 @@ class ResendOtp
 {
     public function execute(string $identifier): void
     {
-        $user = User::where('email', $identifier)->first();
+        $user = User::findByIdentifier($identifier);
 
         if (!$user || $user->isVerified()) {
             return;

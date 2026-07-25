@@ -10,7 +10,7 @@ class VerifyAccount
 {
     public function execute(string $identifier, string $code): void
     {
-        $user = User::where('email', $identifier)->first();
+        $user = User::findByIdentifier($identifier);
 
         $result = is_null($user)
             ? ConsumeOneTimePasswordResult::IncorrectOneTimePassword
@@ -22,7 +22,10 @@ class VerifyAccount
                 'code' => [$result->validationMessage()],
             ]);
         }
-
-        $user->markEmailAsVerified();
+        
+        match (User::identifierColumn($identifier)) {
+            'email' => $user->markEmailAsVerified(),
+            'phone' => $user->markPhoneAsVerified(),
+        };
     }
 }
