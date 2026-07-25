@@ -31,7 +31,12 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        return User::create($request->validated())
+        return User::forceCreate([
+                ...$request->validated(),
+                'email_verified_at' => now(),
+                'phone_verified_at' => now(),
+                'is_active' => true,
+            ])
             ->toResource()
             ->response()
             ->setStatusCode(201);
@@ -47,8 +52,21 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $validated = $request->validated();
+        $user->fill($validated);
 
-        $user->update($validated);
+        if ($user->isDirty('email')) {
+            $user->forceFill([
+                'email_verified_at' => now(),
+            ]);
+        }
+
+        if ($user->isDirty('phone')) {
+            $user->forceFill([
+                'phone_verified_at' => now(),
+            ]);
+        }
+
+        $user->save();
 
         return $user->toResource();
     }
