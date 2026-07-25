@@ -3,6 +3,7 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Notifications\AuthOtpNotification;
 
 class SendAuthOtp
 {
@@ -14,6 +15,8 @@ class SendAuthOtp
             return;
         }
 
-        $user->sendOneTimePassword();
+        $otp = $user->createOneTimePassword();
+        $identifierType = User::identifierColumn($identifier);
+        $user->notify(new AuthOtpNotification($otp, $identifierType));
     }
 }
