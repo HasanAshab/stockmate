@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\CreateUser;
+use App\Actions\User\ToggleUserStatus;
+use App\Actions\User\UpdateUser;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\User\AssignPermissionsRequest;
 use App\Http\Requests\User\AssignRolesRequest;
@@ -17,6 +20,7 @@ class UserController extends Controller
     public function index()
     {
         return QueryBuilder::for(User::class)
+            ->with(['roles', 'permissions'])
             ->allowedFilters(
                 AllowedFilter::scope('role'),
                 AllowedFilter::exact('is_active'),
@@ -29,14 +33,11 @@ class UserController extends Controller
             ->toResourceCollection();
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, CreateUser $createUser)
     {
-        return User::forceCreate([
-                ...$request->validated(),
-                'email_verified_at' => now(),
-                'phone_verified_at' => now(),
-                'is_active' => true,
-            ])
+        $user = $createUser->execute($request->validated());
+
+        return $user
             ->toResource()
             ->response()
             ->setStatusCode(201);
@@ -49,35 +50,18 @@ class UserController extends Controller
         return $user->toResource();
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
     {
-        $validated = $request->validated();
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->forceFill([
-                'email_verified_at' => now(),
-            ]);
-        }
-
-        if ($user->isDirty('phone')) {
-            $user->forceFill([
-                'phone_verified_at' => now(),
-            ]);
-        }
-
-        $user->save();
+        $user = $updateUser->execute($user, $request->validated());
 
         return $user->toResource();
     }
 
-    public function toggleStatus(User $user)
+    public function toggleStatus(User $user, ToggleUserStatus $toggleUserStatus)
     {
         Gate::authorize('deactivate', $user);
 
-        $user->update([
-            'is_active' => ! $user->is_active,
-        ]);
+        $user = $toggleUserStatus->execute($user);
 
         return $user->toResource();
     }
