@@ -2,11 +2,15 @@
 
 namespace App\Notifications;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\Twilio\TwilioSmsMessage;
 
-class PasswordResetOtpNotification extends OtpChannelNotification
+class PasswordResetOtpNotification extends OtpChannelNotification implements ShouldQueue
 {
+    use Queueable;
+
     public function via($notifiable): array
     {
         return $notifiable->email ? ['mail'] : ['twilio'];
