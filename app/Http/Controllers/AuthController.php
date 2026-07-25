@@ -6,7 +6,7 @@ use App\Actions\Auth\ChangeUserPassword;
 use App\Actions\Auth\LoginUser;
 use App\Actions\Auth\RegisterUser;
 use App\Actions\Auth\ResetUserPassword;
-use App\Actions\Auth\SendAuthOtp;
+use App\Actions\Auth\SendVerificationOtp;
 use App\Actions\Auth\SendPasswordResetOtp;
 use App\Actions\Auth\VerifyAccount;
 use App\Http\Requests\Auth\ChangePasswordRequest;
@@ -68,9 +68,9 @@ class AuthController extends Controller
         ];
     }
 
-    public function resendOtp(ResendOtpRequest $request, SendAuthOtp $resendOtp)
+    public function resendVerification(ResendOtpRequest $request, SendVerificationOtp $verification)
     {
-        $resendOtp->execute($request->validated('identifier'));  
+        $verification->execute($request->validated('identifier'));  
 
         return ['message' => 'Code resent.'];
     }

@@ -5,7 +5,7 @@ namespace App\Actions\Auth;
 use App\Models\User;
 use App\Notifications\AuthOtpNotification;
 
-class SendAuthOtp
+class SendVerificationOtp
 {
     public function execute(string $identifier): void
     {
