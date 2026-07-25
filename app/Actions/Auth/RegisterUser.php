@@ -13,6 +13,7 @@ class RegisterUser
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
             'is_active' => false,
         ]);

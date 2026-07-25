@@ -3,21 +3,27 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class LoginUser
 {
-    public function execute(array $credentials): User
+    public function execute(string $identifier, string $password): User
     {
-        if (! Auth::attempt($credentials)) {
+        $field = $this->identifierColumn($identifier);
+        $user = User::where($field, $identifier)->first();
+
+        if (!$user || !Hash::check($password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'identifier' => ['These credentials do not match our records.'],
             ]);
         }
 
-        $user = User::where('email', $credentials['email'])->firstOrFail();
-
         return $user;
+    }
+
+    protected function identifierColumn(string $identifier): string
+    {
+        return filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
     }
 }

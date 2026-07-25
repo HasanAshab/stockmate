@@ -22,7 +22,10 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request, LoginUser $loginUser)
     {
-        $user = $loginUser->execute($request->validated());
+        $user = $loginUser->execute(
+            $request->validated("identifier"),
+            $request->validated("password"),
+        );
 
         $token = $user->createToken('stockmate')->plainTextToken;
 
@@ -67,9 +70,7 @@ class AuthController extends Controller
 
     public function resendOtp(ResendOtpRequest $request, ResendOtp $resendOtp)
     {
-        $resendOtp->execute(
-            $request->validated('identifier')
-        );  
+        $resendOtp->execute($request->validated('identifier'));  
 
         return ['message' => 'Code resent.'];
     }
@@ -78,7 +79,7 @@ class AuthController extends Controller
     {
         $changeUserPassword->execute(
             $request->user(),
-            $request->password
+            $request->validated('password'),
         );
 
         return ['message' => 'Password changed.'];
@@ -86,7 +87,7 @@ class AuthController extends Controller
 
     public function forgotPassword(ForgotPasswordRequest $request, SendPasswordResetLink $sendPasswordResetLink)
     {
-        $sendPasswordResetLink->execute($request->email);
+        $sendPasswordResetLink->execute($request->validated('email'));
 
         return response()->json([
             'message' => 'Password reset link sent to your email.',
@@ -95,11 +96,7 @@ class AuthController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request, ResetUserPassword $resetUserPassword)
     {
-        $resetUserPassword->execute([
-            'email' => $request->email,
-            'password' => $request->password,
-            'token' => $request->token,
-        ]);
+        $resetUserPassword->execute($request->validated());
 
         return [
             'message' => 'Password has been reset successfully.',
