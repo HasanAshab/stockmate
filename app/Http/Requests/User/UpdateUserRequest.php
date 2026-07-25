@@ -29,4 +29,23 @@ class UpdateUserRequest extends FormRequest
             'password' => ['string', Password::default()],
         ];
     }
+
+    public function after(): array
+    {
+        return [
+            function ($validator) {
+                $user = $this->route('user');
+
+                $email = $this->input('email', $user->email);
+                $phone = $this->input('phone', $user->phone);
+
+                if ($email === null && $phone === null) {
+                    $validator->errors()->add(
+                        'email',
+                        'Either an email or a phone number is required.'
+                    );
+                }
+            },
+        ];
+    }
 }
