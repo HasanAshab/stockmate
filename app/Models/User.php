@@ -81,9 +81,13 @@ class User extends Authenticatable
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");
     }
 
-    public function isVerified(): bool
+    public function isVerified(string $identifierType = null): bool
     {
-        return !is_null($this->email_verified_at) || !is_null($this->phone_verified_at);
+        return match ($identifierType) {
+            'email' => $this->email_verified_at,
+            'password' => $this->password_verified_at,
+            default => $this->email_verified_at || $this->phone_verified_at,
+        };
     }
 
     public function markPhoneAsVerified(): bool
