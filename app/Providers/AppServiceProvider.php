@@ -17,15 +17,31 @@ use App\Models\WarehouseStock;
 use App\Policies\DashboardPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
+use App\Services\Social\SocialAuthManager;
+use Google\Client as GoogleClient;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Spatie\Permission\Models\Role as RoleModel;
 use Spatie\Permission\Models\Permission as PermissionModel;
+use Spatie\Permission\Models\Role as RoleModel;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public function register(): void
+    {
+        $this->app->singleton(GoogleClient::class, function () {
+            $client = new GoogleClient();
+            $client->setClientId(config('services.google.client_id'));
+
+            return $client;
+        });
+
+        $this->app->singleton(SocialAuthManager::class, function ($app) {
+            return new SocialAuthManager($app);
+        });
+    }
+
     public function boot(): void
     {
         Relation::enforceMorphMap([

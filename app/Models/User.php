@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(StockLog::class);
     }
 
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+
     #[SearchUsingPrefix(['id', 'phone'])]
     #[SearchUsingFullText(['name', 'email'])]
     public function toSearchableArray(): array

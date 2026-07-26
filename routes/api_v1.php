@@ -29,6 +29,7 @@ Route::controller(AuthController::class)
     ->group(function () {
         Route::post('register', 'register')->name('register');
         Route::post('login', 'login')->name('login');
+        Route::post('social', 'socialLogin')->name('social')->middleware('throttle:10,1');
         Route::post('verify', 'verify')->name('verification.verify');
         Route::post('verification-notification', 'resendVerification')->name('verification.send');
         Route::post('forgot-password', 'forgotPassword')->name('forgot-password');

@@ -15,6 +15,7 @@
         "laravel-best-practices",
         "octane-development",
         "scout-development",
+        "socialite-development",
         "pest-testing",
         "tailwindcss-development",
         "medialibrary-development",
