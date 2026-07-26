@@ -7,16 +7,31 @@ use App\Notifications\AuthOtpNotification;
 
 class SendVerificationOtp
 {
-    public function execute(string $identifier): void
+    public function execute(string|User $identifierOrUser): void
     {
-        $user = User::findByIdentifier($identifier);
-        $identifierType = User::identifierColumn($identifier);
+        [$user, $identifierType] = $this->resolveUser($identifierOrUser);
 
-        if (!$user || $user->isVerified($identifierType)) {
+        if (! $user || $user->isVerified($identifierType)) {
             return;
         }
 
         $otp = $user->createOneTimePassword();
+
         $user->notify(new AuthOtpNotification($otp, $identifierType));
+    }
+
+    /**
+     * @return array{0: User|null, 1: string|null}
+     */
+    private function resolveUser(string|User $identifierOrUser): array
+    {
+        if ($identifierOrUser instanceof User) {
+            return [$identifierOrUser, null];
+        }
+
+        return [
+            User::findByIdentifier($identifierOrUser),
+            User::identifierColumn($identifierOrUser),
+        ];
     }
 }
