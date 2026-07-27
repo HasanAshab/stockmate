@@ -46,15 +46,21 @@ class PaymentCallbackController extends Controller
             SslcommerzPaymentPayload::fromArray($payload)
         );
 
-        return response()->json([
+        return [
             'message' => 'Payment successful.',
-        ]);
+        ];
     }
 
     /**
      * Payment Failure Callback
      *
      * Handles failed payment notifications from SSLCommerz.
+     *
+     * SSLCommerz expects a successful HTTP response (200 OK) to confirm that the
+     * callback was received and processed successfully, even when the payment
+     * itself has failed. The actual payment outcome is represented by the
+     * application response body and the updated sales order status, not the HTTP
+     * status code.
      *
      * @response 200 {
      *   "message": "Payment failed."
@@ -64,15 +70,24 @@ class PaymentCallbackController extends Controller
     {
         $resolver->execute(SalesOrderStatus::Failed, $request->all());
 
-        return response()->json([
+        // Return 200 OK to acknowledge receipt of the callback.
+        // The payment status is "failed", but the callback itself
+        // was processed successfully.
+        return [
             'message' => 'Payment failed.',
-        ]);
+        ];
     }
 
     /**
      * Payment Cancellation Callback
      *
      * Handles cancelled payment notifications from SSLCommerz.
+     *
+     * SSLCommerz expects a successful HTTP response (200 OK) to confirm that the
+     * callback was received and processed successfully, even when the payment
+     * was cancelled. The actual payment outcome is represented by the
+     * application response body and the updated sales order status, not the HTTP
+     * status code.
      *
      * @response 200 {
      *   "message": "Payment cancelled."
@@ -82,9 +97,12 @@ class PaymentCallbackController extends Controller
     {
         $resolver->execute(SalesOrderStatus::Cancelled, $request->all());
 
-        return response()->json([
+        // Return 200 OK to acknowledge receipt of the callback.
+        // The payment was cancelled, but the callback itself
+        // was processed successfully.
+        return [
             'message' => 'Payment cancelled.',
-        ]);
+        ];
     }
 
     /**
@@ -109,7 +127,7 @@ class PaymentCallbackController extends Controller
             );
         }
 
-        return response()->json(['received' => true]);
+        return ['received' => true];
     }
 
     private function ensureHashIsValid(array $payload): void
