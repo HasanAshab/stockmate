@@ -10,7 +10,7 @@ trait HasRecipients
 {
     public static function recipients(): Collection
     {
-        $key = 'notification_recipients.' . static::class;
+        $key = 'notification-recipients.' . static::class;
 
         $roles = config($key);
 
