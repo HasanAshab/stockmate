@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Notifications\AccountActivationRequiredNotification;
 use App\Notifications\ProductLowStockNotification;
 use App\Notifications\ProductOutOfStockNotification;
 
@@ -14,5 +15,9 @@ return [
     ProductOutOfStockNotification::class => [
         Role::StoreManager,
         Role::WarehouseManager,
+    ],
+
+    AccountActivationRequiredNotification::class => [
+        Role::Administrator,
     ],
 ];
