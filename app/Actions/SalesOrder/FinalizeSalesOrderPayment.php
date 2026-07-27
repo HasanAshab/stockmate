@@ -8,6 +8,7 @@ use App\Enums\StockLogType;
 use App\Exceptions\InsufficientStockException;
 use App\Models\SalesOrder;
 use App\Models\WarehouseStock;
+use App\Notifications\SalesOrderPaymentSuccessfulNotification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -29,6 +30,8 @@ class FinalizeSalesOrderPayment
             $this->createStockLogs($salesOrder);
             $this->markAsPaid($salesOrder, $payload);
         });
+
+        $this->notifyCustomer($salesOrder);
 
         return $salesOrder->refresh();
     }
@@ -107,5 +110,10 @@ class FinalizeSalesOrderPayment
             'status' => SalesOrderStatus::Paid,
             'payment_payload' => $payload,
         ]);
+    }
+
+    private function notifyCustomer(SalesOrder $salesOrder): void
+    {
+        $salesOrder->notify(new SalesOrderPaymentSuccessfulNotification());
     }
 }

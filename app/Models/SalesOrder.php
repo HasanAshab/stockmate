@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
@@ -27,7 +28,7 @@ use Laravel\Scout\Searchable;
 )]
 class SalesOrder extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, Notifiable;
 
     protected $attributes = [
         'status' => SalesOrderStatus::Pending,
@@ -68,6 +69,11 @@ class SalesOrder extends Model
             'customer_phone' => $this->customer_phone,
             'transaction_reference' => $this->transaction_reference,
         ];
+    }
+
+    public function routeNotificationForMail(): string
+    {
+        return $this->customer_email;
     }
 
     public function generateTransactionId(): string
