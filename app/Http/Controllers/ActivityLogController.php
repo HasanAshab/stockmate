@@ -13,7 +13,7 @@ class ActivityLogController extends Controller
 {
     public function index()
     {
-        return QueryBuilder::for(Activity::class)
+        $activities = QueryBuilder::for(Activity::class)
             ->allowedFilters(
                 AllowedFilter::belongsTo('causer'),
                 AllowedFilter::belongsTo('subject'),
@@ -25,7 +25,8 @@ class ActivityLogController extends Controller
             ->allowedIncludes('causer', 'subject')
             ->with(['causer', 'subject'])
             ->cursorPaginate(15)
-            ->appends(request()->query())
-            ->toResourceCollection(ActivityLogResource::class);
+            ->appends(request()->query());
+
+        return ActivityLogResource::collection($activities);
     }
 }

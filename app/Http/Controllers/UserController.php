@@ -10,6 +10,7 @@ use App\Http\Requests\User\AssignPermissionsRequest;
 use App\Http\Requests\User\AssignRolesRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -19,7 +20,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return QueryBuilder::for(User::class)
+        $users = QueryBuilder::for(User::class)
             ->with(['roles', 'permissions'])
             ->allowedFilters(
                 AllowedFilter::scope('role'),
@@ -29,16 +30,16 @@ class UserController extends Controller
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
-            ->appends(request()->query())
-            ->toResourceCollection();
+            ->appends(request()->query());
+
+        return UserResource::collection($users);
     }
 
     public function store(StoreUserRequest $request, CreateUser $createUser)
     {
         $user = $createUser->execute($request->validated());
 
-        return $user
-            ->toResource()
+        return (new UserResource($user))
             ->response()
             ->setStatusCode(201);
     }
@@ -47,14 +48,14 @@ class UserController extends Controller
     {
         $user->load(['roles', 'permissions']);
 
-        return $user->toResource();
+        return new UserResource($user);
     }
 
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
     {
         $user = $updateUser->execute($user, $request->validated());
 
-        return $user->toResource();
+        return new UserResource($user);
     }
 
     public function toggleStatus(User $user, ToggleUserStatus $toggleUserStatus)
@@ -63,7 +64,7 @@ class UserController extends Controller
 
         $user = $toggleUserStatus->execute($user);
 
-        return $user->toResource();
+        return new UserResource($user);
     }
 
     public function assignRoles(AssignRolesRequest $request, User $user)
@@ -74,7 +75,7 @@ class UserController extends Controller
 
         $user->load(['roles', 'permissions']);
 
-        return $user->toResource();
+        return new UserResource($user);
     }
 
     public function assignPermissions(AssignPermissionsRequest $request, User $user)
@@ -85,6 +86,6 @@ class UserController extends Controller
 
         $user->load(['roles', 'permissions']);
 
-        return $user->toResource();
+        return new UserResource($user);
     }
 }

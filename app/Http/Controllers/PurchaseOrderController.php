@@ -10,6 +10,7 @@ use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\PurchaseOrder\ReceivePurchaseOrderRequest;
 use App\Http\Requests\PurchaseOrder\StorePurchaseOrderRequest;
 use App\Http\Requests\PurchaseOrder\UpdatePurchaseOrderRequest;
+use App\Http\Resources\PurchaseOrderResource;
 use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -21,7 +22,7 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('viewAny', PurchaseOrder::class);
 
-        return QueryBuilder::for(PurchaseOrder::class)
+        $purchaseOrders = QueryBuilder::for(PurchaseOrder::class)
             ->with(['supplier', 'warehouse', 'creator', 'items'])
             ->allowedFilters(
                 AllowedFilter::belongsTo('supplier'),
@@ -35,8 +36,9 @@ class PurchaseOrderController extends Controller
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
-            ->appends(request()->query())
-            ->toResourceCollection();
+            ->appends(request()->query());
+
+        return PurchaseOrderResource::collection($purchaseOrders);
     }
 
     public function store(StorePurchaseOrderRequest $request, CreatePurchaseOrder $createPurchaseOrder)
@@ -48,8 +50,9 @@ class PurchaseOrderController extends Controller
             $request->validated()
         );
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
-            ->toResource()
+        $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product']);
+
+        return (new PurchaseOrderResource($purchaseOrder))
             ->response()
             ->setStatusCode(201);
     }
@@ -58,8 +61,9 @@ class PurchaseOrderController extends Controller
     {
         Gate::authorize('view', $purchaseOrder);
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
-            ->toResource();
+        $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product']);
+
+        return new PurchaseOrderResource($purchaseOrder);
     }
 
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder, UpdatePurchaseOrder $updatePurchaseOrder)
@@ -68,8 +72,9 @@ class PurchaseOrderController extends Controller
 
         $purchaseOrder = $updatePurchaseOrder->execute($purchaseOrder, $request->validated());
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
-            ->toResource();
+        $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product']);
+
+        return new PurchaseOrderResource($purchaseOrder);
     }
 
     public function markOrdered(PurchaseOrder $purchaseOrder)
@@ -81,8 +86,9 @@ class PurchaseOrderController extends Controller
             'ordered_at' => now(),
         ]);
 
-        return $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
-            ->toResource();
+        $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product']);
+
+        return new PurchaseOrderResource($purchaseOrder);
     }
 
     public function cancel(PurchaseOrder $purchaseOrder)
@@ -108,10 +114,11 @@ class PurchaseOrderController extends Controller
             $request->validated('items')
         );
 
+        $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product']);
+
         return response()->json([
             'message' => 'Stock received.',
-            'purchase_order' => $purchaseOrder->load(['supplier', 'warehouse', 'creator', 'items.product'])
-                ->toResource(),
+            'purchase_order' => new PurchaseOrderResource($purchaseOrder),
         ]);
     }
 }

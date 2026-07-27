@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -16,7 +17,7 @@ class ProductController extends Controller
     {
         Gate::authorize('viewAny', Product::class);
 
-        return QueryBuilder::for(Product::class)
+        $products = QueryBuilder::for(Product::class)
             ->allowedFilters(
                 AllowedFilter::trashed(),
                 AllowedFilter::belongsTo('category'),
@@ -30,8 +31,9 @@ class ProductController extends Controller
             ->allowedIncludes('category', 'supplier', 'media')
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
-            ->appends(request()->query())
-            ->toResourceCollection();
+            ->appends(request()->query());
+
+        return ProductResource::collection($products);
     }
 
     public function store(StoreProductRequest $request)
@@ -45,7 +47,7 @@ class ProductController extends Controller
                 ->toMediaCollection('product_images');
         }
 
-        return $product->toResource()
+        return (new ProductResource($product))
             ->response()
             ->setStatusCode(201);
     }
@@ -54,7 +56,7 @@ class ProductController extends Controller
     {
         Gate::authorize('view', $product);
 
-        return $product->load(['category', 'supplier', 'media'])->toResource();
+        return new ProductResource($product->load(['category', 'supplier', 'media']));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
@@ -69,7 +71,7 @@ class ProductController extends Controller
 
         $product->update($request->validated());
 
-        return $product->toResource();
+        return new ProductResource($product);
     }
 
     public function destroy(Product $product)

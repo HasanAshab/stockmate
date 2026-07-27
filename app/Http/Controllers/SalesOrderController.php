@@ -7,6 +7,7 @@ use App\Actions\SalesOrder\CreateSalesOrder;
 use App\Actions\SalesOrder\InitiateSalesOrderPayment;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\SalesOrder\StoreSalesOrderRequest;
+use App\Http\Resources\SalesOrderResource;
 use App\Models\SalesOrder;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -19,7 +20,7 @@ class SalesOrderController extends Controller
     {
         Gate::authorize('viewAny', SalesOrder::class);
 
-        return QueryBuilder::for(SalesOrder::class)
+        $salesOrders = QueryBuilder::for(SalesOrder::class)
             ->with(['warehouse', 'creator', 'items'])
             ->allowedFilters(
                 AllowedFilter::belongsTo('creator'),
@@ -31,8 +32,9 @@ class SalesOrderController extends Controller
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
-            ->appends(request()->query())
-            ->toResourceCollection();
+            ->appends(request()->query());
+
+        return SalesOrderResource::collection($salesOrders);
     }
 
     public function store(StoreSalesOrderRequest $request, CreateSalesOrder $createSalesOrder)
@@ -44,9 +46,9 @@ class SalesOrderController extends Controller
             $request->validated(),
         );
 
-        return $salesOrder
-            ->load(['warehouse', 'creator', 'items.product'])
-            ->toResource()
+        $salesOrder->load(['warehouse', 'creator', 'items.product']);
+
+        return (new SalesOrderResource($salesOrder))
             ->response()
             ->setStatusCode(201);
     }
@@ -55,8 +57,9 @@ class SalesOrderController extends Controller
     {
         Gate::authorize('view', $salesOrder);
 
-        return $salesOrder->load(['warehouse', 'creator', 'items.product'])
-            ->toResource();
+        $salesOrder->load(['warehouse', 'creator', 'items.product']);
+
+        return new SalesOrderResource($salesOrder);
     }
 
     public function initiatePayment(SalesOrder $salesOrder, InitiateSalesOrderPayment $initiateSalesOrderPayment)

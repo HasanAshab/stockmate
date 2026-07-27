@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +19,7 @@ class CategoryController extends Controller
             return Category::all();
         });
 
-        return $categories->toResourceCollection();
+        return CategoryResource::collection($categories);
     }
 
     public function store(StoreCategoryRequest $request)
@@ -27,7 +28,7 @@ class CategoryController extends Controller
 
         $category = Category::create($request->validated());
 
-        return $category->toResource()
+        return (new CategoryResource($category))
             ->response()
             ->setStatusCode(201);
     }
@@ -36,14 +37,15 @@ class CategoryController extends Controller
     {
         Gate::authorize('view', $category);
 
-        return $category->toResource();
+        return new CategoryResource($category);
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         Gate::authorize('update', $category);
         $category->update($request->validated());
-        return $category->toResource();
+
+        return new CategoryResource($category);
     }
 
     public function destroy(Category $category)
@@ -58,13 +60,14 @@ class CategoryController extends Controller
     {
         Gate::authorize('viewAny', Category::class);
 
-        return Category::onlyTrashed()->get()->toResourceCollection();
+        return CategoryResource::collection(Category::onlyTrashed()->get());
     }
 
     public function restore(Category $category)
     {
         Gate::authorize('restore', $category);
         $category->restore();
-        return $category->toResource();
+
+        return new CategoryResource($category);
     }
 }

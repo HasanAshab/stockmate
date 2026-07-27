@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Warehouse\DeleteWarehouse;
 use App\Http\Requests\Warehouse\StoreWarehouseRequest;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
+use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,15 +15,16 @@ class WarehouseController extends Controller
     {
         Gate::authorize('viewAny', Warehouse::class);
 
-        return Warehouse::cursorPaginate(7)->toResourceCollection();
+        return WarehouseResource::collection(Warehouse::cursorPaginate(7));
     }
 
     public function store(StoreWarehouseRequest $request)
     {
         Gate::authorize('create', Warehouse::class);
 
-        return Warehouse::create($request->validated())
-            ->toResource()
+        $warehouse = Warehouse::create($request->validated());
+
+        return (new WarehouseResource($warehouse))
             ->response()
             ->setStatusCode(201);
     }
@@ -31,7 +33,7 @@ class WarehouseController extends Controller
     {
         Gate::authorize('view', $warehouse);
 
-        return $warehouse->toResource();
+        return new WarehouseResource($warehouse);
     }
 
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
@@ -39,7 +41,7 @@ class WarehouseController extends Controller
         Gate::authorize('update', $warehouse);
         $warehouse->update($request->validated());
 
-        return $warehouse->toResource();
+        return new WarehouseResource($warehouse);
     }
 
     public function destroy(Warehouse $warehouse, DeleteWarehouse $deleteWarehouse)

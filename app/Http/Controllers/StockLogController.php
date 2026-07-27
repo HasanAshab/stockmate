@@ -10,6 +10,7 @@ use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\Product\ExportStockLogRequest;
 use App\Http\Requests\Product\StoreStockLogRequest;
 use App\Http\Requests\Product\TransferStockRequest;
+use App\Http\Resources\StockLogResource;
 use App\Models\StockLog;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
@@ -23,7 +24,7 @@ class StockLogController extends Controller
     {
         Gate::authorize('viewAny', StockLog::class);
 
-        return QueryBuilder::for(StockLog::class)
+        $stockLogs = QueryBuilder::for(StockLog::class)
             ->allowedFilters(
                 AllowedFilter::belongsTo('product'),
                 AllowedFilter::belongsTo('user'),
@@ -41,8 +42,9 @@ class StockLogController extends Controller
             ->allowedIncludes('user', 'product', 'warehouse')
             ->defaultSort('-created_at')
             ->cursorPaginate(10)
-            ->appends(request()->query())
-            ->toResourceCollection();
+            ->appends(request()->query());
+
+        return StockLogResource::collection($stockLogs);
     }
 
     public function store(StoreStockLogRequest $request, CreateStockLog $createStockLog)
@@ -54,7 +56,7 @@ class StockLogController extends Controller
             $request->validated(),
         );
 
-        return $stockLog->toResource()
+        return (new StockLogResource($stockLog))
             ->response()
             ->setStatusCode(201);
     }

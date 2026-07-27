@@ -18,6 +18,7 @@ use App\Http\Requests\Auth\ResendOtpRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\SocialLoginRequest;
 use App\Http\Requests\Auth\VerifyAccountRequest;
+use App\Http\Resources\UserResource;
 use App\Services\Social\SocialAuthManager;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class AuthController extends Controller
         $token = $user->createToken('stockmate')->plainTextToken;
 
         return [
-            'user' => $user->toResource(),
+            'user' => new UserResource($user),
             'token' => $token,
             'token_type' => 'Bearer',
         ];
@@ -51,7 +52,7 @@ class AuthController extends Controller
         $token = $user->createToken('stockmate')->plainTextToken;
 
         return response()->json([
-            'user' => $user->toResource(),
+            'user' => new UserResource($user),
             'token' => $token,
             'token_type' => 'Bearer',
         ], 201);
@@ -68,7 +69,7 @@ class AuthController extends Controller
         $token = $user->createToken('stockmate')->plainTextToken;
 
         return [
-            'user' => $user->toResource(),
+            'user' => new UserResource($user),
             'token' => $token,
             'token_type' => 'Bearer',
         ];

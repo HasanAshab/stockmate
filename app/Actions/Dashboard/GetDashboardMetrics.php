@@ -2,6 +2,7 @@
 
 namespace App\Actions\Dashboard;
 
+use App\Http\Resources\StockLogResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\StockLog;
@@ -18,12 +19,12 @@ class GetDashboardMetrics
             'total_low_stock' => WarehouseStock::lowStock()->count(),
             'total_categories' => Category::count(),
             'total_suppliers' => Supplier::count(),
-            'recent_stock_logs' => StockLog::latest()
-                ->take(5)
-                ->with(['user', 'product'])
-                ->get()
-                ->toResourceCollection()
-                ->resolve(),
+            'recent_stock_logs' => StockLogResource::collection(
+                StockLog::latest()
+                    ->take(5)
+                    ->with(['user', 'product'])
+                    ->get()
+            )->resolve(),
         ]);
     }
 }

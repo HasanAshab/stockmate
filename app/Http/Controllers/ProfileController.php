@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Actions\User\UpdateProfile;
 use App\Http\Requests\User\UpdateProfileRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function show(Request $request)
     {
-        return $request->user()->toResource();
+        return new UserResource($request->user());
     }
 
     public function update(UpdateProfileRequest $request, UpdateProfile $updateProfile)
@@ -19,6 +20,6 @@ class ProfileController extends Controller
 
         $updateProfile->execute($user, $request->validated());
 
-        return $user->toResource();
+        return new UserResource($user);
     }
 }

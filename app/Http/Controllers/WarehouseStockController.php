@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Warehouse\UpdateWarehouseStockRequest;
+use App\Http\Resources\WarehouseStockResource;
 use App\Models\Warehouse;
 use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\Gate;
@@ -16,7 +17,7 @@ class WarehouseStockController extends Controller
     {
         Gate::authorize('view', $warehouse);
 
-        return QueryBuilder::for($warehouse->warehouseStocks())
+        $stocks = QueryBuilder::for($warehouse->warehouseStocks())
             ->allowedFilters(
                 AllowedFilter::belongsTo('product'),
                 AllowedFilter::belongsTo('warehouse'),
@@ -30,15 +31,16 @@ class WarehouseStockController extends Controller
             ->allowedIncludes('product.category')
             ->defaultSort('-created_at')
             ->cursorPaginate(15)
-            ->appends(request()->query())
-            ->toResourceCollection();
+            ->appends(request()->query());
+
+        return WarehouseStockResource::collection($stocks);
     }
 
     public function show(Warehouse $warehouse, WarehouseStock $stock)
     {
         Gate::authorize('view', $warehouse);
 
-        return $stock->toResource();
+        return new WarehouseStockResource($stock);
     }
 
     public function update(UpdateWarehouseStockRequest $request, Warehouse $warehouse, WarehouseStock $stock)
@@ -47,6 +49,6 @@ class WarehouseStockController extends Controller
 
         $stock->update($request->validated());
 
-        return $stock->toResource();
+        return new WarehouseStockResource($stock);
     }
 }
