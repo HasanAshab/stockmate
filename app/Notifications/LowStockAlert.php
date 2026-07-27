@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\WarehouseStock;
+use App\Notifications\Concerns\HasRecipients;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,7 +11,7 @@ use Illuminate\Notifications\Notification;
 
 class LowStockAlert extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, HasRecipients;
 
     public const string TYPE = 'low_stock_alert';
 
