@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\NotificationResource;
 use Illuminate\Http\Request;
 
 /**
@@ -37,9 +38,11 @@ class NotificationController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()
+        $notifications = $request->user()
             ->notifications()
             ->cursorPaginate(10);
+
+        return NotificationResource::collection($notifications);
     }
 
     /**
@@ -65,9 +68,11 @@ class NotificationController extends Controller
      */
     public function unread(Request $request)
     {
-        return $request->user()
+        $notifications = $request->user()
             ->unreadNotifications()
             ->cursorPaginate(10);
+        
+        return NotificationResource::collection($notifications);
     }
 
     /**
@@ -101,10 +106,7 @@ class NotificationController extends Controller
      *
      * @urlParam id string required The notification ID. Example: uuid-123
      *
-     * @response 200 {
-     *   "id": "uuid-123",
-     *   "read_at": "2026-01-15T11:00:00.000000Z"
-     * }
+     * @response 204 scenario="Success"
      */
     public function markAsRead(Request $request, string $id)
     {
@@ -114,7 +116,7 @@ class NotificationController extends Controller
 
         $notification->markAsRead();
 
-        return response()->json($notification);
+        return response()->noContent();
     }
 
     /**
@@ -122,17 +124,13 @@ class NotificationController extends Controller
      *
      * Mark all unread notifications as read for the authenticated user.
      *
-     * @response 200 {
-     *   "message": "All notifications marked as read."
-     * }
+     * @response 204 scenario="Success"
      */
     public function markAllAsRead(Request $request)
     {
         $request->user()->unreadNotifications->markAsRead();
 
-        return response()->json([
-            'message' => 'All notifications marked as read.',
-        ]);
+        return response()->noContent();
     }
 
     /**
