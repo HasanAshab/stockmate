@@ -3,11 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\JsonApi\JsonApiResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class WarehouseResource extends JsonApiResource
+class WarehouseResource extends JsonResource
 {
-    public function toAttributes(Request $request): array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
@@ -16,6 +16,7 @@ class WarehouseResource extends JsonApiResource
             'is_active' => $this->is_active,
             'stocks_count' => $this->whenCounted('warehouseStocks'),
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

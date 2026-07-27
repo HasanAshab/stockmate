@@ -3,19 +3,22 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\JsonApi\JsonApiResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonApiResource
+class CategoryResource extends JsonResource
 {
-    public function toAttributes(Request $request)
+    public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->when(
                 ! $request->routeIs('categories.index'),
                 $this->description
             ),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

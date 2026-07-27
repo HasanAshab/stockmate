@@ -3,16 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\JsonApi\JsonApiResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class ActivityLogResource extends JsonApiResource
+class ActivityLogResource extends JsonResource
 {
-    public $relationships = [
-        'causer',
-        'subject',
-    ];
-
-    public function toAttributes(Request $request): array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
@@ -24,6 +19,8 @@ class ActivityLogResource extends JsonApiResource
             'changes' => $this->properties['attributes'] ?? null,
             'old_values' => $this->properties['old'] ?? null,
             'created_at' => $this->created_at,
+            'causer' => new UserResource($this->whenLoaded('causer')),
+            'subject' => $this->whenLoaded('subject'),
         ];
     }
 }

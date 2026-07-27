@@ -3,24 +3,23 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\JsonApi\JsonApiResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class StockLogResource extends JsonApiResource
+class StockLogResource extends JsonResource
 {
-    public $relationships = [
-        'user',
-        'product',
-        'warehouse',
-    ];
-
-    public function toAttributes(Request $request): array
+    public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'type' => $this->type,
             'quantity' => $this->quantity,
             'unit_cost' => $this->unit_cost,
             'note' => $this->note,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'product' => new ProductResource($this->whenLoaded('product')),
+            'warehouse' => new WarehouseResource($this->whenLoaded('warehouse')),
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

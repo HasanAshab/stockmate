@@ -3,13 +3,14 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\JsonApi\JsonApiResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class SupplierResource extends JsonApiResource
+class SupplierResource extends JsonResource
 {
-    public function toAttributes(Request $request)
+    public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
@@ -17,6 +18,8 @@ class SupplierResource extends JsonApiResource
                 $request->routeIs('suppliers.show'),
                 $this->address
             ),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
