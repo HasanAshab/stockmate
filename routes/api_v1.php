@@ -27,13 +27,13 @@ Route::controller(AuthController::class)
     ->prefix('auth')
     ->name('auth.')
     ->group(function () {
-        Route::post('register', 'register')->name('register');
-        Route::post('login', 'login')->name('login');
-        Route::post('social', 'socialLogin')->name('social')->middleware('throttle:10,1');
-        Route::post('verify', 'verify')->name('verification.verify');
-        Route::post('verification-notification', 'resendVerification')->name('verification.send');
-        Route::post('forgot-password', 'forgotPassword')->name('forgot-password');
-        Route::post('reset-password', 'resetPassword')->name('reset-password');
+        Route::post('register', 'register')->name('register')->middleware('throttle:register');
+        Route::post('login', 'login')->name('login')->middleware('throttle:login');
+        Route::post('social', 'socialLogin')->name('social');
+        Route::post('verify', 'verify')->name('verification.verify')->middleware('throttle:verification');
+        Route::post('verification-notification', 'resendVerification')->name('verification.send')->middleware('throttle:verification');
+        Route::post('forgot-password', 'forgotPassword')->name('forgot-password')->middleware('throttle:password-reset');
+        Route::post('reset-password', 'resetPassword')->name('reset-password')->middleware('throttle:password-reset');
     });
 
 // Config
@@ -92,7 +92,8 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::apiResource('stock-logs', StockLogController::class)->only(['index', 'store']);
 
     Route::get('stock-logs/export/{format}', [StockLogController::class, 'export'])
-        ->name('stock-logs.export');
+        ->name('stock-logs.export')
+        ->middleware('throttle:export');
 
     Route::post('stock-logs/transfer', [StockLogController::class, 'transfer'])
         ->name('stock-logs.transfer');
@@ -102,7 +103,7 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::apiResource('warehouses.stocks', WarehouseStockController::class)
         ->only(['index', 'show', 'update']);
 
-    // Sales Orders (Admin and Staff)
+    // Sales Orders
     Route::apiResource('sales-orders', SalesOrderController::class)->only(['index', 'store', 'show']);
     Route::post('sales-orders/{salesOrder}/initiate-payment', [SalesOrderController::class, 'initiatePayment'])
         ->name('sales-orders.initiate-payment');
@@ -120,18 +121,18 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     // Activity Logs
     Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
 
-    // Purchase Orders (Admin only)
+    // Purchase Orders
     Route::apiResource('purchase-orders', PurchaseOrderController::class)->except(['destroy']);
     Route::patch('purchase-orders/{purchaseOrder}/mark-ordered', [PurchaseOrderController::class, 'markOrdered'])
         ->name('purchase-orders.mark-ordered');
     Route::patch('purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel'])
         ->name('purchase-orders.cancel');
 
-    // Sales Order Cancel (Admin only)
+    // Sales Order Cancel
     Route::patch('sales-orders/{salesOrder}/cancel', [SalesOrderController::class, 'cancel'])
         ->name('sales-orders.cancel');
 
-    // Purchase Order Receiving (Admin and Staff)
+    // Purchase Order Receiving
     Route::post('purchase-orders/{purchaseOrder}/receive', [PurchaseOrderController::class, 'receive'])
         ->name('purchase-orders.receive');
 
@@ -139,10 +140,11 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::apiSingleton('profile', ProfileController::class);
 
     // Search
-    Route::get('search', [SearchController::class, 'searchAll']);
+    Route::get('search', [SearchController::class, 'searchAll'])->middleware('throttle:search');
 
     Route::get('search/{scope}', [SearchController::class, 'searchScope'])
-        ->whereIn('scope', array_keys(config('search.scopes')));
+        ->whereIn('scope', array_keys(config('search.scopes')))
+        ->middleware('throttle:search');
 });
 
 // Payment Callbacks
@@ -150,6 +152,7 @@ Route::controller(PaymentCallbackController::class)
     ->prefix('payment')
     ->name('payment.')
     ->withoutMiddleware(PreventRequestForgery::class)
+    ->middleware('throttle:webhooks')
     ->group(function () {
         Route::post('success', 'success')->name('success');
         Route::post('fail', 'fail')->name('fail');
