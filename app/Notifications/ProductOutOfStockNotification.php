@@ -9,11 +9,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LowStockAlert extends Notification implements ShouldQueue
+class ProductOutOfStockNotification extends Notification implements ShouldQueue
 {
     use Queueable, HasRecipients;
 
-    public const string TYPE = 'low_stock_alert';
+    public const string TYPE = 'product_out_of_stock';
 
     public function __construct(public WarehouseStock $warehouseStock) {}
 
@@ -25,12 +25,12 @@ class LowStockAlert extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Low Stock Alert: '.$this->warehouseStock->product->name)
-            ->line('The product "'.$this->warehouseStock->product->name.'" (SKU: '.$this->warehouseStock->product->sku.') has dropped below its reorder threshold.')
-            ->line('Current Quantity: '.$this->warehouseStock->product->quantity)
-            ->line('Reorder Threshold: '.$this->warehouseStock->product->reorder_threshold)
+            ->subject('Out of Stock: '.$this->warehouseStock->product->name)
+            ->line('The product "'.$this->warehouseStock->product->name.'" (SKU: '.$this->warehouseStock->product->sku.') is now out of stock.')
+            ->line('Warehouse: '.$this->warehouseStock->warehouse->name)
+            ->line('Current Quantity: '.$this->warehouseStock->quantity)
             ->action('View Product', url('/products/'.$this->warehouseStock->product->id))
-            ->line('Please restock this item soon.');
+            ->line('Please replenish this stock as soon as possible.');
     }
 
     public function toArray(object $notifiable): array
@@ -38,7 +38,11 @@ class LowStockAlert extends Notification implements ShouldQueue
         return [
             'type' => static::TYPE,
             'warehouse_stock_id' => $this->warehouseStock->id,
-            'message' => 'Product '.$this->warehouseStock->product->name.' is low on stock ('.$this->warehouseStock->quantity.' remaining).',
+            'message' => sprintf(
+                'Product "%s" is out of stock in warehouse "%s".',
+                $this->warehouseStock->product->name,
+                $this->warehouseStock->warehouse->name,
+            ),
         ];
     }
 }

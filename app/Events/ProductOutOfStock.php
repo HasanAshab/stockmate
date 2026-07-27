@@ -7,7 +7,7 @@ use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class WarehouseStockLow implements ShouldDispatchAfterCommit
+class ProductOutOfStock implements ShouldDispatchAfterCommit
 {
     use Dispatchable, SerializesModels;
 

@@ -3,16 +3,16 @@
 namespace App\Listeners;
 
 use App\Events\ProductLowStock;
-use App\Notifications\ProductLowStockNotification;
+use App\Notifications\ProductOutOfStockNotification;
 use Illuminate\Support\Facades\Notification;
 
-class SendLowStockNotification
+class SendOutOfStockNotification
 {
     public function handle(ProductLowStock $event): void
     {
         Notification::send(
-            ProductLowStockNotification::recipients(),
-            new ProductLowStockNotification($event->warehouseStock),
+            ProductOutOfStockNotification::recipients(),
+            new ProductOutOfStockNotification($event->warehouseStock),
         );
     }
 }
