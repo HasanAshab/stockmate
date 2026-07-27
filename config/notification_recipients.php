@@ -5,13 +5,13 @@ use App\Notifications\ProductLowStockNotification;
 use App\Notifications\ProductOutOfStockNotification;
 
 return [
-    ProductLowStockNotification::TYPE => [
+    ProductLowStockNotification::class => [
         Role::StoreManager,
         Role::WarehouseManager,
         Role::PurchasingOfficer,
     ],
 
-    ProductOutOfStockNotification::TYPE => [
+    ProductOutOfStockNotification::class => [
         Role::StoreManager,
         Role::WarehouseManager,
     ],

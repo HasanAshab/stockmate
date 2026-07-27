@@ -13,13 +13,16 @@ class ProductOutOfStockNotification extends Notification implements ShouldQueue
 {
     use HasRecipients, Queueable;
 
-    public const string TYPE = 'product_out_of_stock';
-
     public function __construct(public WarehouseStock $warehouseStock) {}
 
     public function via(object $notifiable): array
     {
         return ['mail', 'database'];
+    }
+
+    public function databaseType(object $notifiable): string
+    {
+        return 'product-out-of-stock';
     }
 
     public function toMail(object $notifiable): MailMessage
@@ -36,7 +39,6 @@ class ProductOutOfStockNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => static::TYPE,
             'warehouse_stock_id' => $this->warehouseStock->id,
             'message' => sprintf(
                 'Product "%s" is out of stock in warehouse "%s".',

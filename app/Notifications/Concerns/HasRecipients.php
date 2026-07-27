@@ -10,14 +10,7 @@ trait HasRecipients
 {
     public static function recipients(): Collection
     {
-        if (! defined(static::class.'::TYPE')) {
-            throw new LogicException(sprintf(
-                '%s must define a TYPE constant.',
-                static::class
-            ));
-        }
-
-        $key = 'notification_recipients.'.constant(static::class.'::TYPE');
+        $key = 'notification_recipients.' . static::class;
 
         $roles = config($key);
 
