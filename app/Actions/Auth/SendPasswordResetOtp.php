@@ -12,7 +12,7 @@ class SendPasswordResetOtp
     {
         $user = User::findByIdentifier($identifier);
 
-        if (!$user) {
+        if (! $user) {
             throw ValidationException::withMessages([
                 'identifier' => ['We could not find an account with that email or phone.'],
             ]);

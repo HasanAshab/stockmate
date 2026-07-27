@@ -9,7 +9,7 @@ abstract class OtpChannelNotification extends OneTimePasswordNotification
 {
     public function __construct(
         OneTimePassword $otp,
-        protected string $identifierType = null,
+        protected ?string $identifierType = null,
     ) {
         parent::__construct($otp);
     }

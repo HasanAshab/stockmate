@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notification;
 
 class ProductOutOfStockNotification extends Notification implements ShouldQueue
 {
-    use Queueable, HasRecipients;
+    use HasRecipients, Queueable;
 
     public const string TYPE = 'product_out_of_stock';
 

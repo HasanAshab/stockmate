@@ -2,7 +2,6 @@
 
 namespace App\Enums;
 
-
 enum SearchContext: string
 {
     case Global = 'global';

@@ -12,7 +12,7 @@ class LoginUser
     {
         $user = User::findByIdentifier($identifier);
 
-        if (!$user || !Hash::check($password, $user->password)) {
+        if (! $user || ! Hash::check($password, $user->password)) {
             throw ValidationException::withMessages([
                 'identifier' => ['These credentials do not match our records.'],
             ]);

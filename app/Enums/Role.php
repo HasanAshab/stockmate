@@ -73,8 +73,8 @@ enum Role: string
                 // Stock Logs
                 Permission::StockLogsView,
                 Permission::StockLogsCreate,
-                
-                // Roles and Permissions 
+
+                // Roles and Permissions
                 Permission::RolesManage,
                 Permission::PermissionsManage,
 

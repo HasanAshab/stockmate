@@ -23,7 +23,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, HasRoles, LogsActivity, Notifiable, Searchable, HasOneTimePasswords;
+    use HasApiTokens, HasFactory, HasOneTimePasswords, HasRoles, LogsActivity, Notifiable, Searchable;
 
     protected $attributes = [
         'is_active' => true,
@@ -37,6 +37,7 @@ class User extends Authenticatable
     public static function findByIdentifier(string $identifier): ?self
     {
         $column = self::identifierColumn($identifier);
+
         return static::where($column, $identifier)->first();
     }
 
@@ -86,7 +87,7 @@ class User extends Authenticatable
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");
     }
 
-    public function isVerified(string $identifierType = null): bool
+    public function isVerified(?string $identifierType = null): bool
     {
         return match ($identifierType) {
             'email' => $this->email_verified_at,

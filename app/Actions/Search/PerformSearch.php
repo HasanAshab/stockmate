@@ -23,8 +23,8 @@ class PerformSearch
      * @param  class-string  $modelClass  Model using Laravel\Scout\Searchable.
      * @param  string|null  $term  Raw search term; trimmed internally.
      * @param  int|null  $limit  Overrides the action's default limit for
-     *         this call (global search wants fewer rows per model than
-     *         a single scoped search box).
+     *                           this call (global search wants fewer rows per model than
+     *                           a single scoped search box).
      */
     public function execute(string $modelClass, ?string $term, ?int $limit = null): Collection
     {

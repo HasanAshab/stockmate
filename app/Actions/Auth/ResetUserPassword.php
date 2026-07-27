@@ -12,7 +12,7 @@ class ResetUserPassword
     {
         $user = User::findByIdentifier($credentials['identifier']);
 
-        if (!$user) {
+        if (! $user) {
             throw ValidationException::withMessages([
                 'identifier' => ['We could not find an account with that email or phone.'],
             ]);
@@ -20,14 +20,14 @@ class ResetUserPassword
 
         $result = $user->consumeOneTimePassword($credentials['code']);
 
-        if (!$result->isOk()) {
+        if (! $result->isOk()) {
             throw ValidationException::withMessages([
                 'code' => [$result->validationMessage()],
             ]);
         }
 
         $user->forceFill([
-            'password' => Hash::make($credentials['password'])
+            'password' => Hash::make($credentials['password']),
         ])->save();
 
         $user->tokens()->delete();

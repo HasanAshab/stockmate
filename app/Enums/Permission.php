@@ -61,7 +61,7 @@ enum Permission: string
     // Permissions
     case PermissionsView = 'permissions.view';
     case PermissionsManage = 'permissions.manage';
-    
+
     // Users
     case UsersDeactivate = 'users.deactivate';
 }

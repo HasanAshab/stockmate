@@ -26,6 +26,7 @@ class WarehouseStockObserver
 
         if (! $wasOutOfStock && $isOutOfStock) {
             ProductOutOfStock::dispatch($warehouseStock);
+
             return;
         }
 

@@ -10,14 +10,14 @@ class FiltersDateRange implements Filter
 {
     public function __invoke(Builder $query, mixed $value, string $property): void
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return;
         }
 
         $from = $this->parseDate($value['from'] ?? null)?->startOfDay();
         $to = $this->parseDate($value['to'] ?? null)?->endOfDay();
 
-        if (!$from && !$to) {
+        if (! $from && ! $to) {
             return;
         }
 
@@ -37,7 +37,7 @@ class FiltersDateRange implements Filter
 
     private function parseDate(mixed $value): ?Carbon
     {
-        if (!$value) {
+        if (! $value) {
             return null;
         }
 

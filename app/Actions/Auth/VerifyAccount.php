@@ -16,13 +16,12 @@ class VerifyAccount
             ? ConsumeOneTimePasswordResult::IncorrectOneTimePassword
             : $user->consumeOneTimePassword($code);
 
-        if (! $result->isOk())
-        {
+        if (! $result->isOk()) {
             throw ValidationException::withMessages([
                 'code' => [$result->validationMessage()],
             ]);
         }
-        
+
         match (User::identifierColumn($identifier)) {
             'email' => $user->markEmailAsVerified(),
             'phone' => $user->markPhoneAsVerified(),

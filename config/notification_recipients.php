@@ -1,15 +1,17 @@
 <?php
 
 use App\Enums\Role;
+use App\Notifications\ProductLowStockNotification;
+use App\Notifications\ProductOutOfStockNotification;
 
 return [
-    \App\Notifications\ProductLowStockNotification::TYPE => [
+    ProductLowStockNotification::TYPE => [
         Role::StoreManager,
         Role::WarehouseManager,
         Role::PurchasingOfficer,
     ],
-    
-    \App\Notifications\ProductOutOfStockNotification::TYPE => [
+
+    ProductOutOfStockNotification::TYPE => [
         Role::StoreManager,
         Role::WarehouseManager,
     ],

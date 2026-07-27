@@ -11,8 +11,30 @@ use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @group Payment Callbacks
+ *
+ * Webhook endpoints for SSLCommerz payment gateway callbacks
+ *
+ * @unauthenticated
+ */
 class PaymentCallbackController extends Controller
 {
+    /**
+     * Payment Success Callback
+     *
+     * Handles successful payment notifications from SSLCommerz.
+     *
+     * @response 200 {
+     *   "message": "Payment successful."
+     * }
+     * @response 422 {
+     *   "message": "Hash validation failed.",
+     *   "errors": {
+     *     "payment": ["Hash validation failed."]
+     *   }
+     * }
+     */
     public function success(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
         $payload = $request->all();
@@ -29,6 +51,15 @@ class PaymentCallbackController extends Controller
         ]);
     }
 
+    /**
+     * Payment Failure Callback
+     *
+     * Handles failed payment notifications from SSLCommerz.
+     *
+     * @response 200 {
+     *   "message": "Payment failed."
+     * }
+     */
     public function fail(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Failed, $request->all());
@@ -38,6 +69,15 @@ class PaymentCallbackController extends Controller
         ]);
     }
 
+    /**
+     * Payment Cancellation Callback
+     *
+     * Handles cancelled payment notifications from SSLCommerz.
+     *
+     * @response 200 {
+     *   "message": "Payment cancelled."
+     * }
+     */
     public function cancel(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Cancelled, $request->all());
@@ -47,6 +87,15 @@ class PaymentCallbackController extends Controller
         ]);
     }
 
+    /**
+     * IPN (Instant Payment Notification)
+     *
+     * Handles Instant Payment Notification from SSLCommerz for payment status updates.
+     *
+     * @response 200 {
+     *   "received": true
+     * }
+     */
     public function ipn(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
         $payload = $request->all();

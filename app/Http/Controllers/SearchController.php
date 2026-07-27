@@ -5,22 +5,51 @@ namespace App\Http\Controllers;
 use App\Actions\Search\PerformSearch;
 use App\Enums\SearchContext;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 
+/**
+ * @group Search
+ *
+ * APIs for searching across resources
+ *
+ * @authenticated
+ */
 class SearchController extends Controller
 {
     /**
-     * Search every resource the current user is authorized to view.
+     * Global Search
      *
-     * GET /search?q=term
+     * Search across all resources (products, categories, suppliers, warehouses) that the user is authorized to view.
+     *
+     * @queryParam q string required The search term (minimum 2 characters). Example: laptop
+     *
+     * @response 200 {
+     *   "data": {
+     *     "products": [
+     *       {
+     *         "id": 1,
+     *         "name": "Laptop Pro",
+     *         "sku": "LAP-001"
+     *       }
+     *     ],
+     *     "categories": [
+     *       {
+     *         "id": 1,
+     *         "name": "Electronics"
+     *       }
+     *     ]
+     *   }
+     * }
+     * @response 200 scenario="Empty term" {
+     *   "data": {}
+     * }
      */
     public function searchAll(Request $request, PerformSearch $search)
     {
         $term = $this->validatedTerm($request, SearchContext::Global);
 
-        if ($term === null)
-        {
+        if ($term === null) {
             return ['data' => (object) []];
         }
 
@@ -33,7 +62,7 @@ class SearchController extends Controller
 
         $results = $this->collectResults(
             $targets,
-            $term, 
+            $term,
             SearchContext::Global,
             $search
         );
@@ -42,20 +71,45 @@ class SearchController extends Controller
     }
 
     /**
-     * Search a single named resource.
+     * Scoped Search
      *
-     * GET /search/{scope}, e.g. /search/products
+     * Search within a specific resource type (products, categories, suppliers, or warehouses).
+     *
+     * @urlParam scope string required The search scope (products, categories, suppliers, warehouses). Example: products
+     *
+     * @queryParam q string required The search term (minimum 3 characters). Example: laptop
+     *
+     * @response 200 {
+     *   "data": {
+     *     "products": [
+     *       {
+     *         "id": 1,
+     *         "name": "Laptop Pro",
+     *         "sku": "LAP-001",
+     *         "price": 999.99
+     *       },
+     *       {
+     *         "id": 2,
+     *         "name": "Laptop Air",
+     *         "sku": "LAP-002",
+     *         "price": 799.99
+     *       }
+     *     ]
+     *   }
+     * }
+     * @response 404 {
+     *   "message": "Unknown search scope [invalid]."
+     * }
      */
     public function searchScope(Request $request, string $scope, PerformSearch $search)
     {
-        $entry = config("search.scopes")[$scope];
+        $entry = config('search.scopes')[$scope];
 
         // `scope` is client input already narrowed by the route's
         // whereIn constraint, but re-checked here since that constraint
         // is a fast-fail, not the source of truth. Used only as a
         // config lookup key — never to resolve a class name directly.
-        if ($entry === null)
-        {
+        if ($entry === null) {
             abort(404, "Unknown search scope [{$scope}].");
         }
 
@@ -65,11 +119,10 @@ class SearchController extends Controller
 
         $term = $this->validatedTerm($request, SearchContext::Scoped);
 
-        if ($term === null) 
-        {
+        if ($term === null) {
             return ['data' => (object) []];
         }
-        
+
         $results = $this->collectResults(
             [$scope => $entry],
             $term,
@@ -105,6 +158,7 @@ class SearchController extends Controller
     private function collectResults(array $targets, string $term, SearchContext $context, PerformSearch $search): Collection
     {
         $limit = config("search.limit.{$context->value}");
+
         return collect($targets)
             ->mapWithKeys(function (array $entry, string $key) use ($term, $limit, $search) {
                 $matches = $search->execute($entry['model'], $term, limit: $limit);

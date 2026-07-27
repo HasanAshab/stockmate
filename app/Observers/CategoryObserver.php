@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class CategoryObserver
 {
     private const array CACHE_KEYS = [
-        'all'       => 'categories:all',
+        'all' => 'categories:all',
         'dashboard' => 'dashboard:metrics',
     ];
 
