@@ -22,7 +22,7 @@ class NotificationController extends Controller
      *   "data": [
      *     {
      *       "id": "uuid-123",
-     *       "type": "App\\Notifications\\LowStockNotification",
+     *       "type": "product-low-stock",
      *       "data": {
      *         "message": "Low stock alert",
      *         "product_name": "Laptop"
@@ -51,7 +51,7 @@ class NotificationController extends Controller
      *   "data": [
      *     {
      *       "id": "uuid-123",
-     *       "type": "App\\Notifications\\LowStockNotification",
+     *       "type": "product-low-stock",
      *       "data": {
      *         "message": "Low stock alert"
      *       },
