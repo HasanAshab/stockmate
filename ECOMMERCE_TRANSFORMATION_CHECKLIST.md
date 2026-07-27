@@ -663,7 +663,7 @@ Tests are not included in this checklist. Implement testing separately if needed
 ### 14.1 API Versioning
 - [ ] Ensure API versioning is in place (`/api/v1`)
 - [ ] Document all customer-facing endpoints
-- [ ] Use Scramble or L5-Swagger for API documentation
+- [ ] Use Scribe for API documentation
 
 ### 14.2 Response Optimization
 - [ ] Implement sparse fieldsets (only return requested fields)
