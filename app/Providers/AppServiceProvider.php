@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(GoogleClient::class, function () {
-            $client = new GoogleClient();
+            $client = new GoogleClient;
             $client->setClientId(config('services.google.client_id'));
 
             return $client;
@@ -65,14 +65,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(DashboardPolicy::class, DashboardPolicy::class);
         Gate::policy(RoleModel::class, RolePolicy::class);
         Gate::policy(PermissionModel::class, PermissionPolicy::class);
-
-        Gate::define('viewApiDocs', function () {
-            // WARN: This is a dummy project otherwise
-            // never expose API DOCS on production
-            // return !app()->isProduction();
-
-            return true;
-        });
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole(Role::SuperAdmin) ? true : null;
