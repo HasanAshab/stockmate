@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\Permission;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission as PermissionModel;
+use App\Models\Permission as PermissionModel;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder

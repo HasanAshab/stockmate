@@ -508,27 +508,27 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: null,
-            &quot;log_name&quot;: null,
-            &quot;description&quot;: null,
+            &quot;id&quot;: 1,
+            &quot;log_name&quot;: &quot;default&quot;,
+            &quot;description&quot;: &quot;Ex voluptatem laboriosam praesentium quis adipisci.&quot;,
             &quot;subject_type&quot;: &quot;&quot;,
             &quot;subject_id&quot;: null,
             &quot;done_by&quot;: &quot;System&quot;,
             &quot;changes&quot;: null,
             &quot;old_values&quot;: null,
-            &quot;created_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;causer&quot;: null
         },
         {
-            &quot;id&quot;: null,
-            &quot;log_name&quot;: null,
-            &quot;description&quot;: null,
+            &quot;id&quot;: 2,
+            &quot;log_name&quot;: &quot;default&quot;,
+            &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
             &quot;subject_type&quot;: &quot;&quot;,
             &quot;subject_id&quot;: null,
             &quot;done_by&quot;: &quot;System&quot;,
             &quot;changes&quot;: null,
             &quot;old_values&quot;: null,
-            &quot;created_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;causer&quot;: null
         }
     ],
@@ -2240,15 +2240,15 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;dicta in&quot;,
-            &quot;slug&quot;: &quot;dicta-in&quot;,
+            &quot;name&quot;: &quot;labore cupiditate&quot;,
+            &quot;slug&quot;: &quot;labore-cupiditate&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
         {
             &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;quam id&quot;,
-            &quot;slug&quot;: &quot;quam-id&quot;,
+            &quot;name&quot;: &quot;non reiciendis&quot;,
+            &quot;slug&quot;: &quot;non-reiciendis&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         }
@@ -3657,18 +3657,24 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: null,
-            &quot;type&quot;: null,
-            &quot;data&quot;: null,
+            &quot;id&quot;: &quot;21c4122b-d554-3723-966c-6d723ea5293f&quot;,
+            &quot;type&quot;: &quot;App\\Notifications\\ProductLowStockNotification&quot;,
+            &quot;data&quot;: {
+                &quot;message&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab.&quot;,
+                &quot;product_name&quot;: &quot;provident&quot;
+            },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: null
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         },
         {
-            &quot;id&quot;: null,
-            &quot;type&quot;: null,
-            &quot;data&quot;: null,
+            &quot;id&quot;: &quot;e2398df3-051c-3810-a269-3a15e327b316&quot;,
+            &quot;type&quot;: &quot;App\\Notifications\\ProductLowStockNotification&quot;,
+            &quot;data&quot;: {
+                &quot;message&quot;: &quot;Nostrum aut adipisci quidem nostrum.&quot;,
+                &quot;product_name&quot;: &quot;qui&quot;
+            },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: null
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -3828,18 +3834,24 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: null,
-            &quot;type&quot;: null,
-            &quot;data&quot;: null,
+            &quot;id&quot;: &quot;0a9446d3-4070-3757-8926-67a9d2adbc0e&quot;,
+            &quot;type&quot;: &quot;App\\Notifications\\ProductLowStockNotification&quot;,
+            &quot;data&quot;: {
+                &quot;message&quot;: &quot;Odit et et modi.&quot;,
+                &quot;product_name&quot;: &quot;ipsum&quot;
+            },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: null
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         },
         {
-            &quot;id&quot;: null,
-            &quot;type&quot;: null,
-            &quot;data&quot;: null,
+            &quot;id&quot;: &quot;d98239dc-1582-3bf2-b93a-df3a18e121d1&quot;,
+            &quot;type&quot;: &quot;App\\Notifications\\ProductLowStockNotification&quot;,
+            &quot;data&quot;: {
+                &quot;message&quot;: &quot;Et consequatur aut dolores enim.&quot;,
+                &quot;product_name&quot;: &quot;non&quot;
+            },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: null
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -5035,8 +5047,8 @@ fetch(url, {
             &quot;price&quot;: &quot;585.43&quot;,
             &quot;image_url&quot;: null,
             &quot;image_thumb_url&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:49.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:49.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
@@ -5045,8 +5057,8 @@ fetch(url, {
             &quot;price&quot;: &quot;23.39&quot;,
             &quot;image_url&quot;: null,
             &quot;image_thumb_url&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -5304,7 +5316,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "sku=LAP-001"\
     --form "price=999.99"\
     --form "description=High-performance laptop"\
-    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php8C26.tmp" </code></pre></div>
+    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php77DB.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -5348,8 +5360,8 @@ fetch(url, {
         &quot;price&quot;: &quot;564.35&quot;,
         &quot;image_url&quot;: null,
         &quot;image_thumb_url&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
     }
 }</code>
  </pre>
@@ -5496,7 +5508,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php8C26.tmp</code></p>
+<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php77DB.tmp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -5557,14 +5569,30 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: null,
-        &quot;name&quot;: null,
-        &quot;sku&quot;: null,
-        &quot;price&quot;: null,
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;eius et animi&quot;,
+        &quot;sku&quot;: &quot;SKU-6316-iyvd&quot;,
+        &quot;price&quot;: &quot;724.13&quot;,
         &quot;image_url&quot;: null,
         &quot;image_thumb_url&quot;: null,
-        &quot;created_at&quot;: null,
-        &quot;updated_at&quot;: null
+        &quot;category&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;mollitia modi&quot;,
+            &quot;slug&quot;: &quot;mollitia-modi&quot;,
+            &quot;description&quot;: &quot;Aut ab provident perspiciatis quo omnis nostrum aut.&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        &quot;supplier&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Hirthe Inc&quot;,
+            &quot;phone&quot;: &quot;1-989-272-7365&quot;,
+            &quot;email&quot;: &quot;carey67@example.com&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
     }
 }</code>
  </pre>
@@ -5691,7 +5719,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "price=1099.99"\
     --form "reorder_threshold=12"\
     --form "description=Updated description"\
-    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php8C76.tmp" </code></pre></div>
+    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php780D.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -5736,8 +5764,8 @@ fetch(url, {
         &quot;price&quot;: &quot;403.07&quot;,
         &quot;image_url&quot;: null,
         &quot;image_thumb_url&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
     }
 }</code>
  </pre>
@@ -5925,7 +5953,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php8C76.tmp</code></p>
+<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php780D.tmp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -6134,14 +6162,14 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Ms. Audra Crooks II&quot;,
-        &quot;email&quot;: &quot;idickens@example.org&quot;,
-        &quot;phone&quot;: &quot;1-820-420-3724&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;name&quot;: &quot;Miss Anya Bauch III&quot;,
+        &quot;email&quot;: &quot;wward@example.org&quot;,
+        &quot;phone&quot;: &quot;+1 (302) 743-0065&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6282,11 +6310,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;email&quot;: &quot;ferne52@example.com&quot;,
         &quot;phone&quot;: &quot;870-215-1024&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6482,21 +6510,21 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;status&quot;: &quot;Ordered&quot;,
-            &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
-            &quot;ordered_at&quot;: &quot;2026-04-30T02:48:56.000000Z&quot;,
-            &quot;received_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;status&quot;: &quot;Received&quot;,
+            &quot;note&quot;: &quot;&quot;,
+            &quot;ordered_at&quot;: &quot;2026-06-10T05:01:54.000000Z&quot;,
+            &quot;received_at&quot;: &quot;2026-05-31T03:30:53.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
-            &quot;status&quot;: &quot;PartiallyReceived&quot;,
+            &quot;status&quot;: &quot;Draft&quot;,
             &quot;note&quot;: &quot;&quot;,
-            &quot;ordered_at&quot;: &quot;2026-07-05T14:52:24.000000Z&quot;,
-            &quot;received_at&quot;: &quot;2026-06-08T07:14:40.000000Z&quot;,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;ordered_at&quot;: &quot;2026-06-06T06:21:28.000000Z&quot;,
+            &quot;received_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -6799,10 +6827,10 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;status&quot;: &quot;Draft&quot;,
         &quot;note&quot;: &quot;&quot;,
-        &quot;ordered_at&quot;: &quot;2026-07-13T04:43:20.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-07-13T06:43:22.000000Z&quot;,
         &quot;received_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7048,11 +7076,11 @@ fetch(url, {
     &quot;data&quot;: {
         &quot;id&quot;: 1,
         &quot;supplier_name&quot;: &quot;Bauch, Fritsch and O&#039;Keefe&quot;,
-        &quot;warehouse_name&quot;: &quot;Cartwright-Balistreri Warehouse&quot;,
+        &quot;warehouse_name&quot;: &quot;Doyle, Emard and Wolff Warehouse&quot;,
         &quot;status&quot;: &quot;Ordered&quot;,
         &quot;item_count&quot;: 1,
         &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
-        &quot;ordered_at&quot;: &quot;2026-04-30T02:48:56.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-04-30T04:48:58.000000Z&quot;,
         &quot;received_at&quot;: null,
         &quot;supplier&quot;: {
             &quot;id&quot;: 1,
@@ -7064,48 +7092,48 @@ fetch(url, {
         },
         &quot;warehouse&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Cartwright-Balistreri Warehouse&quot;,
-            &quot;location&quot;: &quot;979 Beier Meadow Suite 188\nEast Victoria, TN 91558&quot;,
+            &quot;name&quot;: &quot;Doyle, Emard and Wolff Warehouse&quot;,
+            &quot;location&quot;: &quot;11084 Palma Stream Apt. 368\nWest Artborough, NV 18607-5439&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Vickie Casper&quot;,
-            &quot;email&quot;: &quot;roxanne81@example.org&quot;,
-            &quot;phone&quot;: &quot;1-850-929-3733&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;name&quot;: &quot;Fausto Conroy&quot;,
+            &quot;email&quot;: &quot;moises37@example.com&quot;,
+            &quot;phone&quot;: &quot;1-678-926-5062&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
-                &quot;product_name&quot;: &quot;corrupti et dolores&quot;,
-                &quot;product_sku&quot;: &quot;SKU-7967-tmgo&quot;,
-                &quot;ordered_quantity&quot;: 180,
+                &quot;product_name&quot;: &quot;assumenda odit doloribus&quot;,
+                &quot;product_sku&quot;: &quot;SKU-9924-gtvn&quot;,
+                &quot;ordered_quantity&quot;: 198,
                 &quot;received_quantity&quot;: 0,
-                &quot;unit_cost&quot;: &quot;11.70&quot;,
+                &quot;unit_cost&quot;: &quot;474.12&quot;,
                 &quot;is_fully_received&quot;: false,
                 &quot;product&quot;: {
                     &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;corrupti et dolores&quot;,
-                    &quot;sku&quot;: &quot;SKU-7967-tmgo&quot;,
-                    &quot;price&quot;: &quot;767.77&quot;,
+                    &quot;name&quot;: &quot;assumenda odit doloribus&quot;,
+                    &quot;sku&quot;: &quot;SKU-9924-gtvn&quot;,
+                    &quot;price&quot;: &quot;574.80&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7286,65 +7314,65 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;supplier_name&quot;: &quot;Tromp-Leffler&quot;,
-        &quot;warehouse_name&quot;: &quot;Ward-O&#039;Connell Warehouse&quot;,
+        &quot;supplier_name&quot;: &quot;Feeney, Leffler and Glover&quot;,
+        &quot;warehouse_name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
         &quot;status&quot;: &quot;Draft&quot;,
         &quot;item_count&quot;: 1,
         &quot;note&quot;: &quot;&quot;,
-        &quot;ordered_at&quot;: &quot;2026-07-13T04:43:20.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-07-13T06:43:22.000000Z&quot;,
         &quot;received_at&quot;: null,
         &quot;supplier&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Tromp-Leffler&quot;,
-            &quot;phone&quot;: &quot;337-569-9723&quot;,
-            &quot;email&quot;: &quot;kconsidine@example.net&quot;,
+            &quot;name&quot;: &quot;Feeney, Leffler and Glover&quot;,
+            &quot;phone&quot;: &quot;337-329-5127&quot;,
+            &quot;email&quot;: &quot;torp.florence@example.org&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
         &quot;warehouse&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Ward-O&#039;Connell Warehouse&quot;,
-            &quot;location&quot;: &quot;85188 Victoria Shoals\nWest Artborough, NV 18607-5439&quot;,
+            &quot;name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
+            &quot;location&quot;: &quot;737 Fadel Road\nNorth Mireille, MS 37967&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Fausto Conroy&quot;,
-            &quot;email&quot;: &quot;moises37@example.com&quot;,
-            &quot;phone&quot;: &quot;1-678-926-5062&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;name&quot;: &quot;Korey Marvin PhD&quot;,
+            &quot;email&quot;: &quot;bernhard.kendra@example.net&quot;,
+            &quot;phone&quot;: &quot;+1 (817) 947-8656&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
-                &quot;product_name&quot;: &quot;assumenda odit doloribus&quot;,
-                &quot;product_sku&quot;: &quot;SKU-9924-gtvn&quot;,
-                &quot;ordered_quantity&quot;: 198,
+                &quot;product_name&quot;: &quot;suscipit doloribus fugiat&quot;,
+                &quot;product_sku&quot;: &quot;SKU-6146-ztpp&quot;,
+                &quot;ordered_quantity&quot;: 118,
                 &quot;received_quantity&quot;: 0,
-                &quot;unit_cost&quot;: &quot;474.12&quot;,
+                &quot;unit_cost&quot;: &quot;123.12&quot;,
                 &quot;is_fully_received&quot;: false,
                 &quot;product&quot;: {
                     &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;assumenda odit doloribus&quot;,
-                    &quot;sku&quot;: &quot;SKU-9924-gtvn&quot;,
-                    &quot;price&quot;: &quot;574.80&quot;,
+                    &quot;name&quot;: &quot;suscipit doloribus fugiat&quot;,
+                    &quot;sku&quot;: &quot;SKU-6146-ztpp&quot;,
+                    &quot;price&quot;: &quot;482.28&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7618,65 +7646,65 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;supplier_name&quot;: &quot;Feeney, Leffler and Glover&quot;,
-        &quot;warehouse_name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
+        &quot;supplier_name&quot;: &quot;Considine LLC&quot;,
+        &quot;warehouse_name&quot;: &quot;Anderson LLC Warehouse&quot;,
         &quot;status&quot;: &quot;Ordered&quot;,
         &quot;item_count&quot;: 1,
         &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
-        &quot;ordered_at&quot;: &quot;2026-04-30T02:48:56.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-04-30T04:48:58.000000Z&quot;,
         &quot;received_at&quot;: null,
         &quot;supplier&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Feeney, Leffler and Glover&quot;,
-            &quot;phone&quot;: &quot;337-329-5127&quot;,
-            &quot;email&quot;: &quot;torp.florence@example.org&quot;,
+            &quot;name&quot;: &quot;Considine LLC&quot;,
+            &quot;phone&quot;: &quot;1-847-548-7905&quot;,
+            &quot;email&quot;: &quot;oking@example.net&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
         &quot;warehouse&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
-            &quot;location&quot;: &quot;737 Fadel Road\nNorth Mireille, MS 37967&quot;,
+            &quot;name&quot;: &quot;Anderson LLC Warehouse&quot;,
+            &quot;location&quot;: &quot;5481 Dibbert Stravenue Suite 237\nEdnaside, NH 51439&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Korey Marvin PhD&quot;,
-            &quot;email&quot;: &quot;bernhard.kendra@example.net&quot;,
-            &quot;phone&quot;: &quot;+1 (817) 947-8656&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;name&quot;: &quot;Hattie Mayert&quot;,
+            &quot;email&quot;: &quot;mhamill@example.net&quot;,
+            &quot;phone&quot;: &quot;+1 (619) 523-1922&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
-                &quot;product_name&quot;: &quot;suscipit doloribus fugiat&quot;,
-                &quot;product_sku&quot;: &quot;SKU-6146-ztpp&quot;,
-                &quot;ordered_quantity&quot;: 118,
+                &quot;product_name&quot;: &quot;est esse sint&quot;,
+                &quot;product_sku&quot;: &quot;SKU-8656-vale&quot;,
+                &quot;ordered_quantity&quot;: 181,
                 &quot;received_quantity&quot;: 0,
-                &quot;unit_cost&quot;: &quot;123.12&quot;,
+                &quot;unit_cost&quot;: &quot;30.56&quot;,
                 &quot;is_fully_received&quot;: false,
                 &quot;product&quot;: {
                     &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;suscipit doloribus fugiat&quot;,
-                    &quot;sku&quot;: &quot;SKU-6146-ztpp&quot;,
-                    &quot;price&quot;: &quot;482.28&quot;,
+                    &quot;name&quot;: &quot;est esse sint&quot;,
+                    &quot;sku&quot;: &quot;SKU-8656-vale&quot;,
+                    &quot;price&quot;: &quot;964.37&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -8214,8 +8242,8 @@ fetch(url, {
             &quot;status&quot;: &quot;Failed&quot;,
             &quot;total_amount&quot;: &quot;116.96&quot;,
             &quot;transaction_reference&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
@@ -8225,8 +8253,8 @@ fetch(url, {
             &quot;status&quot;: &quot;Pending&quot;,
             &quot;total_amount&quot;: &quot;1294.79&quot;,
             &quot;transaction_reference&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -8555,8 +8583,8 @@ fetch(url, {
         &quot;status&quot;: &quot;Failed&quot;,
         &quot;total_amount&quot;: &quot;177.78&quot;,
         &quot;transaction_reference&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -8811,43 +8839,43 @@ fetch(url, {
             &quot;name&quot;: &quot;Baumbach Ltd Warehouse&quot;,
             &quot;location&quot;: &quot;1052 Carey Greens\nLefflerhaven, TX 58408-7043&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
             &quot;name&quot;: &quot;Shayna Raynor Jr.&quot;,
             &quot;email&quot;: &quot;jhaag@example.net&quot;,
-            &quot;phone&quot;: &quot;1-847-548-7905&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;phone&quot;: &quot;+1-747-759-6197&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
-                &quot;product_name&quot;: &quot;nemo odit quia&quot;,
-                &quot;product_sku&quot;: &quot;SKU-3669-pxnt&quot;,
-                &quot;quantity&quot;: 2,
-                &quot;unit_price&quot;: &quot;294.66&quot;,
+                &quot;product_name&quot;: &quot;excepturi doloribus delectus&quot;,
+                &quot;product_sku&quot;: &quot;SKU-8637-ojsa&quot;,
+                &quot;quantity&quot;: 10,
+                &quot;unit_price&quot;: &quot;885.44&quot;,
                 &quot;product&quot;: {
                     &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;nemo odit quia&quot;,
-                    &quot;sku&quot;: &quot;SKU-3669-pxnt&quot;,
-                    &quot;price&quot;: &quot;630.79&quot;,
+                    &quot;name&quot;: &quot;excepturi doloribus delectus&quot;,
+                    &quot;sku&quot;: &quot;SKU-8637-ojsa&quot;,
+                    &quot;price&quot;: &quot;860.50&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -9642,21 +9670,27 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: null,
-            &quot;type&quot;: null,
-            &quot;quantity&quot;: null,
+            &quot;id&quot;: 1,
+            &quot;type&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;In&quot;
+            },
+            &quot;quantity&quot;: 226,
             &quot;unit_cost&quot;: null,
-            &quot;note&quot;: null,
-            &quot;created_at&quot;: null,
+            &quot;note&quot;: &quot;Inventore repellendus enim ducimus aut quasi accusamus sit esse.&quot;,
+            &quot;created_at&quot;: &quot;2026-03-23T06:45:03.000000Z&quot;,
             &quot;updated_at&quot;: null
         },
         {
-            &quot;id&quot;: null,
-            &quot;type&quot;: null,
-            &quot;quantity&quot;: null,
+            &quot;id&quot;: 2,
+            &quot;type&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;In&quot;
+            },
+            &quot;quantity&quot;: 397,
             &quot;unit_cost&quot;: null,
             &quot;note&quot;: null,
-            &quot;created_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-02-17T00:32:57.000000Z&quot;,
             &quot;updated_at&quot;: null
         }
     ],
@@ -10041,12 +10075,15 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: null,
-        &quot;type&quot;: null,
-        &quot;quantity&quot;: null,
-        &quot;unit_cost&quot;: null,
-        &quot;note&quot;: null,
-        &quot;created_at&quot;: null,
+        &quot;id&quot;: 1,
+        &quot;type&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;In&quot;
+        },
+        &quot;quantity&quot;: 172,
+        &quot;unit_cost&quot;: &quot;3178.75&quot;,
+        &quot;note&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
+        &quot;created_at&quot;: &quot;2026-02-01T07:02:35.000000Z&quot;,
         &quot;updated_at&quot;: null
     }
 }</code>
@@ -11789,18 +11826,36 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: null,
-            &quot;name&quot;: null,
-            &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;created_at&quot;: null,
-            &quot;updated_at&quot;: null
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Milling Machine Operator&quot;,
+            &quot;guard_name&quot;: &quot;api&quot;,
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;et.create&quot;,
+                    &quot;guard_name&quot;: &quot;api&quot;,
+                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                }
+            ],
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         {
-            &quot;id&quot;: null,
-            &quot;name&quot;: null,
-            &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;created_at&quot;: null,
-            &quot;updated_at&quot;: null
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Boiler Operator&quot;,
+            &quot;guard_name&quot;: &quot;api&quot;,
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;velit.view&quot;,
+                    &quot;guard_name&quot;: &quot;api&quot;,
+                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                }
+            ],
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ]
 }</code>
@@ -11925,18 +11980,18 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: null,
-            &quot;name&quot;: null,
-            &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;created_at&quot;: null,
-            &quot;updated_at&quot;: null
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;fugiat.delete&quot;,
+            &quot;guard_name&quot;: &quot;api&quot;,
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         {
-            &quot;id&quot;: null,
-            &quot;name&quot;: null,
-            &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;created_at&quot;: null,
-            &quot;updated_at&quot;: null
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;nihil.delete&quot;,
+            &quot;guard_name&quot;: &quot;api&quot;,
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ]
 }</code>
@@ -12072,25 +12127,25 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Colleen Bergstrom II&quot;,
-            &quot;email&quot;: &quot;margie.torphy@example.com&quot;,
-            &quot;phone&quot;: &quot;678-445-4889&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;name&quot;: &quot;Prof. Ramona Bosco Sr.&quot;,
+            &quot;email&quot;: &quot;pdouglas@example.org&quot;,
+            &quot;phone&quot;: &quot;(838) 298-6342&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;Daron Feest&quot;,
-            &quot;email&quot;: &quot;aokon@example.net&quot;,
-            &quot;phone&quot;: &quot;(478) 221-1773&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;name&quot;: &quot;Bret Hintz&quot;,
+            &quot;email&quot;: &quot;wprohaska@example.org&quot;,
+            &quot;phone&quot;: &quot;(228) 809-4222&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -12332,11 +12387,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
         &quot;phone&quot;: &quot;+1-626-249-0432&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -12542,15 +12597,24 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: null,
-        &quot;name&quot;: null,
-        &quot;email&quot;: null,
-        &quot;phone&quot;: null,
-        &quot;email_verified_at&quot;: null,
-        &quot;phone_verified_at&quot;: null,
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
+        &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
+        &quot;phone&quot;: &quot;334-682-8182&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: null,
-        &quot;updated_at&quot;: null
+        &quot;roles&quot;: [
+            &quot;Aircraft Launch Specialist&quot;
+        ],
+        &quot;direct_permissions&quot;: [
+            &quot;nostrum.view&quot;
+        ],
+        &quot;permissions&quot;: [
+            &quot;nostrum.view&quot;
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -12720,11 +12784,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
         &quot;phone&quot;: &quot;1-262-922-9279&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -12961,13 +13025,13 @@ fetch(url, {
     &quot;data&quot;: {
         &quot;id&quot;: 1,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
-        &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
-        &quot;phone&quot;: &quot;334-682-8182&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;email&quot;: &quot;idickens@example.org&quot;,
+        &quot;phone&quot;: &quot;1-820-420-3724&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13129,15 +13193,24 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: null,
-        &quot;name&quot;: null,
-        &quot;email&quot;: null,
-        &quot;phone&quot;: null,
-        &quot;email_verified_at&quot;: null,
-        &quot;phone_verified_at&quot;: null,
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
+        &quot;email&quot;: &quot;hirthe.theo@example.com&quot;,
+        &quot;phone&quot;: &quot;+1.805.658.9606&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: null,
-        &quot;updated_at&quot;: null
+        &quot;roles&quot;: [
+            &quot;Illustrator&quot;
+        ],
+        &quot;direct_permissions&quot;: [
+            &quot;consequatur.delete&quot;
+        ],
+        &quot;permissions&quot;: [
+            &quot;consequatur.delete&quot;
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13314,15 +13387,24 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: null,
-        &quot;name&quot;: null,
-        &quot;email&quot;: null,
-        &quot;phone&quot;: null,
-        &quot;email_verified_at&quot;: null,
-        &quot;phone_verified_at&quot;: null,
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
+        &quot;email&quot;: &quot;leo34@example.net&quot;,
+        &quot;phone&quot;: &quot;(678) 471-7515&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: null,
-        &quot;updated_at&quot;: null
+        &quot;roles&quot;: [
+            &quot;Medical Secretary&quot;
+        ],
+        &quot;direct_permissions&quot;: [
+            &quot;non.delete&quot;
+        ],
+        &quot;permissions&quot;: [
+            &quot;non.delete&quot;
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13494,16 +13576,16 @@ fetch(url, {
             &quot;name&quot;: &quot;Breitenberg Inc Warehouse&quot;,
             &quot;location&quot;: &quot;63724 Haven Square\nAlaynastad, MI 07365&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;Koch PLC Warehouse&quot;,
-            &quot;location&quot;: &quot;26432 Leuschke Throughway Apt. 227\nLake Audreyborough, MT 36080-0782&quot;,
+            &quot;name&quot;: &quot;Tromp-Leffler Warehouse&quot;,
+            &quot;location&quot;: &quot;5024 Pauline Fort Suite 083\nWisokybury, IL 43996-5127&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -13676,8 +13758,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Crooks LLC Warehouse&quot;,
         &quot;location&quot;: &quot;40575 Dickens Inlet\nMyaport, CT 08182&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13826,11 +13908,11 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Hirthe Inc Warehouse&quot;,
-        &quot;location&quot;: &quot;38862 Ferne Locks Suite 058\nChristianshire, IA 97161&quot;,
+        &quot;name&quot;: &quot;Hauck-Leuschke Warehouse&quot;,
+        &quot;location&quot;: &quot;544 Aglae Ridge Apt. 067\nLefflerhaven, TX 58408-7043&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13953,7 +14035,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"name\": \"Updated Warehouse\",
     \"location\": \"Los Angeles\",
-    \"is_active\": true
+    \"is_active\": false
 }"
 </code></pre></div>
 
@@ -13971,7 +14053,7 @@ const headers = {
 let body = {
     "name": "Updated Warehouse",
     "location": "Los Angeles",
-    "is_active": true
+    "is_active": false
 };
 
 fetch(url, {
@@ -13994,8 +14076,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Gulgowski-O&#039;Kon Warehouse&quot;,
         &quot;location&quot;: &quot;80841 Mya Lane Apt. 042\nLyricberg, MO 42170-0432&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -14145,7 +14227,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
         </form>
 
@@ -14369,15 +14451,15 @@ fetch(url, {
             &quot;id&quot;: 1,
             &quot;quantity&quot;: 306,
             &quot;reorder_threshold&quot;: 11,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
             &quot;quantity&quot;: 163,
             &quot;reorder_threshold&quot;: 14,
-            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -14695,8 +14777,8 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;quantity&quot;: 306,
         &quot;reorder_threshold&quot;: 11,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>
@@ -14881,8 +14963,8 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;quantity&quot;: 306,
         &quot;reorder_threshold&quot;: 11,
-        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
     }
 }</code>
  </pre>

@@ -25,8 +25,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
-use Spatie\Permission\Models\Permission as PermissionModel;
-use Spatie\Permission\Models\Role as RoleModel;
+use App\Models\Permission as PermissionModel;
+use App\Models\Role as RoleModel;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\NotificationResource;
+use App\Models\Notification;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\DatabaseNotification;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
@@ -20,7 +20,7 @@ class NotificationController extends Controller
      *
      * Get a paginated list of all notifications for the authenticated user.
      */
-    #[ResponseFromApiResource(NotificationResource::class, DatabaseNotification::class, collection: true, paginate: 10)]
+    #[ResponseFromApiResource(NotificationResource::class, Notification::class, collection: true, paginate: 10)]
     public function index(Request $request)
     {
         $notifications = $request->user()
@@ -35,7 +35,7 @@ class NotificationController extends Controller
      *
      * Get a paginated list of unread notifications for the authenticated user.
      */
-    #[ResponseFromApiResource(NotificationResource::class, DatabaseNotification::class, collection: true, paginate: 10)]
+    #[ResponseFromApiResource(NotificationResource::class, Notification::class, collection: true, paginate: 10)]
     public function unread(Request $request)
     {
         $notifications = $request->user()

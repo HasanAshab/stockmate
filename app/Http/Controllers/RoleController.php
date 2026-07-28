@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 #[Group('User Management')]
 #[Authenticated]

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Filters\FiltersMorphType;
 use App\Http\Resources\ActivityLogResource;
+use App\Models\Activity;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
