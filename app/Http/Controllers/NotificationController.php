@@ -4,38 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\NotificationResource;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
+use Knuckles\Scribe\Attributes\UrlParam;
 
-/**
- * @group Notifications
- *
- * APIs for managing user notifications
- *
- * @authenticated
- */
+#[Group('Notifications', 'APIs for managing user notifications')]
+#[Authenticated]
 class NotificationController extends Controller
 {
     /**
      * List All Notifications
      *
      * Get a paginated list of all notifications for the authenticated user.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": "uuid-123",
-     *       "type": "product-low-stock",
-     *       "data": {
-     *         "message": "Low stock alert",
-     *         "product_name": "Laptop"
-     *       },
-     *       "read_at": null,
-     *       "created_at": "2026-01-15T10:00:00.000000Z"
-     *     }
-     *   ],
-     *   "meta": {},
-     *   "links": {}
-     * }
      */
+    #[ResponseFromApiResource(NotificationResource::class, DatabaseNotification::class, collection: true, paginate: 10)]
     public function index(Request $request)
     {
         $notifications = $request->user()
@@ -49,29 +34,14 @@ class NotificationController extends Controller
      * List Unread Notifications
      *
      * Get a paginated list of unread notifications for the authenticated user.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": "uuid-123",
-     *       "type": "product-low-stock",
-     *       "data": {
-     *         "message": "Low stock alert"
-     *       },
-     *       "read_at": null,
-     *       "created_at": "2026-01-15T10:00:00.000000Z"
-     *     }
-     *   ],
-     *   "meta": {},
-     *   "links": {}
-     * }
      */
+    #[ResponseFromApiResource(NotificationResource::class, DatabaseNotification::class, collection: true, paginate: 10)]
     public function unread(Request $request)
     {
         $notifications = $request->user()
             ->unreadNotifications()
             ->cursorPaginate(10);
-        
+
         return NotificationResource::collection($notifications);
     }
 
@@ -79,13 +49,8 @@ class NotificationController extends Controller
      * Get Unread Count
      *
      * Get the total count of unread notifications for the authenticated user.
-     *
-     * @response 200 {
-     *   "data": {
-     *     "count": 5
-     *   }
-     * }
      */
+    #[Response(['data' => ['count' => 5]], 200)]
     public function unreadCount(Request $request)
     {
         $unreadCount = $request->user()
@@ -103,11 +68,9 @@ class NotificationController extends Controller
      * Mark Notification as Read
      *
      * Mark a specific notification as read.
-     *
-     * @urlParam id string required The notification ID. Example: uuid-123
-     *
-     * @response 204 scenario="Success"
      */
+    #[UrlParam('id', 'string', 'The notification ID.', required: true, example: 'uuid-123')]
+    #[Response([], 204, 'Success')]
     public function markAsRead(Request $request, string $id)
     {
         $notification = $request->user()
@@ -123,9 +86,8 @@ class NotificationController extends Controller
      * Mark All Notifications as Read
      *
      * Mark all unread notifications as read for the authenticated user.
-     *
-     * @response 204 scenario="Success"
      */
+    #[Response([], 204, 'Success')]
     public function markAllAsRead(Request $request)
     {
         $request->user()->unreadNotifications->markAsRead();
@@ -137,11 +99,9 @@ class NotificationController extends Controller
      * Delete Notification
      *
      * Delete a specific notification.
-     *
-     * @urlParam id string required The notification ID. Example: uuid-123
-     *
-     * @response 204 scenario="Success"
      */
+    #[UrlParam('id', 'string', 'The notification ID.', required: true, example: 'uuid-123')]
+    #[Response([], 204, 'Success')]
     public function destroy(Request $request, string $id)
     {
         $notification = $request->user()

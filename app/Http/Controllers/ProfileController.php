@@ -5,35 +5,23 @@ namespace App\Http\Controllers;
 use App\Actions\User\UpdateProfile;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
-/**
- * @group Profile Management
- *
- * APIs for managing the authenticated user's profile
- *
- * @authenticated
- */
+#[Group('Profile Management', 'APIs for managing the authenticated user\'s profile')]
+#[Authenticated]
 class ProfileController extends Controller
 {
     /**
      * Get Profile
      *
      * Get the authenticated user's profile information.
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Doe",
-     *   "email": "user@example.com",
-     *   "phone": null,
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[ResponseFromApiResource(UserResource::class, User::class)]
     public function show(Request $request)
     {
         return new UserResource($request->user());
@@ -43,24 +31,11 @@ class ProfileController extends Controller
      * Update Profile
      *
      * Update the authenticated user's profile information.
-     *
-     * @bodyParam name string The user's full name. Example: John Updated
-     * @bodyParam email string The user's email address. Example: updated@example.com
-     * @bodyParam phone string The user's phone number. Example: +0987654321
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Updated",
-     *   "email": "updated@example.com",
-     *   "phone": "+0987654321",
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[BodyParam('name', 'string', 'The user\'s full name.', example: 'John Updated')]
+    #[BodyParam('email', 'string', 'The user\'s email address.', example: 'updated@example.com')]
+    #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+0987654321')]
+    #[ResponseFromApiResource(UserResource::class, User::class)]
     public function update(UpdateProfileRequest $request, UpdateProfile $updateProfile)
     {
         $user = $request->user();

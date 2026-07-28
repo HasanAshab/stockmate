@@ -8,34 +8,23 @@ use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
 use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
+use Knuckles\Scribe\Attributes\UrlParam;
 
-/**
- * @group Warehouse Management
- *
- * APIs for managing warehouses
- *
- * @authenticated
- */
+#[Group('Warehouse Management', 'APIs for managing warehouses')]
+#[Authenticated]
 class WarehouseController extends Controller
 {
     /**
      * List Warehouses
      *
      * Get a paginated list of all warehouses.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "name": "Main Warehouse",
-     *       "location": "New York",
-     *       "created_at": "2026-01-15T10:00:00.000000Z"
-     *     }
-     *   ],
-     *   "meta": {},
-     *   "links": {}
-     * }
      */
+    #[ResponseFromApiResource(WarehouseResource::class, Warehouse::class, collection: true, paginate: 7)]
     public function index()
     {
         Gate::authorize('viewAny', Warehouse::class);
@@ -47,17 +36,10 @@ class WarehouseController extends Controller
      * Create Warehouse
      *
      * Create a new warehouse.
-     *
-     * @bodyParam name string required The warehouse name. Example: Main Warehouse
-     * @bodyParam location string required The warehouse location. Example: New York
-     *
-     * @response 201 {
-     *   "id": 1,
-     *   "name": "Main Warehouse",
-     *   "location": "New York",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[BodyParam('name', 'string', 'The warehouse name.', required: true, example: 'Main Warehouse')]
+    #[BodyParam('location', 'string', 'The warehouse location.', required: true, example: 'New York')]
+    #[ResponseFromApiResource(WarehouseResource::class, Warehouse::class, status: 201)]
     public function store(StoreWarehouseRequest $request)
     {
         Gate::authorize('create', Warehouse::class);
@@ -73,16 +55,9 @@ class WarehouseController extends Controller
      * Get Warehouse
      *
      * Retrieve details of a specific warehouse by ID.
-     *
-     * @urlParam warehouse integer required The warehouse ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Main Warehouse",
-     *   "location": "New York",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(WarehouseResource::class, Warehouse::class)]
     public function show(Warehouse $warehouse)
     {
         Gate::authorize('view', $warehouse);
@@ -94,19 +69,11 @@ class WarehouseController extends Controller
      * Update Warehouse
      *
      * Update an existing warehouse.
-     *
-     * @urlParam warehouse integer required The warehouse ID. Example: 1
-     *
-     * @bodyParam name string The warehouse name. Example: Updated Warehouse
-     * @bodyParam location string The warehouse location. Example: Los Angeles
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Updated Warehouse",
-     *   "location": "Los Angeles",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
+    #[BodyParam('name', 'string', 'The warehouse name.', example: 'Updated Warehouse')]
+    #[BodyParam('location', 'string', 'The warehouse location.', example: 'Los Angeles')]
+    #[ResponseFromApiResource(WarehouseResource::class, Warehouse::class)]
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
     {
         Gate::authorize('update', $warehouse);
@@ -119,14 +86,10 @@ class WarehouseController extends Controller
      * Delete Warehouse
      *
      * Delete a warehouse. The warehouse must be empty (no stock) to be deleted.
-     *
-     * @urlParam warehouse integer required The warehouse ID. Example: 1
-     *
-     * @response 204 scenario="Success"
-     * @response 400 {
-     *   "message": "Warehouse must be empty before deletion"
-     * }
      */
+    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
+    #[Response([], 204, 'Success')]
+    #[Response(['message' => 'Warehouse must be empty before deletion'], 400)]
     public function destroy(Warehouse $warehouse, DeleteWarehouse $deleteWarehouse)
     {
         Gate::authorize('delete', $warehouse);

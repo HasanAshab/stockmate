@@ -13,48 +13,30 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\QueryParam;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
+use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-/**
- * @group User Management
- *
- * APIs for managing users, roles, and permissions
- *
- * @authenticated
- */
+#[Group('User Management', 'APIs for managing users, roles, and permissions')]
+#[Authenticated]
 class UserController extends Controller
 {
     /**
      * List Users
      *
      * Get a paginated list of users with filtering and sorting capabilities.
-     *
-     * @queryParam filter[role] Filter by role name. Example: admin
-     * @queryParam filter[is_active] Filter by active status. Example: 1
-     * @queryParam filter[created_at] Filter by creation date range (format: start,end). Example: 2026-01-01,2026-01-31
-     * @queryParam sort Sort by field. Use - prefix for descending. Example: -created_at
-     * @queryParam include Include relationships (roles, permissions). Example: roles,permissions
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "name": "John Doe",
-     *       "email": "user@example.com",
-     *       "phone": null,
-     *       "is_active": true,
-     *       "is_verified": true,
-     *       "created_at": "2026-01-15T10:00:00.000000Z",
-     *       "roles": [],
-     *       "direct_permissions": [],
-     *       "permissions": []
-     *     }
-     *   ],
-     *   "meta": {},
-     *   "links": {}
-     * }
      */
+    #[QueryParam('filter[role]', 'string', 'Filter by role name.', example: 'admin')]
+    #[QueryParam('filter[is_active]', 'integer', 'Filter by active status.', example: 1)]
+    #[QueryParam('filter[created_at]', 'string', 'Filter by creation date range (format: start,end).', example: '2026-01-01,2026-01-31')]
+    #[QueryParam('sort', 'string', 'Sort by field. Use - prefix for descending.', example: '-created_at')]
+    #[QueryParam('include', 'string', 'Include relationships (roles, permissions).', example: 'roles,permissions')]
+    #[ResponseFromApiResource(UserResource::class, User::class, collection: true, paginate: 10)]
     public function index()
     {
         $users = QueryBuilder::for(User::class)
@@ -76,27 +58,14 @@ class UserController extends Controller
      * Create User
      *
      * Create a new user account with the specified details.
-     *
-     * @bodyParam name string required The user's full name. Example: Jane Smith
-     * @bodyParam email string The user's email address. Example: jane@example.com
-     * @bodyParam phone string The user's phone number. Example: +1234567890
-     * @bodyParam password string required The user's password. Example: Password123!
-     * @bodyParam password_confirmation string required Password confirmation. Example: Password123!
-     * @bodyParam is_active boolean Whether the user account is active. Example: true
-     *
-     * @response 201 {
-     *   "id": 2,
-     *   "name": "Jane Smith",
-     *   "email": "jane@example.com",
-     *   "phone": null,
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T11:00:00.000000Z",
-     *   "roles": [],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[BodyParam('name', 'string', 'The user\'s full name.', required: true, example: 'Jane Smith')]
+    #[BodyParam('email', 'string', 'The user\'s email address.', example: 'jane@example.com')]
+    #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+1234567890')]
+    #[BodyParam('password', 'string', 'The user\'s password.', required: true, example: 'Password123!')]
+    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', required: true, example: 'Password123!')]
+    #[BodyParam('is_active', 'boolean', 'Whether the user account is active.', example: true)]
+    #[ResponseFromApiResource(UserResource::class, User::class, status: 201)]
     public function store(StoreUserRequest $request, CreateUser $createUser)
     {
         $user = $createUser->execute($request->validated());
@@ -110,29 +79,9 @@ class UserController extends Controller
      * Get User
      *
      * Retrieve details of a specific user by ID.
-     *
-     * @urlParam user integer required The user ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Doe",
-     *   "email": "user@example.com",
-     *   "phone": null,
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [
-     *     {
-     *       "id": 1,
-     *       "name": "admin",
-     *       "guard_name": "web",
-     *       "permissions": []
-     *     }
-     *   ],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(UserResource::class, User::class, with: ['roles', 'permissions'])]
     public function show(User $user)
     {
         $user->load(['roles', 'permissions']);
@@ -144,29 +93,15 @@ class UserController extends Controller
      * Update User
      *
      * Update an existing user's details.
-     *
-     * @urlParam user integer required The user ID. Example: 1
-     *
-     * @bodyParam name string The user's full name. Example: John Updated
-     * @bodyParam email string The user's email address. Example: updated@example.com
-     * @bodyParam phone string The user's phone number. Example: +0987654321
-     * @bodyParam password string The new password. Example: NewPassword123!
-     * @bodyParam password_confirmation string Password confirmation. Example: NewPassword123!
-     * @bodyParam is_active boolean Whether the user account is active. Example: true
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Updated",
-     *   "email": "updated@example.com",
-     *   "phone": null,
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
+    #[BodyParam('name', 'string', 'The user\'s full name.', example: 'John Updated')]
+    #[BodyParam('email', 'string', 'The user\'s email address.', example: 'updated@example.com')]
+    #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+0987654321')]
+    #[BodyParam('password', 'string', 'The new password.', example: 'NewPassword123!')]
+    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', example: 'NewPassword123!')]
+    #[BodyParam('is_active', 'boolean', 'Whether the user account is active.', example: true)]
+    #[ResponseFromApiResource(UserResource::class, User::class)]
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
     {
         $user = $updateUser->execute($user, $request->validated());
@@ -178,22 +113,9 @@ class UserController extends Controller
      * Toggle User Status
      *
      * Activate or deactivate a user account.
-     *
-     * @urlParam user integer required The user ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Doe",
-     *   "email": "user@example.com",
-     *   "phone": null,
-     *   "is_active": false,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(UserResource::class, User::class)]
     public function toggleStatus(User $user, ToggleUserStatus $toggleUserStatus)
     {
         Gate::authorize('deactivate', $user);
@@ -207,31 +129,10 @@ class UserController extends Controller
      * Assign Roles
      *
      * Assign roles to a user. This will replace all existing roles with the provided ones.
-     *
-     * @urlParam user integer required The user ID. Example: 1
-     *
-     * @bodyParam roles string[] required Array of role names. Example: ["admin", "manager"]
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Doe",
-     *   "email": "user@example.com",
-     *   "phone": null,
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [
-     *     {
-     *       "id": 1,
-     *       "name": "admin",
-     *       "guard_name": "web",
-     *       "permissions": []
-     *     }
-     *   ],
-     *   "direct_permissions": [],
-     *   "permissions": []
-     * }
      */
+    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
+    #[BodyParam('roles', 'string[]', 'Array of role names.', required: true, example: ['admin', 'manager'])]
+    #[ResponseFromApiResource(UserResource::class, User::class, with: ['roles', 'permissions'])]
     public function assignRoles(AssignRolesRequest $request, User $user)
     {
         Gate::authorize('updateRole', $user);
@@ -247,36 +148,10 @@ class UserController extends Controller
      * Assign Permissions
      *
      * Assign direct permissions to a user. This will replace all existing direct permissions with the provided ones.
-     *
-     * @urlParam user integer required The user ID. Example: 1
-     *
-     * @bodyParam permissions string[] required Array of permission names. Example: ["UsersCreate", "UsersUpdate"]
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "John Doe",
-     *   "email": "user@example.com",
-     *   "phone": null,
-     *   "is_active": true,
-     *   "is_verified": true,
-     *   "created_at": "2026-01-15T10:00:00.000000Z",
-     *   "roles": [],
-     *   "direct_permissions": [
-     *     {
-     *       "id": 1,
-     *       "name": "UsersCreate",
-     *       "guard_name": "web"
-     *     }
-     *   ],
-     *   "permissions": [
-     *     {
-     *       "id": 1,
-     *       "name": "UsersCreate",
-     *       "guard_name": "web"
-     *     }
-     *   ]
-     * }
      */
+    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
+    #[BodyParam('permissions', 'string[]', 'Array of permission names.', required: true, example: ['UsersCreate', 'UsersUpdate'])]
+    #[ResponseFromApiResource(UserResource::class, User::class, with: ['roles', 'permissions'])]
     public function assignPermissions(AssignPermissionsRequest $request, User $user)
     {
         Gate::authorize('updateRole', $user);

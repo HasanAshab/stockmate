@@ -8,34 +8,23 @@ use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
+use Knuckles\Scribe\Attributes\UrlParam;
 
-/**
- * @group Supplier Management
- *
- * APIs for managing suppliers
- *
- * @authenticated
- */
+#[Group('Supplier Management', 'APIs for managing suppliers')]
+#[Authenticated]
 class SupplierController extends Controller
 {
     /**
      * List Suppliers
      *
      * Get a list of all suppliers. Results are cached for one hour.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "name": "Tech Supplier Inc",
-     *       "email": "contact@techsupplier.com",
-     *       "phone": "+1234567890",
-     *       "address": "123 Supply St",
-     *       "created_at": "2026-01-15T10:00:00.000000Z"
-     *     }
-     *   ]
-     * }
      */
+    #[ResponseFromApiResource(SupplierResource::class, Supplier::class, collection: true)]
     public function index()
     {
         Gate::authorize('viewAny', Supplier::class);
@@ -51,21 +40,12 @@ class SupplierController extends Controller
      * Create Supplier
      *
      * Create a new supplier.
-     *
-     * @bodyParam name string required The supplier name. Example: Tech Supplier Inc
-     * @bodyParam email string The supplier email. Example: contact@techsupplier.com
-     * @bodyParam phone string The supplier phone. Example: +1234567890
-     * @bodyParam address string The supplier address. Example: 123 Supply St
-     *
-     * @response 201 {
-     *   "id": 1,
-     *   "name": "Tech Supplier Inc",
-     *   "email": "contact@techsupplier.com",
-     *   "phone": "+1234567890",
-     *   "address": "123 Supply St",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[BodyParam('name', 'string', 'The supplier name.', required: true, example: 'Tech Supplier Inc')]
+    #[BodyParam('email', 'string', 'The supplier email.', example: 'contact@techsupplier.com')]
+    #[BodyParam('phone', 'string', 'The supplier phone.', example: '+1234567890')]
+    #[BodyParam('address', 'string', 'The supplier address.', example: '123 Supply St')]
+    #[ResponseFromApiResource(SupplierResource::class, Supplier::class, status: 201)]
     public function store(StoreSupplierRequest $request)
     {
         Gate::authorize('create', Supplier::class);
@@ -81,18 +61,9 @@ class SupplierController extends Controller
      * Get Supplier
      *
      * Retrieve details of a specific supplier by ID.
-     *
-     * @urlParam supplier integer required The supplier ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Tech Supplier Inc",
-     *   "email": "contact@techsupplier.com",
-     *   "phone": "+1234567890",
-     *   "address": "123 Supply St",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(SupplierResource::class, Supplier::class)]
     public function show(Supplier $supplier)
     {
         Gate::authorize('view', $supplier);
@@ -104,23 +75,13 @@ class SupplierController extends Controller
      * Update Supplier
      *
      * Update an existing supplier.
-     *
-     * @urlParam supplier integer required The supplier ID. Example: 1
-     *
-     * @bodyParam name string The supplier name. Example: Updated Supplier
-     * @bodyParam email string The supplier email. Example: updated@supplier.com
-     * @bodyParam phone string The supplier phone. Example: +0987654321
-     * @bodyParam address string The supplier address. Example: 456 New St
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Updated Supplier",
-     *   "email": "updated@supplier.com",
-     *   "phone": "+0987654321",
-     *   "address": "456 New St",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
+    #[BodyParam('name', 'string', 'The supplier name.', example: 'Updated Supplier')]
+    #[BodyParam('email', 'string', 'The supplier email.', example: 'updated@supplier.com')]
+    #[BodyParam('phone', 'string', 'The supplier phone.', example: '+0987654321')]
+    #[BodyParam('address', 'string', 'The supplier address.', example: '456 New St')]
+    #[ResponseFromApiResource(SupplierResource::class, Supplier::class)]
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
         Gate::authorize('update', $supplier);
@@ -133,11 +94,9 @@ class SupplierController extends Controller
      * Delete Supplier
      *
      * Soft delete a supplier.
-     *
-     * @urlParam supplier integer required The supplier ID. Example: 1
-     *
-     * @response 204 scenario="Success"
      */
+    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
+    #[Response([], 204, 'Success')]
     public function destroy(Supplier $supplier)
     {
         Gate::authorize('delete', $supplier);
@@ -150,17 +109,8 @@ class SupplierController extends Controller
      * List Trashed Suppliers
      *
      * Get a list of all soft-deleted suppliers.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "name": "Old Supplier",
-     *       "deleted_at": "2026-01-15T12:00:00.000000Z"
-     *     }
-     *   ]
-     * }
      */
+    #[ResponseFromApiResource(SupplierResource::class, Supplier::class, collection: true)]
     public function trashed()
     {
         Gate::authorize('viewAny', Supplier::class);
@@ -172,16 +122,9 @@ class SupplierController extends Controller
      * Restore Supplier
      *
      * Restore a soft-deleted supplier.
-     *
-     * @urlParam supplier integer required The supplier ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Tech Supplier Inc",
-     *   "email": "contact@techsupplier.com",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(SupplierResource::class, Supplier::class)]
     public function restore(Supplier $supplier)
     {
         Gate::authorize('restore', $supplier);

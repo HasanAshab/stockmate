@@ -428,7 +428,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: July 27, 2026</li>
+        <li>Last updated: July 28, 2026</li>
     </ul>
 </div>
 
@@ -508,22 +508,65 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
-            &quot;log_name&quot;: &quot;default&quot;,
-            &quot;description&quot;: &quot;created&quot;,
-            &quot;subject_type&quot;: &quot;Product&quot;,
-            &quot;subject_id&quot;: 1,
-            &quot;done_by&quot;: &quot;John Doe&quot;,
-            &quot;changes&quot;: {
-                &quot;name&quot;: &quot;Laptop&quot;,
-                &quot;price&quot;: 999.99
-            },
+            &quot;id&quot;: null,
+            &quot;log_name&quot;: null,
+            &quot;description&quot;: null,
+            &quot;subject_type&quot;: &quot;&quot;,
+            &quot;subject_id&quot;: null,
+            &quot;done_by&quot;: &quot;System&quot;,
+            &quot;changes&quot;: null,
             &quot;old_values&quot;: null,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;created_at&quot;: null,
+            &quot;causer&quot;: null
+        },
+        {
+            &quot;id&quot;: null,
+            &quot;log_name&quot;: null,
+            &quot;description&quot;: null,
+            &quot;subject_type&quot;: &quot;&quot;,
+            &quot;subject_id&quot;: null,
+            &quot;done_by&quot;: &quot;System&quot;,
+            &quot;changes&quot;: null,
+            &quot;old_values&quot;: null,
+            &quot;created_at&quot;: null,
+            &quot;causer&quot;: null
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 15,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -601,11 +644,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[causer]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[causer]"                data-endpoint="GETapi-v1-activity-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[causer]"                data-endpoint="GETapi-v1-activity-logs"
                value="1"
                data-component="query">
     <br>
@@ -613,11 +656,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[subject]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[subject]"                data-endpoint="GETapi-v1-activity-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[subject]"                data-endpoint="GETapi-v1-activity-logs"
                value="1"
                data-component="query">
     <br>
@@ -626,19 +669,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[subject_type]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[subject_type]"                data-endpoint="GETapi-v1-activity-logs"
                value="Product"
                data-component="query">
     <br>
-<p>Filter by subject type (e.g., Product, User). Example: <code>Product</code></p>
+<p>Filter by subject type. Example: <code>Product</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[created_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[created_at]"                data-endpoint="GETapi-v1-activity-logs"
@@ -650,7 +693,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-activity-logs"
@@ -662,14 +705,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>include</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="include"                data-endpoint="GETapi-v1-activity-logs"
                value="causer,subject"
                data-component="query">
     <br>
-<p>Include relationships (causer, subject). Example: <code>causer,subject</code></p>
+<p>Include relationships. Example: <code>causer,subject</code></p>
             </div>
                 </form>
 
@@ -731,7 +774,7 @@ fetch(url, {
 
 <span id="example-responses-POSTapi-v1-auth-register">
             <blockquote>
-            <p>Example response (201):</p>
+            <p>Example response (201, User registered with token):</p>
         </blockquote>
                 <pre>
 
@@ -739,14 +782,7 @@ fetch(url, {
     &quot;user&quot;: {
         &quot;id&quot;: 1,
         &quot;name&quot;: &quot;John Doe&quot;,
-        &quot;email&quot;: &quot;user@example.com&quot;,
-        &quot;phone&quot;: null,
-        &quot;is_active&quot;: true,
-        &quot;is_verified&quot;: false,
-        &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-        &quot;roles&quot;: [],
-        &quot;direct_permissions&quot;: [],
-        &quot;permissions&quot;: []
+        &quot;email&quot;: &quot;user@example.com&quot;
     },
     &quot;token&quot;: &quot;2|def456...&quot;,
     &quot;token_type&quot;: &quot;Bearer&quot;
@@ -840,7 +876,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-auth-register"
@@ -852,7 +888,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="POSTapi-v1-auth-register"
@@ -935,7 +971,7 @@ fetch(url, {
 
 <span id="example-responses-POSTapi-v1-auth-login">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (200, User logged in with token):</p>
         </blockquote>
                 <pre>
 
@@ -943,14 +979,7 @@ fetch(url, {
     &quot;user&quot;: {
         &quot;id&quot;: 1,
         &quot;name&quot;: &quot;John Doe&quot;,
-        &quot;email&quot;: &quot;user@example.com&quot;,
-        &quot;phone&quot;: null,
-        &quot;is_active&quot;: true,
-        &quot;is_verified&quot;: true,
-        &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-        &quot;roles&quot;: [],
-        &quot;direct_permissions&quot;: [],
-        &quot;permissions&quot;: []
+        &quot;email&quot;: &quot;user@example.com&quot;
     },
     &quot;token&quot;: &quot;1|abc123...&quot;,
     &quot;token_type&quot;: &quot;Bearer&quot;
@@ -1112,7 +1141,7 @@ fetch(url, {
 
 <span id="example-responses-POSTapi-v1-auth-social">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (200, User authenticated via social provider):</p>
         </blockquote>
                 <pre>
 
@@ -1120,14 +1149,7 @@ fetch(url, {
     &quot;user&quot;: {
         &quot;id&quot;: 1,
         &quot;name&quot;: &quot;John Doe&quot;,
-        &quot;email&quot;: &quot;user@example.com&quot;,
-        &quot;phone&quot;: null,
-        &quot;is_active&quot;: true,
-        &quot;is_verified&quot;: true,
-        &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-        &quot;roles&quot;: [],
-        &quot;direct_permissions&quot;: [],
-        &quot;permissions&quot;: []
+        &quot;email&quot;: &quot;user@example.com&quot;
     },
     &quot;token&quot;: &quot;3|ghi789...&quot;,
     &quot;token_type&quot;: &quot;Bearer&quot;
@@ -2218,9 +2240,17 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Electronics&quot;,
-            &quot;description&quot;: &quot;Electronic products&quot;,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;name&quot;: &quot;dicta in&quot;,
+            &quot;slug&quot;: &quot;dicta-in&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;quam id&quot;,
+            &quot;slug&quot;: &quot;quam-id&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ]
 }</code>
@@ -2355,10 +2385,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Electronics&quot;,
-    &quot;description&quot;: &quot;Electronic products&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;sunt nihil&quot;,
+        &quot;slug&quot;: &quot;sunt-nihil&quot;,
+        &quot;description&quot;: &quot;Harum mollitia modi deserunt aut ab provident perspiciatis quo.&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -2461,7 +2495,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="POSTapi-v1-categories"
@@ -2516,10 +2550,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Electronics&quot;,
-    &quot;description&quot;: &quot;Electronic products&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;eius et&quot;,
+        &quot;slug&quot;: &quot;eius-et&quot;,
+        &quot;description&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -2677,10 +2715,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Updated Electronics&quot;,
-    &quot;description&quot;: &quot;Updated description&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;accusantium harum&quot;,
+        &quot;slug&quot;: &quot;accusantium-harum&quot;,
+        &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -2788,7 +2830,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-categories--id-"
@@ -2812,7 +2854,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="PUTapi-v1-categories--id-"
@@ -3013,9 +3055,19 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Old Electronics&quot;,
-            &quot;description&quot;: &quot;Old category&quot;,
-            &quot;deleted_at&quot;: &quot;2026-01-15T12:00:00.000000Z&quot;
+            &quot;name&quot;: &quot;animi quos&quot;,
+            &quot;slug&quot;: &quot;animi-quos&quot;,
+            &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;harum mollitia&quot;,
+            &quot;slug&quot;: &quot;harum-mollitia&quot;,
+            &quot;description&quot;: &quot;Deserunt aut ab provident perspiciatis quo omnis nostrum.&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ]
 }</code>
@@ -3138,10 +3190,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Electronics&quot;,
-    &quot;description&quot;: &quot;Electronic products&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;velit et&quot;,
+        &quot;slug&quot;: &quot;velit-et&quot;,
+        &quot;description&quot;: &quot;Sunt nihil accusantium harum mollitia.&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -3473,16 +3529,7 @@ fetch(url, {
         &quot;total_low_stock&quot;: 5,
         &quot;total_categories&quot;: 10,
         &quot;total_suppliers&quot;: 8,
-        &quot;recent_stock_logs&quot;: [
-            {
-                &quot;id&quot;: 1,
-                &quot;type&quot;: &quot;in&quot;,
-                &quot;quantity&quot;: 50,
-                &quot;product&quot;: {
-                    &quot;name&quot;: &quot;Laptop&quot;
-                }
-            }
-        ]
+        &quot;recent_stock_logs&quot;: []
     }
 }</code>
  </pre>
@@ -3610,18 +3657,55 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: &quot;uuid-123&quot;,
-            &quot;type&quot;: &quot;App\\Notifications\\LowStockNotification&quot;,
-            &quot;data&quot;: {
-                &quot;message&quot;: &quot;Low stock alert&quot;,
-                &quot;product_name&quot;: &quot;Laptop&quot;
-            },
+            &quot;id&quot;: null,
+            &quot;type&quot;: null,
+            &quot;data&quot;: null,
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;created_at&quot;: null
+        },
+        {
+            &quot;id&quot;: null,
+            &quot;type&quot;: null,
+            &quot;data&quot;: null,
+            &quot;read_at&quot;: null,
+            &quot;created_at&quot;: null
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -3744,17 +3828,55 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: &quot;uuid-123&quot;,
-            &quot;type&quot;: &quot;App\\Notifications\\LowStockNotification&quot;,
-            &quot;data&quot;: {
-                &quot;message&quot;: &quot;Low stock alert&quot;
-            },
+            &quot;id&quot;: null,
+            &quot;type&quot;: null,
+            &quot;data&quot;: null,
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;created_at&quot;: null
+        },
+        {
+            &quot;id&quot;: null,
+            &quot;type&quot;: null,
+            &quot;data&quot;: null,
+            &quot;read_at&quot;: null,
+            &quot;created_at&quot;: null
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -3993,14 +4115,10 @@ fetch(url, {
 
 <span id="example-responses-PATCHapi-v1-notifications--id--mark-as-read">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (204, Success):</p>
         </blockquote>
                 <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: &quot;uuid-123&quot;,
-    &quot;read_at&quot;: &quot;2026-01-15T11:00:00.000000Z&quot;
-}</code>
+<code>Empty response</code>
  </pre>
     </span>
 <span id="execution-results-PATCHapi-v1-notifications--id--mark-as-read" hidden>
@@ -4128,13 +4246,10 @@ fetch(url, {
 
 <span id="example-responses-PATCHapi-v1-notifications-mark-all-as-read">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (204, Success):</p>
         </blockquote>
                 <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;All notifications marked as read.&quot;
-}</code>
+<code>Empty response</code>
  </pre>
     </span>
 <span id="execution-results-PATCHapi-v1-notifications-mark-all-as-read" hidden>
@@ -4485,6 +4600,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </p>
 
 <p>Handles failed payment notifications from SSLCommerz.</p>
+<p>SSLCommerz expects a successful HTTP response (200 OK) to confirm that the
+callback was received and processed successfully, even when the payment
+itself has failed. The actual payment outcome is represented by the
+application response body and the updated sales order status, not the HTTP
+status code.</p>
 
 <span id="example-requests-POSTapi-v1-payment-fail">
 <blockquote>Example request:</blockquote>
@@ -4605,6 +4725,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </p>
 
 <p>Handles cancelled payment notifications from SSLCommerz.</p>
+<p>SSLCommerz expects a successful HTTP response (200 OK) to confirm that the
+callback was received and processed successfully, even when the payment
+was cancelled. The actual payment outcome is represented by the
+application response body and the updated sales order status, not the HTTP
+status code.</p>
 
 <span id="example-requests-POSTapi-v1-payment-cancel">
 <blockquote>Example request:</blockquote>
@@ -4905,22 +5030,60 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Product Name&quot;,
-            &quot;description&quot;: &quot;Product description&quot;,
-            &quot;sku&quot;: &quot;SKU-001&quot;,
-            &quot;price&quot;: 99.99,
-            &quot;category&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Category Name&quot;
-            },
-            &quot;supplier&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Supplier Name&quot;
-            }
+            &quot;name&quot;: &quot;voluptatem laboriosam praesentium&quot;,
+            &quot;sku&quot;: &quot;SKU-7809-lxjk&quot;,
+            &quot;price&quot;: &quot;585.43&quot;,
+            &quot;image_url&quot;: null,
+            &quot;image_thumb_url&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:49.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:49.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;assumenda et tenetur&quot;,
+            &quot;sku&quot;: &quot;SKU-4519-cttw&quot;,
+            &quot;price&quot;: &quot;23.39&quot;,
+            &quot;image_url&quot;: null,
+            &quot;image_thumb_url&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -4999,7 +5162,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[trashed]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[trashed]"                data-endpoint="GETapi-v1-products"
@@ -5010,11 +5173,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[category]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[category]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[category]"                data-endpoint="GETapi-v1-products"
                value="1"
                data-component="query">
     <br>
@@ -5022,11 +5185,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[supplier]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[supplier]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[supplier]"                data-endpoint="GETapi-v1-products"
                value="1"
                data-component="query">
     <br>
@@ -5034,11 +5197,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[price][gt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[price][gt]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[price][gt]"                data-endpoint="GETapi-v1-products"
                value="100"
                data-component="query">
     <br>
@@ -5046,11 +5209,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[price][gte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[price][gte]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[price][gte]"                data-endpoint="GETapi-v1-products"
                value="50"
                data-component="query">
     <br>
@@ -5058,11 +5221,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[price][lt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[price][lt]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[price][lt]"                data-endpoint="GETapi-v1-products"
                value="100"
                data-component="query">
     <br>
@@ -5070,11 +5233,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[price][lte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[price][lte]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[price][lte]"                data-endpoint="GETapi-v1-products"
                value="100"
                data-component="query">
     <br>
@@ -5082,11 +5245,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[price][eq]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[price][eq]"                data-endpoint="GETapi-v1-products"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[price][eq]"                data-endpoint="GETapi-v1-products"
                value="99.99"
                data-component="query">
     <br>
@@ -5095,7 +5258,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
@@ -5107,7 +5270,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>include</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="include"                data-endpoint="GETapi-v1-products"
@@ -5141,7 +5304,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "sku=LAP-001"\
     --form "price=999.99"\
     --form "description=High-performance laptop"\
-    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php2388.tmp" </code></pre></div>
+    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php8C26.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -5178,14 +5341,16 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Laptop&quot;,
-    &quot;description&quot;: &quot;High-performance laptop&quot;,
-    &quot;sku&quot;: &quot;LAP-001&quot;,
-    &quot;price&quot;: 999.99,
-    &quot;category_id&quot;: 1,
-    &quot;supplier_id&quot;: 1,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;architecto eius et&quot;,
+        &quot;sku&quot;: &quot;SKU-9365-miyv&quot;,
+        &quot;price&quot;: &quot;564.35&quot;,
+        &quot;image_url&quot;: null,
+        &quot;image_thumb_url&quot;: null,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -5276,7 +5441,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>supplier_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="supplier_id"                data-endpoint="POSTapi-v1-products"
@@ -5324,19 +5489,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>image</code></b>&nbsp;&nbsp;
 <small>file</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="file" style="display: none"
                               name="image"                data-endpoint="POSTapi-v1-products"
                value=""
                data-component="body">
     <br>
-<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php2388.tmp</code></p>
+<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php8C26.tmp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="POSTapi-v1-products"
@@ -5391,18 +5556,15 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Laptop&quot;,
-    &quot;description&quot;: &quot;High-performance laptop&quot;,
-    &quot;sku&quot;: &quot;LAP-001&quot;,
-    &quot;price&quot;: 999.99,
-    &quot;category&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Electronics&quot;
-    },
-    &quot;supplier&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Tech Supplier&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: null,
+        &quot;name&quot;: null,
+        &quot;sku&quot;: null,
+        &quot;price&quot;: null,
+        &quot;image_url&quot;: null,
+        &quot;image_thumb_url&quot;: null,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
     }
 }</code>
  </pre>
@@ -5529,7 +5691,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "price=1099.99"\
     --form "reorder_threshold=12"\
     --form "description=Updated description"\
-    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php23A9.tmp" </code></pre></div>
+    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php8C76.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -5567,13 +5729,16 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Updated Laptop&quot;,
-    &quot;description&quot;: &quot;Updated description&quot;,
-    &quot;sku&quot;: &quot;LAP-002&quot;,
-    &quot;price&quot;: 1099.99,
-    &quot;category_id&quot;: 1,
-    &quot;supplier_id&quot;: 1
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;architecto eius et&quot;,
+        &quot;sku&quot;: &quot;SKU-0575-ljni&quot;,
+        &quot;price&quot;: &quot;403.07&quot;,
+        &quot;image_url&quot;: null,
+        &quot;image_thumb_url&quot;: null,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:50.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -5681,7 +5846,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="category_id"                data-endpoint="PUTapi-v1-products--id-"
@@ -5693,7 +5858,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>supplier_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="supplier_id"                data-endpoint="PUTapi-v1-products--id-"
@@ -5705,7 +5870,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-products--id-"
@@ -5717,7 +5882,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>sku</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sku"                data-endpoint="PUTapi-v1-products--id-"
@@ -5729,7 +5894,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>price</code></b>&nbsp;&nbsp;
 <small>number</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="price"                data-endpoint="PUTapi-v1-products--id-"
@@ -5753,19 +5918,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>image</code></b>&nbsp;&nbsp;
 <small>file</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="file" style="display: none"
                               name="image"                data-endpoint="PUTapi-v1-products--id-"
                value=""
                data-component="body">
     <br>
-<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php23A9.tmp</code></p>
+<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php8C76.tmp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="PUTapi-v1-products--id-"
@@ -5967,16 +6132,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Doe&quot;,
-    &quot;email&quot;: &quot;user@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Ms. Audra Crooks II&quot;,
+        &quot;email&quot;: &quot;idickens@example.org&quot;,
+        &quot;phone&quot;: &quot;1-820-420-3724&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -6111,16 +6277,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Updated&quot;,
-    &quot;email&quot;: &quot;updated@example.com&quot;,
-    &quot;phone&quot;: &quot;+0987654321&quot;,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
+        &quot;email&quot;: &quot;ferne52@example.com&quot;,
+        &quot;phone&quot;: &quot;870-215-1024&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -6203,7 +6370,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-profile"
@@ -6215,7 +6382,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="PUTapi-v1-profile"
@@ -6227,7 +6394,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="PUTapi-v1-profile"
@@ -6315,21 +6482,58 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;supplier_id&quot;: 1,
-            &quot;warehouse_id&quot;: 1,
-            &quot;status&quot;: &quot;ordered&quot;,
-            &quot;ordered_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-            &quot;items&quot;: [
-                {
-                    &quot;product_id&quot;: 1,
-                    &quot;quantity&quot;: 50,
-                    &quot;unit_price&quot;: 10
-                }
-            ]
+            &quot;status&quot;: &quot;Ordered&quot;,
+            &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
+            &quot;ordered_at&quot;: &quot;2026-04-30T02:48:56.000000Z&quot;,
+            &quot;received_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;status&quot;: &quot;PartiallyReceived&quot;,
+            &quot;note&quot;: &quot;&quot;,
+            &quot;ordered_at&quot;: &quot;2026-07-05T14:52:24.000000Z&quot;,
+            &quot;received_at&quot;: &quot;2026-06-08T07:14:40.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -6407,11 +6611,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[supplier]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[supplier]"                data-endpoint="GETapi-v1-purchase-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[supplier]"                data-endpoint="GETapi-v1-purchase-orders"
                value="1"
                data-component="query">
     <br>
@@ -6419,11 +6623,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[warehouse]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[warehouse]"                data-endpoint="GETapi-v1-purchase-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[warehouse]"                data-endpoint="GETapi-v1-purchase-orders"
                value="1"
                data-component="query">
     <br>
@@ -6431,11 +6635,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[creator]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[creator]"                data-endpoint="GETapi-v1-purchase-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[creator]"                data-endpoint="GETapi-v1-purchase-orders"
                value="1"
                data-component="query">
     <br>
@@ -6443,11 +6647,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[product]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[product]"                data-endpoint="GETapi-v1-purchase-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[product]"                data-endpoint="GETapi-v1-purchase-orders"
                value="1"
                data-component="query">
     <br>
@@ -6456,19 +6660,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[status]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[status]"                data-endpoint="GETapi-v1-purchase-orders"
                value="ordered"
                data-component="query">
     <br>
-<p>Filter by order status (draft, ordered, received, cancelled). Example: <code>ordered</code></p>
+<p>Filter by order status. Example: <code>ordered</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[ordered_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[ordered_at]"                data-endpoint="GETapi-v1-purchase-orders"
@@ -6480,7 +6684,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[received_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[received_at]"                data-endpoint="GETapi-v1-purchase-orders"
@@ -6492,7 +6696,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[created_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[created_at]"                data-endpoint="GETapi-v1-purchase-orders"
@@ -6504,7 +6708,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-purchase-orders"
@@ -6591,18 +6795,15 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;supplier_id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;status&quot;: &quot;draft&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;items&quot;: [
-        {
-            &quot;product_id&quot;: 1,
-            &quot;quantity&quot;: 50,
-            &quot;unit_price&quot;: 10
-        }
-    ]
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;status&quot;: &quot;Draft&quot;,
+        &quot;note&quot;: &quot;&quot;,
+        &quot;ordered_at&quot;: &quot;2026-07-13T04:43:20.000000Z&quot;,
+        &quot;received_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -6789,7 +6990,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="POSTapi-v1-purchase-orders"
@@ -6844,22 +7045,68 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;supplier_id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;status&quot;: &quot;ordered&quot;,
-    &quot;ordered_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;supplier&quot;: {
+    &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Tech Supplier Inc&quot;
-    },
-    &quot;items&quot;: [
-        {
-            &quot;product_id&quot;: 1,
-            &quot;quantity&quot;: 50,
-            &quot;unit_price&quot;: 10
-        }
-    ]
+        &quot;supplier_name&quot;: &quot;Bauch, Fritsch and O&#039;Keefe&quot;,
+        &quot;warehouse_name&quot;: &quot;Cartwright-Balistreri Warehouse&quot;,
+        &quot;status&quot;: &quot;Ordered&quot;,
+        &quot;item_count&quot;: 1,
+        &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
+        &quot;ordered_at&quot;: &quot;2026-04-30T02:48:56.000000Z&quot;,
+        &quot;received_at&quot;: null,
+        &quot;supplier&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Bauch, Fritsch and O&#039;Keefe&quot;,
+            &quot;phone&quot;: &quot;870-215-1024&quot;,
+            &quot;email&quot;: &quot;jleffler@example.com&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        &quot;warehouse&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Cartwright-Balistreri Warehouse&quot;,
+            &quot;location&quot;: &quot;979 Beier Meadow Suite 188\nEast Victoria, TN 91558&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        &quot;creator&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Vickie Casper&quot;,
+            &quot;email&quot;: &quot;roxanne81@example.org&quot;,
+            &quot;phone&quot;: &quot;1-850-929-3733&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        &quot;items&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;product_name&quot;: &quot;corrupti et dolores&quot;,
+                &quot;product_sku&quot;: &quot;SKU-7967-tmgo&quot;,
+                &quot;ordered_quantity&quot;: 180,
+                &quot;received_quantity&quot;: 0,
+                &quot;unit_cost&quot;: &quot;11.70&quot;,
+                &quot;is_fully_received&quot;: false,
+                &quot;product&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;corrupti et dolores&quot;,
+                    &quot;sku&quot;: &quot;SKU-7967-tmgo&quot;,
+                    &quot;price&quot;: &quot;767.77&quot;,
+                    &quot;image_url&quot;: null,
+                    &quot;image_thumb_url&quot;: null,
+                    &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            }
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -7037,11 +7284,68 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;supplier_id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;status&quot;: &quot;draft&quot;,
-    &quot;items&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;supplier_name&quot;: &quot;Tromp-Leffler&quot;,
+        &quot;warehouse_name&quot;: &quot;Ward-O&#039;Connell Warehouse&quot;,
+        &quot;status&quot;: &quot;Draft&quot;,
+        &quot;item_count&quot;: 1,
+        &quot;note&quot;: &quot;&quot;,
+        &quot;ordered_at&quot;: &quot;2026-07-13T04:43:20.000000Z&quot;,
+        &quot;received_at&quot;: null,
+        &quot;supplier&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Tromp-Leffler&quot;,
+            &quot;phone&quot;: &quot;337-569-9723&quot;,
+            &quot;email&quot;: &quot;kconsidine@example.net&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        &quot;warehouse&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Ward-O&#039;Connell Warehouse&quot;,
+            &quot;location&quot;: &quot;85188 Victoria Shoals\nWest Artborough, NV 18607-5439&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        &quot;creator&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Fausto Conroy&quot;,
+            &quot;email&quot;: &quot;moises37@example.com&quot;,
+            &quot;phone&quot;: &quot;1-678-926-5062&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        &quot;items&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;product_name&quot;: &quot;assumenda odit doloribus&quot;,
+                &quot;product_sku&quot;: &quot;SKU-9924-gtvn&quot;,
+                &quot;ordered_quantity&quot;: 198,
+                &quot;received_quantity&quot;: 0,
+                &quot;unit_cost&quot;: &quot;474.12&quot;,
+                &quot;is_fully_received&quot;: false,
+                &quot;product&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;assumenda odit doloribus&quot;,
+                    &quot;sku&quot;: &quot;SKU-9924-gtvn&quot;,
+                    &quot;price&quot;: &quot;574.80&quot;,
+                    &quot;image_url&quot;: null,
+                    &quot;image_thumb_url&quot;: null,
+                    &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            }
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -7149,7 +7453,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>supplier_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="supplier_id"                data-endpoint="PUTapi-v1-purchase-orders--id-"
@@ -7161,7 +7465,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>warehouse_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="warehouse_id"                data-endpoint="PUTapi-v1-purchase-orders--id-"
@@ -7187,7 +7491,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <summary style="padding-bottom: 10px;">
                 <b style="line-height: 2;"><code>items</code></b>&nbsp;&nbsp;
 <small>object[]</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
 <br>
 <p>Array of order items.</p>
@@ -7195,7 +7499,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>product_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.product_id"                data-endpoint="PUTapi-v1-purchase-orders--id-"
@@ -7231,7 +7535,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.quantity"                data-endpoint="PUTapi-v1-purchase-orders--id-"
@@ -7243,7 +7547,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>unit_price</code></b>&nbsp;&nbsp;
 <small>number</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="items.0.unit_price"                data-endpoint="PUTapi-v1-purchase-orders--id-"
@@ -7257,7 +7561,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="PUTapi-v1-purchase-orders--id-"
@@ -7312,9 +7616,68 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;status&quot;: &quot;ordered&quot;,
-    &quot;ordered_at&quot;: &quot;2026-01-15T11:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;supplier_name&quot;: &quot;Feeney, Leffler and Glover&quot;,
+        &quot;warehouse_name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
+        &quot;status&quot;: &quot;Ordered&quot;,
+        &quot;item_count&quot;: 1,
+        &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
+        &quot;ordered_at&quot;: &quot;2026-04-30T02:48:56.000000Z&quot;,
+        &quot;received_at&quot;: null,
+        &quot;supplier&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Feeney, Leffler and Glover&quot;,
+            &quot;phone&quot;: &quot;337-329-5127&quot;,
+            &quot;email&quot;: &quot;torp.florence@example.org&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        &quot;warehouse&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
+            &quot;location&quot;: &quot;737 Fadel Road\nNorth Mireille, MS 37967&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        &quot;creator&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Korey Marvin PhD&quot;,
+            &quot;email&quot;: &quot;bernhard.kendra@example.net&quot;,
+            &quot;phone&quot;: &quot;+1 (817) 947-8656&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+        },
+        &quot;items&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;product_name&quot;: &quot;suscipit doloribus fugiat&quot;,
+                &quot;product_sku&quot;: &quot;SKU-6146-ztpp&quot;,
+                &quot;ordered_quantity&quot;: 118,
+                &quot;received_quantity&quot;: 0,
+                &quot;unit_cost&quot;: &quot;123.12&quot;,
+                &quot;is_fully_received&quot;: false,
+                &quot;product&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;suscipit doloribus fugiat&quot;,
+                    &quot;sku&quot;: &quot;SKU-6146-ztpp&quot;,
+                    &quot;price&quot;: &quot;482.28&quot;,
+                    &quot;image_url&quot;: null,
+                    &quot;image_thumb_url&quot;: null,
+                    &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+            }
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -7627,11 +7990,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;message&quot;: &quot;Stock received.&quot;,
-    &quot;purchase_order&quot;: {
-        &quot;id&quot;: 1,
-        &quot;status&quot;: &quot;received&quot;,
-        &quot;received_at&quot;: &quot;2026-01-20T10:00:00.000000Z&quot;
-    }
+    &quot;purchase_order&quot;: []
 }</code>
  </pre>
     </span>
@@ -7849,21 +8208,62 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;warehouse_id&quot;: 1,
-            &quot;total_amount&quot;: 999.99,
-            &quot;status&quot;: &quot;pending&quot;,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-            &quot;items&quot;: [
-                {
-                    &quot;product_id&quot;: 1,
-                    &quot;quantity&quot;: 2,
-                    &quot;unit_price&quot;: 499.99
-                }
-            ]
+            &quot;customer_name&quot;: &quot;Vickie Casper&quot;,
+            &quot;customer_email&quot;: &quot;roxanne81@example.org&quot;,
+            &quot;customer_phone&quot;: &quot;1-850-929-3733&quot;,
+            &quot;status&quot;: &quot;Failed&quot;,
+            &quot;total_amount&quot;: &quot;116.96&quot;,
+            &quot;transaction_reference&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;customer_name&quot;: &quot;Abdul Lakin&quot;,
+            &quot;customer_email&quot;: &quot;ludie22@example.net&quot;,
+            &quot;customer_phone&quot;: &quot;660.440.0715&quot;,
+            &quot;status&quot;: &quot;Pending&quot;,
+            &quot;total_amount&quot;: &quot;1294.79&quot;,
+            &quot;transaction_reference&quot;: null,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -7941,11 +8341,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[creator]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[creator]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[creator]"                data-endpoint="GETapi-v1-sales-orders"
                value="1"
                data-component="query">
     <br>
@@ -7953,11 +8353,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[warehouse]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[warehouse]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[warehouse]"                data-endpoint="GETapi-v1-sales-orders"
                value="1"
                data-component="query">
     <br>
@@ -7965,11 +8365,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[product]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[product]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[product]"                data-endpoint="GETapi-v1-sales-orders"
                value="1"
                data-component="query">
     <br>
@@ -7978,19 +8378,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[status]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[status]"                data-endpoint="GETapi-v1-sales-orders"
                value="paid"
                data-component="query">
     <br>
-<p>Filter by order status (pending, paid, cancelled). Example: <code>paid</code></p>
+<p>Filter by order status. Example: <code>paid</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[created_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[created_at]"                data-endpoint="GETapi-v1-sales-orders"
@@ -8001,11 +8401,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[total_amount][gt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[total_amount][gt]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[total_amount][gt]"                data-endpoint="GETapi-v1-sales-orders"
                value="1000"
                data-component="query">
     <br>
@@ -8013,11 +8413,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[total_amount][gte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[total_amount][gte]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[total_amount][gte]"                data-endpoint="GETapi-v1-sales-orders"
                value="100"
                data-component="query">
     <br>
@@ -8025,11 +8425,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[total_amount][lt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[total_amount][lt]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[total_amount][lt]"                data-endpoint="GETapi-v1-sales-orders"
                value="1000"
                data-component="query">
     <br>
@@ -8037,11 +8437,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[total_amount][lte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[total_amount][lte]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[total_amount][lte]"                data-endpoint="GETapi-v1-sales-orders"
                value="500"
                data-component="query">
     <br>
@@ -8049,11 +8449,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[total_amount][eq]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[total_amount][eq]"                data-endpoint="GETapi-v1-sales-orders"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[total_amount][eq]"                data-endpoint="GETapi-v1-sales-orders"
                value="999.99"
                data-component="query">
     <br>
@@ -8062,7 +8462,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-sales-orders"
@@ -8147,18 +8547,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;total_amount&quot;: 999.98,
-    &quot;status&quot;: &quot;pending&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;items&quot;: [
-        {
-            &quot;product_id&quot;: 1,
-            &quot;quantity&quot;: 2,
-            &quot;unit_price&quot;: 499.99
-        }
-    ]
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;customer_name&quot;: &quot;Ms. Audra Crooks II&quot;,
+        &quot;customer_email&quot;: &quot;gulgowski.asia@example.com&quot;,
+        &quot;customer_phone&quot;: &quot;334-682-8182&quot;,
+        &quot;status&quot;: &quot;Failed&quot;,
+        &quot;total_amount&quot;: &quot;177.78&quot;,
+        &quot;transaction_reference&quot;: null,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+    }
 }</code>
  </pre>
             <blockquote>
@@ -8246,7 +8645,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>customer_name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="customer_name"                data-endpoint="POSTapi-v1-sales-orders"
@@ -8258,7 +8657,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>customer_email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="customer_email"                data-endpoint="POSTapi-v1-sales-orders"
@@ -8270,7 +8669,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>customer_phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="customer_phone"                data-endpoint="POSTapi-v1-sales-orders"
@@ -8342,7 +8741,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="POSTapi-v1-sales-orders"
@@ -8397,23 +8796,59 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;total_amount&quot;: 999.98,
-    &quot;status&quot;: &quot;pending&quot;,
-    &quot;customer_name&quot;: &quot;John Doe&quot;,
-    &quot;customer_email&quot;: &quot;customer@example.com&quot;,
-    &quot;warehouse&quot;: {
+    &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Main Warehouse&quot;
-    },
-    &quot;items&quot;: [
-        {
-            &quot;product_id&quot;: 1,
-            &quot;quantity&quot;: 2,
-            &quot;unit_price&quot;: 499.99
-        }
-    ]
+        &quot;customer_name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
+        &quot;customer_email&quot;: &quot;gulgowski.asia@example.com&quot;,
+        &quot;customer_phone&quot;: &quot;334-682-8182&quot;,
+        &quot;warehouse_name&quot;: &quot;Baumbach Ltd Warehouse&quot;,
+        &quot;status&quot;: &quot;Failed&quot;,
+        &quot;total_amount&quot;: &quot;177.78&quot;,
+        &quot;transaction_reference&quot;: null,
+        &quot;item_count&quot;: 1,
+        &quot;warehouse&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Baumbach Ltd Warehouse&quot;,
+            &quot;location&quot;: &quot;1052 Carey Greens\nLefflerhaven, TX 58408-7043&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        },
+        &quot;creator&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Shayna Raynor Jr.&quot;,
+            &quot;email&quot;: &quot;jhaag@example.net&quot;,
+            &quot;phone&quot;: &quot;1-847-548-7905&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        },
+        &quot;items&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;product_name&quot;: &quot;nemo odit quia&quot;,
+                &quot;product_sku&quot;: &quot;SKU-3669-pxnt&quot;,
+                &quot;quantity&quot;: 2,
+                &quot;unit_price&quot;: &quot;294.66&quot;,
+                &quot;product&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;nemo odit quia&quot;,
+                    &quot;sku&quot;: &quot;SKU-3669-pxnt&quot;,
+                    &quot;price&quot;: &quot;630.79&quot;,
+                    &quot;image_url&quot;: null,
+                    &quot;image_thumb_url&quot;: null,
+                    &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+            }
+        ],
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -8870,19 +9305,8 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;products&quot;: [
-            {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Laptop Pro&quot;,
-                &quot;sku&quot;: &quot;LAP-001&quot;
-            }
-        ],
-        &quot;categories&quot;: [
-            {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Electronics&quot;
-            }
-        ]
+        &quot;products&quot;: [],
+        &quot;categories&quot;: []
     }
 }</code>
  </pre>
@@ -8892,7 +9316,7 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;data&quot;: {}
+    &quot;data&quot;: []
 }</code>
  </pre>
     </span>
@@ -9033,20 +9457,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;products&quot;: [
-            {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Laptop Pro&quot;,
-                &quot;sku&quot;: &quot;LAP-001&quot;,
-                &quot;price&quot;: 999.99
-            },
-            {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Laptop Air&quot;,
-                &quot;sku&quot;: &quot;LAP-002&quot;,
-                &quot;price&quot;: 799.99
-            }
-        ]
+        &quot;products&quot;: []
     }
 }</code>
  </pre>
@@ -9142,7 +9553,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="products"
                data-component="url">
     <br>
-<p>The search scope (products, categories, suppliers, warehouses). Example: <code>products</code></p>
+<p>The search scope. Example: <code>products</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -9177,7 +9588,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://api.test/api/v1/stock-logs?filter%5Bproduct%5D=1&amp;filter%5Buser%5D=1&amp;filter%5Bwarehouse%5D=1&amp;filter%5Btype%5D=in&amp;filter%5Bquantity%5D%5Bgt%5D=100&amp;filter%5Bquantity%5D%5Bgte%5D=10&amp;filter%5Bquantity%5D%5Blt%5D=100&amp;filter%5Bquantity%5D%5Blte%5D=50&amp;filter%5Bquantity%5D%5Beq%5D=25&amp;filter%5Bunit_cost%5D%5Bgt%5D=100&amp;filter%5Bunit_cost%5D%5Bgte%5D=50&amp;filter%5Bunit_cost%5D%5Blt%5D=100&amp;filter%5Bunit_cost%5D%5Blte%5D=50&amp;filter%5Bunit_cost%5D%5Beq%5D=25.50&amp;filter%5Bcreated_at%5D=2026-01-01%2C2026-01-31&amp;sort=-created_at&amp;include=user%2Cproduct" \
+    --get "http://api.test/api/v1/stock-logs?filter%5Bproduct%5D=1&amp;filter%5Buser%5D=1&amp;filter%5Bwarehouse%5D=1&amp;filter%5Btype%5D=in&amp;filter%5Bquantity%5D%5Bgt%5D=100&amp;filter%5Bquantity%5D%5Bgte%5D=10&amp;filter%5Bquantity%5D%5Blt%5D=100&amp;filter%5Bquantity%5D%5Blte%5D=50&amp;filter%5Bquantity%5D%5Beq%5D=25&amp;filter%5Bunit_cost%5D%5Bgt%5D=100&amp;filter%5Bunit_cost%5D%5Bgte%5D=50&amp;filter%5Bunit_cost%5D%5Blt%5D=100&amp;filter%5Bunit_cost%5D%5Blte%5D=50&amp;filter%5Bunit_cost%5D%5Beq%5D=25.5&amp;filter%5Bcreated_at%5D=2026-01-01%2C2026-01-31&amp;sort=-created_at&amp;include=user%2Cproduct" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -9201,7 +9612,7 @@ const params = {
     "filter[unit_cost][gte]": "50",
     "filter[unit_cost][lt]": "100",
     "filter[unit_cost][lte]": "50",
-    "filter[unit_cost][eq]": "25.50",
+    "filter[unit_cost][eq]": "25.5",
     "filter[created_at]": "2026-01-01,2026-01-31",
     "sort": "-created_at",
     "include": "user,product",
@@ -9231,19 +9642,59 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
-            &quot;type&quot;: &quot;in&quot;,
-            &quot;quantity&quot;: 50,
-            &quot;unit_cost&quot;: 10,
-            &quot;notes&quot;: &quot;Initial stock&quot;,
-            &quot;product_id&quot;: 1,
-            &quot;warehouse_id&quot;: 1,
-            &quot;user_id&quot;: 1,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;id&quot;: null,
+            &quot;type&quot;: null,
+            &quot;quantity&quot;: null,
+            &quot;unit_cost&quot;: null,
+            &quot;note&quot;: null,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        {
+            &quot;id&quot;: null,
+            &quot;type&quot;: null,
+            &quot;quantity&quot;: null,
+            &quot;unit_cost&quot;: null,
+            &quot;note&quot;: null,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -9321,11 +9772,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[product]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[product]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[product]"                data-endpoint="GETapi-v1-stock-logs"
                value="1"
                data-component="query">
     <br>
@@ -9333,11 +9784,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[user]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[user]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[user]"                data-endpoint="GETapi-v1-stock-logs"
                value="1"
                data-component="query">
     <br>
@@ -9345,11 +9796,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[warehouse]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[warehouse]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[warehouse]"                data-endpoint="GETapi-v1-stock-logs"
                value="1"
                data-component="query">
     <br>
@@ -9358,22 +9809,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[type]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[type]"                data-endpoint="GETapi-v1-stock-logs"
                value="in"
                data-component="query">
     <br>
-<p>Filter by stock log type (in, out, adjustment, transfer). Example: <code>in</code></p>
+<p>Filter by stock log type. Example: <code>in</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][gt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][gt]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][gt]"                data-endpoint="GETapi-v1-stock-logs"
                value="100"
                data-component="query">
     <br>
@@ -9381,11 +9832,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][gte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][gte]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][gte]"                data-endpoint="GETapi-v1-stock-logs"
                value="10"
                data-component="query">
     <br>
@@ -9393,11 +9844,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][lt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][lt]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][lt]"                data-endpoint="GETapi-v1-stock-logs"
                value="100"
                data-component="query">
     <br>
@@ -9405,11 +9856,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][lte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][lte]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][lte]"                data-endpoint="GETapi-v1-stock-logs"
                value="50"
                data-component="query">
     <br>
@@ -9417,11 +9868,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][eq]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][eq]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][eq]"                data-endpoint="GETapi-v1-stock-logs"
                value="25"
                data-component="query">
     <br>
@@ -9429,11 +9880,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[unit_cost][gt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[unit_cost][gt]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[unit_cost][gt]"                data-endpoint="GETapi-v1-stock-logs"
                value="100"
                data-component="query">
     <br>
@@ -9441,11 +9892,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[unit_cost][gte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[unit_cost][gte]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[unit_cost][gte]"                data-endpoint="GETapi-v1-stock-logs"
                value="50"
                data-component="query">
     <br>
@@ -9453,11 +9904,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[unit_cost][lt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[unit_cost][lt]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[unit_cost][lt]"                data-endpoint="GETapi-v1-stock-logs"
                value="100"
                data-component="query">
     <br>
@@ -9465,11 +9916,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[unit_cost][lte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[unit_cost][lte]"                data-endpoint="GETapi-v1-stock-logs"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[unit_cost][lte]"                data-endpoint="GETapi-v1-stock-logs"
                value="50"
                data-component="query">
     <br>
@@ -9477,20 +9928,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[unit_cost][eq]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[unit_cost][eq]"                data-endpoint="GETapi-v1-stock-logs"
-               value="25.50"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[unit_cost][eq]"                data-endpoint="GETapi-v1-stock-logs"
+               value="25.5"
                data-component="query">
     <br>
-<p>Filter logs with exact unit cost. Example: <code>25.50</code></p>
+<p>Filter logs with exact unit cost. Example: <code>25.5</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[created_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[created_at]"                data-endpoint="GETapi-v1-stock-logs"
@@ -9502,7 +9953,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-stock-logs"
@@ -9514,14 +9965,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>include</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="include"                data-endpoint="GETapi-v1-stock-logs"
                value="user,product"
                data-component="query">
     <br>
-<p>Include relationships (user, product, warehouse). Example: <code>user,product</code></p>
+<p>Include relationships. Example: <code>user,product</code></p>
             </div>
                 </form>
 
@@ -9589,15 +10040,15 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;type&quot;: &quot;in&quot;,
-    &quot;quantity&quot;: 50,
-    &quot;unit_cost&quot;: 10,
-    &quot;notes&quot;: &quot;Initial stock&quot;,
-    &quot;product_id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;user_id&quot;: 1,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: null,
+        &quot;type&quot;: null,
+        &quot;quantity&quot;: null,
+        &quot;unit_cost&quot;: null,
+        &quot;note&quot;: null,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -9724,7 +10175,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>unit_cost</code></b>&nbsp;&nbsp;
 <small>number</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="unit_cost"                data-endpoint="POSTapi-v1-stock-logs"
@@ -9748,7 +10199,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="POSTapi-v1-stock-logs"
@@ -9812,7 +10263,7 @@ fetch(url, {
         </blockquote>
                 <pre>
 
-<code class="language-json" style="max-height: 300px;"></code>
+<code class="language-json" style="max-height: 300px;">[]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-v1-stock-logs-export--format-" hidden>
@@ -10136,7 +10587,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="POSTapi-v1-stock-logs-transfer"
@@ -10198,11 +10649,19 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Tech Supplier Inc&quot;,
-            &quot;email&quot;: &quot;contact@techsupplier.com&quot;,
-            &quot;phone&quot;: &quot;+1234567890&quot;,
-            &quot;address&quot;: &quot;123 Supply St&quot;,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;name&quot;: &quot;Considine-Schuster&quot;,
+            &quot;phone&quot;: &quot;+1-626-249-0432&quot;,
+            &quot;email&quot;: &quot;emelie.baumbach@example.net&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Glover, Raynor and Schultz&quot;,
+            &quot;phone&quot;: &quot;1-551-578-3706&quot;,
+            &quot;email&quot;: &quot;wbatz@example.net&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ]
 }</code>
@@ -10339,12 +10798,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Tech Supplier Inc&quot;,
-    &quot;email&quot;: &quot;contact@techsupplier.com&quot;,
-    &quot;phone&quot;: &quot;+1234567890&quot;,
-    &quot;address&quot;: &quot;123 Supply St&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Dach-Gaylord&quot;,
+        &quot;phone&quot;: &quot;+1-463-622-3498&quot;,
+        &quot;email&quot;: &quot;marquardt.noah@example.com&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -10435,7 +10896,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="POSTapi-v1-suppliers"
@@ -10447,7 +10908,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-suppliers"
@@ -10459,7 +10920,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>address</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="address"                data-endpoint="POSTapi-v1-suppliers"
@@ -10514,12 +10975,15 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Tech Supplier Inc&quot;,
-    &quot;email&quot;: &quot;contact@techsupplier.com&quot;,
-    &quot;phone&quot;: &quot;+1234567890&quot;,
-    &quot;address&quot;: &quot;123 Supply St&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Bailey Ltd&quot;,
+        &quot;phone&quot;: &quot;681.918.1582&quot;,
+        &quot;email&quot;: &quot;aschuster@example.com&quot;,
+        &quot;address&quot;: &quot;77432 Amber Crossing\nLeuschkeland, KY 25744&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -10679,12 +11143,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Updated Supplier&quot;,
-    &quot;email&quot;: &quot;updated@supplier.com&quot;,
-    &quot;phone&quot;: &quot;+0987654321&quot;,
-    &quot;address&quot;: &quot;456 New St&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Tillman-Runte&quot;,
+        &quot;phone&quot;: &quot;1-820-420-3724&quot;,
+        &quot;email&quot;: &quot;theo.hauck@example.com&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -10792,7 +11258,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-suppliers--id-"
@@ -10804,7 +11270,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="PUTapi-v1-suppliers--id-"
@@ -10816,7 +11282,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="PUTapi-v1-suppliers--id-"
@@ -10828,7 +11294,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>address</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="address"                data-endpoint="PUTapi-v1-suppliers--id-"
@@ -11029,8 +11495,19 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Old Supplier&quot;,
-            &quot;deleted_at&quot;: &quot;2026-01-15T12:00:00.000000Z&quot;
+            &quot;name&quot;: &quot;Rempel, Gulgowski and O&#039;Kon&quot;,
+            &quot;phone&quot;: &quot;+1.323.526.6748&quot;,
+            &quot;email&quot;: &quot;gilbert32@example.com&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Mitchell-VonRueden&quot;,
+            &quot;phone&quot;: &quot;531-539-0170&quot;,
+            &quot;email&quot;: &quot;ernie.nitzsche@example.org&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ]
 }</code>
@@ -11153,10 +11630,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Tech Supplier Inc&quot;,
-    &quot;email&quot;: &quot;contact@techsupplier.com&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Schuster Inc&quot;,
+        &quot;phone&quot;: &quot;1-463-692-1881&quot;,
+        &quot;email&quot;: &quot;wleuschke@example.net&quot;,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -11308,16 +11789,18 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;admin&quot;,
+            &quot;id&quot;: null,
+            &quot;name&quot;: null,
             &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;permissions&quot;: [
-                {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;UsersCreate&quot;,
-                    &quot;guard_name&quot;: &quot;web&quot;
-                }
-            ]
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
+        },
+        {
+            &quot;id&quot;: null,
+            &quot;name&quot;: null,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ]
 }</code>
@@ -11442,14 +11925,18 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;UsersCreate&quot;,
-            &quot;guard_name&quot;: &quot;web&quot;
+            &quot;id&quot;: null,
+            &quot;name&quot;: null,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         },
         {
-            &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;UsersUpdate&quot;,
-            &quot;guard_name&quot;: &quot;web&quot;
+            &quot;id&quot;: null,
+            &quot;name&quot;: null,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: null,
+            &quot;updated_at&quot;: null
         }
     ]
 }</code>
@@ -11585,19 +12072,62 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;John Doe&quot;,
-            &quot;email&quot;: &quot;user@example.com&quot;,
-            &quot;phone&quot;: null,
+            &quot;name&quot;: &quot;Colleen Bergstrom II&quot;,
+            &quot;email&quot;: &quot;margie.torphy@example.com&quot;,
+            &quot;phone&quot;: &quot;678-445-4889&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;is_verified&quot;: true,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-            &quot;roles&quot;: [],
-            &quot;direct_permissions&quot;: [],
-            &quot;permissions&quot;: []
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Daron Feest&quot;,
+            &quot;email&quot;: &quot;aokon@example.net&quot;,
+            &quot;phone&quot;: &quot;(478) 221-1773&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -11676,7 +12206,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[role]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[role]"                data-endpoint="GETapi-v1-users"
@@ -11687,11 +12217,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[is_active]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[is_active]"                data-endpoint="GETapi-v1-users"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[is_active]"                data-endpoint="GETapi-v1-users"
                value="1"
                data-component="query">
     <br>
@@ -11700,7 +12230,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[created_at]</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="filter[created_at]"                data-endpoint="GETapi-v1-users"
@@ -11712,7 +12242,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-users"
@@ -11724,7 +12254,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>include</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="include"                data-endpoint="GETapi-v1-users"
@@ -11797,16 +12327,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 2,
-    &quot;name&quot;: &quot;Jane Smith&quot;,
-    &quot;email&quot;: &quot;jane@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T11:00:00.000000Z&quot;,
-    &quot;roles&quot;: [],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
+        &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
+        &quot;phone&quot;: &quot;+1-626-249-0432&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -11897,7 +12428,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-users"
@@ -11909,7 +12440,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="POSTapi-v1-users"
@@ -11945,7 +12476,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
 <small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <label data-endpoint="POSTapi-v1-users" style="display: none">
             <input type="radio" name="is_active"
@@ -12010,23 +12541,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Doe&quot;,
-    &quot;email&quot;: &quot;user@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;admin&quot;,
-            &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;permissions&quot;: []
-        }
-    ],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: null,
+        &quot;name&quot;: null,
+        &quot;email&quot;: null,
+        &quot;phone&quot;: null,
+        &quot;email_verified_at&quot;: null,
+        &quot;phone_verified_at&quot;: null,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -12190,16 +12715,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Updated&quot;,
-    &quot;email&quot;: &quot;updated@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
+        &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
+        &quot;phone&quot;: &quot;1-262-922-9279&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:52.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -12307,7 +12833,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-users--id-"
@@ -12319,7 +12845,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="PUTapi-v1-users--id-"
@@ -12331,7 +12857,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="PUTapi-v1-users--id-"
@@ -12343,7 +12869,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="PUTapi-v1-users--id-"
@@ -12355,7 +12881,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="password_confirmation"                data-endpoint="PUTapi-v1-users--id-"
@@ -12367,7 +12893,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
 <small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <label data-endpoint="PUTapi-v1-users--id-" style="display: none">
             <input type="radio" name="is_active"
@@ -12432,16 +12958,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Doe&quot;,
-    &quot;email&quot;: &quot;user@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: false,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
+        &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
+        &quot;phone&quot;: &quot;334-682-8182&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:53.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -12601,23 +13128,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Doe&quot;,
-    &quot;email&quot;: &quot;user@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;admin&quot;,
-            &quot;guard_name&quot;: &quot;web&quot;,
-            &quot;permissions&quot;: []
-        }
-    ],
-    &quot;direct_permissions&quot;: [],
-    &quot;permissions&quot;: []
+    &quot;data&quot;: {
+        &quot;id&quot;: null,
+        &quot;name&quot;: null,
+        &quot;email&quot;: null,
+        &quot;phone&quot;: null,
+        &quot;email_verified_at&quot;: null,
+        &quot;phone_verified_at&quot;: null,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -12792,28 +13313,17 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;John Doe&quot;,
-    &quot;email&quot;: &quot;user@example.com&quot;,
-    &quot;phone&quot;: null,
-    &quot;is_active&quot;: true,
-    &quot;is_verified&quot;: true,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;,
-    &quot;roles&quot;: [],
-    &quot;direct_permissions&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;UsersCreate&quot;,
-            &quot;guard_name&quot;: &quot;web&quot;
-        }
-    ],
-    &quot;permissions&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;UsersCreate&quot;,
-            &quot;guard_name&quot;: &quot;web&quot;
-        }
-    ]
+    &quot;data&quot;: {
+        &quot;id&quot;: null,
+        &quot;name&quot;: null,
+        &quot;email&quot;: null,
+        &quot;phone&quot;: null,
+        &quot;email_verified_at&quot;: null,
+        &quot;phone_verified_at&quot;: null,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: null,
+        &quot;updated_at&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -12981,13 +13491,56 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Main Warehouse&quot;,
-            &quot;location&quot;: &quot;New York&quot;,
-            &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+            &quot;name&quot;: &quot;Breitenberg Inc Warehouse&quot;,
+            &quot;location&quot;: &quot;63724 Haven Square\nAlaynastad, MI 07365&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Koch PLC Warehouse&quot;,
+            &quot;location&quot;: &quot;26432 Leuschke Throughway Apt. 227\nLake Audreyborough, MT 36080-0782&quot;,
+            &quot;is_active&quot;: true,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 7,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -13118,10 +13671,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Main Warehouse&quot;,
-    &quot;location&quot;: &quot;New York&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Crooks LLC Warehouse&quot;,
+        &quot;location&quot;: &quot;40575 Dickens Inlet\nMyaport, CT 08182&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -13267,10 +13824,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Main Warehouse&quot;,
-    &quot;location&quot;: &quot;New York&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Hirthe Inc Warehouse&quot;,
+        &quot;location&quot;: &quot;38862 Ferne Locks Suite 058\nChristianshire, IA 97161&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -13428,10 +13989,14 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Updated Warehouse&quot;,
-    &quot;location&quot;: &quot;Los Angeles&quot;,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Gulgowski-O&#039;Kon Warehouse&quot;,
+        &quot;location&quot;: &quot;80841 Mya Lane Apt. 042\nLyricberg, MO 42170-0432&quot;,
+        &quot;is_active&quot;: true,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -13539,7 +14104,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-warehouses--id-"
@@ -13551,7 +14116,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="location"                data-endpoint="PUTapi-v1-warehouses--id-"
@@ -13754,7 +14319,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://api.test/api/v1/warehouses/16/stocks?filter%5Bproduct%5D=1&amp;filter%5Bwarehouse%5D=1&amp;filter%5Bquantity%5D%5Bgt%5D=100&amp;filter%5Bquantity%5D%5Bgte%5D=50&amp;filter%5Bquantity%5D%5Blt%5D=10&amp;filter%5Bquantity%5D%5Blte%5D=20&amp;filter%5Bquantity%5D%5Beq%5D=75&amp;filter%5Blow_stock%5D=true&amp;sort=-quantity&amp;include=product.category" \
+    --get "http://api.test/api/v1/warehouses/16/stocks?filter%5Bproduct%5D=1&amp;filter%5Bwarehouse%5D=1&amp;filter%5Bquantity%5D%5Bgt%5D=100&amp;filter%5Bquantity%5D%5Bgte%5D=50&amp;filter%5Bquantity%5D%5Blt%5D=10&amp;filter%5Bquantity%5D%5Blte%5D=20&amp;filter%5Bquantity%5D%5Beq%5D=75&amp;filter%5Blow_stock%5D=1&amp;sort=-quantity&amp;include=product.category" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -13772,7 +14337,7 @@ const params = {
     "filter[quantity][lt]": "10",
     "filter[quantity][lte]": "20",
     "filter[quantity][eq]": "75",
-    "filter[low_stock]": "true",
+    "filter[low_stock]": "1",
     "sort": "-quantity",
     "include": "product.category",
 };
@@ -13802,18 +14367,54 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;warehouse_id&quot;: 1,
-            &quot;product_id&quot;: 1,
-            &quot;quantity&quot;: 50,
-            &quot;product&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Laptop&quot;,
-                &quot;sku&quot;: &quot;LAP-001&quot;
-            }
+            &quot;quantity&quot;: 306,
+            &quot;reorder_threshold&quot;: 11,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;quantity&quot;: 163,
+            &quot;reorder_threshold&quot;: 14,
+            &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
         }
     ],
-    &quot;meta&quot;: {},
-    &quot;links&quot;: {}
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 15,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
 }</code>
  </pre>
     </span>
@@ -13916,11 +14517,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[product]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[product]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[product]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="1"
                data-component="query">
     <br>
@@ -13928,11 +14529,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[warehouse]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>integer</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[warehouse]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[warehouse]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="1"
                data-component="query">
     <br>
@@ -13940,11 +14541,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][gt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][gt]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][gt]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="100"
                data-component="query">
     <br>
@@ -13952,11 +14553,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][gte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][gte]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][gte]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="50"
                data-component="query">
     <br>
@@ -13964,11 +14565,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][lt]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][lt]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][lt]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="10"
                data-component="query">
     <br>
@@ -13976,11 +14577,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][lte]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][lte]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][lte]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="20"
                data-component="query">
     <br>
@@ -13988,11 +14589,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[quantity][eq]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>number</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[quantity][eq]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="filter[quantity][eq]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="75"
                data-component="query">
     <br>
@@ -14000,20 +14601,30 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>filter[low_stock]</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>boolean</small>&nbsp;
  &nbsp;
-                <input type="text" style="display: none"
-                              name="filter[low_stock]"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
-               value="true"
-               data-component="query">
+ &nbsp;
+                <label data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks" style="display: none">
+            <input type="radio" name="filter[low_stock]"
+                   value="1"
+                   data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks" style="display: none">
+            <input type="radio" name="filter[low_stock]"
+                   value="0"
+                   data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
     <br>
 <p>Filter low stock items. Example: <code>true</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
@@ -14025,14 +14636,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>include</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="include"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
                value="product.category"
                data-component="query">
     <br>
-<p>Include relationships (product.category). Example: <code>product.category</code></p>
+<p>Include relationships. Example: <code>product.category</code></p>
             </div>
                 </form>
 
@@ -14080,11 +14691,13 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;product_id&quot;: 1,
-    &quot;quantity&quot;: 50,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;quantity&quot;: 306,
+        &quot;reorder_threshold&quot;: 11,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -14264,11 +14877,13 @@ fetch(url, {
                 <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;id&quot;: 1,
-    &quot;warehouse_id&quot;: 1,
-    &quot;product_id&quot;: 1,
-    &quot;quantity&quot;: 75,
-    &quot;created_at&quot;: &quot;2026-01-15T10:00:00.000000Z&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;quantity&quot;: 306,
+        &quot;reorder_threshold&quot;: 11,
+        &quot;created_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-28T00:08:51.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>

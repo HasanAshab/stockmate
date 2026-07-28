@@ -7,44 +7,24 @@ use App\Enums\SearchContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\QueryParam;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\UrlParam;
 
-/**
- * @group Search
- *
- * APIs for searching across resources
- *
- * @authenticated
- */
+#[Group('Search', 'APIs for searching across resources')]
+#[Authenticated]
 class SearchController extends Controller
 {
     /**
      * Global Search
      *
      * Search across all resources (products, categories, suppliers, warehouses) that the user is authorized to view.
-     *
-     * @queryParam q string required The search term (minimum 2 characters). Example: laptop
-     *
-     * @response 200 {
-     *   "data": {
-     *     "products": [
-     *       {
-     *         "id": 1,
-     *         "name": "Laptop Pro",
-     *         "sku": "LAP-001"
-     *       }
-     *     ],
-     *     "categories": [
-     *       {
-     *         "id": 1,
-     *         "name": "Electronics"
-     *       }
-     *     ]
-     *   }
-     * }
-     * @response 200 scenario="Empty term" {
-     *   "data": {}
-     * }
      */
+    #[QueryParam('q', 'string', 'The search term (minimum 2 characters).', required: true, example: 'laptop')]
+    #[Response(['data' => ['products' => [], 'categories' => []]], 200)]
+    #[Response(['data' => []], 200, 'Empty term')]
     public function searchAll(Request $request, PerformSearch $search)
     {
         $term = $this->validatedTerm($request, SearchContext::Global);
@@ -74,33 +54,11 @@ class SearchController extends Controller
      * Scoped Search
      *
      * Search within a specific resource type (products, categories, suppliers, or warehouses).
-     *
-     * @urlParam scope string required The search scope (products, categories, suppliers, warehouses). Example: products
-     *
-     * @queryParam q string required The search term (minimum 3 characters). Example: laptop
-     *
-     * @response 200 {
-     *   "data": {
-     *     "products": [
-     *       {
-     *         "id": 1,
-     *         "name": "Laptop Pro",
-     *         "sku": "LAP-001",
-     *         "price": 999.99
-     *       },
-     *       {
-     *         "id": 2,
-     *         "name": "Laptop Air",
-     *         "sku": "LAP-002",
-     *         "price": 799.99
-     *       }
-     *     ]
-     *   }
-     * }
-     * @response 404 {
-     *   "message": "Unknown search scope [invalid]."
-     * }
      */
+    #[UrlParam('scope', 'string', 'The search scope.', required: true, example: 'products')]
+    #[QueryParam('q', 'string', 'The search term (minimum 3 characters).', required: true, example: 'laptop')]
+    #[Response(['data' => ['products' => []]], 200)]
+    #[Response(['message' => 'Unknown search scope [invalid].'], 404)]
     public function searchScope(Request $request, string $scope, PerformSearch $search)
     {
         $entry = config('search.scopes')[$scope];

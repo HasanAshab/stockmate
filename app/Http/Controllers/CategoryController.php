@@ -8,32 +8,23 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
+use Knuckles\Scribe\Attributes\UrlParam;
 
-/**
- * @group Category Management
- *
- * APIs for managing product categories
- *
- * @authenticated
- */
+#[Group('Category Management', 'APIs for managing product categories')]
+#[Authenticated]
 class CategoryController extends Controller
 {
     /**
      * List Categories
      *
      * Get a list of all categories. Results are cached for one hour.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "name": "Electronics",
-     *       "description": "Electronic products",
-     *       "created_at": "2026-01-15T10:00:00.000000Z"
-     *     }
-     *   ]
-     * }
      */
+    #[ResponseFromApiResource(CategoryResource::class, Category::class, collection: true)]
     public function index()
     {
         Gate::authorize('viewAny', Category::class);
@@ -49,17 +40,10 @@ class CategoryController extends Controller
      * Create Category
      *
      * Create a new category.
-     *
-     * @bodyParam name string required The category name. Example: Electronics
-     * @bodyParam description string The category description. Example: Electronic products
-     *
-     * @response 201 {
-     *   "id": 1,
-     *   "name": "Electronics",
-     *   "description": "Electronic products",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[BodyParam('name', 'string', 'The category name.', required: true, example: 'Electronics')]
+    #[BodyParam('description', 'string', 'The category description.', example: 'Electronic products')]
+    #[ResponseFromApiResource(CategoryResource::class, Category::class, status: 201)]
     public function store(StoreCategoryRequest $request)
     {
         Gate::authorize('create', Category::class);
@@ -75,16 +59,9 @@ class CategoryController extends Controller
      * Get Category
      *
      * Retrieve details of a specific category by ID.
-     *
-     * @urlParam category integer required The category ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Electronics",
-     *   "description": "Electronic products",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(CategoryResource::class, Category::class)]
     public function show(Category $category)
     {
         Gate::authorize('view', $category);
@@ -96,19 +73,11 @@ class CategoryController extends Controller
      * Update Category
      *
      * Update an existing category.
-     *
-     * @urlParam category integer required The category ID. Example: 1
-     *
-     * @bodyParam name string The category name. Example: Updated Electronics
-     * @bodyParam description string The category description. Example: Updated description
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Updated Electronics",
-     *   "description": "Updated description",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
+    #[BodyParam('name', 'string', 'The category name.', example: 'Updated Electronics')]
+    #[BodyParam('description', 'string', 'The category description.', example: 'Updated description')]
+    #[ResponseFromApiResource(CategoryResource::class, Category::class)]
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         Gate::authorize('update', $category);
@@ -121,11 +90,9 @@ class CategoryController extends Controller
      * Delete Category
      *
      * Soft delete a category.
-     *
-     * @urlParam category integer required The category ID. Example: 1
-     *
-     * @response 204 scenario="Success"
      */
+    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
+    #[Response([], 204, 'Success')]
     public function destroy(Category $category)
     {
         Gate::authorize('delete', $category);
@@ -138,18 +105,8 @@ class CategoryController extends Controller
      * List Trashed Categories
      *
      * Get a list of all soft-deleted categories.
-     *
-     * @response 200 {
-     *   "data": [
-     *     {
-     *       "id": 1,
-     *       "name": "Old Electronics",
-     *       "description": "Old category",
-     *       "deleted_at": "2026-01-15T12:00:00.000000Z"
-     *     }
-     *   ]
-     * }
      */
+    #[ResponseFromApiResource(CategoryResource::class, Category::class, collection: true)]
     public function trashed()
     {
         Gate::authorize('viewAny', Category::class);
@@ -161,16 +118,9 @@ class CategoryController extends Controller
      * Restore Category
      *
      * Restore a soft-deleted category.
-     *
-     * @urlParam category integer required The category ID. Example: 1
-     *
-     * @response 200 {
-     *   "id": 1,
-     *   "name": "Electronics",
-     *   "description": "Electronic products",
-     *   "created_at": "2026-01-15T10:00:00.000000Z"
-     * }
      */
+    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
+    #[ResponseFromApiResource(CategoryResource::class, Category::class)]
     public function restore(Category $category)
     {
         Gate::authorize('restore', $category);

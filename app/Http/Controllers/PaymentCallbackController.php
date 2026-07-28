@@ -10,31 +10,21 @@ use App\Enums\SslcommerzPaymentStatus;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\Unauthenticated;
 
-/**
- * @group Payment Callbacks
- *
- * Webhook endpoints for SSLCommerz payment gateway callbacks
- *
- * @unauthenticated
- */
+#[Group('Payment Callbacks', 'Webhook endpoints for SSLCommerz payment gateway callbacks')]
+#[Unauthenticated]
 class PaymentCallbackController extends Controller
 {
     /**
      * Payment Success Callback
      *
      * Handles successful payment notifications from SSLCommerz.
-     *
-     * @response 200 {
-     *   "message": "Payment successful."
-     * }
-     * @response 422 {
-     *   "message": "Hash validation failed.",
-     *   "errors": {
-     *     "payment": ["Hash validation failed."]
-     *   }
-     * }
      */
+    #[Response(['message' => 'Payment successful.'], 200)]
+    #[Response(['message' => 'Hash validation failed.', 'errors' => ['payment' => ['Hash validation failed.']]], 422)]
     public function success(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
         $payload = $request->all();
@@ -61,11 +51,8 @@ class PaymentCallbackController extends Controller
      * itself has failed. The actual payment outcome is represented by the
      * application response body and the updated sales order status, not the HTTP
      * status code.
-     *
-     * @response 200 {
-     *   "message": "Payment failed."
-     * }
      */
+    #[Response(['message' => 'Payment failed.'], 200)]
     public function fail(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Failed, $request->all());
@@ -88,11 +75,8 @@ class PaymentCallbackController extends Controller
      * was cancelled. The actual payment outcome is represented by the
      * application response body and the updated sales order status, not the HTTP
      * status code.
-     *
-     * @response 200 {
-     *   "message": "Payment cancelled."
-     * }
      */
+    #[Response(['message' => 'Payment cancelled.'], 200)]
     public function cancel(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Cancelled, $request->all());
@@ -109,11 +93,8 @@ class PaymentCallbackController extends Controller
      * IPN (Instant Payment Notification)
      *
      * Handles Instant Payment Notification from SSLCommerz for payment status updates.
-     *
-     * @response 200 {
-     *   "received": true
-     * }
      */
+    #[Response(['received' => true], 200)]
     public function ipn(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
         $payload = $request->all();
