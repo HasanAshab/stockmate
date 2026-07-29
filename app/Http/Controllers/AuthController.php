@@ -68,8 +68,8 @@ class AuthController extends Controller
      * Create a new user account. After registration, a verification code will be sent to the provided email or phone.
      */
     #[BodyParam('name', 'string', 'The user\'s full name.', required: true, example: 'John Doe')]
-    #[BodyParam('email', 'string', 'The user\'s email address.', example: 'user@example.com')]
-    #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+1234567890')]
+    #[BodyParam('email', 'string', 'The user\'s email address.', example: 'user@example.com', required: false)]
+    #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+1234567890', required: false)]
     #[BodyParam('password', 'string', 'The user\'s password.', required: true, example: 'Password123!')]
     #[Response(['user' => ['id' => 1, 'name' => 'John Doe', 'email' => 'user@example.com'], 'token' => '2|def456...', 'token_type' => 'Bearer'], 201, 'User registered with token')]
     public function register(RegisterRequest $request, RegisterUser $registerUser)
