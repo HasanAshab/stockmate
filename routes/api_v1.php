@@ -105,7 +105,7 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
 
     // Sales Orders
     Route::apiResource('sales-orders', SalesOrderController::class)->only(['index', 'store', 'show']);
-    Route::post('sales-orders/{salesOrder}/initiate-payment', [SalesOrderController::class, 'initiatePayment'])
+    Route::post('sales-orders/{sales_order}/initiate-payment', [SalesOrderController::class, 'initiatePayment'])
         ->name('sales-orders.initiate-payment');
 
     // Roles and Permissions
@@ -123,17 +123,17 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
 
     // Purchase Orders
     Route::apiResource('purchase-orders', PurchaseOrderController::class)->except(['destroy']);
-    Route::patch('purchase-orders/{purchaseOrder}/mark-ordered', [PurchaseOrderController::class, 'markOrdered'])
+    Route::patch('purchase-orders/{purchase_order}/mark-ordered', [PurchaseOrderController::class, 'markOrdered'])
         ->name('purchase-orders.mark-ordered');
-    Route::patch('purchase-orders/{purchaseOrder}/cancel', [PurchaseOrderController::class, 'cancel'])
+    Route::patch('purchase-orders/{purchase_order}/cancel', [PurchaseOrderController::class, 'cancel'])
         ->name('purchase-orders.cancel');
 
     // Sales Order Cancel
-    Route::patch('sales-orders/{salesOrder}/cancel', [SalesOrderController::class, 'cancel'])
+    Route::patch('sales-orders/{sales_order}/cancel', [SalesOrderController::class, 'cancel'])
         ->name('sales-orders.cancel');
 
     // Purchase Order Receiving
-    Route::post('purchase-orders/{purchaseOrder}/receive', [PurchaseOrderController::class, 'receive'])
+    Route::post('purchase-orders/{purchase_order}/receive', [PurchaseOrderController::class, 'receive'])
         ->name('purchase-orders.receive');
 
     // Profile
