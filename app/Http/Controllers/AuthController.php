@@ -26,6 +26,7 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 use Knuckles\Scribe\Attributes\Unauthenticated;
 
 #[Group('Authentication', 'APIs for user authentication and account management')]
@@ -44,7 +45,7 @@ class AuthController extends Controller
      */
     #[BodyParam('identifier', 'string', 'The user\'s email or phone number.', required: true, example: 'user@example.com')]
     #[BodyParam('password', 'string', 'The user\'s password.', required: true, example: 'Password123!')]
-    #[Response(['user' => ['id' => 1, 'name' => 'John Doe', 'email' => 'user@example.com'], 'token' => '1|abc123...', 'token_type' => 'Bearer'], 200, 'User logged in with token')]
+    #[ResponseFromApiResource(UserResource::class, User::class, additional: [ 'token' => '2|def456...', 'token_type' => 'Bearer' ])]
     #[Response(['message' => 'Invalid credentials'], 401)]
     public function login(LoginRequest $request, LoginUser $loginUser)
     {
@@ -55,11 +56,11 @@ class AuthController extends Controller
 
         $token = $user->createToken('stockmate')->plainTextToken;
 
-        return [
-            'user' => new UserResource($user),
-            'token' => $token,
-            'token_type' => 'Bearer',
-        ];
+        return (new UserResource($user))
+            ->additional([
+                'token' => $token,
+                'token_type' => 'Bearer',
+            ]);
     }
 
     /**
@@ -71,18 +72,20 @@ class AuthController extends Controller
     #[BodyParam('email', 'string', 'The user\'s email address.', example: 'user@example.com', required: false)]
     #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+1234567890', required: false)]
     #[BodyParam('password', 'string', 'The user\'s password.', required: true, example: 'Password123!')]
-    #[Response(['user' => ['id' => 1, 'name' => 'John Doe', 'email' => 'user@example.com'], 'token' => '2|def456...', 'token_type' => 'Bearer'], 201, 'User registered with token')]
+    #[ResponseFromApiResource(UserResource::class, User::class, status: 201, additional: [ 'token' => '2|def456...', 'token_type' => 'Bearer' ])]
     public function register(RegisterRequest $request, RegisterUser $registerUser)
     {
         $user = $registerUser->execute($request->validated());
 
         $token = $user->createToken('stockmate')->plainTextToken;
 
-        return response()->json([
-            'user' => new UserResource($user),
-            'token' => $token,
-            'token_type' => 'Bearer',
-        ], 201);
+        return (new UserResource($user))
+            ->additional([
+                'token' => $token,
+                'token_type' => 'Bearer',
+            ])
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -92,8 +95,8 @@ class AuthController extends Controller
      */
     #[BodyParam('provider', 'string', 'The social provider.', required: true, example: 'google')]
     #[BodyParam('token', 'string', 'The ID token from Google or access token from Microsoft.', required: true, example: 'eyJhbGciOiJSUzI1NiIs...')]
-    #[Response(['user' => ['id' => 1, 'name' => 'John Doe', 'email' => 'user@example.com'], 'token' => '3|ghi789...', 'token_type' => 'Bearer'], 200, 'User authenticated via social provider')]
     #[Response(['message' => 'Invalid social token'], 401)]
+    #[ResponseFromApiResource(UserResource::class, User::class, status: 201, additional: [ 'token' => '2|def456...', 'token_type' => 'Bearer' ])]
     public function socialLogin(SocialLoginRequest $request)
     {
         $provider = $request->provider();
@@ -104,11 +107,13 @@ class AuthController extends Controller
 
         $token = $user->createAccessToken('stockmate')->plainTextToken;
 
-        return [
-            'user' => new UserResource($user),
-            'token' => $token,
-            'token_type' => 'Bearer',
-        ];
+        return (new UserResource($user))
+            ->additional([
+                'token' => $token,
+                'token_type' => 'Bearer',
+            ])
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
