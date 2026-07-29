@@ -4,12 +4,8 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Spectator\Spectator;
 use function Pest\Laravel\postJson;
 
-beforeEach(function () {
-    Spectator::using('openapi.yaml');
-});
 
 describe('POST /api/v1/auth/register', function () {
     it('registers a new user with email and returns 201 with token', function () {

@@ -1,6 +1,9 @@
 <?php
 
+use Database\Seeders\PermissionSeeder;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Spectator\Spectator;
 use Tests\TestCase;
 
 /*
@@ -16,7 +19,15 @@ use Tests\TestCase;
 
 pest()->extend(TestCase::class)
     ->use(LazilyRefreshDatabase::class)
+    ->beforeEach(function () {
+        Spectator::using('openapi.yaml');
+        $this->seed(PermissionSeeder::class);
+        $this->seed(RoleSeeder::class);
+    })
     ->in('Feature');
+
+
+
 
 /*
 |--------------------------------------------------------------------------
