@@ -111,8 +111,8 @@ class StockLogController extends Controller
      * Export stock logs within a date range to Excel or PDF format.
      */
     #[UrlParam('format', 'string', 'The export format (xlsx, pdf).', required: true, example: 'xlsx')]
-    #[BodyParam('from', 'date', 'Start date.', required: true, example: '2026-01-01')]
-    #[BodyParam('to', 'date', 'End date.', required: true, example: '2026-01-31')]
+    #[BodyParam('from', 'string', 'Start date.', required: true, example: '2026-01-01')]
+    #[BodyParam('to', 'string', 'End date.', required: true, example: '2026-01-31')]
     #[Response([], 200, 'File download')]
     public function export(ExportStockLogRequest $request, StockLogExportFormat $format, ExportStockLog $exportStockLog)
     {
