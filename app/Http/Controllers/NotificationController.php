@@ -9,7 +9,6 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 
 #[Group('Notifications', 'APIs for managing user notifications')]
 #[Authenticated]
@@ -69,7 +68,6 @@ class NotificationController extends Controller
      *
      * Mark a specific notification as read.
      */
-    #[UrlParam('id', 'string', 'The notification ID.', required: true, example: 'uuid-123')]
     #[Response([], 204, 'Success')]
     public function markAsRead(Request $request, string $id)
     {
@@ -100,7 +98,6 @@ class NotificationController extends Controller
      *
      * Delete a specific notification.
      */
-    #[UrlParam('id', 'string', 'The notification ID.', required: true, example: 'uuid-123')]
     #[Response([], 204, 'Success')]
     public function destroy(Request $request, string $id)
     {

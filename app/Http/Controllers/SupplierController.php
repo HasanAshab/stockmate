@@ -13,7 +13,6 @@ use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 
 #[Group('Supplier Management', 'APIs for managing suppliers')]
 #[Authenticated]
@@ -62,7 +61,6 @@ class SupplierController extends Controller
      *
      * Retrieve details of a specific supplier by ID.
      */
-    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
     #[ResponseFromApiResource(SupplierResource::class, Supplier::class)]
     public function show(Supplier $supplier)
     {
@@ -76,7 +74,6 @@ class SupplierController extends Controller
      *
      * Update an existing supplier.
      */
-    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
     #[BodyParam('name', 'string', 'The supplier name.', example: 'Updated Supplier')]
     #[BodyParam('email', 'string', 'The supplier email.', example: 'updated@supplier.com')]
     #[BodyParam('phone', 'string', 'The supplier phone.', example: '+0987654321')]
@@ -95,7 +92,6 @@ class SupplierController extends Controller
      *
      * Soft delete a supplier.
      */
-    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
     #[Response([], 204, 'Success')]
     public function destroy(Supplier $supplier)
     {
@@ -123,7 +119,6 @@ class SupplierController extends Controller
      *
      * Restore a soft-deleted supplier.
      */
-    #[UrlParam('supplier', 'integer', 'The supplier ID.', required: true, example: 1)]
     #[ResponseFromApiResource(SupplierResource::class, Supplier::class)]
     public function restore(Supplier $supplier)
     {

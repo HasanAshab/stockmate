@@ -18,7 +18,6 @@ use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -63,7 +62,6 @@ class UserController extends Controller
     #[BodyParam('email', 'string', 'The user\'s email address.', example: 'jane@example.com')]
     #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+1234567890')]
     #[BodyParam('password', 'string', 'The user\'s password.', required: true, example: 'Password123!')]
-    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', required: true, example: 'Password123!')]
     #[BodyParam('is_active', 'boolean', 'Whether the user account is active.', example: true)]
     #[ResponseFromApiResource(UserResource::class, User::class, status: 201)]
     public function store(StoreUserRequest $request, CreateUser $createUser)
@@ -80,7 +78,6 @@ class UserController extends Controller
      *
      * Retrieve details of a specific user by ID.
      */
-    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
     #[ResponseFromApiResource(UserResource::class, User::class, with: ['roles', 'permissions'])]
     public function show(User $user)
     {
@@ -94,12 +91,10 @@ class UserController extends Controller
      *
      * Update an existing user's details.
      */
-    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
     #[BodyParam('name', 'string', 'The user\'s full name.', example: 'John Updated')]
     #[BodyParam('email', 'string', 'The user\'s email address.', example: 'updated@example.com')]
     #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+0987654321')]
     #[BodyParam('password', 'string', 'The new password.', example: 'NewPassword123!')]
-    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', example: 'NewPassword123!')]
     #[BodyParam('is_active', 'boolean', 'Whether the user account is active.', example: true)]
     #[ResponseFromApiResource(UserResource::class, User::class)]
     public function update(UpdateUserRequest $request, User $user, UpdateUser $updateUser)
@@ -114,7 +109,6 @@ class UserController extends Controller
      *
      * Activate or deactivate a user account.
      */
-    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
     #[ResponseFromApiResource(UserResource::class, User::class)]
     public function toggleStatus(User $user, ToggleUserStatus $toggleUserStatus)
     {
@@ -130,7 +124,6 @@ class UserController extends Controller
      *
      * Assign roles to a user. This will replace all existing roles with the provided ones.
      */
-    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
     #[BodyParam('roles', 'string[]', 'Array of role names.', required: true, example: ['admin', 'manager'])]
     #[ResponseFromApiResource(UserResource::class, User::class, with: ['roles', 'permissions'])]
     public function assignRoles(AssignRolesRequest $request, User $user)
@@ -149,7 +142,6 @@ class UserController extends Controller
      *
      * Assign direct permissions to a user. This will replace all existing direct permissions with the provided ones.
      */
-    #[UrlParam('user', 'integer', 'The user ID.', required: true, example: 1)]
     #[BodyParam('permissions', 'string[]', 'Array of permission names.', required: true, example: ['UsersCreate', 'UsersUpdate'])]
     #[ResponseFromApiResource(UserResource::class, User::class, with: ['roles', 'permissions'])]
     public function assignPermissions(AssignPermissionsRequest $request, User $user)

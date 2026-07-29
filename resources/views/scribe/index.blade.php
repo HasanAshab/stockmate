@@ -254,14 +254,14 @@
                                                                                 <li class="tocify-item level-2" data-unique="purchase-order-management-PUTapi-v1-purchase-orders--id-">
                                 <a href="#purchase-order-management-PUTapi-v1-purchase-orders--id-">Update Purchase Order</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="purchase-order-management-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered">
-                                <a href="#purchase-order-management-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered">Mark Purchase Order as Ordered</a>
+                                                                                <li class="tocify-item level-2" data-unique="purchase-order-management-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered">
+                                <a href="#purchase-order-management-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered">Mark Purchase Order as Ordered</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="purchase-order-management-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel">
-                                <a href="#purchase-order-management-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel">Cancel Purchase Order</a>
+                                                                                <li class="tocify-item level-2" data-unique="purchase-order-management-PATCHapi-v1-purchase-orders--purchase_order_id--cancel">
+                                <a href="#purchase-order-management-PATCHapi-v1-purchase-orders--purchase_order_id--cancel">Cancel Purchase Order</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="purchase-order-management-POSTapi-v1-purchase-orders--purchaseOrder_id--receive">
-                                <a href="#purchase-order-management-POSTapi-v1-purchase-orders--purchaseOrder_id--receive">Receive Purchase Order</a>
+                                                                                <li class="tocify-item level-2" data-unique="purchase-order-management-POSTapi-v1-purchase-orders--purchase_order_id--receive">
+                                <a href="#purchase-order-management-POSTapi-v1-purchase-orders--purchase_order_id--receive">Receive Purchase Order</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -279,11 +279,11 @@
                                                                                 <li class="tocify-item level-2" data-unique="sales-order-management-GETapi-v1-sales-orders--id-">
                                 <a href="#sales-order-management-GETapi-v1-sales-orders--id-">Get Sales Order</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="sales-order-management-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment">
-                                <a href="#sales-order-management-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment">Initiate Payment</a>
+                                                                                <li class="tocify-item level-2" data-unique="sales-order-management-POSTapi-v1-sales-orders--sales_order_id--initiate-payment">
+                                <a href="#sales-order-management-POSTapi-v1-sales-orders--sales_order_id--initiate-payment">Initiate Payment</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="sales-order-management-PATCHapi-v1-sales-orders--salesOrder_id--cancel">
-                                <a href="#sales-order-management-PATCHapi-v1-sales-orders--salesOrder_id--cancel">Cancel Sales Order</a>
+                                                                                <li class="tocify-item level-2" data-unique="sales-order-management-PATCHapi-v1-sales-orders--sales_order_id--cancel">
+                                <a href="#sales-order-management-PATCHapi-v1-sales-orders--sales_order_id--cancel">Cancel Sales Order</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -428,7 +428,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: July 28, 2026</li>
+        <li>Last updated: July 29, 2026</li>
     </ul>
 </div>
 
@@ -516,7 +516,7 @@ fetch(url, {
             &quot;done_by&quot;: &quot;System&quot;,
             &quot;changes&quot;: null,
             &quot;old_values&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
             &quot;causer&quot;: null
         },
         {
@@ -528,7 +528,7 @@ fetch(url, {
             &quot;done_by&quot;: &quot;System&quot;,
             &quot;changes&quot;: null,
             &quot;old_values&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
             &quot;causer&quot;: null
         }
     ],
@@ -740,8 +740,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"John Doe\",
     \"email\": \"user@example.com\",
     \"phone\": \"+1234567890\",
-    \"password\": \"Password123!\",
-    \"password_confirmation\": \"Password123!\"
+    \"password\": \"Password123!\"
 }"
 </code></pre></div>
 
@@ -760,8 +759,7 @@ let body = {
     "name": "John Doe",
     "email": "user@example.com",
     "phone": "+1234567890",
-    "password": "Password123!",
-    "password_confirmation": "Password123!"
+    "password": "Password123!"
 };
 
 fetch(url, {
@@ -908,18 +906,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>The user's password. Example: <code>Password123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="POSTapi-v1-auth-register"
-               value="Password123!"
-               data-component="body">
-    <br>
-<p>Password confirmation. Example: <code>Password123!</code></p>
         </div>
         </form>
 
@@ -1728,8 +1714,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"code\": \"123456\",
     \"identifier\": \"user@example.com\",
-    \"password\": \"NewPassword123!\",
-    \"password_confirmation\": \"NewPassword123!\"
+    \"password\": \"NewPassword123!\"
 }"
 </code></pre></div>
 
@@ -1747,8 +1732,7 @@ const headers = {
 let body = {
     "code": "123456",
     "identifier": "user@example.com",
-    "password": "NewPassword123!",
-    "password_confirmation": "NewPassword123!"
+    "password": "NewPassword123!"
 };
 
 fetch(url, {
@@ -1886,18 +1870,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>The new password. Example: <code>NewPassword123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="POSTapi-v1-auth-reset-password"
-               value="NewPassword123!"
-               data-component="body">
-    <br>
-<p>Password confirmation. Example: <code>NewPassword123!</code></p>
         </div>
         </form>
 
@@ -2038,8 +2010,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"current_password\": \"architecto\",
-    \"password\": \"NewPassword123!\",
-    \"password_confirmation\": \"NewPassword123!\"
+    \"password\": \"NewPassword123!\"
 }"
 </code></pre></div>
 
@@ -2056,8 +2027,7 @@ const headers = {
 
 let body = {
     "current_password": "architecto",
-    "password": "NewPassword123!",
-    "password_confirmation": "NewPassword123!"
+    "password": "NewPassword123!"
 };
 
 fetch(url, {
@@ -2175,18 +2145,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The new password. Example: <code>NewPassword123!</code></p>
         </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="POSTapi-v1-auth-change-password"
-               value="NewPassword123!"
-               data-component="body">
-    <br>
-<p>Password confirmation. Example: <code>NewPassword123!</code></p>
-        </div>
         </form>
 
                 <h1 id="category-management">Category Management</h1>
@@ -2240,15 +2198,15 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;labore cupiditate&quot;,
-            &quot;slug&quot;: &quot;labore-cupiditate&quot;,
+            &quot;name&quot;: &quot;reiciendis rem&quot;,
+            &quot;slug&quot;: &quot;reiciendis-rem&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
         {
             &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;non reiciendis&quot;,
-            &quot;slug&quot;: &quot;non-reiciendis&quot;,
+            &quot;name&quot;: &quot;doloremque aut&quot;,
+            &quot;slug&quot;: &quot;doloremque-aut&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         }
@@ -2645,18 +2603,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the category. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="category"                data-endpoint="GETapi-v1-categories--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The category ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="category-management-PUTapi-v1-categories--id-">Update Category</h2>
@@ -2813,18 +2759,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the category. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="category"                data-endpoint="PUTapi-v1-categories--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The category ID. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -2993,18 +2927,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the category. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="category"                data-endpoint="DELETEapi-v1-categories--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The category ID. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -3284,18 +3206,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the category. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="category"                data-endpoint="POSTapi-v1-categories--category_id--restore"
-               value="1"
-               data-component="url">
-    <br>
-<p>The category ID. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -3664,7 +3574,7 @@ fetch(url, {
                 &quot;product_name&quot;: &quot;provident&quot;
             },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:14.000000Z&quot;
         },
         {
             &quot;id&quot;: &quot;e2398df3-051c-3810-a269-3a15e327b316&quot;,
@@ -3674,7 +3584,7 @@ fetch(url, {
                 &quot;product_name&quot;: &quot;qui&quot;
             },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:14.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -3841,7 +3751,7 @@ fetch(url, {
                 &quot;product_name&quot;: &quot;ipsum&quot;
             },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:14.000000Z&quot;
         },
         {
             &quot;id&quot;: &quot;d98239dc-1582-3bf2-b93a-df3a18e121d1&quot;,
@@ -3851,7 +3761,7 @@ fetch(url, {
                 &quot;product_name&quot;: &quot;non&quot;
             },
             &quot;read_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:14.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -4102,14 +4012,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://api.test/api/v1/notifications/uuid-123/mark-as-read" \
+    "http://api.test/api/v1/notifications/architecto/mark-as-read" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://api.test/api/v1/notifications/uuid-123/mark-as-read"
+    "http://api.test/api/v1/notifications/architecto/mark-as-read"
 );
 
 const headers = {
@@ -4212,10 +4122,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PATCHapi-v1-notifications--id--mark-as-read"
-               value="uuid-123"
+               value="architecto"
                data-component="url">
     <br>
-<p>The notification ID. Example: <code>uuid-123</code></p>
+<p>The ID of the notification. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -4351,14 +4261,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://api.test/api/v1/notifications/uuid-123" \
+    "http://api.test/api/v1/notifications/architecto" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://api.test/api/v1/notifications/uuid-123"
+    "http://api.test/api/v1/notifications/architecto"
 );
 
 const headers = {
@@ -4461,10 +4371,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-v1-notifications--id-"
-               value="uuid-123"
+               value="architecto"
                data-component="url">
     <br>
-<p>The notification ID. Example: <code>uuid-123</code></p>
+<p>The ID of the notification. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -5047,8 +4957,8 @@ fetch(url, {
             &quot;price&quot;: &quot;585.43&quot;,
             &quot;image_url&quot;: null,
             &quot;image_thumb_url&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:14.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:14.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
@@ -5057,8 +4967,8 @@ fetch(url, {
             &quot;price&quot;: &quot;23.39&quot;,
             &quot;image_url&quot;: null,
             &quot;image_thumb_url&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -5316,7 +5226,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "sku=LAP-001"\
     --form "price=999.99"\
     --form "description=High-performance laptop"\
-    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php77DB.tmp" </code></pre></div>
+    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php2568.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -5360,8 +5270,8 @@ fetch(url, {
         &quot;price&quot;: &quot;564.35&quot;,
         &quot;image_url&quot;: null,
         &quot;image_thumb_url&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;
     }
 }</code>
  </pre>
@@ -5508,7 +5418,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php77DB.tmp</code></p>
+<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php2568.tmp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -5591,8 +5501,8 @@ fetch(url, {
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;
     }
 }</code>
  </pre>
@@ -5681,18 +5591,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the product. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="product"                data-endpoint="GETapi-v1-products--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The product ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="product-management-PUTapi-v1-products--id-">Update Product</h2>
@@ -5719,7 +5617,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "price=1099.99"\
     --form "reorder_threshold=12"\
     --form "description=Updated description"\
-    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php780D.tmp" </code></pre></div>
+    --form "image=@C:\Users\hhasa\AppData\Local\Temp\php25C8.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -5764,8 +5662,8 @@ fetch(url, {
         &quot;price&quot;: &quot;403.07&quot;,
         &quot;image_url&quot;: null,
         &quot;image_thumb_url&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:15.000000Z&quot;
     }
 }</code>
  </pre>
@@ -5858,18 +5756,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the product. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="product"                data-endpoint="PUTapi-v1-products--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The product ID. Example: <code>1</code></p>
-            </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category_id</code></b>&nbsp;&nbsp;
@@ -5953,7 +5839,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php780D.tmp</code></p>
+<p>The product image. Example: <code>C:\Users\hhasa\AppData\Local\Temp\php25C8.tmp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -6098,18 +5984,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the product. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="product"                data-endpoint="DELETEapi-v1-products--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The product ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                 <h1 id="profile-management">Profile Management</h1>
@@ -6162,14 +6036,14 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Miss Anya Bauch III&quot;,
-        &quot;email&quot;: &quot;wward@example.org&quot;,
-        &quot;phone&quot;: &quot;+1 (302) 743-0065&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;name&quot;: &quot;Ms. Audra Crooks II&quot;,
+        &quot;email&quot;: &quot;christian51@example.com&quot;,
+        &quot;phone&quot;: &quot;337-569-9723&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6310,11 +6184,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;email&quot;: &quot;ferne52@example.com&quot;,
         &quot;phone&quot;: &quot;870-215-1024&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6512,19 +6386,19 @@ fetch(url, {
             &quot;id&quot;: 1,
             &quot;status&quot;: &quot;Received&quot;,
             &quot;note&quot;: &quot;&quot;,
-            &quot;ordered_at&quot;: &quot;2026-06-10T05:01:54.000000Z&quot;,
-            &quot;received_at&quot;: &quot;2026-05-31T03:30:53.000000Z&quot;,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;ordered_at&quot;: &quot;2026-06-11T05:23:16.000000Z&quot;,
+            &quot;received_at&quot;: &quot;2026-06-01T03:52:15.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
             &quot;status&quot;: &quot;Draft&quot;,
             &quot;note&quot;: &quot;&quot;,
-            &quot;ordered_at&quot;: &quot;2026-06-06T06:21:28.000000Z&quot;,
+            &quot;ordered_at&quot;: &quot;2026-06-07T06:42:50.000000Z&quot;,
             &quot;received_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -6827,10 +6701,10 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;status&quot;: &quot;Draft&quot;,
         &quot;note&quot;: &quot;&quot;,
-        &quot;ordered_at&quot;: &quot;2026-07-13T06:43:22.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-07-14T07:04:44.000000Z&quot;,
         &quot;received_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7080,7 +6954,7 @@ fetch(url, {
         &quot;status&quot;: &quot;Ordered&quot;,
         &quot;item_count&quot;: 1,
         &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
-        &quot;ordered_at&quot;: &quot;2026-04-30T04:48:58.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-05-01T05:10:20.000000Z&quot;,
         &quot;received_at&quot;: null,
         &quot;supplier&quot;: {
             &quot;id&quot;: 1,
@@ -7095,19 +6969,19 @@ fetch(url, {
             &quot;name&quot;: &quot;Doyle, Emard and Wolff Warehouse&quot;,
             &quot;location&quot;: &quot;11084 Palma Stream Apt. 368\nWest Artborough, NV 18607-5439&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
             &quot;name&quot;: &quot;Fausto Conroy&quot;,
             &quot;email&quot;: &quot;moises37@example.com&quot;,
             &quot;phone&quot;: &quot;1-678-926-5062&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         &quot;items&quot;: [
             {
@@ -7125,15 +6999,15 @@ fetch(url, {
                     &quot;price&quot;: &quot;574.80&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7222,18 +7096,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the purchase order. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="purchaseOrder"                data-endpoint="GETapi-v1-purchase-orders--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The purchase order ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="purchase-order-management-PUTapi-v1-purchase-orders--id-">Update Purchase Order</h2>
@@ -7314,65 +7176,65 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;supplier_name&quot;: &quot;Feeney, Leffler and Glover&quot;,
-        &quot;warehouse_name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
+        &quot;supplier_name&quot;: &quot;Tromp-Leffler&quot;,
+        &quot;warehouse_name&quot;: &quot;Ward-O&#039;Connell Warehouse&quot;,
         &quot;status&quot;: &quot;Draft&quot;,
         &quot;item_count&quot;: 1,
         &quot;note&quot;: &quot;&quot;,
-        &quot;ordered_at&quot;: &quot;2026-07-13T06:43:22.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-07-14T07:04:44.000000Z&quot;,
         &quot;received_at&quot;: null,
         &quot;supplier&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Feeney, Leffler and Glover&quot;,
-            &quot;phone&quot;: &quot;337-329-5127&quot;,
-            &quot;email&quot;: &quot;torp.florence@example.org&quot;,
+            &quot;name&quot;: &quot;Tromp-Leffler&quot;,
+            &quot;phone&quot;: &quot;337-569-9723&quot;,
+            &quot;email&quot;: &quot;kconsidine@example.net&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
         &quot;warehouse&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
-            &quot;location&quot;: &quot;737 Fadel Road\nNorth Mireille, MS 37967&quot;,
+            &quot;name&quot;: &quot;Ward-O&#039;Connell Warehouse&quot;,
+            &quot;location&quot;: &quot;85188 Victoria Shoals\nWest Artborough, NV 18607-5439&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Korey Marvin PhD&quot;,
-            &quot;email&quot;: &quot;bernhard.kendra@example.net&quot;,
-            &quot;phone&quot;: &quot;+1 (817) 947-8656&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;name&quot;: &quot;Fausto Conroy&quot;,
+            &quot;email&quot;: &quot;tfadel@example.com&quot;,
+            &quot;phone&quot;: &quot;973-982-7468&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
-                &quot;product_name&quot;: &quot;suscipit doloribus fugiat&quot;,
-                &quot;product_sku&quot;: &quot;SKU-6146-ztpp&quot;,
-                &quot;ordered_quantity&quot;: 118,
+                &quot;product_name&quot;: &quot;corporis nesciunt ut&quot;,
+                &quot;product_sku&quot;: &quot;SKU-3531-obmz&quot;,
+                &quot;ordered_quantity&quot;: 169,
                 &quot;received_quantity&quot;: 0,
-                &quot;unit_cost&quot;: &quot;123.12&quot;,
+                &quot;unit_cost&quot;: &quot;459.21&quot;,
                 &quot;is_fully_received&quot;: false,
                 &quot;product&quot;: {
                     &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;suscipit doloribus fugiat&quot;,
-                    &quot;sku&quot;: &quot;SKU-6146-ztpp&quot;,
-                    &quot;price&quot;: &quot;482.28&quot;,
+                    &quot;name&quot;: &quot;corporis nesciunt ut&quot;,
+                    &quot;sku&quot;: &quot;SKU-3531-obmz&quot;,
+                    &quot;price&quot;: &quot;61.11&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7464,18 +7326,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the purchase order. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="purchaseOrder"                data-endpoint="PUTapi-v1-purchase-orders--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The purchase order ID. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -7600,7 +7450,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                    <h2 id="purchase-order-management-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered">Mark Purchase Order as Ordered</h2>
+                    <h2 id="purchase-order-management-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered">Mark Purchase Order as Ordered</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -7608,7 +7458,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <p>Mark a draft purchase order as ordered (sent to supplier).</p>
 
-<span id="example-requests-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered">
+<span id="example-requests-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered">
 <blockquote>Example request:</blockquote>
 
 
@@ -7637,7 +7487,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered">
+<span id="example-responses-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -7646,106 +7496,106 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
         &quot;id&quot;: 1,
-        &quot;supplier_name&quot;: &quot;Considine LLC&quot;,
-        &quot;warehouse_name&quot;: &quot;Anderson LLC Warehouse&quot;,
+        &quot;supplier_name&quot;: &quot;Feeney, Leffler and Glover&quot;,
+        &quot;warehouse_name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
         &quot;status&quot;: &quot;Ordered&quot;,
         &quot;item_count&quot;: 1,
         &quot;note&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
-        &quot;ordered_at&quot;: &quot;2026-04-30T04:48:58.000000Z&quot;,
+        &quot;ordered_at&quot;: &quot;2026-05-01T05:10:20.000000Z&quot;,
         &quot;received_at&quot;: null,
         &quot;supplier&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Considine LLC&quot;,
-            &quot;phone&quot;: &quot;1-847-548-7905&quot;,
-            &quot;email&quot;: &quot;oking@example.net&quot;,
+            &quot;name&quot;: &quot;Feeney, Leffler and Glover&quot;,
+            &quot;phone&quot;: &quot;337-329-5127&quot;,
+            &quot;email&quot;: &quot;torp.florence@example.org&quot;,
             &quot;created_at&quot;: null,
             &quot;updated_at&quot;: null
         },
         &quot;warehouse&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Anderson LLC Warehouse&quot;,
-            &quot;location&quot;: &quot;5481 Dibbert Stravenue Suite 237\nEdnaside, NH 51439&quot;,
+            &quot;name&quot;: &quot;Kovacek-Conroy Warehouse&quot;,
+            &quot;location&quot;: &quot;737 Fadel Road\nNorth Mireille, MS 37967&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Hattie Mayert&quot;,
-            &quot;email&quot;: &quot;mhamill@example.net&quot;,
-            &quot;phone&quot;: &quot;+1 (619) 523-1922&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;name&quot;: &quot;Korey Marvin PhD&quot;,
+            &quot;email&quot;: &quot;bernhard.kendra@example.net&quot;,
+            &quot;phone&quot;: &quot;+1 (817) 947-8656&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
         },
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
-                &quot;product_name&quot;: &quot;est esse sint&quot;,
-                &quot;product_sku&quot;: &quot;SKU-8656-vale&quot;,
-                &quot;ordered_quantity&quot;: 181,
+                &quot;product_name&quot;: &quot;suscipit doloribus fugiat&quot;,
+                &quot;product_sku&quot;: &quot;SKU-6146-ztpp&quot;,
+                &quot;ordered_quantity&quot;: 118,
                 &quot;received_quantity&quot;: 0,
-                &quot;unit_cost&quot;: &quot;30.56&quot;,
+                &quot;unit_cost&quot;: &quot;123.12&quot;,
                 &quot;is_fully_received&quot;: false,
                 &quot;product&quot;: {
                     &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;est esse sint&quot;,
-                    &quot;sku&quot;: &quot;SKU-8656-vale&quot;,
-                    &quot;price&quot;: &quot;964.37&quot;,
+                    &quot;name&quot;: &quot;suscipit doloribus fugiat&quot;,
+                    &quot;sku&quot;: &quot;SKU-6146-ztpp&quot;,
+                    &quot;price&quot;: &quot;482.28&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
     </span>
-<span id="execution-results-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered" hidden>
+<span id="execution-results-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"></span>:
+                id="execution-response-status-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
+    <pre class="json"><code id="execution-response-content-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered" hidden>
+<span id="execution-error-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered">
+    <pre><code id="execution-error-message-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered" data-method="PATCH"
-      data-path="api/v1/purchase-orders/{purchaseOrder_id}/mark-ordered"
+<form id="form-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered" data-method="PATCH"
+      data-path="api/v1/purchase-orders/{purchase_order_id}/mark-ordered"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
-                    onclick="tryItOut('PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered');">Try it out ⚡
+                    id="btn-tryout-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
+                    onclick="tryItOut('PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
-                    onclick="cancelTryOut('PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
+                    onclick="cancelTryOut('PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
+                    id="btn-executetryout-PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -7753,7 +7603,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-purple">PATCH</small>
-            <b><code>api/v1/purchase-orders/{purchaseOrder_id}/mark-ordered</code></b>
+            <b><code>api/v1/purchase-orders/{purchase_order_id}/mark-ordered</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -7762,7 +7612,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
+                              name="Content-Type"                data-endpoint="PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
                value="application/json"
                data-component="header">
     <br>
@@ -7774,7 +7624,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
+                              name="Accept"                data-endpoint="PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
                value="application/json"
                data-component="header">
     <br>
@@ -7782,32 +7632,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder_id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>purchase_order_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="purchaseOrder_id"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
+               step="any"               name="purchase_order_id"                data-endpoint="PATCHapi-v1-purchase-orders--purchase_order_id--mark-ordered"
                value="16"
                data-component="url">
     <br>
-<p>The ID of the purchaseOrder. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="purchaseOrder"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--mark-ordered"
-               value="1"
-               data-component="url">
-    <br>
-<p>The purchase order ID. Example: <code>1</code></p>
+<p>The ID of the purchase order. Example: <code>16</code></p>
             </div>
                     </form>
 
-                    <h2 id="purchase-order-management-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel">Cancel Purchase Order</h2>
+                    <h2 id="purchase-order-management-PATCHapi-v1-purchase-orders--purchase_order_id--cancel">Cancel Purchase Order</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -7815,7 +7653,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <p>Cancel a purchase order. Only draft or ordered purchase orders can be cancelled.</p>
 
-<span id="example-requests-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel">
+<span id="example-requests-PATCHapi-v1-purchase-orders--purchase_order_id--cancel">
 <blockquote>Example request:</blockquote>
 
 
@@ -7844,7 +7682,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel">
+<span id="example-responses-PATCHapi-v1-purchase-orders--purchase_order_id--cancel">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -7855,43 +7693,43 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel" hidden>
+<span id="execution-results-PATCHapi-v1-purchase-orders--purchase_order_id--cancel" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"></span>:
+                id="execution-response-status-PATCHapi-v1-purchase-orders--purchase_order_id--cancel"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
+    <pre class="json"><code id="execution-response-content-PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel" hidden>
+<span id="execution-error-PATCHapi-v1-purchase-orders--purchase_order_id--cancel" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel">
+    <pre><code id="execution-error-message-PATCHapi-v1-purchase-orders--purchase_order_id--cancel">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel" data-method="PATCH"
-      data-path="api/v1/purchase-orders/{purchaseOrder_id}/cancel"
+<form id="form-PATCHapi-v1-purchase-orders--purchase_order_id--cancel" data-method="PATCH"
+      data-path="api/v1/purchase-orders/{purchase_order_id}/cancel"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-purchase-orders--purchase_order_id--cancel', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
-                    onclick="tryItOut('PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel');">Try it out ⚡
+                    id="btn-tryout-PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
+                    onclick="tryItOut('PATCHapi-v1-purchase-orders--purchase_order_id--cancel');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
-                    onclick="cancelTryOut('PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
+                    onclick="cancelTryOut('PATCHapi-v1-purchase-orders--purchase_order_id--cancel');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
+                    id="btn-executetryout-PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -7899,7 +7737,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-purple">PATCH</small>
-            <b><code>api/v1/purchase-orders/{purchaseOrder_id}/cancel</code></b>
+            <b><code>api/v1/purchase-orders/{purchase_order_id}/cancel</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -7908,7 +7746,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
+                              name="Content-Type"                data-endpoint="PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
                value="application/json"
                data-component="header">
     <br>
@@ -7920,7 +7758,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
+                              name="Accept"                data-endpoint="PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
                value="application/json"
                data-component="header">
     <br>
@@ -7928,32 +7766,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder_id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>purchase_order_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="purchaseOrder_id"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
+               step="any"               name="purchase_order_id"                data-endpoint="PATCHapi-v1-purchase-orders--purchase_order_id--cancel"
                value="16"
                data-component="url">
     <br>
-<p>The ID of the purchaseOrder. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="purchaseOrder"                data-endpoint="PATCHapi-v1-purchase-orders--purchaseOrder_id--cancel"
-               value="1"
-               data-component="url">
-    <br>
-<p>The purchase order ID. Example: <code>1</code></p>
+<p>The ID of the purchase order. Example: <code>16</code></p>
             </div>
                     </form>
 
-                    <h2 id="purchase-order-management-POSTapi-v1-purchase-orders--purchaseOrder_id--receive">Receive Purchase Order</h2>
+                    <h2 id="purchase-order-management-POSTapi-v1-purchase-orders--purchase_order_id--receive">Receive Purchase Order</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -7961,7 +7787,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <p>Receive stock from a purchase order and update warehouse inventory.</p>
 
-<span id="example-requests-POSTapi-v1-purchase-orders--purchaseOrder_id--receive">
+<span id="example-requests-POSTapi-v1-purchase-orders--purchase_order_id--receive">
 <blockquote>Example request:</blockquote>
 
 
@@ -8010,7 +7836,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-POSTapi-v1-purchase-orders--purchaseOrder_id--receive">
+<span id="example-responses-POSTapi-v1-purchase-orders--purchase_order_id--receive">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -8022,43 +7848,43 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-POSTapi-v1-purchase-orders--purchaseOrder_id--receive" hidden>
+<span id="execution-results-POSTapi-v1-purchase-orders--purchase_order_id--receive" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTapi-v1-purchase-orders--purchaseOrder_id--receive"></span>:
+                id="execution-response-status-POSTapi-v1-purchase-orders--purchase_order_id--receive"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-purchase-orders--purchase_order_id--receive"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-POSTapi-v1-purchase-orders--purchaseOrder_id--receive" hidden>
+<span id="execution-error-POSTapi-v1-purchase-orders--purchase_order_id--receive" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-v1-purchase-orders--purchaseOrder_id--receive">
+    <pre><code id="execution-error-message-POSTapi-v1-purchase-orders--purchase_order_id--receive">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-POSTapi-v1-purchase-orders--purchaseOrder_id--receive" data-method="POST"
-      data-path="api/v1/purchase-orders/{purchaseOrder_id}/receive"
+<form id="form-POSTapi-v1-purchase-orders--purchase_order_id--receive" data-method="POST"
+      data-path="api/v1/purchase-orders/{purchase_order_id}/receive"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-purchase-orders--purchaseOrder_id--receive', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-purchase-orders--purchase_order_id--receive', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
-                    onclick="tryItOut('POSTapi-v1-purchase-orders--purchaseOrder_id--receive');">Try it out ⚡
+                    id="btn-tryout-POSTapi-v1-purchase-orders--purchase_order_id--receive"
+                    onclick="tryItOut('POSTapi-v1-purchase-orders--purchase_order_id--receive');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
-                    onclick="cancelTryOut('POSTapi-v1-purchase-orders--purchaseOrder_id--receive');" hidden>Cancel 🛑
+                    id="btn-canceltryout-POSTapi-v1-purchase-orders--purchase_order_id--receive"
+                    onclick="cancelTryOut('POSTapi-v1-purchase-orders--purchase_order_id--receive');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+                    id="btn-executetryout-POSTapi-v1-purchase-orders--purchase_order_id--receive"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -8066,7 +7892,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-black">POST</small>
-            <b><code>api/v1/purchase-orders/{purchaseOrder_id}/receive</code></b>
+            <b><code>api/v1/purchase-orders/{purchase_order_id}/receive</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -8075,7 +7901,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-purchase-orders--purchase_order_id--receive"
                value="application/json"
                data-component="header">
     <br>
@@ -8087,7 +7913,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+                              name="Accept"                data-endpoint="POSTapi-v1-purchase-orders--purchase_order_id--receive"
                value="application/json"
                data-component="header">
     <br>
@@ -8095,28 +7921,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder_id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>purchase_order_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="purchaseOrder_id"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+               step="any"               name="purchase_order_id"                data-endpoint="POSTapi-v1-purchase-orders--purchase_order_id--receive"
                value="16"
                data-component="url">
     <br>
-<p>The ID of the purchaseOrder. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>purchaseOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="purchaseOrder"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
-               value="1"
-               data-component="url">
-    <br>
-<p>The purchase order ID. Example: <code>1</code></p>
+<p>The ID of the purchase order. Example: <code>16</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -8135,7 +7949,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="items.0.purchase_order_item_id"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+               step="any"               name="items.0.purchase_order_item_id"                data-endpoint="POSTapi-v1-purchase-orders--purchase_order_id--receive"
                value="1"
                data-component="body">
     <br>
@@ -8147,7 +7961,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="items.0.quantity_received"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+               step="any"               name="items.0.quantity_received"                data-endpoint="POSTapi-v1-purchase-orders--purchase_order_id--receive"
                value="22"
                data-component="body">
     <br>
@@ -8159,7 +7973,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="items.0.received_quantity"                data-endpoint="POSTapi-v1-purchase-orders--purchaseOrder_id--receive"
+               step="any"               name="items.0.received_quantity"                data-endpoint="POSTapi-v1-purchase-orders--purchase_order_id--receive"
                value="50"
                data-component="body">
     <br>
@@ -8242,8 +8056,8 @@ fetch(url, {
             &quot;status&quot;: &quot;Failed&quot;,
             &quot;total_amount&quot;: &quot;116.96&quot;,
             &quot;transaction_reference&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
@@ -8253,8 +8067,8 @@ fetch(url, {
             &quot;status&quot;: &quot;Pending&quot;,
             &quot;total_amount&quot;: &quot;1294.79&quot;,
             &quot;transaction_reference&quot;: null,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -8583,8 +8397,8 @@ fetch(url, {
         &quot;status&quot;: &quot;Failed&quot;,
         &quot;total_amount&quot;: &quot;177.78&quot;,
         &quot;transaction_reference&quot;: null,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -8839,19 +8653,19 @@ fetch(url, {
             &quot;name&quot;: &quot;Baumbach Ltd Warehouse&quot;,
             &quot;location&quot;: &quot;1052 Carey Greens\nLefflerhaven, TX 58408-7043&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         &quot;creator&quot;: {
             &quot;id&quot;: 1,
             &quot;name&quot;: &quot;Shayna Raynor Jr.&quot;,
             &quot;email&quot;: &quot;jhaag@example.net&quot;,
             &quot;phone&quot;: &quot;+1-747-759-6197&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         &quot;items&quot;: [
             {
@@ -8867,15 +8681,15 @@ fetch(url, {
                     &quot;price&quot;: &quot;860.50&quot;,
                     &quot;image_url&quot;: null,
                     &quot;image_thumb_url&quot;: null,
-                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
                 },
-                &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -8964,21 +8778,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the sales order. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>salesOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="salesOrder"                data-endpoint="GETapi-v1-sales-orders--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The sales order ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
-                    <h2 id="sales-order-management-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment">Initiate Payment</h2>
+                    <h2 id="sales-order-management-POSTapi-v1-sales-orders--sales_order_id--initiate-payment">Initiate Payment</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -8986,7 +8788,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <p>Initiate payment for a sales order using SSLCommerz payment gateway.</p>
 
-<span id="example-requests-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment">
+<span id="example-requests-POSTapi-v1-sales-orders--sales_order_id--initiate-payment">
 <blockquote>Example request:</blockquote>
 
 
@@ -9015,7 +8817,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment">
+<span id="example-responses-POSTapi-v1-sales-orders--sales_order_id--initiate-payment">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -9028,43 +8830,43 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment" hidden>
+<span id="execution-results-POSTapi-v1-sales-orders--sales_order_id--initiate-payment" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"></span>:
+                id="execution-response-status-POSTapi-v1-sales-orders--sales_order_id--initiate-payment"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment" hidden>
+<span id="execution-error-POSTapi-v1-sales-orders--sales_order_id--initiate-payment" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment">
+    <pre><code id="execution-error-message-POSTapi-v1-sales-orders--sales_order_id--initiate-payment">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment" data-method="POST"
-      data-path="api/v1/sales-orders/{salesOrder_id}/initiate-payment"
+<form id="form-POSTapi-v1-sales-orders--sales_order_id--initiate-payment" data-method="POST"
+      data-path="api/v1/sales-orders/{sales_order_id}/initiate-payment"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-sales-orders--salesOrder_id--initiate-payment', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-sales-orders--sales_order_id--initiate-payment', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
-                    onclick="tryItOut('POSTapi-v1-sales-orders--salesOrder_id--initiate-payment');">Try it out ⚡
+                    id="btn-tryout-POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
+                    onclick="tryItOut('POSTapi-v1-sales-orders--sales_order_id--initiate-payment');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
-                    onclick="cancelTryOut('POSTapi-v1-sales-orders--salesOrder_id--initiate-payment');" hidden>Cancel 🛑
+                    id="btn-canceltryout-POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
+                    onclick="cancelTryOut('POSTapi-v1-sales-orders--sales_order_id--initiate-payment');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
+                    id="btn-executetryout-POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -9072,7 +8874,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-black">POST</small>
-            <b><code>api/v1/sales-orders/{salesOrder_id}/initiate-payment</code></b>
+            <b><code>api/v1/sales-orders/{sales_order_id}/initiate-payment</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -9081,7 +8883,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
                value="application/json"
                data-component="header">
     <br>
@@ -9093,7 +8895,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
+                              name="Accept"                data-endpoint="POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
                value="application/json"
                data-component="header">
     <br>
@@ -9101,32 +8903,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>salesOrder_id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>sales_order_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="salesOrder_id"                data-endpoint="POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
+               step="any"               name="sales_order_id"                data-endpoint="POSTapi-v1-sales-orders--sales_order_id--initiate-payment"
                value="16"
                data-component="url">
     <br>
-<p>The ID of the salesOrder. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>salesOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="salesOrder"                data-endpoint="POSTapi-v1-sales-orders--salesOrder_id--initiate-payment"
-               value="1"
-               data-component="url">
-    <br>
-<p>The sales order ID. Example: <code>1</code></p>
+<p>The ID of the sales order. Example: <code>16</code></p>
             </div>
                     </form>
 
-                    <h2 id="sales-order-management-PATCHapi-v1-sales-orders--salesOrder_id--cancel">Cancel Sales Order</h2>
+                    <h2 id="sales-order-management-PATCHapi-v1-sales-orders--sales_order_id--cancel">Cancel Sales Order</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -9134,7 +8924,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <p>Cancel a sales order and restore stock to the warehouse. Only pending orders can be cancelled.</p>
 
-<span id="example-requests-PATCHapi-v1-sales-orders--salesOrder_id--cancel">
+<span id="example-requests-PATCHapi-v1-sales-orders--sales_order_id--cancel">
 <blockquote>Example request:</blockquote>
 
 
@@ -9163,7 +8953,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-PATCHapi-v1-sales-orders--salesOrder_id--cancel">
+<span id="example-responses-PATCHapi-v1-sales-orders--sales_order_id--cancel">
             <blockquote>
             <p>Example response (204, Success):</p>
         </blockquote>
@@ -9180,43 +8970,43 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-PATCHapi-v1-sales-orders--salesOrder_id--cancel" hidden>
+<span id="execution-results-PATCHapi-v1-sales-orders--sales_order_id--cancel" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PATCHapi-v1-sales-orders--salesOrder_id--cancel"></span>:
+                id="execution-response-status-PATCHapi-v1-sales-orders--sales_order_id--cancel"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PATCHapi-v1-sales-orders--salesOrder_id--cancel"
+    <pre class="json"><code id="execution-response-content-PATCHapi-v1-sales-orders--sales_order_id--cancel"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PATCHapi-v1-sales-orders--salesOrder_id--cancel" hidden>
+<span id="execution-error-PATCHapi-v1-sales-orders--sales_order_id--cancel" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PATCHapi-v1-sales-orders--salesOrder_id--cancel">
+    <pre><code id="execution-error-message-PATCHapi-v1-sales-orders--sales_order_id--cancel">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PATCHapi-v1-sales-orders--salesOrder_id--cancel" data-method="PATCH"
-      data-path="api/v1/sales-orders/{salesOrder_id}/cancel"
+<form id="form-PATCHapi-v1-sales-orders--sales_order_id--cancel" data-method="PATCH"
+      data-path="api/v1/sales-orders/{sales_order_id}/cancel"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-sales-orders--salesOrder_id--cancel', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-sales-orders--sales_order_id--cancel', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PATCHapi-v1-sales-orders--salesOrder_id--cancel"
-                    onclick="tryItOut('PATCHapi-v1-sales-orders--salesOrder_id--cancel');">Try it out ⚡
+                    id="btn-tryout-PATCHapi-v1-sales-orders--sales_order_id--cancel"
+                    onclick="tryItOut('PATCHapi-v1-sales-orders--sales_order_id--cancel');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PATCHapi-v1-sales-orders--salesOrder_id--cancel"
-                    onclick="cancelTryOut('PATCHapi-v1-sales-orders--salesOrder_id--cancel');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PATCHapi-v1-sales-orders--sales_order_id--cancel"
+                    onclick="cancelTryOut('PATCHapi-v1-sales-orders--sales_order_id--cancel');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PATCHapi-v1-sales-orders--salesOrder_id--cancel"
+                    id="btn-executetryout-PATCHapi-v1-sales-orders--sales_order_id--cancel"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
@@ -9224,7 +9014,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </h3>
             <p>
             <small class="badge badge-purple">PATCH</small>
-            <b><code>api/v1/sales-orders/{salesOrder_id}/cancel</code></b>
+            <b><code>api/v1/sales-orders/{sales_order_id}/cancel</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
@@ -9233,7 +9023,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PATCHapi-v1-sales-orders--salesOrder_id--cancel"
+                              name="Content-Type"                data-endpoint="PATCHapi-v1-sales-orders--sales_order_id--cancel"
                value="application/json"
                data-component="header">
     <br>
@@ -9245,7 +9035,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PATCHapi-v1-sales-orders--salesOrder_id--cancel"
+                              name="Accept"                data-endpoint="PATCHapi-v1-sales-orders--sales_order_id--cancel"
                value="application/json"
                data-component="header">
     <br>
@@ -9253,28 +9043,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>salesOrder_id</code></b>&nbsp;&nbsp;
+                <b style="line-height: 2;"><code>sales_order_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="salesOrder_id"                data-endpoint="PATCHapi-v1-sales-orders--salesOrder_id--cancel"
+               step="any"               name="sales_order_id"                data-endpoint="PATCHapi-v1-sales-orders--sales_order_id--cancel"
                value="16"
                data-component="url">
     <br>
-<p>The ID of the salesOrder. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>salesOrder</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="salesOrder"                data-endpoint="PATCHapi-v1-sales-orders--salesOrder_id--cancel"
-               value="1"
-               data-component="url">
-    <br>
-<p>The sales order ID. Example: <code>1</code></p>
+<p>The ID of the sales order. Example: <code>16</code></p>
             </div>
                     </form>
 
@@ -9448,14 +9226,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://api.test/api/v1/search/products?q=laptop" \
+    --get "http://api.test/api/v1/search/sales_orders|products|warehouses|purchase_orders|stock_logs|users?q=laptop" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://api.test/api/v1/search/products"
+    "http://api.test/api/v1/search/sales_orders|products|warehouses|purchase_orders|stock_logs|users"
 );
 
 const params = {
@@ -9578,10 +9356,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="scope"                data-endpoint="GETapi-v1-search--scope-"
-               value="products"
+               value="sales_orders|products|warehouses|purchase_orders|stock_logs|users"
                data-component="url">
     <br>
-<p>The search scope. Example: <code>products</code></p>
+<p>Example: <code>sales_orders|products|warehouses|purchase_orders|stock_logs|users</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -9675,10 +9453,10 @@ fetch(url, {
                 &quot;id&quot;: 1,
                 &quot;name&quot;: &quot;In&quot;
             },
-            &quot;quantity&quot;: 226,
-            &quot;unit_cost&quot;: null,
-            &quot;note&quot;: &quot;Inventore repellendus enim ducimus aut quasi accusamus sit esse.&quot;,
-            &quot;created_at&quot;: &quot;2026-03-23T06:45:03.000000Z&quot;,
+            &quot;quantity&quot;: 184,
+            &quot;unit_cost&quot;: &quot;738.95&quot;,
+            &quot;note&quot;: &quot;Asperiores voluptates earum enim odit.&quot;,
+            &quot;created_at&quot;: &quot;2026-06-20T21:53:05.000000Z&quot;,
             &quot;updated_at&quot;: null
         },
         {
@@ -9687,10 +9465,10 @@ fetch(url, {
                 &quot;id&quot;: 1,
                 &quot;name&quot;: &quot;In&quot;
             },
-            &quot;quantity&quot;: 397,
+            &quot;quantity&quot;: 375,
             &quot;unit_cost&quot;: null,
             &quot;note&quot;: null,
-            &quot;created_at&quot;: &quot;2026-02-17T00:32:57.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-01-09T12:01:42.000000Z&quot;,
             &quot;updated_at&quot;: null
         }
     ],
@@ -10083,7 +9861,7 @@ fetch(url, {
         &quot;quantity&quot;: 172,
         &quot;unit_cost&quot;: &quot;3178.75&quot;,
         &quot;note&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
-        &quot;created_at&quot;: &quot;2026-02-01T07:02:35.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-02-02T07:23:57.000000Z&quot;,
         &quot;updated_at&quot;: null
     }
 }</code>
@@ -10261,7 +10039,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://api.test/api/v1/stock-logs/export/xlsx" \
+    --get "http://api.test/api/v1/stock-logs/export/csv" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -10273,7 +10051,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://api.test/api/v1/stock-logs/export/xlsx"
+    "http://api.test/api/v1/stock-logs/export/csv"
 );
 
 const headers = {
@@ -10382,15 +10160,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="format"                data-endpoint="GETapi-v1-stock-logs-export--format-"
-               value="xlsx"
+               value="csv"
                data-component="url">
     <br>
-<p>The export format (xlsx, pdf). Example: <code>xlsx</code></p>
+<p>Example: <code>csv</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>from</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
@@ -10402,7 +10180,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>to</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
@@ -11108,18 +10886,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the supplier. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>supplier</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="supplier"                data-endpoint="GETapi-v1-suppliers--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The supplier ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="supplier-management-PUTapi-v1-suppliers--id-">Update Supplier</h2>
@@ -11278,18 +11044,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the supplier. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>supplier</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="supplier"                data-endpoint="PUTapi-v1-suppliers--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The supplier ID. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -11470,18 +11224,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the supplier. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>supplier</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="supplier"                data-endpoint="DELETEapi-v1-suppliers--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The supplier ID. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -11762,18 +11504,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the supplier. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>supplier</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="supplier"                data-endpoint="POSTapi-v1-suppliers--supplier_id--restore"
-               value="1"
-               data-component="url">
-    <br>
-<p>The supplier ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                 <h1 id="user-management">User Management</h1>
@@ -11834,12 +11564,12 @@ fetch(url, {
                     &quot;id&quot;: 1,
                     &quot;name&quot;: &quot;et.create&quot;,
                     &quot;guard_name&quot;: &quot;api&quot;,
-                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
                 }
             ],
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
@@ -11850,12 +11580,12 @@ fetch(url, {
                     &quot;id&quot;: 2,
                     &quot;name&quot;: &quot;velit.view&quot;,
                     &quot;guard_name&quot;: &quot;api&quot;,
-                    &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-                    &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+                    &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
                 }
             ],
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         }
     ]
 }</code>
@@ -11983,15 +11713,15 @@ fetch(url, {
             &quot;id&quot;: 1,
             &quot;name&quot;: &quot;fugiat.delete&quot;,
             &quot;guard_name&quot;: &quot;api&quot;,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
             &quot;name&quot;: &quot;nihil.delete&quot;,
             &quot;guard_name&quot;: &quot;api&quot;,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         }
     ]
 }</code>
@@ -12127,25 +11857,25 @@ fetch(url, {
     &quot;data&quot;: [
         {
             &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Prof. Ramona Bosco Sr.&quot;,
-            &quot;email&quot;: &quot;pdouglas@example.org&quot;,
-            &quot;phone&quot;: &quot;(838) 298-6342&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;name&quot;: &quot;Mr. Walton Thompson&quot;,
+            &quot;email&quot;: &quot;barry.douglas@example.org&quot;,
+            &quot;phone&quot;: &quot;+1-570-219-2704&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;Bret Hintz&quot;,
-            &quot;email&quot;: &quot;wprohaska@example.org&quot;,
-            &quot;phone&quot;: &quot;(228) 809-4222&quot;,
-            &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+            &quot;name&quot;: &quot;Mr. Jaylen Bailey&quot;,
+            &quot;email&quot;: &quot;harris.jed@example.org&quot;,
+            &quot;phone&quot;: &quot;281-250-4419&quot;,
+            &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -12342,7 +12072,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"email\": \"jane@example.com\",
     \"phone\": \"+1234567890\",
     \"password\": \"Password123!\",
-    \"password_confirmation\": \"Password123!\",
     \"is_active\": true
 }"
 </code></pre></div>
@@ -12363,7 +12092,6 @@ let body = {
     "email": "jane@example.com",
     "phone": "+1234567890",
     "password": "Password123!",
-    "password_confirmation": "Password123!",
     "is_active": true
 };
 
@@ -12387,11 +12115,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
         &quot;phone&quot;: &quot;+1-626-249-0432&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -12517,18 +12245,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The user's password. Example: <code>Password123!</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="POSTapi-v1-users"
-               value="Password123!"
-               data-component="body">
-    <br>
-<p>Password confirmation. Example: <code>Password123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
 <small>boolean</small>&nbsp;
  &nbsp;
@@ -12601,8 +12317,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
         &quot;phone&quot;: &quot;334-682-8182&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
         &quot;is_active&quot;: true,
         &quot;roles&quot;: [
             &quot;Aircraft Launch Specialist&quot;
@@ -12613,8 +12329,8 @@ fetch(url, {
         &quot;permissions&quot;: [
             &quot;nostrum.view&quot;
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -12703,18 +12419,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the user. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="GETapi-v1-users--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The user ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="user-management-PUTapi-v1-users--id-">Update User</h2>
@@ -12739,7 +12443,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"email\": \"updated@example.com\",
     \"phone\": \"+0987654321\",
     \"password\": \"NewPassword123!\",
-    \"password_confirmation\": \"NewPassword123!\",
     \"is_active\": true
 }"
 </code></pre></div>
@@ -12760,7 +12463,6 @@ let body = {
     "email": "updated@example.com",
     "phone": "+0987654321",
     "password": "NewPassword123!",
-    "password_confirmation": "NewPassword123!",
     "is_active": true
 };
 
@@ -12784,11 +12486,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
         &quot;phone&quot;: &quot;1-262-922-9279&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -12881,18 +12583,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the user. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="PUTapi-v1-users--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The user ID. Example: <code>1</code></p>
-            </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
@@ -12941,18 +12631,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>The new password. Example: <code>NewPassword123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="PUTapi-v1-users--id-"
-               value="NewPassword123!"
-               data-component="body">
-    <br>
-<p>Password confirmation. Example: <code>NewPassword123!</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_active</code></b>&nbsp;&nbsp;
@@ -13027,11 +12705,11 @@ fetch(url, {
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;idickens@example.org&quot;,
         &quot;phone&quot;: &quot;1-820-420-3724&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13120,18 +12798,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the user. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="PATCHapi-v1-users--user_id--toggle-status"
-               value="1"
-               data-component="url">
-    <br>
-<p>The user ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="user-management-PUTapi-v1-users--user_id--roles">Assign Roles</h2>
@@ -13197,8 +12863,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;hirthe.theo@example.com&quot;,
         &quot;phone&quot;: &quot;+1.805.658.9606&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
         &quot;is_active&quot;: true,
         &quot;roles&quot;: [
             &quot;Illustrator&quot;
@@ -13209,8 +12875,8 @@ fetch(url, {
         &quot;permissions&quot;: [
             &quot;consequatur.delete&quot;
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13299,18 +12965,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the user. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="PUTapi-v1-users--user_id--roles"
-               value="1"
-               data-component="url">
-    <br>
-<p>The user ID. Example: <code>1</code></p>
-            </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>roles</code></b>&nbsp;&nbsp;
@@ -13391,8 +13045,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;leo34@example.net&quot;,
         &quot;phone&quot;: &quot;(678) 471-7515&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;phone_verified_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;phone_verified_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
         &quot;is_active&quot;: true,
         &quot;roles&quot;: [
             &quot;Medical Secretary&quot;
@@ -13403,8 +13057,8 @@ fetch(url, {
         &quot;permissions&quot;: [
             &quot;non.delete&quot;
         ],
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:17.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13493,18 +13147,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the user. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="PUTapi-v1-users--user_id--permissions"
-               value="1"
-               data-component="url">
-    <br>
-<p>The user ID. Example: <code>1</code></p>
-            </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>permissions</code></b>&nbsp;&nbsp;
@@ -13576,16 +13218,16 @@ fetch(url, {
             &quot;name&quot;: &quot;Breitenberg Inc Warehouse&quot;,
             &quot;location&quot;: &quot;63724 Haven Square\nAlaynastad, MI 07365&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:54.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;Tromp-Leffler Warehouse&quot;,
-            &quot;location&quot;: &quot;5024 Pauline Fort Suite 083\nWisokybury, IL 43996-5127&quot;,
+            &quot;name&quot;: &quot;Koch PLC Warehouse&quot;,
+            &quot;location&quot;: &quot;26432 Leuschke Throughway Apt. 227\nLake Audreyborough, MT 36080-0782&quot;,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -13758,8 +13400,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Crooks LLC Warehouse&quot;,
         &quot;location&quot;: &quot;40575 Dickens Inlet\nMyaport, CT 08182&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -13911,8 +13553,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Hauck-Leuschke Warehouse&quot;,
         &quot;location&quot;: &quot;544 Aglae Ridge Apt. 067\nLefflerhaven, TX 58408-7043&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -14001,18 +13643,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the warehouse. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="warehouse"                data-endpoint="GETapi-v1-warehouses--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The warehouse ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="warehouse-management-PUTapi-v1-warehouses--id-">Update Warehouse</h2>
@@ -14035,7 +13665,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"name\": \"Updated Warehouse\",
     \"location\": \"Los Angeles\",
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -14053,7 +13683,7 @@ const headers = {
 let body = {
     "name": "Updated Warehouse",
     "location": "Los Angeles",
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -14076,8 +13706,8 @@ fetch(url, {
         &quot;name&quot;: &quot;Gulgowski-O&#039;Kon Warehouse&quot;,
         &quot;location&quot;: &quot;80841 Mya Lane Apt. 042\nLyricberg, MO 42170-0432&quot;,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -14170,18 +13800,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the warehouse. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="warehouse"                data-endpoint="PUTapi-v1-warehouses--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The warehouse ID. Example: <code>1</code></p>
-            </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
@@ -14227,7 +13845,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -14369,18 +13987,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the warehouse. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="warehouse"                data-endpoint="DELETEapi-v1-warehouses--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The warehouse ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                 <h1 id="warehouse-stock-management">Warehouse Stock Management</h1>
@@ -14451,15 +14057,15 @@ fetch(url, {
             &quot;id&quot;: 1,
             &quot;quantity&quot;: 306,
             &quot;reorder_threshold&quot;: 11,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
             &quot;quantity&quot;: 163,
             &quot;reorder_threshold&quot;: 14,
-            &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -14583,18 +14189,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the warehouse. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="warehouse"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks"
-               value="1"
-               data-component="url">
-    <br>
-<p>The warehouse ID. Example: <code>1</code></p>
             </div>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
@@ -14777,8 +14371,8 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;quantity&quot;: 306,
         &quot;reorder_threshold&quot;: 11,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -14879,30 +14473,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the stock. Example: <code>16</code></p>
             </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="warehouse"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The warehouse ID. Example: <code>1</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>stock</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="stock"                data-endpoint="GETapi-v1-warehouses--warehouse_id--stocks--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The stock ID. Example: <code>1</code></p>
-            </div>
                     </form>
 
                     <h2 id="warehouse-stock-management-PUTapi-v1-warehouses--warehouse_id--stocks--id-">Update Warehouse Stock</h2>
@@ -14963,8 +14533,8 @@ fetch(url, {
         &quot;id&quot;: 1,
         &quot;quantity&quot;: 306,
         &quot;reorder_threshold&quot;: 11,
-        &quot;created_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-07-28T02:08:55.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-07-29T02:30:16.000000Z&quot;
     }
 }</code>
  </pre>
@@ -15068,30 +14638,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The ID of the stock. Example: <code>16</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>warehouse</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="warehouse"                data-endpoint="PUTapi-v1-warehouses--warehouse_id--stocks--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The warehouse ID. Example: <code>1</code></p>
-            </div>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>stock</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="stock"                data-endpoint="PUTapi-v1-warehouses--warehouse_id--stocks--id-"
-               value="1"
-               data-component="url">
-    <br>
-<p>The stock ID. Example: <code>1</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">

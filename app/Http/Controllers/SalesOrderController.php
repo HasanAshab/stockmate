@@ -16,7 +16,6 @@ use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -100,7 +99,6 @@ class SalesOrderController extends Controller
      *
      * Retrieve details of a specific sales order by ID.
      */
-    #[UrlParam('salesOrder', 'integer', 'The sales order ID.', required: true, example: 1)]
     #[ResponseFromApiResource(SalesOrderResource::class, SalesOrder::class, with: ['warehouse', 'creator', 'items.product'])]
     public function show(SalesOrder $salesOrder)
     {
@@ -116,7 +114,6 @@ class SalesOrderController extends Controller
      *
      * Initiate payment for a sales order using SSLCommerz payment gateway.
      */
-    #[UrlParam('salesOrder', 'integer', 'The sales order ID.', required: true, example: 1)]
     #[Response(['payment_url' => 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=...', 'session_key' => 'ABC123XYZ', 'transaction_id' => 'TXN123456'], 200)]
     public function initiatePayment(SalesOrder $salesOrder, InitiateSalesOrderPayment $initiateSalesOrderPayment)
     {
@@ -130,7 +127,6 @@ class SalesOrderController extends Controller
      *
      * Cancel a sales order and restore stock to the warehouse. Only pending orders can be cancelled.
      */
-    #[UrlParam('salesOrder', 'integer', 'The sales order ID.', required: true, example: 1)]
     #[Response([], 204, 'Success')]
     #[Response(['message' => 'Only pending orders can be cancelled'], 400)]
     public function cancel(SalesOrder $salesOrder, CancelSalesOrder $cancelSalesOrder)

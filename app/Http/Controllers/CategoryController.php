@@ -13,7 +13,6 @@ use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 
 #[Group('Category Management', 'APIs for managing product categories')]
 #[Authenticated]
@@ -60,7 +59,6 @@ class CategoryController extends Controller
      *
      * Retrieve details of a specific category by ID.
      */
-    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
     #[ResponseFromApiResource(CategoryResource::class, Category::class)]
     public function show(Category $category)
     {
@@ -74,7 +72,6 @@ class CategoryController extends Controller
      *
      * Update an existing category.
      */
-    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
     #[BodyParam('name', 'string', 'The category name.', example: 'Updated Electronics')]
     #[BodyParam('description', 'string', 'The category description.', example: 'Updated description')]
     #[ResponseFromApiResource(CategoryResource::class, Category::class)]
@@ -91,7 +88,6 @@ class CategoryController extends Controller
      *
      * Soft delete a category.
      */
-    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
     #[Response([], 204, 'Success')]
     public function destroy(Category $category)
     {
@@ -119,7 +115,6 @@ class CategoryController extends Controller
      *
      * Restore a soft-deleted category.
      */
-    #[UrlParam('category', 'integer', 'The category ID.', required: true, example: 1)]
     #[ResponseFromApiResource(CategoryResource::class, Category::class)]
     public function restore(Category $category)
     {

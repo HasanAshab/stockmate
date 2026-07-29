@@ -71,7 +71,6 @@ class AuthController extends Controller
     #[BodyParam('email', 'string', 'The user\'s email address.', example: 'user@example.com')]
     #[BodyParam('phone', 'string', 'The user\'s phone number.', example: '+1234567890')]
     #[BodyParam('password', 'string', 'The user\'s password.', required: true, example: 'Password123!')]
-    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', required: true, example: 'Password123!')]
     #[Response(['user' => ['id' => 1, 'name' => 'John Doe', 'email' => 'user@example.com'], 'token' => '2|def456...', 'token_type' => 'Bearer'], 201, 'User registered with token')]
     public function register(RegisterRequest $request, RegisterUser $registerUser)
     {
@@ -168,7 +167,6 @@ class AuthController extends Controller
      */
     #[Authenticated]
     #[BodyParam('password', 'string', 'The new password.', required: true, example: 'NewPassword123!')]
-    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', required: true, example: 'NewPassword123!')]
     #[Response(['message' => 'Password changed.'], 200)]
     public function changePassword(ChangePasswordRequest $request, ChangeUserPassword $changeUserPassword)
     {
@@ -204,7 +202,6 @@ class AuthController extends Controller
     #[BodyParam('identifier', 'string', 'The user\'s email or phone number.', required: true, example: 'user@example.com')]
     #[BodyParam('code', 'string', 'The password reset code.', required: true, example: '123456')]
     #[BodyParam('password', 'string', 'The new password.', required: true, example: 'NewPassword123!')]
-    #[BodyParam('password_confirmation', 'string', 'Password confirmation.', required: true, example: 'NewPassword123!')]
     #[Response(['message' => 'Password has been reset successfully.'], 200)]
     #[Response(['message' => 'Invalid or expired reset code'], 400)]
     public function resetPassword(ResetPasswordRequest $request, ResetUserPassword $resetUserPassword)

@@ -11,7 +11,6 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\Response;
-use Knuckles\Scribe\Attributes\UrlParam;
 
 #[Group('Search', 'APIs for searching across resources')]
 #[Authenticated]
@@ -55,7 +54,6 @@ class SearchController extends Controller
      *
      * Search within a specific resource type (products, categories, suppliers, or warehouses).
      */
-    #[UrlParam('scope', 'string', 'The search scope.', required: true, example: 'products')]
     #[QueryParam('q', 'string', 'The search term (minimum 3 characters).', required: true, example: 'laptop')]
     #[Response(['data' => ['products' => []]], 200)]
     #[Response(['message' => 'Unknown search scope [invalid].'], 404)]

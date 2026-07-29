@@ -12,7 +12,6 @@ use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -26,7 +25,6 @@ class WarehouseStockController extends Controller
      *
      * Get a paginated list of stock items in a specific warehouse with filtering and sorting.
      */
-    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
     #[QueryParam('filter[product]', 'integer', 'Filter by product ID.', example: 1)]
     #[QueryParam('filter[warehouse]', 'integer', 'Filter by warehouse ID.', example: 1)]
     #[QueryParam('filter[quantity][gt]', 'number', 'Filter stock with quantity greater than value.', example: 100)]
@@ -66,8 +64,6 @@ class WarehouseStockController extends Controller
      *
      * Retrieve details of a specific stock item in a warehouse.
      */
-    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
-    #[UrlParam('stock', 'integer', 'The stock ID.', required: true, example: 1)]
     #[ResponseFromApiResource(WarehouseStockResource::class, WarehouseStock::class)]
     public function show(Warehouse $warehouse, WarehouseStock $stock)
     {
@@ -81,8 +77,6 @@ class WarehouseStockController extends Controller
      *
      * Update the quantity of a stock item in a warehouse.
      */
-    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
-    #[UrlParam('stock', 'integer', 'The stock ID.', required: true, example: 1)]
     #[BodyParam('quantity', 'integer', 'The new quantity.', required: true, example: 75)]
     #[ResponseFromApiResource(WarehouseStockResource::class, WarehouseStock::class)]
     public function update(UpdateWarehouseStockRequest $request, Warehouse $warehouse, WarehouseStock $stock)

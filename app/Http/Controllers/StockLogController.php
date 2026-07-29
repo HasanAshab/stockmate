@@ -20,7 +20,6 @@ use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -110,7 +109,6 @@ class StockLogController extends Controller
      *
      * Export stock logs within a date range to Excel or PDF format.
      */
-    #[UrlParam('format', 'string', 'The export format (xlsx, pdf).', required: true, example: 'xlsx')]
     #[BodyParam('from', 'string', 'Start date.', required: true, example: '2026-01-01')]
     #[BodyParam('to', 'string', 'End date.', required: true, example: '2026-01-31')]
     #[Response([], 200, 'File download')]

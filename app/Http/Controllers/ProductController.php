@@ -13,7 +13,6 @@ use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -95,7 +94,6 @@ class ProductController extends Controller
      *
      * Retrieve details of a specific product by ID.
      */
-    #[UrlParam('product', 'integer', 'The product ID.', required: true, example: 1)]
     #[ResponseFromApiResource(ProductResource::class, Product::class, with: ['category', 'supplier', 'media'])]
     public function show(Product $product)
     {
@@ -109,7 +107,6 @@ class ProductController extends Controller
      *
      * Update an existing product. If a new image is uploaded, the old image will be replaced.
      */
-    #[UrlParam('product', 'integer', 'The product ID.', required: true, example: 1)]
     #[BodyParam('name', 'string', 'The product name.', example: 'Updated Laptop')]
     #[BodyParam('description', 'string', 'The product description.', example: 'Updated description')]
     #[BodyParam('sku', 'string', 'The product SKU.', example: 'LAP-002')]
@@ -138,7 +135,6 @@ class ProductController extends Controller
      *
      * Soft delete a product.
      */
-    #[UrlParam('product', 'integer', 'The product ID.', required: true, example: 1)]
     #[Response([], 204, 'Success')]
     public function destroy(Product $product)
     {

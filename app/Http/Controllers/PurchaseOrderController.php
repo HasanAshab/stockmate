@@ -19,7 +19,6 @@ use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -99,7 +98,6 @@ class PurchaseOrderController extends Controller
      *
      * Retrieve details of a specific purchase order by ID.
      */
-    #[UrlParam('purchaseOrder', 'integer', 'The purchase order ID.', required: true, example: 1)]
     #[ResponseFromApiResource(PurchaseOrderResource::class, PurchaseOrder::class, with: ['supplier', 'warehouse', 'creator', 'items.product'])]
     public function show(PurchaseOrder $purchaseOrder)
     {
@@ -115,7 +113,6 @@ class PurchaseOrderController extends Controller
      *
      * Update an existing purchase order. Only draft orders can be updated.
      */
-    #[UrlParam('purchaseOrder', 'integer', 'The purchase order ID.', required: true, example: 1)]
     #[BodyParam('supplier_id', 'integer', 'The supplier ID.', example: 1)]
     #[BodyParam('warehouse_id', 'integer', 'The warehouse ID.', example: 1)]
     #[BodyParam('items', 'object[]', 'Array of order items.')]
@@ -140,7 +137,6 @@ class PurchaseOrderController extends Controller
      *
      * Mark a draft purchase order as ordered (sent to supplier).
      */
-    #[UrlParam('purchaseOrder', 'integer', 'The purchase order ID.', required: true, example: 1)]
     #[ResponseFromApiResource(PurchaseOrderResource::class, PurchaseOrder::class, with: ['supplier', 'warehouse', 'creator', 'items.product'])]
     public function markOrdered(PurchaseOrder $purchaseOrder)
     {
@@ -161,7 +157,6 @@ class PurchaseOrderController extends Controller
      *
      * Cancel a purchase order. Only draft or ordered purchase orders can be cancelled.
      */
-    #[UrlParam('purchaseOrder', 'integer', 'The purchase order ID.', required: true, example: 1)]
     #[Response(['message' => 'Purchase order cancelled.'], 200)]
     public function cancel(PurchaseOrder $purchaseOrder)
     {
@@ -181,7 +176,6 @@ class PurchaseOrderController extends Controller
      *
      * Receive stock from a purchase order and update warehouse inventory.
      */
-    #[UrlParam('purchaseOrder', 'integer', 'The purchase order ID.', required: true, example: 1)]
     #[BodyParam('items', 'object[]', 'Array of received items with quantities.', required: true)]
     #[BodyParam('items[].purchase_order_item_id', 'integer', 'The purchase order item ID.', required: true, example: 1)]
     #[BodyParam('items[].received_quantity', 'integer', 'The quantity received.', required: true, example: 50)]

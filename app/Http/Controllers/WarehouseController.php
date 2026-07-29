@@ -13,7 +13,6 @@ use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseFromApiResource;
-use Knuckles\Scribe\Attributes\UrlParam;
 
 #[Group('Warehouse Management', 'APIs for managing warehouses')]
 #[Authenticated]
@@ -56,7 +55,6 @@ class WarehouseController extends Controller
      *
      * Retrieve details of a specific warehouse by ID.
      */
-    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
     #[ResponseFromApiResource(WarehouseResource::class, Warehouse::class)]
     public function show(Warehouse $warehouse)
     {
@@ -70,7 +68,6 @@ class WarehouseController extends Controller
      *
      * Update an existing warehouse.
      */
-    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
     #[BodyParam('name', 'string', 'The warehouse name.', example: 'Updated Warehouse')]
     #[BodyParam('location', 'string', 'The warehouse location.', example: 'Los Angeles')]
     #[ResponseFromApiResource(WarehouseResource::class, Warehouse::class)]
@@ -87,7 +84,6 @@ class WarehouseController extends Controller
      *
      * Delete a warehouse. The warehouse must be empty (no stock) to be deleted.
      */
-    #[UrlParam('warehouse', 'integer', 'The warehouse ID.', required: true, example: 1)]
     #[Response([], 204, 'Success')]
     #[Response(['message' => 'Warehouse must be empty before deletion'], 400)]
     public function destroy(Warehouse $warehouse, DeleteWarehouse $deleteWarehouse)
