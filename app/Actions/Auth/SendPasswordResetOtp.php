@@ -4,7 +4,6 @@ namespace App\Actions\Auth;
 
 use App\Models\User;
 use App\Notifications\PasswordResetOtpNotification;
-use Illuminate\Validation\ValidationException;
 
 class SendPasswordResetOtp
 {
@@ -13,9 +12,9 @@ class SendPasswordResetOtp
         $user = User::findByIdentifier($identifier);
 
         if (! $user) {
-            throw ValidationException::withMessages([
-                'identifier' => ['We could not find an account with that email or phone.'],
-            ]);
+            // Don't leak information about existing users
+            sleep(1);
+            return;
         }
 
         $otp = $user->createOneTimePassword();
