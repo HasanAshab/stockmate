@@ -93,7 +93,7 @@ class User extends Authenticatable implements AuthenticatableContract
         return match ($identifierType) {
             'email' => $this->email_verified_at,
             'password' => $this->password_verified_at,
-            default => $this->email_verified_at || $this->phone_verified_at,
+            default => $this->email_verified_at !== null || $this->phone_verified_at !== null,
         };
     }
 
