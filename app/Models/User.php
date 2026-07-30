@@ -88,12 +88,23 @@ class User extends Authenticatable implements AuthenticatableContract
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");
     }
 
+    public function isEmailVerified(): bool
+    {
+        return $this->email_verified_at !== null;
+    }
+
+    public function isPhoneVerified(): bool
+    {
+        return $this->phone_verified_at !== null;
+    }
+
     public function isVerified(?string $identifierType = null): bool
     {
         return match ($identifierType) {
-            'email' => $this->email_verified_at,
-            'password' => $this->password_verified_at,
-            default => $this->email_verified_at !== null || $this->phone_verified_at !== null,
+            'email' => $this->isEmailVerified(),
+            'password' => $this->isPhoneVerified(),
+            default => (!$this->email || $this->isEmailVerified()) 
+                && (!$this->phone || $this->isPhoneVerified()),
         };
     }
 
