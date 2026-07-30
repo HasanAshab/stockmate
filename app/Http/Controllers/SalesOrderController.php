@@ -52,8 +52,8 @@ class SalesOrderController extends Controller
         Gate::authorize('create', SalesOrder::class);
 
         $salesOrder = $createSalesOrder->execute(
-            $request->user(),
             $request->validated(),
+            $request->user()->id,
         );
 
         $salesOrder->load(['warehouse', 'creator', 'items.product']);
