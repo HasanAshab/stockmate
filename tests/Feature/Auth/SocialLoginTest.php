@@ -25,7 +25,7 @@ describe('Social Login', function () {
             'token' => '',
         ]);
 
-        $response->assertValidRequest()
+        $response->assertInvalidRequest()
             ->assertValidResponse(422);
     });
 
@@ -35,7 +35,7 @@ describe('Social Login', function () {
             'token' => 'some-token',
         ]);
 
-        $response->assertValidRequest()
+        $response->assertInvalidRequest()
             ->assertValidResponse(422);
     });
 
