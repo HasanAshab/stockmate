@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RoleResource;
-use Illuminate\Support\Facades\Gate;
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 use App\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
-#[Group('User Management')]
-#[Authenticated]
 class RoleController extends Controller
 {
     /**
@@ -18,7 +13,6 @@ class RoleController extends Controller
      *
      * Get a list of all available roles with their permissions.
      */
-    #[ResponseFromApiResource(RoleResource::class, Role::class, collection: true, with: ['permissions'])]
     public function index()
     {
         Gate::authorize('viewAny', Role::class);

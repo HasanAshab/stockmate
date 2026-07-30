@@ -7,18 +7,10 @@ use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\BodyParam;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\QueryParam;
-use Knuckles\Scribe\Attributes\Response;
-use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
 
-#[Group('Product Management', 'APIs for managing products')]
-#[Authenticated]
 class ProductController extends Controller
 {
     /**
@@ -26,17 +18,6 @@ class ProductController extends Controller
      *
      * Get a paginated list of products with filtering, sorting, and relationship loading.
      */
-    #[QueryParam('filter[trashed]', 'string', 'Include trashed products (with, only, without).', example: 'with')]
-    #[QueryParam('filter[category]', 'integer', 'Filter by category ID.', example: 1)]
-    #[QueryParam('filter[supplier]', 'integer', 'Filter by supplier ID.', example: 1)]
-    #[QueryParam('filter[price][gt]', 'number', 'Filter products with price greater than value.', example: 100)]
-    #[QueryParam('filter[price][gte]', 'number', 'Filter products with price greater than or equal to value.', example: 50)]
-    #[QueryParam('filter[price][lt]', 'number', 'Filter products with price less than value.', example: 100)]
-    #[QueryParam('filter[price][lte]', 'number', 'Filter products with price less than or equal to value.', example: 100)]
-    #[QueryParam('filter[price][eq]', 'number', 'Filter products with exact price.', example: 99.99)]
-    #[QueryParam('sort', 'string', 'Sort by field. Use - prefix for descending.', example: '-created_at')]
-    #[QueryParam('include', 'string', 'Include relationships (category, supplier, media).', example: 'category,supplier')]
-    #[ResponseFromApiResource(ProductResource::class, Product::class, collection: true, paginate: 10)]
     public function index()
     {
         Gate::authorize('viewAny', Product::class);
@@ -65,14 +46,6 @@ class ProductController extends Controller
      *
      * Create a new product with optional image upload.
      */
-    #[BodyParam('name', 'string', 'The product name.', required: true, example: 'Laptop')]
-    #[BodyParam('description', 'string', 'The product description.', example: 'High-performance laptop')]
-    #[BodyParam('sku', 'string', 'The product SKU.', required: true, example: 'LAP-001')]
-    #[BodyParam('price', 'number', 'The product price.', required: true, example: 999.99)]
-    #[BodyParam('category_id', 'integer', 'The category ID.', required: true, example: 1)]
-    #[BodyParam('supplier_id', 'integer', 'The supplier ID.', example: 1)]
-    #[BodyParam('image', 'file', 'The product image.')]
-    #[ResponseFromApiResource(ProductResource::class, Product::class, status: 201)]
     public function store(StoreProductRequest $request)
     {
         Gate::authorize('create', Product::class);
@@ -94,7 +67,6 @@ class ProductController extends Controller
      *
      * Retrieve details of a specific product by ID.
      */
-    #[ResponseFromApiResource(ProductResource::class, Product::class, with: ['category', 'supplier', 'media'])]
     public function show(Product $product)
     {
         Gate::authorize('view', $product);
@@ -107,14 +79,6 @@ class ProductController extends Controller
      *
      * Update an existing product. If a new image is uploaded, the old image will be replaced.
      */
-    #[BodyParam('name', 'string', 'The product name.', example: 'Updated Laptop')]
-    #[BodyParam('description', 'string', 'The product description.', example: 'Updated description')]
-    #[BodyParam('sku', 'string', 'The product SKU.', example: 'LAP-002')]
-    #[BodyParam('price', 'number', 'The product price.', example: 1099.99)]
-    #[BodyParam('category_id', 'integer', 'The category ID.', example: 1)]
-    #[BodyParam('supplier_id', 'integer', 'The supplier ID.', example: 1)]
-    #[BodyParam('image', 'file', 'The product image.')]
-    #[ResponseFromApiResource(ProductResource::class, Product::class)]
     public function update(UpdateProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
@@ -135,7 +99,6 @@ class ProductController extends Controller
      *
      * Soft delete a product.
      */
-    #[Response([], 204, 'Success')]
     public function destroy(Product $product)
     {
         Gate::authorize('delete', $product);

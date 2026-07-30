@@ -12,9 +12,9 @@
         "php": "^8.3",
         "bref/bref": "^3.0",
         "bref/laravel-bridge": "^3.0",
+        "dedoc/scramble": "^0.13.36",
         "google/apiclient": "^2.19",
         "hasinhayder/sslcommerz-laravel": "^1.1",
-        "knuckleswtf/scribe": "^5.11",
         "laravel-notification-channels/twilio": "^4.2",
         "laravel/framework": "^13.8",
         "laravel/sanctum": "^4.0",
@@ -70,8 +70,7 @@
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
-            "@php artisan scribe:generate",
-            "@php artisan scribe:patch-validation-responses",
+            "@php artisan scramble:export --ansi @no_additional_args",
             "@php artisan test"
         ],
         "post-autoload-dump": [

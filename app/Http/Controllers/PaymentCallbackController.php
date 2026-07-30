@@ -10,12 +10,7 @@ use App\Enums\SslcommerzPaymentStatus;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\Response;
-use Knuckles\Scribe\Attributes\Unauthenticated;
 
-#[Group('Payment Callbacks', 'Webhook endpoints for SSLCommerz payment gateway callbacks')]
-#[Unauthenticated]
 class PaymentCallbackController extends Controller
 {
     /**
@@ -23,8 +18,6 @@ class PaymentCallbackController extends Controller
      *
      * Handles successful payment notifications from SSLCommerz.
      */
-    #[Response(['message' => 'Payment successful.'], 200)]
-    #[Response(['message' => 'Hash validation failed.', 'errors' => ['payment' => ['Hash validation failed.']]], 422)]
     public function success(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
         $payload = $request->all();
@@ -52,7 +45,6 @@ class PaymentCallbackController extends Controller
      * application response body and the updated sales order status, not the HTTP
      * status code.
      */
-    #[Response(['message' => 'Payment failed.'], 200)]
     public function fail(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Failed, $request->all());
@@ -76,7 +68,6 @@ class PaymentCallbackController extends Controller
      * application response body and the updated sales order status, not the HTTP
      * status code.
      */
-    #[Response(['message' => 'Payment cancelled.'], 200)]
     public function cancel(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Cancelled, $request->all());
@@ -94,7 +85,6 @@ class PaymentCallbackController extends Controller
      *
      * Handles Instant Payment Notification from SSLCommerz for payment status updates.
      */
-    #[Response(['received' => true], 200)]
     public function ipn(Request $request, FinalizeSalesOrderPayment $finalizeSalesOrderPayment)
     {
         $payload = $request->all();

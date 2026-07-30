@@ -27,7 +27,7 @@ return [
     'sources' => [
         'local' => [
             'source' => 'local',
-            'base_path' => storage_path('app/private/scribe/'),
+            'base_path' => storage_path('app/private/specs/'),
         ],
 
         'remote' => [

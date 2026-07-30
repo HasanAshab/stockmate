@@ -138,7 +138,7 @@ describe('Registration', function () {
             'password' => 'Password123!',
         ]);
 
-        $response->assertValidRequest()
+        $response->assertInvalidRequest()
             ->assertValidResponse(422);
     });
 

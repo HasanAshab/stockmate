@@ -7,13 +7,7 @@ use App\Enums\SearchContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\QueryParam;
-use Knuckles\Scribe\Attributes\Response;
 
-#[Group('Search', 'APIs for searching across resources')]
-#[Authenticated]
 class SearchController extends Controller
 {
     /**
@@ -21,9 +15,6 @@ class SearchController extends Controller
      *
      * Search across all resources (products, categories, suppliers, warehouses) that the user is authorized to view.
      */
-    #[QueryParam('q', 'string', 'The search term (minimum 2 characters).', required: true, example: 'laptop')]
-    #[Response(['data' => ['products' => [], 'categories' => []]], 200)]
-    #[Response(['data' => []], 200, 'Empty term')]
     public function searchAll(Request $request, PerformSearch $search)
     {
         $term = $this->validatedTerm($request, SearchContext::Global);
@@ -54,9 +45,6 @@ class SearchController extends Controller
      *
      * Search within a specific resource type (products, categories, suppliers, or warehouses).
      */
-    #[QueryParam('q', 'string', 'The search term (minimum 3 characters).', required: true, example: 'laptop')]
-    #[Response(['data' => ['products' => []]], 200)]
-    #[Response(['message' => 'Unknown search scope [invalid].'], 404)]
     public function searchScope(Request $request, string $scope, PerformSearch $search)
     {
         $entry = config('search.scopes')[$scope];

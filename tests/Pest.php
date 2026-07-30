@@ -20,7 +20,7 @@ use Tests\TestCase;
 pest()->extend(TestCase::class)
     ->use(LazilyRefreshDatabase::class)
     ->beforeEach(function () {
-        Spectator::using('openapi.yaml');
+        Spectator::using('openapi.json');
         $this->seed(PermissionSeeder::class);
         $this->seed(RoleSeeder::class);
     })

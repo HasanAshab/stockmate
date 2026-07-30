@@ -39,7 +39,7 @@ visual demonstration. Both are live and running.
 - **Payment Gateway** — SSLCommerz (`sslcommerz/sslcommerz-laravel`)
 - **Excel / CSV Export** — Maatwebsite Laravel Excel
 - **Activity Logging** — Spatie Laravel Activity Log
-- **API Documentation** — Scribe
+- **API Documentation** — Scramble (auto docs generation)
 
 ---
 
@@ -96,11 +96,11 @@ visual demonstration. Both are live and running.
 
 ## API Documentation
 
-This project uses [Scribe](https://scribe.knuckles.wtf/laravel/) for automatic API
+This project uses [Scramble](https://scramble.dedoc.co/) for automatic API
 documentation. All endpoints, request bodies, response shapes, and authentication
 requirements are documented and always in sync with the code.
 
-**Live docs:** [stockmate-pq66.onrender.com/docs](https://stockmate-api-7i6e.onrender.com/docs)
+**Live docs:** [stockmate-pq66.onrender.com/docs/api](https://stockmate-pq66.onrender.com/docs/api/)
 
 Alternatively, the [frontend](https://stockmate-demo.vercel.app) covers the core flows
 visually if you prefer to explore that way.

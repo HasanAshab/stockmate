@@ -7,17 +7,10 @@ use App\Http\Resources\WarehouseStockResource;
 use App\Models\Warehouse;
 use App\Models\WarehouseStock;
 use Illuminate\Support\Facades\Gate;
-use Knuckles\Scribe\Attributes\Authenticated;
-use Knuckles\Scribe\Attributes\BodyParam;
-use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\QueryParam;
-use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
 use Spatie\QueryBuilder\QueryBuilder;
 
-#[Group('Warehouse Stock Management', 'APIs for managing stock levels in warehouses')]
-#[Authenticated]
 class WarehouseStockController extends Controller
 {
     /**
@@ -25,17 +18,6 @@ class WarehouseStockController extends Controller
      *
      * Get a paginated list of stock items in a specific warehouse with filtering and sorting.
      */
-    #[QueryParam('filter[product]', 'integer', 'Filter by product ID.', example: 1)]
-    #[QueryParam('filter[warehouse]', 'integer', 'Filter by warehouse ID.', example: 1)]
-    #[QueryParam('filter[quantity][gt]', 'number', 'Filter stock with quantity greater than value.', example: 100)]
-    #[QueryParam('filter[quantity][gte]', 'number', 'Filter stock with quantity greater than or equal to value.', example: 50)]
-    #[QueryParam('filter[quantity][lt]', 'number', 'Filter stock with quantity less than value.', example: 10)]
-    #[QueryParam('filter[quantity][lte]', 'number', 'Filter stock with quantity less than or equal to value.', example: 20)]
-    #[QueryParam('filter[quantity][eq]', 'number', 'Filter stock with exact quantity.', example: 75)]
-    #[QueryParam('filter[low_stock]', 'boolean', 'Filter low stock items.', example: true)]
-    #[QueryParam('sort', 'string', 'Sort by field. Use - prefix for descending.', example: '-quantity')]
-    #[QueryParam('include', 'string', 'Include relationships.', example: 'product.category')]
-    #[ResponseFromApiResource(WarehouseStockResource::class, WarehouseStock::class, collection: true, paginate: 15)]
     public function index(Warehouse $warehouse)
     {
         Gate::authorize('view', $warehouse);
@@ -64,7 +46,6 @@ class WarehouseStockController extends Controller
      *
      * Retrieve details of a specific stock item in a warehouse.
      */
-    #[ResponseFromApiResource(WarehouseStockResource::class, WarehouseStock::class)]
     public function show(Warehouse $warehouse, WarehouseStock $stock)
     {
         Gate::authorize('view', $warehouse);
@@ -77,8 +58,6 @@ class WarehouseStockController extends Controller
      *
      * Update the quantity of a stock item in a warehouse.
      */
-    #[BodyParam('quantity', 'integer', 'The new quantity.', required: true, example: 75)]
-    #[ResponseFromApiResource(WarehouseStockResource::class, WarehouseStock::class)]
     public function update(UpdateWarehouseStockRequest $request, Warehouse $warehouse, WarehouseStock $stock)
     {
         Gate::authorize('view', $warehouse);
