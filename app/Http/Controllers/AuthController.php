@@ -20,6 +20,7 @@ use App\Http\Requests\Auth\SocialLoginRequest;
 use App\Http\Requests\Auth\VerifyAccountRequest;
 use App\Http\Resources\UserResource;
 use App\Services\Social\SocialAuthManager;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -34,6 +35,13 @@ class AuthController extends Controller
      *
      * Authenticate a user with their credentials (email/phone number and password).
      */
+    #[Response(
+        status: 401,
+        description: 'Invalid credentials.',
+        examples: [
+            'message' => 'These credentials do not match our records.',
+        ]
+    )]
     public function login(LoginRequest $request, LoginUser $loginUser)
     {
         $user = $loginUser->execute(
