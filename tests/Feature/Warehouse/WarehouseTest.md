@@ -12,91 +12,155 @@ Tests should be organized by endpoint into separate files:
 - **Contract Testing**: Always use `$response->assertValidRequest()->assertValidResponse(status)`
 - **No Duplicate Assertions**: Do not use `assertJsonStructure()` - `assertValidResponse()` already validates against OpenAPI schema
 - **File Organization**: One endpoint per file with `describe()` block using descriptive name
+- **Invalid Requests**: Use `assertInvalidRequest()` when request violates OpenAPI schema
+- **Deletion Rules**: Warehouse cannot be deleted if it has stock (test via DeleteWarehouse action)
+
+## Common Testing Patterns
+
+### Creating Warehouses
+```php
+$response = postJson('/api/v1/warehouses', [
+    'name' => 'Main Warehouse',
+    'location' => 'Dhaka, Bangladesh',
+]);
+```
+
+### Testing Deletion with Stock
+```php
+$warehouse = Warehouse::factory()->create();
+$product = Product::factory()->create();
+
+// Add stock to warehouse
+WarehouseStock::factory()->create([
+    'warehouse_id' => $warehouse->id,
+    'product_id' => $product->id,
+    'quantity' => 100,
+]);
+
+$response = deleteJson("/api/v1/warehouses/{$warehouse->id}");
+$response->assertValidRequest()->assertValidResponse(400); // WarehouseNotEmpty exception
+```
 
 ---
 
 ## GET /api/v1/warehouses
+**File**: `tests/Feature/Warehouse/GetWarehousesTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('requires warehouses-view permission'); // WarehousePolicy::viewAny
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 403 for user without warehouses-view permission'); // WarehousePolicy::viewAny
-it('returns paginated list of warehouses with 200'); // WarehouseController::index cursorPaginate(7)
-it('returns warehouse resource collection'); // WarehouseResource::collection
-$response->assertValidRequest()->assertValidResponse(200);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(403);
+describe('List Warehouses', function () {
+    it('requires authentication'); // auth:sanctum middleware
+    it('requires warehouses-view permission'); // WarehousePolicy::viewAny
+    it('returns paginated list of warehouses with 200'); // WarehouseController::index
+    it('filters warehouses by name'); // AllowedFilter::partial('name')
+    it('filters warehouses by location'); // AllowedFilter::partial('location')
+    it('sorts warehouses by created_at'); // allowedSorts('created_at')
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 for user without permission'); // WarehousePolicy::viewAny
+    it('returns warehouse resource collection'); // WarehouseResource::collection
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(200);
+});
 ```
+
+---
 
 ## POST /api/v1/warehouses
+**File**: `tests/Feature/Warehouse/CreateWarehouseTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('requires warehouses-create permission'); // WarehousePolicy::create
-it('creates a new warehouse and returns 201'); // WarehouseController::store
-it('returns validation errors for invalid input'); // StoreWarehouseRequest::rules
-it('validates required name field'); // StoreWarehouseRequest name required
-it('validates required location field'); // StoreWarehouseRequest location required
-it('validates max length for name field'); // StoreWarehouseRequest max
-it('validates max length for location field'); // StoreWarehouseRequest max
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 403 for user without warehouses-create permission'); // WarehousePolicy::create
-it('returns warehouse resource on success'); // WarehouseController::store WarehouseResource
-$response->assertValidRequest()->assertValidResponse(201);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(403);
+describe('Create Warehouse', function () {
+    it('requires authentication'); // auth:sanctum middleware
+    it('requires warehouses-create permission'); // WarehousePolicy::create
+    it('creates a new warehouse and returns 201'); // WarehouseController::store
+    it('validates required name'); // StoreWarehouseRequest::rules
+    it('validates required location'); // StoreWarehouseRequest::rules
+    it('validates max length for name'); // max:100 - use assertInvalidRequest()
+    it('validates max length for location'); // max:255 - use assertInvalidRequest()
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 for user without permission'); // WarehousePolicy::create
+    it('returns warehouse resource on success'); // WarehouseResource
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(201);
+    $response->assertInvalidRequest()->assertValidResponse(422);
+});
 ```
+
+---
 
 ## GET /api/v1/warehouses/{warehouse}
+**File**: `tests/Feature/Warehouse/ShowWarehouseTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('requires warehouses-view permission'); // WarehousePolicy::view
-it('returns warehouse details with 200'); // WarehouseController::show
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 403 for user without warehouses-view permission'); // WarehousePolicy::view
-it('returns 404 for non-existent warehouse'); // route model binding
-it('returns warehouse resource'); // WarehouseController::show WarehouseResource
-$response->assertValidRequest()->assertValidResponse(200);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(403);
-$response->assertValidRequest()->assertValidResponse(404);
+describe('Show Warehouse', function () {
+    it('requires authentication'); // auth:sanctum middleware
+    it('requires warehouses-view permission'); // WarehousePolicy::view
+    it('returns warehouse details with 200'); // WarehouseController::show
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 for user without permission'); // WarehousePolicy::view
+    it('returns 404 for non-existent warehouse'); // route model binding
+    it('returns warehouse resource'); // WarehouseResource
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(200);
+    $response->assertValidRequest()->assertValidResponse(404);
+});
 ```
+
+---
 
 ## PUT/PATCH /api/v1/warehouses/{warehouse}
+**File**: `tests/Feature/Warehouse/UpdateWarehouseTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('requires warehouses-update permission'); // WarehousePolicy::update
-it('updates warehouse and returns 200'); // WarehouseController::update
-it('returns validation errors for invalid input'); // UpdateWarehouseRequest::rules
-it('validates max length for name field'); // UpdateWarehouseRequest max
-it('validates max length for location field'); // UpdateWarehouseRequest max
-it('allows partial updates'); // UpdateWarehouseRequest optional fields
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 403 for user without warehouses-update permission'); // WarehousePolicy::update
-it('returns 404 for non-existent warehouse'); // route model binding
-it('returns updated warehouse resource'); // WarehouseController::update WarehouseResource
-$response->assertValidRequest()->assertValidResponse(200);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(403);
-$response->assertValidRequest()->assertValidResponse(404);
+describe('Update Warehouse', function () {
+    it('requires authentication'); // auth:sanctum middleware
+    it('requires warehouses-update permission'); // WarehousePolicy::update
+    it('updates warehouse and returns 200'); // WarehouseController::update
+    it('allows partial updates'); // optional fields
+    it('validates max length for name'); // max:100 - use assertInvalidRequest()
+    it('validates max length for location'); // max:255 - use assertInvalidRequest()
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 for user without permission'); // WarehousePolicy::update
+    it('returns 404 for non-existent warehouse'); // route model binding
+    it('returns updated warehouse resource'); // WarehouseResource
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(200);
+    $response->assertValidRequest()->assertValidResponse(404);
+});
 ```
+
+---
 
 ## DELETE /api/v1/warehouses/{warehouse}
+**File**: `tests/Feature/Warehouse/DeleteWarehouseTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('requires warehouses-delete permission'); // WarehousePolicy::delete
-it('deletes empty warehouse and returns 204'); // WarehouseController::destroy
-it('returns 400 when warehouse has stock'); // DeleteWarehouse::execute WarehouseNotEmpty
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 403 for user without warehouses-delete permission'); // WarehousePolicy::delete
-it('returns 404 for non-existent warehouse'); // route model binding
-$response->assertValidRequest()->assertValidResponse(204);
-$response->assertValidRequest()->assertValidResponse(400);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(403);
-$response->assertValidRequest()->assertValidResponse(404);
+describe('Delete Warehouse', function () {
+    it('requires authentication'); // auth:sanctum middleware
+    it('requires warehouses-delete permission'); // WarehousePolicy::delete
+    it('deletes empty warehouse and returns 204'); // DeleteWarehouse::execute
+    it('returns 400 when warehouse has stock'); // DeleteWarehouse WarehouseNotEmpty exception
+    it('returns 400 when warehouse has pending orders'); // business rule check
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 for user without permission'); // WarehousePolicy::delete
+    it('returns 404 for non-existent warehouse'); // route model binding
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(204);
+    $response->assertValidRequest()->assertValidResponse(400); // not empty
+    $response->assertValidRequest()->assertValidResponse(404);
+});
 ```
+
+---
+
+## Key Testing Notes
+
+- **Deletion Rules**: Warehouse can only be deleted if it's empty (no stock, no pending orders)
+- **Stock Association**: Each warehouse has many warehouse_stocks
+- **Order Association**: Warehouses are referenced in sales_orders and purchase_orders
+- **Activity Logging**: Warehouse CRUD actions should be logged
+- **Default Warehouse**: Consider if app needs concept of "default" warehouse

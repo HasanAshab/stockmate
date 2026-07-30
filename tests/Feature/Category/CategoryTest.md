@@ -4,7 +4,7 @@
 
 Tests should be organized by endpoint into separate files:
 - One endpoint per file (e.g., `GetCategoriesTest.php`, `CreateCategoryTest.php`)
-- Use `describe()` blocks with descriptive names
+- Use `describe()` blocks with descriptive names (e.g., `describe('List Categories')`)
 
 ## Testing Guidelines
 
@@ -12,10 +12,40 @@ Tests should be organized by endpoint into separate files:
 - **Contract Testing**: Always use `$response->assertValidRequest()->assertValidResponse(status)`
 - **No Duplicate Assertions**: Do not use `assertJsonStructure()` - `assertValidResponse()` already validates against OpenAPI schema
 - **File Organization**: One endpoint per file with `describe()` block using descriptive name
+- **Invalid Requests**: Use `assertInvalidRequest()` when the request violates OpenAPI schema (missing required fields, exceeds max length, invalid format)
+- **Authentication**: Use `actingAs($user)` or pass Bearer token in headers
+- **Authorization**: Test both permission checks and policy checks where applicable
+
+## Common Testing Patterns
+
+### Authentication Pattern
+```php
+$user = User::factory()->create();
+$token = $user->createToken('test-token')->plainTextToken;
+
+$response = getJson('/api/v1/endpoint', [
+    'Authorization' => "Bearer {$token}",
+]);
+```
+
+### Permission Testing Pattern
+```php
+$user = User::factory()->create();
+$user->givePermissionTo('categories-view');
+actingAs($user)->getJson('/api/v1/categories');
+```
+
+### Policy Testing Pattern
+```php
+// Test policy authorization
+$user = User::factory()->create();
+$user->givePermissionTo('categories-view'); // CategoryPolicy::viewAny
+```
 
 ---
 
 ## GET /api/v1/categories
+**File**: `tests/Feature/Category/GetCategoriesTest.php` (suggested)
 
 ```php
 it('requires authentication'); // auth:sanctum middleware
@@ -30,27 +60,36 @@ $response->assertValidRequest()->assertValidResponse(401);
 $response->assertValidRequest()->assertValidResponse(403);
 ```
 
+---
+
 ## POST /api/v1/categories
+**File**: `tests/Feature/Category/CreateCategoryTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('requires categories-create permission'); // CategoryPolicy::create
-it('creates a new category and returns 201'); // CategoryController::store
-it('returns validation errors for invalid input'); // StoreCategoryRequest::rules
-it('rejects duplicate slug'); // StoreCategoryRequest unique:categories
-it('validates max length for name field'); // StoreCategoryRequest max:70
-it('validates max length for slug field'); // StoreCategoryRequest max:70
-it('validates max length for description field'); // StoreCategoryRequest max:255
-it('allows nullable description'); // StoreCategoryRequest nullable
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 403 for user without categories-create permission'); // CategoryPolicy::create
-it('returns category resource on success'); // CategoryController::store CategoryResource
-$response->assertValidRequest()->assertValidResponse(201);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(403);
+describe('Create Category', function () {
+    it('requires authentication'); // auth:sanctum middleware
+    it('requires categories-create permission'); // CategoryPolicy::create
+    it('creates a new category and returns 201'); // CategoryController::store
+    it('returns validation errors for invalid input'); // StoreCategoryRequest::rules
+    it('rejects duplicate slug'); // StoreCategoryRequest unique:categories
+    it('validates max length for name field'); // StoreCategoryRequest max:70 - use assertInvalidRequest()
+    it('validates max length for slug field'); // StoreCategoryRequest max:70 - use assertInvalidRequest()
+    it('validates max length for description field'); // StoreCategoryRequest max:255 - use assertInvalidRequest()
+    it('allows nullable description'); // StoreCategoryRequest nullable
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 for user without categories-create permission'); // CategoryPolicy::create
+    it('returns category resource on success'); // CategoryController::store CategoryResource
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(201);
+    $response->assertInvalidRequest()->assertValidResponse(422); // for OpenAPI violations
+});
 ```
 
+---
+
 ## GET /api/v1/categories/{category}
+**File**: `tests/Feature/Category/ShowCategoryTest.php` (suggested)
 
 ```php
 it('requires authentication'); // auth:sanctum middleware
@@ -66,7 +105,10 @@ $response->assertValidRequest()->assertValidResponse(403);
 $response->assertValidRequest()->assertValidResponse(404);
 ```
 
+---
+
 ## PUT/PATCH /api/v1/categories/{category}
+**File**: `tests/Feature/Category/UpdateCategoryTest.php` (suggested)
 
 ```php
 it('requires authentication'); // auth:sanctum middleware
@@ -88,7 +130,10 @@ $response->assertValidRequest()->assertValidResponse(403);
 $response->assertValidRequest()->assertValidResponse(404);
 ```
 
+---
+
 ## DELETE /api/v1/categories/{category}
+**File**: `tests/Feature/Category/DeleteCategoryTest.php` (suggested)
 
 ```php
 it('requires authentication'); // auth:sanctum middleware
@@ -103,7 +148,10 @@ $response->assertValidRequest()->assertValidResponse(403);
 $response->assertValidRequest()->assertValidResponse(404);
 ```
 
+---
+
 ## GET /api/v1/categories/trashed
+**File**: `tests/Feature/Category/GetTrashedCategoriesTest.php` (suggested)
 
 ```php
 it('requires authentication'); // auth:sanctum middleware
@@ -117,7 +165,10 @@ $response->assertValidRequest()->assertValidResponse(401);
 $response->assertValidRequest()->assertValidResponse(403);
 ```
 
+---
+
 ## POST /api/v1/categories/{category}/restore
+**File**: `tests/Feature/Category/RestoreCategoryTest.php` (suggested)
 
 ```php
 it('requires authentication'); // auth:sanctum middleware

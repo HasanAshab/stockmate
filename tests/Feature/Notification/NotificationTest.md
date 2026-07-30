@@ -12,81 +12,120 @@ Tests should be organized by endpoint into separate files:
 - **Contract Testing**: Always use `$response->assertValidRequest()->assertValidResponse(status)`
 - **No Duplicate Assertions**: Do not use `assertJsonStructure()` - `assertValidResponse()` already validates against OpenAPI schema
 - **File Organization**: One endpoint per file with `describe()` block using descriptive name
+- **Authentication Required**: All notification endpoints require authentication
+- **User Isolation**: Users only see their own notifications
+
+## Common Testing Patterns
+
+### Creating Notifications for Testing
+```php
+$user = User::factory()->create();
+$user->notify(new ProductLowStock($product));
+$user->notify(new ProductOutOfStock($product));
+
+expect($user->unreadNotifications)->toHaveCount(2);
+```
+
+### Testing Read/Unread Status
+```php
+$notification = $user->notifications()->first();
+expect($notification->read_at)->toBeNull();
+
+$notification->markAsRead();
+expect($notification->fresh()->read_at)->not->toBeNull();
+```
 
 ---
 
 ## GET /api/v1/notifications
+**File**: `tests/Feature/Notification/GetNotificationsTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('returns paginated list of all notifications with 200'); // NotificationController::index
-it('returns only authenticated user notifications'); // $request->user()->notifications()
-it('returns notifications in paginated format'); // cursorPaginate(10)
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns notification resource collection'); // NotificationResource::collection
-$response->assertValidRequest()->assertValidResponse(200);
-$response->assertValidRequest()->assertValidResponse(401);
+describe('List Notifications', function () {
+    it('requires authentication'); // auth:sanctum + Authenticated attribute
+    it('returns paginated list of notifications with 200'); // NotificationController::index
+    it('returns only authenticated user notifications'); // $request->user()->notifications()
+    it('filters unread notifications'); // unreadNotifications()
+    it('includes read notifications by default'); // notifications()
+    it('sorts notifications by created_at desc'); // orderBy('created_at', 'desc')
+    it('returns notification resource collection'); // NotificationResource::collection
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('does not return other users notifications'); // user isolation
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(200);
+});
 ```
 
-## GET /api/v1/notifications/unread
+---
+
+## POST /api/v1/notifications/{notification}/read
+**File**: `tests/Feature/Notification/MarkNotificationReadTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('returns paginated list of unread notifications with 200'); // NotificationController::unread
-it('returns only unread notifications for authenticated user'); // $request->user()->unreadNotifications()
-it('returns notifications in paginated format'); // cursorPaginate(10)
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns notification resource collection'); // NotificationResource::collection
-$response->assertValidRequest()->assertValidResponse(200);
-$response->assertValidRequest()->assertValidResponse(401);
+describe('Mark Notification as Read', function () {
+    it('requires authentication'); // auth:sanctum + Authenticated attribute
+    it('marks notification as read and returns 200'); // NotificationController::markAsRead
+    it('sets read_at timestamp'); // $notification->markAsRead()
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 when marking another user notification'); // policy check
+    it('returns 404 for non-existent notification'); // route model binding
+    it('returns notification resource'); // NotificationResource
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(200);
+    $response->assertValidRequest()->assertValidResponse(403);
+    $response->assertValidRequest()->assertValidResponse(404);
+});
 ```
 
-## GET /api/v1/notifications/unread/count
+---
+
+## POST /api/v1/notifications/read-all
+**File**: `tests/Feature/Notification/MarkAllNotificationsReadTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('returns unread notification count with 200'); // NotificationController::unreadCount
-it('returns count as integer'); // ['data' => ['count' => int]]
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-$response->assertValidRequest()->assertValidResponse(200);
-$response->assertValidRequest()->assertValidResponse(401);
+describe('Mark All Notifications as Read', function () {
+    it('requires authentication'); // auth:sanctum + Authenticated attribute
+    it('marks all user notifications as read and returns 200'); // NotificationController::markAllAsRead
+    it('sets read_at on all unread notifications'); // $user->unreadNotifications()->update()
+    it('does not affect other users notifications'); // user isolation
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns success message'); // ['message' => 'All notifications marked as read']
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(200);
+});
 ```
 
-## PATCH /api/v1/notifications/{id}/mark-as-read
+---
+
+## DELETE /api/v1/notifications/{notification}
+**File**: `tests/Feature/Notification/DeleteNotificationTest.php` (suggested)
 
 ```php
-it('requires authentication'); // auth:sanctum middleware
-it('marks notification as read and returns 204'); // NotificationController::markAsRead
-it('only marks authenticated user notifications'); // $request->user()->notifications()->findOrFail($id)
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 404 for non-existent notification'); // findOrFail
-it('returns 404 for notification belonging to another user'); // $request->user()->notifications()->findOrFail($id)
-$response->assertValidRequest()->assertValidResponse(204);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(404);
+describe('Delete Notification', function () {
+    it('requires authentication'); // auth:sanctum + Authenticated attribute
+    it('deletes notification and returns 204'); // NotificationController::destroy
+    it('returns 401 for unauthenticated request'); // auth:sanctum middleware
+    it('returns 403 when deleting another user notification'); // policy check
+    it('returns 404 for non-existent notification'); // route model binding
+    
+    // Contract testing
+    $response->assertValidRequest()->assertValidResponse(204);
+    $response->assertValidRequest()->assertValidResponse(403);
+    $response->assertValidRequest()->assertValidResponse(404);
+});
 ```
 
-## PATCH /api/v1/notifications/mark-all-as-read
+---
 
-```php
-it('requires authentication'); // auth:sanctum middleware
-it('marks all unread notifications as read and returns 204'); // NotificationController::markAllAsRead
-it('only marks authenticated user notifications'); // $request->user()->unreadNotifications->markAsRead()
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-$response->assertValidRequest()->assertValidResponse(204);
-$response->assertValidRequest()->assertValidResponse(401);
-```
+## Key Testing Notes
 
-## DELETE /api/v1/notifications/{id}
-
-```php
-it('requires authentication'); // auth:sanctum middleware
-it('deletes notification and returns 204'); // NotificationController::destroy
-it('only deletes authenticated user notifications'); // $request->user()->notifications()->findOrFail($id)
-it('returns 401 for unauthenticated request'); // auth:sanctum middleware
-it('returns 404 for non-existent notification'); // findOrFail
-it('returns 404 for notification belonging to another user'); // $request->user()->notifications()->findOrFail($id)
-$response->assertValidRequest()->assertValidResponse(204);
-$response->assertValidRequest()->assertValidResponse(401);
-$response->assertValidRequest()->assertValidResponse(404);
-```
+- **User Isolation**: Users must only access their own notifications
+- **Notification Types**: Test different notification types (ProductLowStock, ProductOutOfStock, etc.)
+- **Real-time Updates**: Notifications may be sent via WebSockets/Pusher
+- **Database Notifications**: Using Laravel's database notification channel
+- **Cleanup**: Old notifications may be automatically deleted after X days
+- **Pagination**: Large notification lists should be paginated
+- **Unread Count**: May need endpoint to get unread notification count
