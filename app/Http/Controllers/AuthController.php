@@ -91,7 +91,7 @@ class AuthController extends Controller
         $data = $verifier->resolve($request->string('token')->toString());
         $user = $this->loginOrRegisterSocialUser->execute($provider, $data);
 
-        $token = $user->createAccessToken('stockmate')->plainTextToken;
+        $token = $user->createToken('stockmate')->plainTextToken;
 
         return (new UserResource($user))
             ->additional([
