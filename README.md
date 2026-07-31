@@ -323,9 +323,7 @@ This runs server + queue worker + Vite concurrently.
 **Run tests:**
 
 ```bash
-php artisan test
-# or with coverage
-php artisan test --coverage
+composer test -- --compact
 ```
 
 ---
