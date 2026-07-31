@@ -74,6 +74,11 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasRole(Role::SuperAdmin) ? true : null;
         });
 
+        Gate::define('viewApiDocs', function (User $user) {
+            // return app()->isLocal();
+            return true; // SECURITY: for demo purpose
+        });
+
         // Rate Limiting
         RateLimiter::for('api', fn ($request) =>
             Limit::perMinute(90)->by($request->user()?->id ?: $request->ip())
