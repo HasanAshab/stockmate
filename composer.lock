@@ -4,8 +4,85 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef8c5a103ddc383fb65c043a780d627b",
+    "content-hash": "4c250c9df14bc471519af9c65c527efb",
     "packages": [
+        {
+            "name": "albertoarena/laravel-truss",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/albertoarena/laravel-truss.git",
+                "reference": "cbd86a4cdedf2d9c3703f4bf3b9f906380f592a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/albertoarena/laravel-truss/zipball/cbd86a4cdedf2d9c3703f4bf3b9f906380f592a1",
+                "reference": "cbd86a4cdedf2d9c3703f4bf3b9f906380f592a1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^12.0 || ^13.0",
+                "illuminate/support": "^12.0 || ^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.18",
+                "orchestra/testbench": "^10.0 || ^11.0",
+                "pestphp/pest": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AlbertoArena\\Truss\\TrussServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AlbertoArena\\Truss\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alberto Arena",
+                    "email": "arena.alberto@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A live database structure viewer for Laravel. Renders your schema (never data) as a scrollable, zoomable ER diagram.",
+            "homepage": "https://github.com/albertoarena/laravel-truss",
+            "keywords": [
+                "DBML",
+                "data-dictionary",
+                "database",
+                "database-diagram",
+                "er-diagram",
+                "erd",
+                "introspection",
+                "laravel",
+                "mermaid",
+                "migrations",
+                "schema"
+            ],
+            "support": {
+                "docs": "https://trussphp.com",
+                "issues": "https://github.com/albertoarena/laravel-truss/issues",
+                "source": "https://github.com/albertoarena/laravel-truss"
+            },
+            "funding": [
+                {
+                    "url": "https://ko-fi.com/albertoarena",
+                    "type": "ko-fi"
+                }
+            ],
+            "time": "2026-07-30T13:24:44+00:00"
+        },
         {
             "name": "aws/aws-crt-php",
             "version": "v1.2.7",
