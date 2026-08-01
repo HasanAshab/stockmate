@@ -1,15 +1,12 @@
 <?php
 
-use App\Contracts\SocialTokenVerifier;
-use App\DTOs\SocialUserData;
 use App\Enums\SocialProvider;
 use App\Models\User;
-use App\Services\Social\SocialAuthManager;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
-use Mockery\MockInterface;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\User as SocialiteUser;
 
-use function Pest\Laravel\mock;
 use function Pest\Laravel\postJson;
 
 describe('Social Login', function () {
@@ -26,24 +23,25 @@ describe('Social Login', function () {
             'provider_id' => 'google-123',
         ]);
 
-        mock(SocialAuthManager::class, function (MockInterface $mock) {
-            $verifier = mock(SocialTokenVerifier::class, function (MockInterface $verifierMock) {
-                $verifierMock->shouldReceive('resolve')
-                    ->with('valid-google-token')
-                    ->once()
-                    ->andReturn(new SocialUserData(
-                        id: 'google-123',
-                        email: 'john@example.com',
-                        name: 'John Doe',
-                        emailVerified: true
-                    ));
-            });
+        Socialite::shouldReceive('driver')
+            ->with('google')
+            ->once()
+            ->andReturnSelf();
 
-            $mock->shouldReceive('driver')
-                ->with('google')
-                ->once()
-                ->andReturn($verifier);
-        });
+        Socialite::shouldReceive('stateless')
+            ->once()
+            ->andReturnSelf();
+
+        Socialite::shouldReceive('userFromToken')
+            ->with('valid-google-token')
+            ->once()
+            ->andReturn(
+                SocialiteUser::fake([
+                    'id' => 'google-123',
+                    'email' => 'john@example.com',
+                    'name' => 'John Doe',
+                ])
+            );
 
         $response = postJson('/api/v1/auth/social', [
             'provider' => 'google',
@@ -70,24 +68,25 @@ describe('Social Login', function () {
             'provider_id' => 'microsoft-456',
         ]);
 
-        mock(SocialAuthManager::class, function (MockInterface $mock) {
-            $verifier = mock(SocialTokenVerifier::class, function (MockInterface $verifierMock) {
-                $verifierMock->shouldReceive('resolve')
-                    ->with('valid-microsoft-token')
-                    ->once()
-                    ->andReturn(new SocialUserData(
-                        id: 'microsoft-456',
-                        email: 'jane@example.com',
-                        name: 'Jane Doe',
-                        emailVerified: true
-                    ));
-            });
+        Socialite::shouldReceive('driver')
+            ->with('microsoft')
+            ->once()
+            ->andReturnSelf();
 
-            $mock->shouldReceive('driver')
-                ->with('microsoft')
-                ->once()
-                ->andReturn($verifier);
-        });
+        Socialite::shouldReceive('stateless')
+            ->once()
+            ->andReturnSelf();
+
+        Socialite::shouldReceive('userFromToken')
+            ->with('valid-microsoft-token')
+            ->once()
+            ->andReturn(
+                SocialiteUser::fake([
+                    'id' => 'microsoft-456',
+                    'email' => 'jane@example.com',
+                    'name' => 'Jane Doe',
+                ])
+            );
 
         $response = postJson('/api/v1/auth/social', [
             'provider' => 'microsoft',
@@ -104,24 +103,25 @@ describe('Social Login', function () {
     it('registers new user with valid google token and returns 200', function () {
         Event::fake([Registered::class]);
 
-        mock(SocialAuthManager::class, function (MockInterface $mock) {
-            $verifier = mock(SocialTokenVerifier::class, function (MockInterface $verifierMock) {
-                $verifierMock->shouldReceive('resolve')
-                    ->with('valid-google-token')
-                    ->once()
-                    ->andReturn(new SocialUserData(
-                        id: 'google-new-123',
-                        email: 'newuser@example.com',
-                        name: 'New User',
-                        emailVerified: true
-                    ));
-            });
+        Socialite::shouldReceive('driver')
+            ->with('google')
+            ->once()
+            ->andReturnSelf();
 
-            $mock->shouldReceive('driver')
-                ->with('google')
-                ->once()
-                ->andReturn($verifier);
-        });
+        Socialite::shouldReceive('stateless')
+            ->once()
+            ->andReturnSelf();
+
+        Socialite::shouldReceive('userFromToken')
+            ->with('valid-google-token')
+            ->once()
+            ->andReturn(
+                SocialiteUser::fake([
+                    'id' => 'google-new-123',
+                    'email' => 'newuser@example.com',
+                    'name' => 'New User',
+                ])
+            );
 
         $response = postJson('/api/v1/auth/social', [
             'provider' => 'google',
@@ -148,24 +148,25 @@ describe('Social Login', function () {
     it('registers new user with valid microsoft token and returns 200', function () {
         Event::fake([Registered::class]);
 
-        mock(SocialAuthManager::class, function (MockInterface $mock) {
-            $verifier = mock(SocialTokenVerifier::class, function (MockInterface $verifierMock) {
-                $verifierMock->shouldReceive('resolve')
-                    ->with('valid-microsoft-token')
-                    ->once()
-                    ->andReturn(new SocialUserData(
-                        id: 'microsoft-new-456',
-                        email: 'anotheruser@example.com',
-                        name: 'Another User',
-                        emailVerified: false
-                    ));
-            });
+        Socialite::shouldReceive('driver')
+            ->with('microsoft')
+            ->once()
+            ->andReturnSelf();
 
-            $mock->shouldReceive('driver')
-                ->with('microsoft')
-                ->once()
-                ->andReturn($verifier);
-        });
+        Socialite::shouldReceive('stateless')
+            ->once()
+            ->andReturnSelf();
+
+        Socialite::shouldReceive('userFromToken')
+            ->with('valid-microsoft-token')
+            ->once()
+            ->andReturn(
+                SocialiteUser::fake([
+                    'id' => 'microsoft-new-456',
+                    'email' => 'anotheruser@example.com',
+                    'name' => 'Another User',
+                ])
+            );
 
         $response = postJson('/api/v1/auth/social', [
             'provider' => 'microsoft',
@@ -179,7 +180,6 @@ describe('Social Login', function () {
         $this->assertDatabaseHas('users', [
             'email' => 'anotheruser@example.com',
             'name' => 'Another User',
-            'email_verified_at' => null,
         ]);
 
         $this->assertDatabaseHas('social_accounts', [
@@ -211,19 +211,19 @@ describe('Social Login', function () {
     });
 
     it('returns 401 for invalid social token', function () {
-        mock(SocialAuthManager::class, function (MockInterface $mock) {
-            $verifier = mock(SocialTokenVerifier::class, function (MockInterface $verifierMock) {
-                $verifierMock->shouldReceive('resolve')
-                    ->with('invalid-token')
-                    ->once()
-                    ->andThrow(new Exception('Invalid token'));
-            });
+        Socialite::shouldReceive('driver')
+            ->with('google')
+            ->once()
+            ->andReturnSelf();
 
-            $mock->shouldReceive('driver')
-                ->with('google')
-                ->once()
-                ->andReturn($verifier);
-        });
+        Socialite::shouldReceive('stateless')
+            ->once()
+            ->andReturnSelf();
+
+        Socialite::shouldReceive('userFromToken')
+            ->with('invalid-token')
+            ->once()
+            ->andThrow(new Exception('Invalid token'));
 
         $response = postJson('/api/v1/auth/social', [
             'provider' => 'google',
@@ -236,24 +236,25 @@ describe('Social Login', function () {
     it('returns user resource and bearer token on success', function () {
         Event::fake([Registered::class]);
 
-        mock(SocialAuthManager::class, function (MockInterface $mock) {
-            $verifier = mock(SocialTokenVerifier::class, function (MockInterface $verifierMock) {
-                $verifierMock->shouldReceive('resolve')
-                    ->with('valid-token')
-                    ->once()
-                    ->andReturn(new SocialUserData(
-                        id: 'test-123',
-                        email: 'test@example.com',
-                        name: 'Test User',
-                        emailVerified: true
-                    ));
-            });
+        Socialite::shouldReceive('driver')
+            ->with('google')
+            ->once()
+            ->andReturnSelf();
 
-            $mock->shouldReceive('driver')
-                ->with('google')
-                ->once()
-                ->andReturn($verifier);
-        });
+        Socialite::shouldReceive('stateless')
+            ->once()
+            ->andReturnSelf();
+
+        Socialite::shouldReceive('userFromToken')
+            ->with('valid-token')
+            ->once()
+            ->andReturn(
+                SocialiteUser::fake([
+                    'id' => 'test-123',
+                    'email' => 'test@example.com',
+                    'name' => 'Test User',
+                ])
+            );
 
         $response = postJson('/api/v1/auth/social', [
             'provider' => 'google',

@@ -39,4 +39,8 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
     ],
 
+    'microsoft' => [
+        'client_id' => env('MICROSOFT_CLIENT_ID'),
+    ],
+
 ];

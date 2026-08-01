@@ -19,14 +19,13 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\SocialLoginRequest;
 use App\Http\Requests\Auth\VerifyAccountRequest;
 use App\Http\Resources\UserResource;
-use App\Services\Social\SocialAuthManager;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
     public function __construct(
-        protected SocialAuthManager $socialAuth,
         protected LoginOrRegisterSocialUser $loginOrRegisterSocialUser,
     ) {}
 
@@ -86,10 +85,12 @@ class AuthController extends Controller
     public function socialLogin(SocialLoginRequest $request)
     {
         $provider = $request->provider();
-        $verifier = $this->socialAuth->driver($provider->value);
 
-        $data = $verifier->resolve($request->string('token')->toString());
-        $user = $this->loginOrRegisterSocialUser->execute($provider, $data);
+        $socialiteUser = Socialite::driver($provider->value)
+            ->stateless()
+            ->userFromToken($request->string('token')->toString());
+
+        $user = $this->loginOrRegisterSocialUser->execute($provider, $socialiteUser);
 
         $token = $user->createToken('stockmate')->plainTextToken;
 
