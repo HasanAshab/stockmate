@@ -13,6 +13,7 @@ use App\Http\Requests\Product\TransferStockRequest;
 use App\Http\Resources\StockLogResource;
 use App\Models\StockLog;
 use App\Models\Warehouse;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
@@ -25,6 +26,16 @@ class StockLogController extends Controller
      *
      * Get a paginated list of stock movement logs with filtering and sorting.
      */
+    #[QueryParameter(name: 'filter[product]', description: 'Filter by product. Pass product ID. Example: `filter[product]=5`', example: 5)]
+    #[QueryParameter(name: 'filter[user]', description: 'Filter by user who performed the stock movement. Pass user ID. Example: `filter[user]=1`', example: 1)]
+    #[QueryParameter(name: 'filter[warehouse]', description: 'Filter by warehouse. Pass warehouse ID. Example: `filter[warehouse]=2`', example: 2)]
+    #[QueryParameter(name: 'filter[type]', description: 'Filter by stock movement type. Allowed values: `in`, `out`, `adjustment`, `transfer`. Example: `filter[type]=in`', example: 'in')]
+    #[QueryParameter(name: 'filter[quantity]', description: 'Filter by quantity. Prefix the value with an operator: `=`, `<`, `>`, `<=`, `>=`, `<>`. Omit the prefix to match equal. Examples: `filter[quantity]=<100`, `filter[quantity]=>50`', example: '>50')]
+    #[QueryParameter(name: 'filter[unit_cost]', description: 'Filter by unit cost. Prefix the value with an operator: `=`, `<`, `>`, `<=`, `>=`, `<>`. Omit the prefix to match equal. Examples: `filter[unit_cost]=<50`, `filter[unit_cost]=>10`', example: '>10')]
+    #[QueryParameter(name: 'filter[created_at][from]', description: 'Filter logs created from this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[created_at][from]=2024-01-01`', example: '2024-01-01')]
+    #[QueryParameter(name: 'filter[created_at][to]', description: 'Filter logs created until this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[created_at][to]=2024-12-31`', example: '2024-12-31')]
+    #[QueryParameter(name: 'sort', description: 'Sort by field. Prefix with `-` for descending. Allowed: `created_at`, `quantity`, `unit_cost`. Example: `sort=-created_at,quantity`', example: '-created_at')]
+    #[QueryParameter(name: 'include', description: 'Relationships to include. Allowed: `user`, `product`, `warehouse`. Comma-separated. Example: `include=user,product,warehouse`', example: 'user,product')]
     public function index()
     {
         Gate::authorize('viewAny', StockLog::class);

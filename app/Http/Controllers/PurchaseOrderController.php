@@ -12,6 +12,7 @@ use App\Http\Requests\PurchaseOrder\StorePurchaseOrderRequest;
 use App\Http\Requests\PurchaseOrder\UpdatePurchaseOrderRequest;
 use App\Http\Resources\PurchaseOrderResource;
 use App\Models\PurchaseOrder;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -23,6 +24,17 @@ class PurchaseOrderController extends Controller
      *
      * Get a paginated list of purchase orders with filtering and sorting.
      */
+    #[QueryParameter(name: 'filter[supplier]', description: 'Filter by supplier. Pass supplier ID. Example: `filter[supplier]=5`', example: 5)]
+    #[QueryParameter(name: 'filter[warehouse]', description: 'Filter by warehouse. Pass warehouse ID. Example: `filter[warehouse]=2`', example: 2)]
+    #[QueryParameter(name: 'filter[creator]', description: 'Filter by creator. Pass user ID. Example: `filter[creator]=1`', example: 1)]
+    #[QueryParameter(name: 'filter[product]', description: 'Filter by product in order items. Pass product ID. Example: `filter[product]=10`', example: 10)]
+    #[QueryParameter(name: 'filter[status]', description: 'Filter by order status. Allowed values: `draft`, `ordered`, `partially_received`, `received`, `cancelled`. Example: `filter[status]=ordered`', example: 'ordered')]
+    #[QueryParameter(name: 'filter[ordered_at][from]', description: 'Filter orders placed from this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[ordered_at][from]=2024-01-01`', example: '2024-01-01')]
+    #[QueryParameter(name: 'filter[ordered_at][to]', description: 'Filter orders placed until this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[ordered_at][to]=2024-12-31`', example: '2024-12-31')]
+    #[QueryParameter(name: 'filter[received_at][from]', description: 'Filter orders received from this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[received_at][from]=2024-01-01`', example: '2024-01-01')]
+    #[QueryParameter(name: 'filter[received_at][to]', description: 'Filter orders received until this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[received_at][to]=2024-12-31`', example: '2024-12-31')]
+    #[QueryParameter(name: 'filter[created_at][from]', description: 'Filter orders created from this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[created_at][from]=2024-01-01`', example: '2024-01-01')]
+    #[QueryParameter(name: 'filter[created_at][to]', description: 'Filter orders created until this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[created_at][to]=2024-12-31`', example: '2024-12-31')]
     public function index()
     {
         Gate::authorize('viewAny', PurchaseOrder::class);

@@ -12,6 +12,7 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -23,6 +24,11 @@ class UserController extends Controller
      *
      * Get a paginated list of users with filtering and sorting capabilities.
      */
+    #[QueryParameter(name: 'filter[role]', description: 'Filter by role. Pass role name. Example: `filter[role]=manager`', example: 'manager')]
+    #[QueryParameter(name: 'filter[is_active]', description: 'Filter by active status. Values: `1` (active) or `0` (inactive). Example: `filter[is_active]=1`', example: 1)]
+    #[QueryParameter(name: 'filter[created_at][from]', description: 'Filter users created from this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[created_at][from]=2024-01-01`', example: '2024-01-01')]
+    #[QueryParameter(name: 'filter[created_at][to]', description: 'Filter users created until this date. Format: `YYYY-MM-DD` or ISO 8601. Example: `filter[created_at][to]=2024-12-31`', example: '2024-12-31')]
+    #[QueryParameter(name: 'sort', description: 'Sort by field. Prefix with `-` for descending. Allowed: `created_at`. Example: `sort=-created_at`', example: '-created_at')]
     public function index()
     {
         $users = QueryBuilder::for(User::class)

@@ -6,6 +6,7 @@ use App\Http\Requests\Warehouse\UpdateWarehouseStockRequest;
 use App\Http\Resources\WarehouseStockResource;
 use App\Models\Warehouse;
 use App\Models\WarehouseStock;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
@@ -18,6 +19,12 @@ class WarehouseStockController extends Controller
      *
      * Get a paginated list of stock items in a specific warehouse with filtering and sorting.
      */
+    #[QueryParameter(name: 'filter[product]', description: 'Filter by product. Pass product ID. Example: `filter[product]=5`', example: 5)]
+    #[QueryParameter(name: 'filter[warehouse]', description: 'Filter by warehouse. Pass warehouse ID. Example: `filter[warehouse]=2`', example: 2)]
+    #[QueryParameter(name: 'filter[quantity]', description: 'Filter by quantity. Prefix the value with an operator: `=`, `<`, `>`, `<=`, `>=`, `<>`. Omit the prefix to match equal. Examples: `filter[quantity]=<100`, `filter[quantity]=>50`', example: '>50')]
+    #[QueryParameter(name: 'filter[low_stock]', description: 'Filter products with low stock (quantity <= reorder_level). Pass `true` to enable. Example: `filter[low_stock]=true`', example: 'true')]
+    #[QueryParameter(name: 'sort', description: 'Sort by field. Prefix with `-` for descending. Allowed: `quantity`, `created_at`. Example: `sort=quantity,-created_at`', example: 'quantity')]
+    #[QueryParameter(name: 'include', description: 'Relationships to include. Allowed: `product.category`. Example: `include=product.category`', example: 'product.category')]
     public function index(Warehouse $warehouse)
     {
         Gate::authorize('view', $warehouse);

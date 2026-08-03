@@ -6,6 +6,7 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
@@ -18,6 +19,12 @@ class ProductController extends Controller
      *
      * Get a paginated list of products with filtering, sorting, and relationship loading.
      */
+    #[QueryParameter(name: 'filter[trashed]', description: 'Include trashed products. Values: `with` (include), `only` (only trashed), `without` (exclude). Example: `filter[trashed]=with`', example: 'with')]
+    #[QueryParameter(name: 'filter[category]', description: 'Filter by category. Pass category ID. Example: `filter[category]=2`', example: 2)]
+    #[QueryParameter(name: 'filter[supplier]', description: 'Filter by supplier. Pass supplier ID. Example: `filter[supplier]=3`', example: 3)]
+    #[QueryParameter(name: 'filter[price]', description: 'Filter by price. Prefix the value with an operator: `=`, `<`, `>`, `<=`, `>=`, `<>`. Omit the prefix to match equal. Examples: `filter[price]=<100`, `filter[price]=>50`, `filter[price]=100`', example: '>50')]
+    #[QueryParameter(name: 'sort', description: 'Sort by field. Prefix with `-` for descending. Allowed: `price`, `created_at`. Example: `sort=-created_at,price`', example: '-created_at')]
+    #[QueryParameter(name: 'include', description: 'Relationships to include. Allowed: `category`, `supplier`, `media`. Comma-separated. Example: `include=category,supplier`', example: 'category,supplier')]
     public function index()
     {
         Gate::authorize('viewAny', Product::class);
