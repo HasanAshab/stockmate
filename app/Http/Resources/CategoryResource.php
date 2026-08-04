@@ -17,8 +17,6 @@ class CategoryResource extends JsonResource
                 ! $request->routeIs('categories.index'),
                 $this->description
             ),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }
