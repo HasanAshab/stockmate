@@ -9,7 +9,12 @@ use function Pest\Laravel\postJson;
 
 describe('Create Category', function () {
     it('requires authentication', function () {
-        $response = postJson('/api/v1/categories', []);
+        $payload = [
+            'name' => 'Electronics',
+            'slug' => 'electronics',
+            'description' => 'Electronic gadgets and devices',
+        ];
+        $response = postJson('/api/v1/categories', $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(401);
@@ -18,7 +23,12 @@ describe('Create Category', function () {
     it('requires categories-create permission', function () {
         $user = User::factory()->create();
 
-        $response = actingAs($user)->postJson('/api/v1/categories', []);
+        $payload = [
+            'name' => 'Electronics',
+            'slug' => 'electronics',
+            'description' => 'Electronic gadgets and devices',
+        ];
+        $response = actingAs($user)->postJson('/api/v1/categories', $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
@@ -73,7 +83,7 @@ describe('Create Category', function () {
 
         $response = actingAs($user)->postJson('/api/v1/categories', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
