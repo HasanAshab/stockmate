@@ -43,7 +43,7 @@ describe('List Notifications', function () {
     it('returns unread count', function () {
         $user = User::factory()->create();
 
-        $response = actingAs($user)->getJson('/api/v1/notifications/unread-count');
+        $response = actingAs($user)->getJson('/api/v1/notifications/unread/count');
 
         $response->assertValidRequest()
             ->assertValidResponse(200);

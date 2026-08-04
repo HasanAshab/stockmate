@@ -7,7 +7,7 @@ use function Pest\Laravel\patchJson;
 
 describe('Mark All Notifications as Read', function () {
     it('requires authentication', function () {
-        $response = patchJson('/api/v1/notifications/mark-all-read');
+        $response = patchJson('/api/v1/notifications/mark-all-as-read');
 
         $response->assertValidRequest()
             ->assertValidResponse(401);
@@ -16,14 +16,14 @@ describe('Mark All Notifications as Read', function () {
     it('marks all user notifications as read and returns 204', function () {
         $user = User::factory()->create();
 
-        $response = actingAs($user)->patchJson('/api/v1/notifications/mark-all-read');
+        $response = actingAs($user)->patchJson('/api/v1/notifications/mark-all-as-read');
 
         $response->assertValidRequest()
             ->assertValidResponse(204);
     });
 
     it('returns 401 for unauthenticated request', function () {
-        $response = patchJson('/api/v1/notifications/mark-all-read');
+        $response = patchJson('/api/v1/notifications/mark-all-as-read');
 
         $response->assertValidRequest()
             ->assertValidResponse(401);

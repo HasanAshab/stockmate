@@ -88,6 +88,7 @@ class NotificationController extends Controller
      * Delete Notification
      *
      * Delete a specific notification.
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function destroy(Request $request, string $id)
     {
