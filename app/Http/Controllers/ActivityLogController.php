@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Filters\FiltersMorphType;
 use App\Http\Resources\ActivityLogResource;
-use App\Models\Activity;
 use Dedoc\Scramble\Attributes\QueryParameter;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -36,7 +36,7 @@ class ActivityLogController extends Controller
             ->allowedSorts('created_at')
             ->defaultSort('-created_at')
             ->allowedIncludes('causer', 'subject')
-            ->with(['causer', 'subject'])
+            ->with('causer')
             ->cursorPaginate(15)
             ->appends(request()->query());
 
