@@ -58,6 +58,8 @@ class NotificationController extends Controller
      * Mark Notification as Read
      *
      * Mark a specific notification as read.
+     * 
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function markAsRead(Request $request, string $id)
     {
