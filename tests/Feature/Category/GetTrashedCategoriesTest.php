@@ -64,7 +64,6 @@ describe('List Trashed Categories', function () {
         $trashedCategory->delete();
 
         $response = actingAs($user)->getJson('/api/v1/categories/trashed');
-
         $response->assertValidRequest()
             ->assertValidResponse(200);
     });

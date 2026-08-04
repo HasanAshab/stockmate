@@ -87,7 +87,7 @@ describe('Update Category', function () {
 
         $response = actingAs($user)->putJson("/api/v1/categories/{$categoryToUpdate->id}", $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
