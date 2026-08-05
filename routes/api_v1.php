@@ -156,7 +156,7 @@ Route::controller(PaymentCallbackController::class)
     ->middleware('throttle:webhooks')
     ->group(function () {
         Route::post('success', 'success')->name('success');
-        Route::post('fail', 'fail')->name('fail');
+        Route::post('fail', 'fail')->name('failure');
         Route::post('cancel', 'cancel')->name('cancel');
         Route::post('ipn', 'ipn')->name('ipn');
     });
