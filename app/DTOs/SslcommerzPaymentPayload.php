@@ -2,7 +2,10 @@
 
 namespace App\DTOs;
 
-class SslcommerzPaymentPayload
+use Illuminate\Contracts\Database\Eloquent\Castable;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+
+class SslcommerzPaymentPayload implements Castable
 {
     public function __construct(
         public string $tranId,
@@ -53,5 +56,34 @@ class SslcommerzPaymentPayload
             'risk_level' => $this->riskLevel,
             'risk_title' => $this->riskTitle,
         ];
+    }
+
+    public static function castUsing(array $arguments): CastsAttributes
+    {
+        return new class implements CastsAttributes {
+            public function get($model, string $key, $value, array $attributes)
+            {
+                if (is_null($value)) {
+                    return null;
+                }
+
+                $decoded = is_string($value) ? json_decode($value, true) : $value;
+
+                return SslcommerzPaymentPayload::fromArray($decoded);
+            }
+
+            public function set($model, string $key, $value, array $attributes)
+            {
+                if (is_null($value)) {
+                    return null;
+                }
+
+                if (is_array($value)) {
+                    $value = SslcommerzPaymentPayload::fromArray($value);
+                }
+
+                return json_encode($value->toArray());
+            }
+        };
     }
 }
