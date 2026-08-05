@@ -107,6 +107,11 @@ class PaymentCallbackController extends Controller
         return ['received' => true];
     }
 
+    /**
+     * Ensure hash is valid or throw error
+     * 
+     * @throws ValidationException
+     */
     private function ensureHashIsValid(array $payload): void
     {
         if (! Sslcommerz::verifyHash($payload)) {
@@ -116,6 +121,11 @@ class PaymentCallbackController extends Controller
         }
     }
 
+    /**
+     * Ensure payment is valid or throw error
+     * 
+     * @throws ValidationException
+     */
     private function ensurePaymentIsValid(array $payload): void
     {
         $trxId = $payload['tran_id'];
