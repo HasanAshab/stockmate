@@ -8,6 +8,7 @@ use App\DTOs\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use App\Enums\SslcommerzPaymentStatus;
 use App\Http\Requests\Payment\CancelPaymentCallbackRequest;
+use App\Http\Requests\Payment\FailPaymentCallbackRequest;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -48,7 +49,7 @@ class PaymentCallbackController extends Controller
      * 
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function fail(Request $request, ResolveSalesOrderPaymentState $resolver)
+    public function fail(FailPaymentCallbackRequest $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Failed, $request->all());
 
