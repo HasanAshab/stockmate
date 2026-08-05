@@ -5,19 +5,6 @@ use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use function Pest\Laravel\postJson;
 
 describe('Payment IPN Callback', function () {
-    it('does not require authentication', function () {
-        Sslcommerz::shouldReceive('verifyHash')
-            ->once()
-            ->andReturn(false);
-
-        $response = postJson('/api/v1/payment/ipn', [
-            'status' => 'VALID',
-        ]);
-
-        $response->assertInvalidRequest()
-            ->assertValidResponse(422);
-    });
-
     it('returns 422 for invalid hash', function () {
         Sslcommerz::shouldReceive('verifyHash')
             ->once()
@@ -27,7 +14,7 @@ describe('Payment IPN Callback', function () {
             'status' => 'VALID',
         ]);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 

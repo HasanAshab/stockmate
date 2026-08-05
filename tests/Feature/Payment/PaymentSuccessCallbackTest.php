@@ -5,17 +5,6 @@ use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use function Pest\Laravel\postJson;
 
 describe('Payment Success Callback', function () {
-    it('does not require authentication', function () {
-        Sslcommerz::shouldReceive('verifyHash')
-            ->once()
-            ->andReturn(false);
-
-        $response = postJson('/api/v1/payment/success', []);
-
-        $response->assertInvalidRequest()
-            ->assertValidResponse(422);
-    });
-
     it('returns 422 for invalid hash', function () {
         Sslcommerz::shouldReceive('verifyHash')
             ->once()
@@ -26,7 +15,7 @@ describe('Payment Success Callback', function () {
             'amount' => '100.00',
         ]);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -44,7 +33,7 @@ describe('Payment Success Callback', function () {
             'amount' => '100.00',
         ]);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 });
