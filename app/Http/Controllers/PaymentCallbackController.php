@@ -7,6 +7,7 @@ use App\Actions\SalesOrder\ResolveSalesOrderPaymentState;
 use App\DTOs\SslcommerzPaymentPayload;
 use App\Enums\SalesOrderStatus;
 use App\Enums\SslcommerzPaymentStatus;
+use App\Http\Requests\Payment\CancelPaymentCallbackRequest;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -68,7 +69,7 @@ class PaymentCallbackController extends Controller
      * application response body and the updated sales order status, not the HTTP
      * status code.
      */
-    public function cancel(Request $request, ResolveSalesOrderPaymentState $resolver)
+    public function cancel(CancelPaymentCallbackRequest $request, ResolveSalesOrderPaymentState $resolver)
     {
         $resolver->execute(SalesOrderStatus::Cancelled, $request->all());
 
