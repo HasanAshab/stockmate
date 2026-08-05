@@ -45,6 +45,8 @@ class PaymentCallbackController extends Controller
      * itself has failed. The actual payment outcome is represented by the
      * application response body and the updated sales order status, not the HTTP
      * status code.
+     * 
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function fail(Request $request, ResolveSalesOrderPaymentState $resolver)
     {
@@ -68,6 +70,8 @@ class PaymentCallbackController extends Controller
      * was cancelled. The actual payment outcome is represented by the
      * application response body and the updated sales order status, not the HTTP
      * status code.
+     * 
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function cancel(CancelPaymentCallbackRequest $request, ResolveSalesOrderPaymentState $resolver)
     {
