@@ -52,7 +52,8 @@ describe('List Purchase Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $purchaseOrder->id]);
+            ->assertJsonPath('data.0.id', $purchaseOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters by supplier ID', function () {
@@ -67,8 +68,8 @@ describe('List Purchase Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $matchingOrder->id])
-            ->assertJsonMissing(['id' => $otherOrder->id]);
+            ->assertJsonPath('data.0.id', $matchingOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters by warehouse ID', function () {
@@ -83,8 +84,8 @@ describe('List Purchase Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $matchingOrder->id])
-            ->assertJsonMissing(['id' => $otherOrder->id]);
+            ->assertJsonPath('data.0.id', $matchingOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters by status', function () {
@@ -95,11 +96,10 @@ describe('List Purchase Orders', function () {
         $orderedOrder = PurchaseOrder::factory()->ordered()->create();
 
         $response = actingAs($user)->getJson('/api/v1/purchase-orders?filter[status]='.PurchaseOrderStatus::Draft->value);
-
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $draftOrder->id])
-            ->assertJsonMissing(['id' => $orderedOrder->id]);
+            ->assertJsonPath('data.0.id', $draftOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('sorts by created_at descending', function () {

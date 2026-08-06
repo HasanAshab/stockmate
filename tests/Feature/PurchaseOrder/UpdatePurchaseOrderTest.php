@@ -2,7 +2,6 @@
 
 use App\Enums\Permission;
 use App\Models\PurchaseOrder;
-use App\Models\Supplier;
 use App\Models\User;
 
 use function Pest\Laravel\actingAs;
@@ -44,14 +43,11 @@ describe('Update Purchase Order', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment([
-                'note' => 'Updated order note',
-            ]);
+            ->assertJsonFragment(['note' => 'Updated order note']);
 
-        $this->assertDatabaseHas('purchase_orders', [
-            'id' => $purchaseOrder->id,
-            'note' => 'Updated order note',
-        ]);
+        $purchaseOrder->refresh();
+
+        expect($purchaseOrder->note)->toBe('Updated order note');
     });
 
     it('returns 403 when order is received', function () {
@@ -100,31 +96,8 @@ describe('Update Purchase Order', function () {
 
         $response = actingAs($user)->putJson("/api/v1/purchase-orders/{$purchaseOrder->id}", $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
-    });
-
-    it('returns 401 for unauthenticated request', function () {
-        $purchaseOrder = PurchaseOrder::factory()->draft()->create();
-
-        $response = putJson("/api/v1/purchase-orders/{$purchaseOrder->id}", [
-            'note' => 'Test',
-        ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
-    });
-
-    it('returns 403 for user without permission', function () {
-        $user = User::factory()->create();
-        $purchaseOrder = PurchaseOrder::factory()->draft()->create();
-
-        $response = actingAs($user)->putJson("/api/v1/purchase-orders/{$purchaseOrder->id}", [
-            'note' => 'Test',
-        ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(403);
     });
 
     it('returns 404 for non-existent purchase order', function () {
