@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 class ProductResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -16,8 +17,8 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'image_url' => $this->getFirstMediaUrl('product_images') ?: null,
             'image_thumb_url' => $this->getFirstMediaUrl('product_images', 'thumb') ?: null,
-            'category' => new CategoryResource($this->whenLoaded('category')),
-            'supplier' => new SupplierResource($this->whenLoaded('supplier')),
+            'category' => CategoryResource::make($this->whenLoaded('category')),
+            'supplier' => SupplierResource::make($this->whenLoaded('supplier')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
