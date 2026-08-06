@@ -52,15 +52,6 @@ describe('Show Product', function () {
             ->assertValidResponse(200);
     });
 
-    it('returns 401 for unauthenticated request', function () {
-        $product = Product::factory()->create();
-
-        $response = getJson("/api/v1/products/{$product->id}");
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
-    });
-
     it('returns 403 for user without products-view permission', function () {
         $user = User::factory()->create();
         $product = Product::factory()->create();
@@ -88,7 +79,7 @@ describe('Show Product', function () {
         $product = Product::factory()->create();
 
         $response = actingAs($user)->getJson("/api/v1/products/{$product->id}");
-
+        $response->dump();
         $response->assertValidRequest()
             ->assertValidResponse(200);
     });

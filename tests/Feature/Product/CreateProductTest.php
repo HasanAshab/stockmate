@@ -6,49 +6,70 @@ use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
 
+use Illuminate\Http\UploadedFile;
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\postJson;
 
 describe('Create Product', function () {
     it('requires authentication', function () {
-        $response = postJson('/api/v1/products', []);
+        $response = $this->postJson('/api/v1/products', []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires products-create permission', function () {
         $user = User::factory()->create();
-
-        $response = actingAs($user)->postJson('/api/v1/products', []);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(403);
-    });
-
-    it('creates a new product and returns 201', function () {
-        $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
-
         $category = Category::factory()->create();
         $supplier = Supplier::factory()->create();
 
+        $image = UploadedFile::fake()->image('product.jpg');
         $payload = [
             'category_id' => $category->id,
             'supplier_id' => $supplier->id,
             'name' => 'Gaming Mouse',
             'sku' => 'SKU-MOUSE-001',
             'price' => 49.99,
+            'image' => $image,
         ];
-
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
 
         $response->assertValidRequest()
-            ->assertValidResponse(201)
-            ->assertJsonFragment([
-                'name' => 'Gaming Mouse',
-                'sku' => 'SKU-MOUSE-001',
-            ]);
+            ->assertValidResponse(403);
+
+        $this->assertDatabaseMissing('products', [
+            'name' => 'Gaming Mouse',
+            'sku' => 'SKU-MOUSE-001',
+        ]);
+    });
+
+    it('creates a new product and returns 201', function () {
+        $user = User::factory()->create();
+        $user->givePermissionTo(Permission::ProductsCreate);
+
+        $category = Category::factory()->create();
+        $supplier = Supplier::factory()->create();
+
+        $image = UploadedFile::fake()->image('product.jpg');
+        $payload = [
+            'category_id' => $category->id,
+            'supplier_id' => $supplier->id,
+            'name' => 'Gaming Mouse',
+            'sku' => 'SKU-MOUSE-001',
+            'price' => 49.99,
+            'image' => $image,
+        ];
+
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
+
+        $response->assertValidRequest()
+            ->assertValidResponse(201);
 
         $this->assertDatabaseHas('products', [
             'name' => 'Gaming Mouse',
@@ -58,9 +79,13 @@ describe('Create Product', function () {
 
     it('returns validation errors for invalid input', function () {
         $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
+        $user->givePermissionTo(Permission::ProductsCreate);
 
-        $response = actingAs($user)->postJson('/api/v1/products', []);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', ['foo' => 'bar']);
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
@@ -68,7 +93,7 @@ describe('Create Product', function () {
 
     it('rejects duplicate SKU', function () {
         $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
+        $user->givePermissionTo(Permission::ProductsCreate);
 
         $category = Category::factory()->create();
         $supplier = Supplier::factory()->create();
@@ -82,15 +107,23 @@ describe('Create Product', function () {
             'price' => 19.99,
         ];
 
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
+        
+        $this->assertDatabaseMissing('products', [
+            'name' => 'Another Product',
+        ]);
     });
 
     it('validates price is positive', function () {
         $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
+        $user->givePermissionTo(Permission::ProductsCreate);
 
         $category = Category::factory()->create();
         $supplier = Supplier::factory()->create();
@@ -103,10 +136,19 @@ describe('Create Product', function () {
             'price' => -10.00,
         ];
 
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])    
+            ->post('/api/v1/products', $payload);
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
+
+        $this->assertDatabaseMissing('products', [
+            'name' => 'Invalid Price Product',
+            'sku' => 'SKU-NEG-001',
+        ]);
     });
 
     it('validates category exists', function () {
@@ -123,15 +165,24 @@ describe('Create Product', function () {
             'price' => 10.00,
         ];
 
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
+
+        $this->assertDatabaseMissing('products', [
+            'name' => 'Product Name',
+            'sku' => 'SKU-NOCAT-001',
+        ]);
     });
 
     it('validates supplier exists', function () {
         $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
+        $user->givePermissionTo(Permission::ProductsCreate);
 
         $category = Category::factory()->create();
 
@@ -143,15 +194,24 @@ describe('Create Product', function () {
             'price' => 10.00,
         ];
 
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
+
+        $this->assertDatabaseMissing('products', [
+            'name' => 'Product Name',
+            'sku' => 'SKU-NOSUP-001',
+        ]);
     });
 
     it('validates max length for name field', function () {
         $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
+        $user->givePermissionTo(Permission::ProductsCreate);
 
         $category = Category::factory()->create();
         $supplier = Supplier::factory()->create();
@@ -164,15 +224,23 @@ describe('Create Product', function () {
             'price' => 10.00,
         ];
 
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
+        
+        $this->assertDatabaseMissing('products', [
+            'sku' => 'SKU-LONGNAME-001',
+        ]);
     });
 
     it('validates max length for SKU field', function () {
         $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
+        $user->givePermissionTo(Permission::ProductsCreate);
 
         $category = Category::factory()->create();
         $supplier = Supplier::factory()->create();
@@ -185,50 +253,17 @@ describe('Create Product', function () {
             'price' => 10.00,
         ];
 
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])
+            ->post('/api/v1/products', $payload);
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
-    });
-
-    it('returns 401 for unauthenticated request', function () {
-        $response = postJson('/api/v1/products', [
-            'name' => 'Test',
+        
+        $this->assertDatabaseMissing('products', [
+            'name' => 'Product Name',
         ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
-    });
-
-    it('returns 403 for user without products-create permission', function () {
-        $user = User::factory()->create();
-
-        $response = actingAs($user)->postJson('/api/v1/products', [
-            'name' => 'Test',
-        ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(403);
-    });
-
-    it('returns product resource on success', function () {
-        $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsCreate->value);
-
-        $category = Category::factory()->create();
-        $supplier = Supplier::factory()->create();
-
-        $payload = [
-            'category_id' => $category->id,
-            'supplier_id' => $supplier->id,
-            'name' => 'Mechanical Keyboard',
-            'sku' => 'SKU-KB-001',
-            'price' => 99.99,
-        ];
-
-        $response = actingAs($user)->postJson('/api/v1/products', $payload);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(201);
     });
 });

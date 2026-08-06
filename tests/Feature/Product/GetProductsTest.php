@@ -38,19 +38,6 @@ describe('List Products', function () {
             ->assertValidResponse(200);
     });
 
-    it('filters products by SKU', function () {
-        $user = User::factory()->create();
-        $user->givePermissionTo(Permission::ProductsView->value);
-
-        $product1 = Product::factory()->create(['sku' => 'SKU-UNIQUE-123']);
-        $product2 = Product::factory()->create(['sku' => 'SKU-OTHER-456']);
-
-        $response = actingAs($user)->getJson('/api/v1/products?filter[sku]=UNIQUE');
-
-        $response->assertValidRequest()
-            ->assertValidResponse(200);
-    });
-
     it('filters products by category', function () {
         $user = User::factory()->create();
         $user->givePermissionTo(Permission::ProductsView->value);

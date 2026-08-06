@@ -27,7 +27,7 @@ describe('Delete Product', function () {
             ->assertValidResponse(403);
     });
 
-    it('soft deletes product and returns 204', function () {
+    it('deletes product and returns 204', function () {
         $user = User::factory()->create();
         $user->givePermissionTo(Permission::ProductsDelete->value);
 
@@ -38,7 +38,7 @@ describe('Delete Product', function () {
         $response->assertValidRequest()
             ->assertValidResponse(204);
 
-        $this->assertSoftDeleted('products', [
+        $this->assertDatabaseMissing('products', [
             'id' => $product->id,
         ]);
     });

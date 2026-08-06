@@ -1,28 +1,35 @@
 <?php
 
 use App\Enums\Permission;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\putJson;
 
 describe('Update Product', function () {
     it('requires authentication', function () {
         $product = Product::factory()->create();
 
-        $response = putJson("/api/v1/products/{$product->id}", []);
+        $response = $this->withHeaders([
+            'Content-Type' => 'multipart/form-data',
+            'Accept' => 'application/json',
+        ])->put("/api/v1/products/{$product->id}", [
+            'name' => 'Test',
+        ]);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires products-update permission', function () {
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", []);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'name' => 'Test',
+            ]);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
@@ -42,18 +49,19 @@ describe('Update Product', function () {
             'price' => 29.99,
         ];
 
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment([
-                'name' => 'New Product Name',
-            ]);
+            ->assertJsonFragment(['name' => 'New Product Name']);
 
-        $this->assertDatabaseHas('products', [
-            'id' => $product->id,
-            'name' => 'New Product Name',
-        ]);
+        $product->refresh();
+
+        expect($product->name)->toBe('New Product Name')
+            ->and((float) $product->price)->toBe(29.99);
     });
 
     it('returns validation errors for invalid input', function () {
@@ -62,11 +70,12 @@ describe('Update Product', function () {
 
         $product = Product::factory()->create();
 
-        $payload = [
-            'price' => -5.00,
-        ];
-
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'price' => -5.00,
+            ]);
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
@@ -77,15 +86,16 @@ describe('Update Product', function () {
         $user->givePermissionTo(Permission::ProductsUpdate->value);
 
         Product::factory()->create(['sku' => 'TAKEN-SKU']);
-        $productToUpdate = Product::factory()->create(['sku' => 'MY-SKU']);
+        $product = Product::factory()->create(['sku' => 'MY-SKU']);
 
-        $payload = [
-            'sku' => 'TAKEN-SKU',
-        ];
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'sku' => 'TAKEN-SKU',
+            ]);
 
-        $response = actingAs($user)->putJson("/api/v1/products/{$productToUpdate->id}", $payload);
-
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -95,11 +105,12 @@ describe('Update Product', function () {
 
         $product = Product::factory()->create();
 
-        $payload = [
-            'price' => -100.00,
-        ];
-
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'price' => -100.00,
+            ]);
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
@@ -114,17 +125,21 @@ describe('Update Product', function () {
             'price' => 50.00,
         ]);
 
-        $payload = [
-            'name' => 'Partially Updated Name',
-        ];
-
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", $payload);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'name' => 'Partially Updated Name',
+            ]);
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment([
-                'name' => 'Partially Updated Name',
-            ]);
+            ->assertJsonFragment(['name' => 'Partially Updated Name']);
+
+        $product->refresh();
+
+        expect($product->name)->toBe('Partially Updated Name')
+            ->and((float) $product->price)->toBe(50.00);
     });
 
     it('validates category exists', function () {
@@ -133,46 +148,27 @@ describe('Update Product', function () {
 
         $product = Product::factory()->create();
 
-        $payload = [
-            'category_id' => 999999,
-        ];
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'category_id' => 999999,
+            ]);
 
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", $payload);
-
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
-    });
-
-    it('returns 401 for unauthenticated request', function () {
-        $product = Product::factory()->create();
-
-        $response = putJson("/api/v1/products/{$product->id}", [
-            'name' => 'Test',
-        ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
-    });
-
-    it('returns 403 for user without products-update permission', function () {
-        $user = User::factory()->create();
-        $product = Product::factory()->create();
-
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", [
-            'name' => 'Test',
-        ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(403);
     });
 
     it('returns 404 for non-existent product', function () {
         $user = User::factory()->create();
         $user->givePermissionTo(Permission::ProductsUpdate->value);
 
-        $response = actingAs($user)->putJson('/api/v1/products/999999', [
-            'name' => 'Test',
-        ]);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put('/api/v1/products/999999', [
+                'name' => 'Test',
+            ]);
 
         $response->assertValidRequest()
             ->assertValidResponse(404);
@@ -184,9 +180,12 @@ describe('Update Product', function () {
 
         $product = Product::factory()->create();
 
-        $response = actingAs($user)->putJson("/api/v1/products/{$product->id}", [
-            'name' => 'Updated Product',
-        ]);
+        $response = actingAs($user)
+            ->withHeaders([
+                'Content-Type' => 'multipart/form-data',
+            ])->put("/api/v1/products/{$product->id}", [
+                'name' => 'Updated Product',
+            ]);
 
         $response->assertValidRequest()
             ->assertValidResponse(200);
