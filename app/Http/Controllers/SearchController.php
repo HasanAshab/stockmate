@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Actions\Search\PerformSearch;
 use App\Enums\SearchContext;
+use Dedoc\Scramble\Attributes\PathParameter;
+use Dedoc\Scramble\Attributes\QueryParameter;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
@@ -15,6 +18,13 @@ class SearchController extends Controller
      *
      * Search across all resources (products, categories, suppliers, warehouses) that the user is authorized to view.
      */
+    #[QueryParameter('q', description: 'Search term.', type: 'string')]
+    #[Response(200, type: 'array{data: array{
+        products?: ProductResource[],
+        categories?: CategoryResource[],
+        suppliers?: SupplierResource[],
+        warehouses?: WarehouseResource[]
+    }}')]
     public function searchAll(Request $request, PerformSearch $search)
     {
         $term = $this->validatedTerm($request, SearchContext::Global);
@@ -37,14 +47,23 @@ class SearchController extends Controller
             $search
         );
 
-        return ['data' => $results];
+        return ['data' => (object) $results];
     }
 
     /**
      * Scoped Search
      *
-     * Search within a specific resource type (products, categories, suppliers, or warehouses).
+     * Search within a specific resource type.
      */
+    #[QueryParameter('q', description: 'Search term.', type: 'string')]
+    #[PathParameter('scope', description: 'One of the configured search scope keys. (products, categories, suppliers, or warehouses)', type: 'string')]
+    #[Response(404, description: 'Wrong scope key.')]
+    #[Response(200, type: 'array{data: array{
+        products?: ProductResource[],
+        categories?: CategoryResource[],
+        suppliers?: SupplierResource[],
+        warehouses?: WarehouseResource[]
+    }}')]
     public function searchScope(Request $request, string $scope, PerformSearch $search)
     {
         $entry = config('search.scopes')[$scope];
@@ -74,7 +93,7 @@ class SearchController extends Controller
             $search
         );
 
-        return ['data' => $results];
+        return ['data' => (object) $results];
     }
 
     /**
@@ -96,19 +115,27 @@ class SearchController extends Controller
      * through each scope's configured resource. Scopes with zero
      * matches are dropped from the response rather than included empty,
      * so the frontend can render only sections that actually have results.
-     *
-     * @param  array<string, array{model: class-string, ability: string, resource: class-string}>  $targets
      */
-    private function collectResults(array $targets, string $term, SearchContext $context, PerformSearch $search): Collection
+    private function collectResults(array $targets, string $term, SearchContext $context, PerformSearch $search): array
     {
         $limit = config("search.limit.{$context->value}");
 
         return collect($targets)
             ->mapWithKeys(function (array $entry, string $key) use ($term, $limit, $search) {
-                $matches = $search->execute($entry['model'], $term, limit: $limit);
+                $matches = $search->execute(
+                    $entry['model'],
+                    $term,
+                    limit: $limit
+                );
 
-                return [$key => $entry['resource']::collection($matches)];
+                if ($matches->isEmpty()) {
+                    return [];
+                }
+
+                return [
+                    $key => $entry['resource']::collection($matches),
+                ];
             })
-            ->reject(fn (Collection $matches) => $matches->isEmpty());
+            ->toArray();
     }
 }
