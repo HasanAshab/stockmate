@@ -39,7 +39,7 @@ describe('Update Profile', function () {
 
         $response = actingAs($user)->putJson('/api/v1/profile', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
