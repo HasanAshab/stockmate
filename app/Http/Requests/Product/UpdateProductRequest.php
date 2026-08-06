@@ -12,7 +12,7 @@ class UpdateProductRequest extends FormRequest
             'category_id' => ['exists:categories,id'],
             'supplier_id' => ['exists:suppliers,id'],
             'name' => ['string', 'max:255'],
-            'sku' => ['string', 'max:255', 'unique:products'],
+            'sku' => ['string', 'max:255', 'unique:products,sku,'.$this->product->id],
             'price' => ['numeric:strict', 'min:0'],
             'reorder_threshold' => ['integer:strict', 'min:0'],
             'image' => ['image', 'max:2048', 'mimes:jpeg,png,jpg,webp'],
