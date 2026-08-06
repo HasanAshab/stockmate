@@ -18,8 +18,6 @@ class SupplierResource extends JsonResource
                 $request->routeIs('suppliers.show'),
                 $this->address
             ),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }
