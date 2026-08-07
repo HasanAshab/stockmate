@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('customer_email');
             $table->string('customer_phone')->nullable();
             $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
-            $table->unsignedTinyInteger('status');
+            $table->string('status');
             $table->decimal('total_amount', 10, 2);
             $table->ulid('transaction_reference')->nullable();
             $table->json('payment_payload')->nullable();

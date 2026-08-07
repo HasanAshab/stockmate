@@ -2,20 +2,16 @@
 
 namespace App\Enums;
 
-use App\Enums\Concerns\EnumToArray;
-use Illuminate\Contracts\Support\Arrayable;
 
-enum SalesOrderStatus: int implements \JsonSerializable, Arrayable
+enum SalesOrderStatus: string
 {
-    use EnumToArray;
+    case Pending = 'pending';
 
-    case Pending = 1;
+    case Paid = 'paid';
 
-    case Paid = 2;
+    case Failed = 'failed';
 
-    case Failed = 3;
-
-    case Cancelled = 4;
+    case Cancelled = 'cancelled';
 
     public function isPending(): bool
     {

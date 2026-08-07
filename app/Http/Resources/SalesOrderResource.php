@@ -15,7 +15,7 @@ class SalesOrderResource extends JsonResource
             'customer_email' => $this->customer_email,
             'customer_phone' => $this->customer_phone,
             'warehouse_name' => $this->whenLoaded('warehouse', fn () => $this->warehouse->name),
-            'status' => $this->status->name,
+            'status' => $this->status->value,
             'total_amount' => $this->total_amount,
             'transaction_reference' => $this->transaction_reference,
             'item_count' => $this->whenLoaded('items', fn () => $this->items->count()),

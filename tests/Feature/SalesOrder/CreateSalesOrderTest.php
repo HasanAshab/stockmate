@@ -195,11 +195,10 @@ describe('Create Sales Order', function () {
         ];
 
         $response = actingAs($user)->postJson('/api/v1/sales-orders', $payload);
-
         $response->assertValidRequest()
             ->assertValidResponse(201)
             ->assertJsonFragment([
-                'status' => SalesOrderStatus::Pending->name,
+                'status' => SalesOrderStatus::Pending->value,
             ]);
     });
 
