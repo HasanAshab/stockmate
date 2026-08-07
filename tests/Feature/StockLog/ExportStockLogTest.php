@@ -32,6 +32,16 @@ describe('Export Stock Logs', function () {
         $response->assertValidRequest()
             ->assertValidResponse(200);
     });
+    
+    it('exports stock logs as Excel', function () {
+        $user = User::factory()->create();
+        $user->givePermissionTo(Permission::StockLogsView->value);
+
+        $response = actingAs($user)->getJson('/api/v1/stock-logs/export/excel');
+
+        $response->assertValidRequest()
+            ->assertValidResponse(200);
+    });
 
     it('returns 401 for unauthenticated request', function () {
         $response = getJson('/api/v1/stock-logs/export/csv');

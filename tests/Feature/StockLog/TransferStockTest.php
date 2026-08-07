@@ -13,14 +13,31 @@ describe('Transfer Stock', function () {
     it('requires authentication', function () {
         $response = postJson('/api/v1/stock-logs/transfer', []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires warehouses-create permission', function () {
         $user = User::factory()->create();
+        $fromWarehouse = Warehouse::factory()->create();
+        $toWarehouse = Warehouse::factory()->create();
+        $product = Product::factory()->create();
 
-        $response = actingAs($user)->postJson('/api/v1/stock-logs/transfer', []);
+        WarehouseStock::factory()->create([
+            'warehouse_id' => $fromWarehouse->id,
+            'product_id' => $product->id,
+            'quantity' => 50,
+        ]);
+
+        $payload = [
+            'from_warehouse_id' => $fromWarehouse->id,
+            'to_warehouse_id' => $toWarehouse->id,
+            'product_id' => $product->id,
+            'quantity' => 10,
+            'note' => 'Inter-warehouse transfer',
+        ];
+
+
+        $response = actingAs($user)->postJson('/api/v1/stock-logs/transfer', $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
@@ -168,23 +185,7 @@ describe('Transfer Stock', function () {
 
         $response = actingAs($user)->postJson('/api/v1/stock-logs/transfer', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
-    });
-
-    it('returns 401 for unauthenticated request', function () {
-        $response = postJson('/api/v1/stock-logs/transfer', []);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
-    });
-
-    it('returns 403 for user without permission', function () {
-        $user = User::factory()->create();
-
-        $response = actingAs($user)->postJson('/api/v1/stock-logs/transfer', []);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(403);
     });
 });

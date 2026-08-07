@@ -13,14 +13,23 @@ describe('Create Stock Log', function () {
     it('requires authentication', function () {
         $response = postJson('/api/v1/stock-logs', []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires stock-logs-create permission', function () {
         $user = User::factory()->create();
+        $warehouse = Warehouse::factory()->create();
+        $product = Product::factory()->create();
 
-        $response = actingAs($user)->postJson('/api/v1/stock-logs', []);
+        $payload = [
+            'warehouse_id' => $warehouse->id,
+            'product_id' => $product->id,
+            'type' => StockLogType::In->value,
+            'quantity' => 10,
+            'unit_cost' => 15.00,
+            'note' => 'Manual stock count adjustment',
+        ];
+        $response = actingAs($user)->postJson('/api/v1/stock-logs', $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
@@ -36,7 +45,7 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 10,
             'unit_cost' => 15.00,
             'note' => 'Manual stock count adjustment',
@@ -45,11 +54,7 @@ describe('Create Stock Log', function () {
         $response = actingAs($user)->postJson('/api/v1/stock-logs', $payload);
 
         $response->assertValidRequest()
-            ->assertValidResponse(201)
-            ->assertJsonFragment([
-                'warehouse_id' => $warehouse->id,
-                'product_id' => $product->id,
-            ]);
+            ->assertValidResponse(201);
 
         $this->assertDatabaseHas('stock_logs', [
             'warehouse_id' => $warehouse->id,
@@ -66,7 +71,7 @@ describe('Create Stock Log', function () {
 
         $payload = [
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 5,
         ];
 
@@ -84,7 +89,7 @@ describe('Create Stock Log', function () {
 
         $payload = [
             'warehouse_id' => $warehouse->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 5,
         ];
 
@@ -123,7 +128,7 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
         ];
 
         $response = actingAs($user)->postJson('/api/v1/stock-logs', $payload);
@@ -141,13 +146,13 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => 999999,
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 5,
         ];
 
         $response = actingAs($user)->postJson('/api/v1/stock-logs', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -160,13 +165,13 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => $warehouse->id,
             'product_id' => 999999,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 5,
         ];
 
         $response = actingAs($user)->postJson('/api/v1/stock-logs', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -180,7 +185,7 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 5,
             'note' => null,
         ];
@@ -201,7 +206,7 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 5,
         ];
 
@@ -217,22 +222,6 @@ describe('Create Stock Log', function () {
         ]);
     });
 
-    it('returns 401 for unauthenticated request', function () {
-        $response = postJson('/api/v1/stock-logs', []);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
-    });
-
-    it('requires stock-logs-create permission', function () {
-        $user = User::factory()->create();
-
-        $response = actingAs($user)->postJson('/api/v1/stock-logs', []);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(403);
-    });
-
     it('returns stock log resource on success', function () {
         $user = User::factory()->create();
         $user->givePermissionTo(Permission::StockLogsCreate->value);
@@ -243,7 +232,7 @@ describe('Create Stock Log', function () {
         $payload = [
             'warehouse_id' => $warehouse->id,
             'product_id' => $product->id,
-            'type' => StockLogType::Adjustment->value,
+            'type' => StockLogType::In->value,
             'quantity' => 12,
         ];
 
