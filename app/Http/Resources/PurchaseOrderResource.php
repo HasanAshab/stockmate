@@ -13,7 +13,7 @@ class PurchaseOrderResource extends JsonResource
             'id' => $this->id,
             'supplier_name' => $this->whenLoaded('supplier', fn () => $this->supplier->name),
             'warehouse_name' => $this->whenLoaded('warehouse', fn () => $this->warehouse->name),
-            'status' => $this->status->name,
+            'status' => $this->status->value,
             'item_count' => $this->whenLoaded('items', fn () => $this->items->count()),
             'note' => $this->note,
             'ordered_at' => $this->ordered_at,

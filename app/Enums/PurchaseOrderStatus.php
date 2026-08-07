@@ -2,22 +2,18 @@
 
 namespace App\Enums;
 
-use App\Enums\Concerns\EnumToArray;
-use Illuminate\Contracts\Support\Arrayable;
-
-enum PurchaseOrderStatus: int implements \JsonSerializable, Arrayable
+enum PurchaseOrderStatus: string
 {
-    use EnumToArray;
 
-    case Draft = 1;
+    case Draft = 'draft';
 
-    case Ordered = 2;
+    case Ordered = 'ordered';
 
-    case PartiallyReceived = 3;
+    case PartiallyReceived = 'partially_received';
 
-    case Received = 4;
+    case Received = 'received';
 
-    case Cancelled = 5;
+    case Cancelled = 'cancelled';
 
     public function isDraft(): bool
     {
