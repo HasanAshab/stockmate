@@ -19,7 +19,10 @@ class ExportStockLog
         return Excel::download(
             new StockLogExport($stockLogs),
             $fileName,
-            $format->contentType()
+            $format->writerType(),
+            [
+                'Content-Type' => $format->contentType(),
+            ],
         );
     }
 
