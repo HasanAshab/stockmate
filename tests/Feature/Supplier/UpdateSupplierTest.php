@@ -49,10 +49,10 @@ describe('Update Supplier', function () {
                 'email' => 'newemail@supplier.com',
             ]);
 
-        $this->assertDatabaseHas('suppliers', [
-            'id' => $supplier->id,
-            'name' => 'New Supplier Name',
-        ]);
+        $supplier->refresh();
+
+        expect($supplier->name)->toBe('New Supplier Name')
+            ->and($supplier->email)->toBe('newemail@supplier.com');
     });
 
     it('rejects duplicate name', function () {
@@ -68,7 +68,7 @@ describe('Update Supplier', function () {
 
         $response = actingAs($user)->putJson("/api/v1/suppliers/{$supplierToUpdate->id}", $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 

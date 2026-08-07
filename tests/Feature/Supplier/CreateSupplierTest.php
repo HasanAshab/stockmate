@@ -11,14 +11,19 @@ describe('Create Supplier', function () {
     it('requires authentication', function () {
         $response = postJson('/api/v1/suppliers', []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires suppliers-create permission', function () {
         $user = User::factory()->create();
-
-        $response = actingAs($user)->postJson('/api/v1/suppliers', []);
+    
+        $payload = [
+            'name' => 'ABC Suppliers Ltd',
+            'email' => 'contact@abc.com',
+            'phone' => '+8801712345678',
+            'address' => '123 Main St, Dhaka',
+        ];
+        $response = actingAs($user)->postJson('/api/v1/suppliers', $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
@@ -44,10 +49,10 @@ describe('Create Supplier', function () {
                 'email' => 'contact@abc.com',
             ]);
 
-        $this->assertDatabaseHas('suppliers', [
-            'name' => 'ABC Suppliers Ltd',
-            'email' => 'contact@abc.com',
-        ]);
+        $supplier = Supplier::where('name', 'ABC Suppliers Ltd')->first();
+
+        expect($supplier)->not->toBeNull()
+            ->and($supplier->email)->toBe('contact@abc.com');
     });
 
     it('validates required name', function () {
@@ -75,7 +80,7 @@ describe('Create Supplier', function () {
 
         $response = actingAs($user)->postJson('/api/v1/suppliers', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 

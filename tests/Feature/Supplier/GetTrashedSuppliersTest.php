@@ -64,7 +64,6 @@ describe('List Trashed Suppliers', function () {
         $trashedSupplier->delete();
 
         $response = actingAs($user)->getJson('/api/v1/suppliers/trashed');
-
         $response->assertValidRequest()
             ->assertValidResponse(200);
     });
