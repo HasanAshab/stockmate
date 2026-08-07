@@ -51,7 +51,8 @@ describe('List Sales Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $salesOrder->id]);
+            ->assertJsonPath('data.0.id', $salesOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters sales orders by creator ID', function () {
@@ -66,8 +67,8 @@ describe('List Sales Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $matchingOrder->id])
-            ->assertJsonMissing(['id' => $otherOrder->id]);
+            ->assertJsonPath('data.0.id', $matchingOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters sales orders by warehouse ID', function () {
@@ -82,8 +83,8 @@ describe('List Sales Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $matchingOrder->id])
-            ->assertJsonMissing(['id' => $otherOrder->id]);
+            ->assertJsonPath('data.0.id', $matchingOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters sales orders by product ID in items', function () {
@@ -103,8 +104,8 @@ describe('List Sales Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $matchingOrder->id])
-            ->assertJsonMissing(['id' => $otherOrder->id]);
+            ->assertJsonPath('data.0.id', $matchingOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters sales orders by status', function () {
@@ -118,8 +119,8 @@ describe('List Sales Orders', function () {
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $pendingOrder->id])
-            ->assertJsonMissing(['id' => $paidOrder->id]);
+            ->assertJsonPath('data.0.id', $pendingOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters sales orders by created_at date range', function () {
@@ -132,12 +133,12 @@ describe('List Sales Orders', function () {
         $startDate = now()->subDays(2)->format('Y-m-d');
         $endDate = now()->format('Y-m-d');
 
-        $response = actingAs($user)->getJson("/api/v1/sales-orders?filter[created_at]={$startDate},{$endDate}");
+        $response = actingAs($user)->getJson("/api/v1/sales-orders?filter[created_at][from]={$startDate}&filter[created_at][from]={$endDate}");
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
-            ->assertJsonFragment(['id' => $recentOrder->id])
-            ->assertJsonMissing(['id' => $oldOrder->id]);
+            ->assertJsonPath('data.0.id', $recentOrder->id)
+            ->assertJsonCount(1, 'data');
     });
 
     it('filters sales orders by total_amount range', function () {

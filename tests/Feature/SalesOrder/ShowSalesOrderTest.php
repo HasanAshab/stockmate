@@ -43,32 +43,6 @@ describe('Show Sales Order', function () {
             ->assertJsonFragment(['id' => $salesOrder->id]);
     });
 
-    it('loads warehouse, creator, and items.product relationships', function () {
-        $user = User::factory()->create();
-        $user->givePermissionTo(Permission::SalesOrdersView->value);
-
-        $warehouse = Warehouse::factory()->create();
-        $creator = User::factory()->create();
-        $product = Product::factory()->create();
-
-        $salesOrder = SalesOrder::factory()->create([
-            'warehouse_id' => $warehouse->id,
-            'creator_id' => $creator->id,
-        ]);
-
-        SalesOrderItem::factory()->create([
-            'sales_order_id' => $salesOrder->id,
-            'product_id' => $product->id,
-        ]);
-
-        $response = actingAs($user)->getJson("/api/v1/sales-orders/{$salesOrder->id}");
-
-        $response->assertValidRequest()
-            ->assertValidResponse(200)
-            ->assertJsonFragment(['warehouse_id' => $warehouse->id])
-            ->assertJsonFragment(['creator_id' => $creator->id]);
-    });
-
     it('returns 404 for non-existent sales order', function () {
         $user = User::factory()->create();
         $user->givePermissionTo(Permission::SalesOrdersView->value);

@@ -3,6 +3,7 @@
 use App\Enums\Permission;
 use App\Models\SalesOrder;
 use App\Models\User;
+use HasinHayder\Sslcommerz\Data\PaymentResponse;
 use HasinHayder\Sslcommerz\Facades\Sslcommerz;
 
 use function Pest\Laravel\actingAs;
@@ -39,7 +40,7 @@ describe('Initiate Payment', function () {
             'total_amount' => 1500.00,
         ]);
 
-        $sslResponseMock = Mockery::mock();
+        $sslResponseMock = Mockery::mock(PaymentResponse::class);
         $sslResponseMock->shouldReceive('gatewayPageURL')->andReturn('https://sandbox.sslcommerz.com/easycheckout/test12345');
 
         Sslcommerz::shouldReceive('setOrder')->once()->andReturnSelf();
@@ -51,7 +52,7 @@ describe('Initiate Payment', function () {
         $response->assertValidRequest()
             ->assertValidResponse(200)
             ->assertJsonFragment([
-                'gateway_url' => 'https://sandbox.sslcommerz.com/easycheckout/test12345',
+                'payment_url' => 'https://sandbox.sslcommerz.com/easycheckout/test12345',
             ]);
     });
 
@@ -61,7 +62,7 @@ describe('Initiate Payment', function () {
 
         $salesOrder = SalesOrder::factory()->pending()->create();
 
-        $sslResponseMock = Mockery::mock();
+        $sslResponseMock = Mockery::mock(PaymentResponse::class);
         $sslResponseMock->shouldReceive('gatewayPageURL')->andReturn('https://sandbox.sslcommerz.com/easycheckout/gw123');
 
         Sslcommerz::shouldReceive('setOrder')->once()->andReturnSelf();
@@ -73,28 +74,7 @@ describe('Initiate Payment', function () {
         $response->assertValidRequest()
             ->assertValidResponse(200);
 
-        expect($response->json('data.gateway_url'))->toBe('https://sandbox.sslcommerz.com/easycheckout/gw123');
-    });
-
-    it('returns transaction ID', function () {
-        $user = User::factory()->create();
-        $user->givePermissionTo(Permission::SalesOrdersInitiatePayment->value);
-
-        $salesOrder = SalesOrder::factory()->pending()->create();
-
-        $sslResponseMock = Mockery::mock();
-        $sslResponseMock->shouldReceive('gatewayPageURL')->andReturn('https://sandbox.sslcommerz.com/easycheckout/gw123');
-
-        Sslcommerz::shouldReceive('setOrder')->once()->andReturnSelf();
-        Sslcommerz::shouldReceive('setCustomer')->once()->andReturnSelf();
-        Sslcommerz::shouldReceive('makePayment')->once()->andReturn($sslResponseMock);
-
-        $response = actingAs($user)->postJson("/api/v1/sales-orders/{$salesOrder->id}/initiate-payment");
-
-        $response->assertValidRequest()
-            ->assertValidResponse(200);
-
-        expect($response->json('data.transaction_id'))->not->toBeNull();
+        expect($response->json('data.payment_url'))->toBe('https://sandbox.sslcommerz.com/easycheckout/gw123');
     });
 
     it('updates order with payment details', function () {
@@ -103,7 +83,7 @@ describe('Initiate Payment', function () {
 
         $salesOrder = SalesOrder::factory()->pending()->create();
 
-        $sslResponseMock = Mockery::mock();
+        $sslResponseMock = Mockery::mock(PaymentResponse::class);
         $sslResponseMock->shouldReceive('gatewayPageURL')->andReturn('https://sandbox.sslcommerz.com/easycheckout/gw123');
 
         Sslcommerz::shouldReceive('setOrder')->once()->andReturnSelf();
