@@ -36,9 +36,6 @@ Route::controller(AuthController::class)
         Route::post('reset-password', 'resetPassword')->name('reset-password')->middleware('throttle:password-reset');
     });
 
-// Config
-Route::get('config/enums', [ConfigController::class, 'enums'])->name('config.enums');
-
 Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     // Auth
     Route::controller(AuthController::class)
