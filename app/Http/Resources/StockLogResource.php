@@ -11,7 +11,7 @@ class StockLogResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => $this->type,
+            'type' => $this->type->name,
             'quantity' => $this->quantity,
             'unit_cost' => $this->unit_cost,
             'note' => $this->note,
@@ -19,7 +19,6 @@ class StockLogResource extends JsonResource
             'product' => new ProductResource($this->whenLoaded('product')),
             'warehouse' => new WarehouseResource($this->whenLoaded('warehouse')),
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }
