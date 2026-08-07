@@ -133,7 +133,7 @@ describe('List Sales Orders', function () {
         $startDate = now()->subDays(2)->format('Y-m-d');
         $endDate = now()->format('Y-m-d');
 
-        $response = actingAs($user)->getJson("/api/v1/sales-orders?filter[created_at][from]={$startDate}&filter[created_at][from]={$endDate}");
+        $response = actingAs($user)->getJson("/api/v1/sales-orders?filter[created_at][from]={$startDate}&filter[created_at][to]={$endDate}");
 
         $response->assertValidRequest()
             ->assertValidResponse(200)
