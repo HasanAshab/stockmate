@@ -15,6 +15,10 @@ class Warehouse extends Model
 {
     use HasFactory, Searchable;
 
+    protected $attributes = [
+        'is_active' => true,
+    ];
+
     protected function casts(): array
     {
         return [
