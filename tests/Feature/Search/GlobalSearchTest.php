@@ -81,8 +81,6 @@ describe('Global Search', function () {
 
         $response = actingAs($user)->getJson('/api/v1/search?q=laptop');
 
-        $response->dump();
-
         $response->assertValidRequest()
             ->assertValidResponse(200);
 

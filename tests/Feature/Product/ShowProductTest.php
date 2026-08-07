@@ -79,7 +79,6 @@ describe('Show Product', function () {
         $product = Product::factory()->create();
 
         $response = actingAs($user)->getJson("/api/v1/products/{$product->id}");
-        $response->dump();
         $response->assertValidRequest()
             ->assertValidResponse(200);
     });
