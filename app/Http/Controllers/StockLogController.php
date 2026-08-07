@@ -14,6 +14,7 @@ use App\Http\Resources\StockLogResource;
 use App\Models\StockLog;
 use App\Models\Warehouse;
 use Dedoc\Scramble\Attributes\QueryParameter;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Enums\FilterOperator;
@@ -87,6 +88,18 @@ class StockLogController extends Controller
      *
      * Export stock logs within a date range to Excel or PDF format.
      */
+    #[Response(
+        status: 200,
+        description: 'Stock logs exported as CSV.',
+        mediaType: StockLogExportFormat::CSV_CONTENT_TYPE,
+        type: 'string',
+    )]
+    #[Response(
+        status: 200,
+        description: 'Stock logs exported as Excel.',
+        mediaType: StockLogExportFormat::EXCEL_CONTENT_TYPE,
+        type: 'string',
+    )]
     public function export(ExportStockLogRequest $request, StockLogExportFormat $format, ExportStockLog $exportStockLog)
     {
         Gate::authorize('viewAny', StockLog::class);
