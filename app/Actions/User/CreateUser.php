@@ -11,7 +11,8 @@ class CreateUser
     {
         return User::forceCreate([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'email' => $data['email'] ?? null,
+            'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
             'email_verified_at' => now(),
             'phone_verified_at' => now(),
