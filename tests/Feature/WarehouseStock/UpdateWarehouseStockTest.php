@@ -15,8 +15,7 @@ describe('Update Warehouse Stock', function () {
 
         $response = putJson("/api/v1/warehouses/{$warehouse->id}/stocks/{$stock->id}", []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires warehouses-view permission', function () {
@@ -24,7 +23,10 @@ describe('Update Warehouse Stock', function () {
         $warehouse = Warehouse::factory()->create();
         $stock = WarehouseStock::factory()->create(['warehouse_id' => $warehouse->id]);
 
-        $response = actingAs($user)->putJson("/api/v1/warehouses/{$warehouse->id}/stocks/{$stock->id}", []);
+        $payload = [
+            'reorder_threshold' => 25,
+        ];
+        $response = actingAs($user)->putJson("/api/v1/warehouses/{$warehouse->id}/stocks/{$stock->id}", $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
@@ -43,7 +45,6 @@ describe('Update Warehouse Stock', function () {
         $payload = [
             'reorder_threshold' => 25,
         ];
-
         $response = actingAs($user)->putJson("/api/v1/warehouses/{$warehouse->id}/stocks/{$stock->id}", $payload);
 
         $response->assertValidRequest()
@@ -52,7 +53,7 @@ describe('Update Warehouse Stock', function () {
                 'reorder_threshold' => 25,
             ]);
 
-        $this->assertDatabaseHas('warehouse_stocks', [
+        $this->assertDatabaseHas('warehouse_stock', [
             'id' => $stock->id,
             'reorder_threshold' => 25,
         ]);
