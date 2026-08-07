@@ -7,6 +7,7 @@ use App\Http\Requests\Warehouse\StoreWarehouseRequest;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
 use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Support\Facades\Gate;
 
 class WarehouseController extends Controller
@@ -69,6 +70,10 @@ class WarehouseController extends Controller
      *
      * Delete a warehouse. The warehouse must be empty (no stock) to be deleted.
      */
+    #[Response(
+        status: 400,
+        description: 'Cannot delete warehouse with existing stock. Transfer or clear stock first.',
+    )]
     public function destroy(Warehouse $warehouse, DeleteWarehouse $deleteWarehouse)
     {
         Gate::authorize('delete', $warehouse);
