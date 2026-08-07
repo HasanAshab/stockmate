@@ -7,6 +7,7 @@ use App\Actions\SalesOrder\CreateSalesOrder;
 use App\Actions\SalesOrder\InitiateSalesOrderPayment;
 use App\Http\Filters\FiltersDateRange;
 use App\Http\Requests\SalesOrder\StoreSalesOrderRequest;
+use App\Http\Resources\PaymentInitiationResource;
 use App\Http\Resources\SalesOrderResource;
 use App\Models\SalesOrder;
 use Dedoc\Scramble\Attributes\QueryParameter;
@@ -94,7 +95,8 @@ class SalesOrderController extends Controller
     {
         Gate::authorize('initiatePayment', $salesOrder);
 
-        return $initiateSalesOrderPayment->execute($salesOrder);
+        $paymentInitiation = $initiateSalesOrderPayment->execute($salesOrder);
+        return new PaymentInitiationResource($paymentInitiation);
     }
 
     /**
