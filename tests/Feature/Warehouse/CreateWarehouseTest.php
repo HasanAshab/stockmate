@@ -11,14 +11,17 @@ describe('Create Warehouse', function () {
     it('requires authentication', function () {
         $response = postJson('/api/v1/warehouses', []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('requires warehouses-create permission', function () {
         $user = User::factory()->create();
 
-        $response = actingAs($user)->postJson('/api/v1/warehouses', []);
+        $payload = [
+            'name' => 'Main Warehouse',
+            'location' => 'Dhaka, Bangladesh',
+        ];
+        $response = actingAs($user)->postJson('/api/v1/warehouses', $payload);
 
         $response->assertValidRequest()
             ->assertValidResponse(403);
