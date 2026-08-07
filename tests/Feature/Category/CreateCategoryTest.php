@@ -53,10 +53,10 @@ describe('Create Category', function () {
                 'slug' => 'electronics',
             ]);
 
-        $this->assertDatabaseHas('categories', [
-            'name' => 'Electronics',
-            'slug' => 'electronics',
-        ]);
+        $category = Category::where('slug', 'electronics')->first();
+
+        expect($category)->not->toBeNull()
+            ->and($category->name)->toBe('Electronics');
     });
 
     it('returns validation errors for invalid input', function () {
@@ -148,11 +148,11 @@ describe('Create Category', function () {
         $response->assertValidRequest()
             ->assertValidResponse(201);
 
-        $this->assertDatabaseHas('categories', [
-            'name' => 'Laptops',
-            'slug' => 'laptops',
-            'description' => null,
-        ]);
+        $category = Category::where('slug', 'laptops')->first();
+
+        expect($category)->not->toBeNull()
+            ->and($category->name)->toBe('Laptops')
+            ->and($category->description)->toBeNull();
     });
 
     it('returns 401 for unauthenticated request', function () {

@@ -51,11 +51,10 @@ describe('Update Category', function () {
                 'slug' => 'new-name',
             ]);
 
-        $this->assertDatabaseHas('categories', [
-            'id' => $category->id,
-            'name' => 'New Name',
-            'slug' => 'new-name',
-        ]);
+        $category->refresh();
+
+        expect($category->name)->toBe('New Name')
+            ->and($category->slug)->toBe('new-name');
     });
 
     it('returns validation errors for invalid input', function () {
