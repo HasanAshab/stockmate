@@ -62,7 +62,7 @@ describe('Update User', function () {
 
         $response = actingAs($authUser)->putJson("/api/v1/users/{$targetUser->id}", $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 

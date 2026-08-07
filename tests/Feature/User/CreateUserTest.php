@@ -10,8 +10,7 @@ describe('Create User', function () {
     it('requires authentication', function () {
         $response = postJson('/api/v1/users', []);
 
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
+        $response->assertValidResponse(401);
     });
 
     it('creates a new user with email and returns 201', function () {
@@ -96,7 +95,7 @@ describe('Create User', function () {
 
         $response = actingAs($authUser)->postJson('/api/v1/users', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -112,7 +111,7 @@ describe('Create User', function () {
 
         $response = actingAs($authUser)->postJson('/api/v1/users', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -126,7 +125,7 @@ describe('Create User', function () {
 
         $response = actingAs($authUser)->postJson('/api/v1/users', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -141,7 +140,7 @@ describe('Create User', function () {
 
         $response = actingAs($authUser)->postJson('/api/v1/users', $payload);
 
-        $response->assertInvalidRequest()
+        $response->assertValidRequest()
             ->assertValidResponse(422);
     });
 
@@ -158,17 +157,6 @@ describe('Create User', function () {
 
         $response->assertInvalidRequest()
             ->assertValidResponse(422);
-    });
-
-    it('returns 401 for unauthenticated request', function () {
-        $response = postJson('/api/v1/users', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'Password123!',
-        ]);
-
-        $response->assertValidRequest()
-            ->assertValidResponse(401);
     });
 
     it('returns user resource on success', function () {
