@@ -78,7 +78,6 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
     Route::apiResource('categories', CategoryController::class);
 
     // Suppliers
-    Route::apiResource('suppliers', SupplierController::class);
     Route::get(
         'suppliers/trashed',
         [SupplierController::class, 'trashed']
@@ -87,7 +86,8 @@ Route::middleware('auth:sanctum')->scopeBindings()->group(function () {
         'suppliers/{supplier}/restore',
         [SupplierController::class, 'restore']
     )->withTrashed()->name('suppliers.restore');
-
+    Route::apiResource('suppliers', SupplierController::class);
+    
     // Products
     Route::apiResource('products', ProductController::class);
     Route::apiResource('stock-logs', StockLogController::class)->only(['index', 'store']);
