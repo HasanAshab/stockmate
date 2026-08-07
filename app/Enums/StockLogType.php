@@ -2,16 +2,11 @@
 
 namespace App\Enums;
 
-use App\Enums\Concerns\EnumToArray;
-use Illuminate\Contracts\Support\Arrayable;
-
-enum StockLogType: int implements \JsonSerializable, Arrayable
+enum StockLogType: string
 {
-    use EnumToArray;
+    case In = 'in';
 
-    case In = 1;
-
-    case Out = 2;
+    case Out = 'out';
 
     public function isIn(): bool
     {

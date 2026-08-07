@@ -11,7 +11,7 @@ class StockLogResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => $this->type->name,
+            'type' => $this->type->value,
             'quantity' => $this->quantity,
             'unit_cost' => $this->unit_cost,
             'note' => $this->note,

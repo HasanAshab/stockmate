@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('warehouse_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->unsignedTinyInteger('type');
+            $table->string('type');
             $table->unsignedSmallInteger('quantity');
             $table->decimal('unit_cost', 10, 2)->nullable();
             $table->text('note')->nullable();
